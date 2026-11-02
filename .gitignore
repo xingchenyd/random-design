@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.private/
+.random-design/
+*.tmp
+*.log
+.env
+.env.*
+!.env.example

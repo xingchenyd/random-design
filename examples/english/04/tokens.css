@@ -1,0 +1,21 @@
+:root{
+  --paper:#191b17;
+  --ink:#c2c7bc;
+  --muted:#a0a897;
+  --accent:#a9c288;
+  --accent-ink:#96af76;
+  --accent2:#75afc1;
+  --panel:#24281f;
+  --rule:#4c5344;
+  --on-accent:#111111;
+  --font-display:"Nunito Sans","Noto Sans SC",sans-serif;
+  --font-body:"Nunito Sans","Noto Sans SC",sans-serif;
+  --font-cjk:"Noto Sans SC";
+  --type-scale:1.224;
+  --tracking:0.012em;
+  --leading:1.539;
+  --page-margin:7.481%;
+  --radius:14.814px;
+  --border:0.629px;
+  --section-gap:75px;
+}

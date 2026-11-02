@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Generate distinctive visual systems for websites and editable PowerPoint. No account or API key. 生成多主题网页和可编辑 PPTX。">
+  <title>Random Design — 生成每一次不同的表达</title>
+  <link rel="stylesheet" href="./studio.css">
+</head>
+<body>
+  <header class="masthead"><a class="brand" href="./" aria-label="Random Design home"><span class="mark">r<span>↗</span>d</span><span>RANDOM<br>DESIGN</span></a><nav><a href="./examples/compare.html" data-i18n="examples">示例</a><a href="https://github.com/xingchenyd/random-design" target="_blank" rel="noreferrer">GitHub ↗</a><button id="language" class="lang" aria-label="Switch language">EN</button></nav></header>
+  <main>
+    <section class="intro"><p class="kicker">PROCEDURAL VISUAL SYSTEMS / 01</p><h1 data-i18n="headline">给每次表达，<br>一个新主题。</h1><div class="intro-aside"><p data-i18n="intro">颜色、字体、构图与图形一起生成。选择一个方向，把它带到网页或幻灯片。</p><p class="quiet" data-i18n="privacy">无需账号或 API 密钥。设计在浏览器内生成，历史保存在此浏览器。</p></div></section>
+    <section class="workbench" aria-label="Design generation controls">
+      <div class="control"><label for="scenario" data-i18n="scenario">使用场景</label><select id="scenario"><option value="general">通用 / General</option><option value="academic">学术 / Academic</option><option value="business">商务 / Business</option><option value="product">产品 / Product</option><option value="culture">文化活动 / Culture</option><option value="creative">创意 / Creative</option></select></div>
+      <div class="control"><label for="mode" data-i18n="mode">明暗范围</label><select id="mode"><option value="mixed">自由 / Mixed</option><option value="light">浅色 / Light</option><option value="dark">深色 / Dark</option></select></div>
+      <div class="control"><label for="intensity" data-i18n="intensity">视觉强度</label><select id="intensity"><option value="balanced">平衡 / Balanced</option><option value="calm">克制 / Calm</option><option value="bold">大胆 / Bold</option></select></div>
+      <div class="control small"><label for="count" data-i18n="count">方案数量</label><select id="count"><option>5</option><option>3</option><option>8</option><option>1</option></select></div>
+      <div class="control brand-control"><label for="brand-toggle"><input id="brand-toggle" type="checkbox"> <span data-i18n="brand">锁定品牌色</span></label><input id="brand" type="color" value="#345a4b" aria-label="Brand colour"></div>
+      <button id="generate" class="generate" data-i18n="generate">生成 5 个方向 ↗</button>
+    </section>
+    <section class="toolbar"><div><span class="live-dot"></span><span id="status" role="status" aria-live="polite" data-i18n="ready">准备好探索下一组方向</span></div><div class="history-tools"><button id="history-export" data-i18n="exportHistory">导出历史</button><label class="file-button" for="history-import" data-i18n="importHistory">导入历史</label><input type="file" id="history-import" accept="application/json" hidden><label class="file-button" for="design-import" data-i18n="importDesign">打开规范</label><input type="file" id="design-import" accept="application/json" hidden></div></section>
+    <p class="notice" id="notice" hidden role="alert"></p>
+    <div class="result-heading"><h2 data-i18n="directions">你的候选方向</h2><p data-i18n="compareHint">同一份示例内容，比较视觉差异。点击放大后选择。</p></div>
+    <section id="results" class="results" aria-label="Visual design directions"></section>
+    <section class="method"><span>01 / GENERATE</span><p data-i18n="method1">连续参数生成配色；构图规则与程序图形组合成统一的视觉语言。</p><span>02 / COMPARE</span><p data-i18n="method2">筛掉精确重复与近期过近的主题。差异指标是属性比较，不代表审美评分。</p><span>03 / TAKE IT</span><p data-i18n="method3">下载网页、设计规范、SVG 或六页可编辑 PPTX。文字内容与风格分开管理。</p></section>
+  </main>
+  <footer><span>© 2026 xingchenyd · MIT</span><p data-i18n="footer">字体按需从 Google Fonts 加载；离线时使用本机替代字体。PPTX 不嵌入字体。所有数据仅为示例。</p></footer>
+  <dialog id="preview"><div class="dialog-top"><strong id="preview-title"></strong><button id="close-preview" data-i18n="close">关闭 ×</button></div><iframe id="preview-frame" title="Full size theme preview" sandbox="allow-same-origin"></iframe></dialog>
+  <script type="module" src="./app.js"></script>
+</body></html>

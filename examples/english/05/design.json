@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "algorithm": "random-design/1",
+  "library": "f9f9ff073d5f52c1",
+  "seed": "random-design-public-demo-v1/98",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "dark",
+    "hue": 312.837,
+    "harmony": 174.18,
+    "chroma": 0.1,
+    "paper": "#110f12",
+    "ink": "#c0bac4",
+    "muted": "#aaa0b0",
+    "accent": "#cea5e5",
+    "accentInk": "#bb92d1",
+    "accent2": "#97ae77",
+    "panel": "#29242d",
+    "rule": "#554c5a",
+    "onAccent": "#111111"
+  },
+  "typography": {
+    "id": "poster",
+    "display": "Archivo Black",
+    "body": "Archivo",
+    "cjk": "Noto Sans SC",
+    "kind": "condensed",
+    "weight": 400,
+    "scale": 1.305,
+    "tracking": 0.012,
+    "lineHeight": 1.535,
+    "titleWeight": 400
+  },
+  "layout": {
+    "composition": "band",
+    "density": 0.747,
+    "margin": 7.146,
+    "split": 0.503,
+    "align": "left",
+    "tilt": 0,
+    "columns": 8,
+    "graphicSide": "left",
+    "rhythm": "progressive"
+  },
+  "graphic": {
+    "family": "contours",
+    "seed": 2962565145,
+    "count": 12,
+    "stroke": 2.021,
+    "amplitude": 0.432,
+    "filled": true,
+    "symmetry": "radial",
+    "rotation": 2.431
+  },
+  "surface": {
+    "texture": "grid",
+    "radius": 7.055,
+    "border": 0.994,
+    "depth": "flat"
+  },
+  "id": "852dd8de4af9c5b81fba26867ea39f1aa7f7fd6fd83250b691ba02e9ceff5279",
+  "name": {
+    "zh": "横幅 · 等高线",
+    "en": "band / contours"
+  },
+  "novelty": 0.68
+}

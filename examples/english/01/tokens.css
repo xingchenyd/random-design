@@ -1,0 +1,21 @@
+:root{
+  --paper:#0f0804;
+  --ink:#bfb7af;
+  --muted:#b0a295;
+  --accent:#ff9d2a;
+  --accent-ink:#ea8a00;
+  --accent2:#00b9d1;
+  --panel:#2d251d;
+  --rule:#5a4d42;
+  --on-accent:#111111;
+  --font-display:"Barlow Condensed","Noto Sans SC",sans-serif;
+  --font-body:"Barlow","Noto Sans SC",sans-serif;
+  --font-cjk:"Noto Sans SC";
+  --type-scale:1.258;
+  --tracking:-0.031em;
+  --leading:1.59;
+  --page-margin:7.408%;
+  --radius:2.039px;
+  --border:1.716px;
+  --section-gap:77px;
+}

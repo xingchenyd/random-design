@@ -1,0 +1,21 @@
+:root{
+  --paper:#f7f3e8;
+  --ink:#3d3a32;
+  --muted:#716c5c;
+  --accent:#886f00;
+  --accent-ink:#816900;
+  --accent2:#4096d6;
+  --panel:#e9e5d7;
+  --rule:#bdb7a6;
+  --on-accent:#ffffff;
+  --font-display:"Outfit","Noto Sans SC",sans-serif;
+  --font-body:"Manrope","Noto Sans SC",sans-serif;
+  --font-cjk:"Noto Sans SC";
+  --type-scale:1.319;
+  --tracking:-0.006em;
+  --leading:1.538;
+  --page-margin:7.484%;
+  --radius:6.064px;
+  --border:1.673px;
+  --section-gap:69px;
+}

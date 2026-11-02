@@ -1,0 +1,35 @@
+{
+  "report": [
+    {
+      "transport": "stdio",
+      "tools": [
+        "generate_directions",
+        "render_design",
+        "validate_design",
+        "compare_designs",
+        "get_capabilities"
+      ],
+      "generation": true,
+      "portableHistory": true,
+      "validation": true,
+      "rendering": true
+    },
+    {
+      "transport": "streamable-http",
+      "tools": [
+        "generate_directions",
+        "render_design",
+        "validate_design",
+        "compare_designs",
+        "get_capabilities"
+      ],
+      "generation": true,
+      "portableHistory": true,
+      "validation": true,
+      "rendering": true
+    }
+  ],
+  "actualWorkBuddyConnection": false,
+  "actualChatGPTAccountConnection": false,
+  "deployedRemoteMcp": false
+}

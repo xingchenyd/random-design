@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "algorithm": "random-design/1",
+  "library": "f9f9ff073d5f52c1",
+  "seed": "random-design-public-demo-v1/94",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "dark",
+    "hue": 127.421,
+    "harmony": 92.658,
+    "chroma": 0.083,
+    "paper": "#191b17",
+    "ink": "#c2c7bc",
+    "muted": "#a0a897",
+    "accent": "#a9c288",
+    "accentInk": "#96af76",
+    "accent2": "#75afc1",
+    "panel": "#24281f",
+    "rule": "#4c5344",
+    "onAccent": "#111111"
+  },
+  "typography": {
+    "id": "rounded",
+    "display": "Nunito Sans",
+    "body": "Nunito Sans",
+    "cjk": "Noto Sans SC",
+    "kind": "sans",
+    "weight": 800,
+    "scale": 1.224,
+    "tracking": 0.012,
+    "lineHeight": 1.539,
+    "titleWeight": 800
+  },
+  "layout": {
+    "composition": "offset",
+    "density": 0.781,
+    "margin": 7.481,
+    "split": 0.526,
+    "align": "left",
+    "tilt": 0,
+    "columns": 6,
+    "graphicSide": "left",
+    "rhythm": "even"
+  },
+  "graphic": {
+    "family": "constellation",
+    "seed": 3756525327,
+    "count": 14,
+    "stroke": 1.246,
+    "amplitude": 0.143,
+    "filled": true,
+    "symmetry": "asymmetric",
+    "rotation": 26.994
+  },
+  "surface": {
+    "texture": "dots",
+    "radius": 14.814,
+    "border": 0.629,
+    "depth": "flat"
+  },
+  "id": "780842d897aa1086327c5032adaf4a00e96a2cdbefd7b1f6f3794502fcadba5d",
+  "name": {
+    "zh": "错位 · 星群",
+    "en": "offset / constellation"
+  },
+  "novelty": 0.681
+}

@@ -1,0 +1,57 @@
+{
+  "algorithm": "random-design/1",
+  "library": "f9f9ff073d5f52c1",
+  "generated": 10000,
+  "uniqueVisualFingerprints": 10000,
+  "failures": 0,
+  "minimumAttributeDistanceToRecent80OrSameSet": 0.3334035238095238,
+  "comparisons": 816600,
+  "candidateAttempts": 240000,
+  "seconds": 33.2943247,
+  "graphics": {
+    "constellation": 973,
+    "arches": 983,
+    "lattice": 977,
+    "cells": 1222,
+    "rays": 986,
+    "orbits": 994,
+    "waves": 968,
+    "ribbon": 968,
+    "steps": 963,
+    "contours": 966
+  },
+  "layouts": {
+    "island": 1115,
+    "rail": 1107,
+    "split": 1110,
+    "stack": 1114,
+    "diagonal": 1106,
+    "frame": 1118,
+    "type": 1122,
+    "offset": 1109,
+    "band": 1099
+  },
+  "fonts": {
+    "technical": 695,
+    "cjk-playful": 707,
+    "rounded": 649,
+    "humanist": 542,
+    "architect": 651,
+    "cjk-condensed": 669,
+    "editorial": 526,
+    "industrial": 636,
+    "classic": 534,
+    "instrument": 707,
+    "cjk-brush": 711,
+    "literary": 550,
+    "poster": 659,
+    "geometric": 637,
+    "cjk-literary": 564,
+    "book": 563
+  },
+  "limits": [
+    "Attribute distance is a heuristic, not measured human perceptual novelty.",
+    "This does not establish that every generated theme is aesthetically good.",
+    "Only representative exports are rendered; this run validates visual specifications."
+  ]
+}

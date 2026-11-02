@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "algorithm": "random-design/1",
+  "library": "f9f9ff073d5f52c1",
+  "seed": "random-design-public-demo-v1/68",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "light",
+    "hue": 92.856,
+    "harmony": 150.986,
+    "chroma": 0.158,
+    "paper": "#f7f3e8",
+    "ink": "#3d3a32",
+    "muted": "#716c5c",
+    "accent": "#886f00",
+    "accentInk": "#816900",
+    "accent2": "#4096d6",
+    "panel": "#e9e5d7",
+    "rule": "#bdb7a6",
+    "onAccent": "#ffffff"
+  },
+  "typography": {
+    "id": "architect",
+    "display": "Outfit",
+    "body": "Manrope",
+    "cjk": "Noto Sans SC",
+    "kind": "sans",
+    "weight": 600,
+    "scale": 1.319,
+    "tracking": -0.006,
+    "lineHeight": 1.538,
+    "titleWeight": 600
+  },
+  "layout": {
+    "composition": "diagonal",
+    "density": 0.867,
+    "margin": 7.484,
+    "split": 0.468,
+    "align": "left",
+    "tilt": -4.043,
+    "columns": 8,
+    "graphicSide": "right",
+    "rhythm": "progressive"
+  },
+  "graphic": {
+    "family": "rays",
+    "seed": 1005441441,
+    "count": 8,
+    "stroke": 2.41,
+    "amplitude": 0.468,
+    "filled": false,
+    "symmetry": "radial",
+    "rotation": -2.283
+  },
+  "surface": {
+    "texture": "grid",
+    "radius": 6.064,
+    "border": 1.673,
+    "depth": "flat"
+  },
+  "id": "1705ff88aa473a9656bbb9dbd3c598a4f6c667ad972bd4686c2c16a9058cb7ee",
+  "name": {
+    "zh": "斜构 · 光束",
+    "en": "diagonal / rays"
+  },
+  "novelty": 0.745
+}

@@ -1,0 +1,21 @@
+:root{
+  --paper:#110f12;
+  --ink:#c0bac4;
+  --muted:#aaa0b0;
+  --accent:#cea5e5;
+  --accent-ink:#bb92d1;
+  --accent2:#97ae77;
+  --panel:#29242d;
+  --rule:#554c5a;
+  --on-accent:#111111;
+  --font-display:"Archivo Black","Noto Sans SC",sans-serif;
+  --font-body:"Archivo","Noto Sans SC",sans-serif;
+  --font-cjk:"Noto Sans SC";
+  --type-scale:1.305;
+  --tracking:0.012em;
+  --leading:1.535;
+  --page-margin:7.146%;
+  --radius:7.055px;
+  --border:0.994px;
+  --section-gap:78px;
+}

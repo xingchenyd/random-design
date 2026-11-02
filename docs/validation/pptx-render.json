@@ -1,0 +1,17 @@
+{
+  "renderer": "@oai/artifact-tool 2.8.106",
+  "renderedSlides": 60,
+  "files": 10,
+  "declaredTitleFonts": [
+    "Noto Sans SC",
+    "Ma Shan Zheng",
+    "Barlow Condensed",
+    "Outfit",
+    "Nunito Sans",
+    "Archivo Black"
+  ],
+  "fontsEmbedded": false,
+  "nativePowerPointTest": false,
+  "nativeWPSTest": false,
+  "notes": "Rendered imported PPTX, not an HTML reconstruction. Font substitution depends on renderer availability."
+}

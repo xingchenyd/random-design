@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "algorithm": "random-design/1",
+  "library": "f9f9ff073d5f52c1",
+  "seed": "random-design-public-demo-v1/39",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "light",
+    "hue": 262.087,
+    "harmony": 98.089,
+    "chroma": 0.186,
+    "paper": "#f7f8fb",
+    "ink": "#393d45",
+    "muted": "#646c7b",
+    "accent": "#3069dc",
+    "accentInk": "#2b63d5",
+    "accent2": "#d5648b",
+    "panel": "#dee5f1",
+    "rule": "#afb8c8",
+    "onAccent": "#ffffff"
+  },
+  "typography": {
+    "id": "cjk-brush",
+    "display": "Ma Shan Zheng",
+    "body": "Source Sans 3",
+    "cjk": "Ma Shan Zheng",
+    "kind": "handwritten",
+    "weight": 400,
+    "scale": 1.381,
+    "tracking": 0.014,
+    "lineHeight": 1.715,
+    "titleWeight": 400
+  },
+  "layout": {
+    "composition": "stack",
+    "density": 0.512,
+    "margin": 7.662,
+    "split": 0.648,
+    "align": "center",
+    "tilt": 0,
+    "columns": 6,
+    "graphicSide": "left",
+    "rhythm": "even"
+  },
+  "graphic": {
+    "family": "orbits",
+    "seed": 2454737947,
+    "count": 8,
+    "stroke": 3.096,
+    "amplitude": 0.161,
+    "filled": true,
+    "symmetry": "radial",
+    "rotation": -18.898
+  },
+  "surface": {
+    "texture": "none",
+    "radius": 11.711,
+    "border": 1.62,
+    "depth": "soft"
+  },
+  "id": "86f31a85d1f97612142dc90b224515f9bc6f0f0ae33422c229a9ae5a713590ac",
+  "name": {
+    "zh": "轴心 · 轨道",
+    "en": "stack / orbits"
+  },
+  "novelty": 0.848
+}

@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "studio generates five directions",
+    "language switch and repeated generation",
+    "palette-locked exploration",
+    "native browser PPTX download",
+    "design import reproduces saved theme",
+    "390px studio layout",
+    "36 website layouts across all composition operators / languages / widths"
+  ],
+  "javascriptErrors": [],
+  "actualDeviceTest": false,
+  "powerpointDesktopTest": false
+}

@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "algorithm": "random-design/1",
+  "library": "f9f9ff073d5f52c1",
+  "seed": "random-design-public-demo-v1/0",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "dark",
+    "hue": 64,
+    "harmony": 147.11,
+    "chroma": 0.164,
+    "paper": "#0f0804",
+    "ink": "#bfb7af",
+    "muted": "#b0a295",
+    "accent": "#ff9d2a",
+    "accentInk": "#ea8a00",
+    "accent2": "#00b9d1",
+    "panel": "#2d251d",
+    "rule": "#5a4d42",
+    "onAccent": "#111111"
+  },
+  "typography": {
+    "id": "industrial",
+    "display": "Barlow Condensed",
+    "body": "Barlow",
+    "cjk": "Noto Sans SC",
+    "kind": "condensed",
+    "weight": 600,
+    "scale": 1.258,
+    "tracking": -0.031,
+    "lineHeight": 1.59,
+    "titleWeight": 600
+  },
+  "layout": {
+    "composition": "split",
+    "density": 0.76,
+    "margin": 7.408,
+    "split": 0.485,
+    "align": "left",
+    "tilt": 0,
+    "columns": 6,
+    "graphicSide": "left",
+    "rhythm": "even"
+  },
+  "graphic": {
+    "family": "cells",
+    "seed": 107179326,
+    "count": 14,
+    "stroke": 2.728,
+    "amplitude": 0.234,
+    "filled": true,
+    "symmetry": "radial",
+    "rotation": -38.752
+  },
+  "surface": {
+    "texture": "fine-lines",
+    "radius": 2.039,
+    "border": 1.716,
+    "depth": "soft"
+  },
+  "id": "f7fce90ee734130f9d6b74b7d16c2538e20e4f758f6a0cc4e8c8ec8dc6d660e6",
+  "name": {
+    "zh": "交错 · 晶格",
+    "en": "split / cells"
+  },
+  "novelty": 1
+}
