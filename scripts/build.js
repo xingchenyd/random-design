@@ -1,7 +1,16 @@
 import { build } from 'esbuild';
 import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const output = path.resolve('dist');
+if (output !== path.join(root, 'dist')) throw new Error('Run build from the repository root');
+const resolved = await fs.realpath(output).catch(err => { if (err.code === 'ENOENT') return output; throw err; });
+if (resolved.toLowerCase() !== output.toLowerCase()) throw new Error('Refusing to clean a redirected output directory');
+await fs.rm(output, { recursive: true, force: true });
 await fs.mkdir('dist', { recursive: true });
 await build({ entryPoints: { app: 'studio/app.js', 'random-design': 'src/core/index.js' }, bundle: true, splitting: true, format: 'esm', platform: 'browser', outdir: 'dist', target: 'es2022', minify: true, sourcemap: false, legalComments: 'linked' });
 await Promise.all(['index.html', 'studio.css'].map(f => fs.copyFile(`studio/${f}`, `dist/${f}`)));
+await Promise.all(['LICENSE', 'THIRD_PARTY_NOTICES.md'].map(f => fs.copyFile(f, `dist/${f}`)));
 await fs.cp('examples', 'dist/examples', { recursive: true }).catch(err => { if (err.code !== 'ENOENT') throw err; });
 console.log('Built static studio + standalone browser engine in dist/');

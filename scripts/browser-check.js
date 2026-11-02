@@ -17,7 +17,7 @@ try {
   assert.equal(await page.locator('.design-card').count(), 5);
   checks.push('studio generates five directions');
   const first = await page.locator('.design-head small').allTextContents();
-  await page.screenshot({ path: 'docs/assets/studio-desktop.png', fullPage: true });
+  await page.screenshot({ path: 'docs/assets/studio-desktop.png' });
   await page.locator('#language').click(); assert.match(await page.locator('h1').innerText(), /Every time/);
   await page.locator('#language').click();
   await page.locator('#generate').click(); await page.waitForFunction(() => !document.querySelector('#generate').disabled);
