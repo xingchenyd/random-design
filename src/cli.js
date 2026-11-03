@@ -9,13 +9,14 @@ import { writeBundle } from './export.js';
 import { pageHtml, brief } from './render.js';
 import { writePresentation } from './pptx.js';
 
-const help = `random-design v0.1.0 — procedural visual systems
+const help = `random-design v0.2.0 — art-directed visual systems
 
   node src/cli.js generate --out output/run-01 [--scenario academic] [--language zh]
-    --count 5 --mode mixed --intensity balanced --brand '#336699'
+    --count 5 --mode mixed --colorfulness rich --intensity balanced --brand '#336699'
+    --direction edition  # optional visual grammar, otherwise varied automatically
     --seed example --history /absolute/history.json --no-history --no-pptx
     --lock design.json --lock-fields palette,font,graphic --content content.json
-    --min-distance 0.25 --recent-window 80
+    --min-distance 0.22 --recent-window 40
   node src/cli.js reproduce --file roll.json --out output/reproduced
   node src/cli.js render --file design.json --out page.html [--language en]
   node src/cli.js pptx --file design.json --out theme.pptx [--content content.json]
@@ -31,7 +32,7 @@ History is local to this machine by default. --no-history neither reads nor writ
 Seed + request + identical history reproduces selection; saved JSON reproduces the chosen visual rules.
 Never overwrite a prior output directory. Font files are not embedded.
 `;
-const flags = ['out', 'file', 'count', 'scenario', 'language', 'mode', 'intensity', 'brand', 'seed', 'history', 'content', 'lock', 'lock-fields', 'min-distance', 'recent-window', 'id', 'target', 'dir'];
+const flags = ['out', 'file', 'count', 'scenario', 'language', 'mode', 'colorfulness', 'direction', 'intensity', 'brand', 'seed', 'history', 'content', 'lock', 'lock-fields', 'min-distance', 'recent-window', 'id', 'target', 'dir'];
 export async function main(args = process.argv.slice(2)) {
   const command = args[0];
   if (!command || ['help', '--help', '-h'].includes(command)) { console.log(help); return; }
@@ -43,7 +44,7 @@ export async function main(args = process.argv.slice(2)) {
   const content = v.content ? await read(v.content) : {};
   if (command === 'generate') {
     const request = {};
-    for (const k of ['scenario', 'language', 'mode', 'intensity', 'brand', 'seed']) if (v[k] !== undefined) request[k] = v[k];
+    for (const k of ['scenario', 'language', 'mode', 'colorfulness', 'direction', 'intensity', 'brand', 'seed']) if (v[k] !== undefined) request[k] = v[k];
     for (const [flag, name] of [['count', 'count'], ['min-distance', 'minDistance'], ['recent-window', 'recentWindow']]) if (v[flag] !== undefined) request[name] = Number(v[flag]);
     if (v.lock) {
       const d = reproduce(await read(v.lock))[0]; request.locks = {};

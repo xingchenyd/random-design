@@ -16,6 +16,18 @@ Colour, type, composition and procedural graphics work together. Portable histor
 
 </div>
 
+## Visual direction in v0.2
+
+The default uses **chromatic large canvases**, not almost-white/almost-black stock with different accent swatches. Twelve hue families supply continuous colours; neutral grounds are an explicit option.
+
+A coherent visual grammar constrains type, composition, material and the purpose of the graphic. A plant shares one stem; projection lines describe one construction; a textile follows one repeat system; a sign gives priority to type and its border. Independent ornament sampling and automatic mirrored/rotated translucent copies have been removed.
+
+Eight curated grammars currently cover print editions, cut paper, enamel signs, botanical folios, cyanotype studies, textiles, editorial design and constructed geometric play. These are finite foundations with procedural variants, not a claim of unlimited original art movements. [Design logic and visual acceptance criteria →](docs/visual-direction.md)
+
+[Browse actual websites for all eight visual grammars →](https://xingchenyd.github.io/random-design/examples/catalogue/)
+
+![Actual websites for the eight visual grammars](docs/assets/directions.png)
+
 ## What it does
 
 random-design generates several concrete visual specifications, previews them with the same content and lets you choose a direction. Download the website, six editable PowerPoint sample slides, JSON, CSS tokens, SVG or a brief for another design agent. Supplied copy, facts, numbers and narrative voice are not randomized.
@@ -73,19 +85,19 @@ The pipeline is **constraints → procedural candidates → readability and rece
 
 - Colours are generated in OKLCH with gamut handling, semantic roles and selected text contrast checks.
 - Sixteen real font-role profiles include CJK title options. Type scale, tracking, leading and weight are part of the system.
-- Nine composition operators describe spatial relationships, balance, direction, density and rhythm. They are not nine completed themes.
-- Ten graphic operators generate parameterized SVG using shape count, amplitude, line weight, symmetry and rotation.
+- Each grammar permits compatible spatial relationships, balance, density and rhythm.
+- Eleven structured graphic operators draw one subject or one disciplined repeat system. No automatic mirrored ghosts or arbitrary rotations.
 - Surface, layout and typography rules are constrained by academic, business, product, culture, creative or general use, plus calm/balanced/bold intensity.
 
 SHA-256 supports deterministic sampling and visual fingerprints; hashes do not create aesthetics. Read the [full architecture and limitations](docs/architecture.md).
 
 ## Reduced recurrence
 
-All retained history is checked for exact visual fingerprints. Recent similarity is checked against the last **80 shown directions** by default, plus directions already chosen within the current set. A weighted attribute distance compares palette, typography, composition, graphics and density. Best-candidate sampling favours greater separation. Infeasible requests fail explicitly without silently lowering the threshold.
+All retained history is checked for exact visual fingerprints. Recent similarity is checked against the last **40 shown directions** by default, plus directions already chosen within the current set. A weighted attribute distance compares art direction, actual canvas colour, typography, composition, graphics and density. Best-candidate sampling favours greater separation. Infeasible requests fail explicitly without silently lowering the threshold.
 
 Related visual languages may return outside the recent window. This is reduced frequent recurrence, not infinite global perceptual uniqueness. Intentional reuse of a selected theme is allowed.
 
-Node history defaults to `~/.random-design/history.json`, configurable with `RANDOM_DESIGN_HISTORY` or `--history`. Browser history is separate; export/import merges it. Remote HTTP uses client-supplied history.
+Node history defaults to `~/.random-design/history-v2.json`, configurable with `RANDOM_DESIGN_HISTORY` or `--history`. Browser history is separate; export/import merges it. Remote HTTP uses client-supplied history.
 
 ```sh
 node src/cli.js history-export --out history-backup.json
@@ -94,6 +106,8 @@ node src/cli.js select --id FULL_DESIGN_ID
 ```
 
 `--no-history` explicitly disables both history reads and writes for isolated examples or tests.
+
+v0.2 uses `random-design/2` and separate history storage, preserving v0.1 data. Use the matching [v0.1.0 release](https://github.com/xingchenyd/random-design/releases/tag/v0.1.0) to reproduce old specifications.
 
 ## Lock and reproduce
 
@@ -135,7 +149,7 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-Actual results live in [docs/validation](docs/validation). The 10,000-specification benchmark checks fingerprints, constraints and recent attribute distances, not 10,000 human-certified unique styles. Browser checks cover desktop, 390px width, imports, downloads and languages; they are not real-device tests.
+Actual results live in [docs/validation](docs/validation). Technical benchmarks check fingerprints, constraints and recent attribute distance. They are not evidence of aesthetic quality. Visual acceptance prioritizes actual website captures, imported-PPTX renders and coherent graphic structure. Regression checks include actual canvas chroma/lightness and grammar compatibility. Browser checks cover desktop, 390px width, imports, downloads and languages; they are not real-device tests.
 
 PPTX text, basic shapes, tables and charts remain editable. Complex procedural artwork is an SVG image. Fonts are referenced, not embedded; install them or agree on substitutions. Font and SVG behaviour varies across PowerPoint, WPS and Google Slides. Render inspection and native application testing are reported separately.
 

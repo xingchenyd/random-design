@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "entries": [
+    {
+      "id": "15fef37bdeae10233f450d6aa4800408178c5b557d3fd92b243aaa8c8fc6fb69",
+      "signature": {
+        "id": "15fef37bdeae10233f450d6aa4800408178c5b557d3fd92b243aaa8c8fc6fb69",
+        "direction": "journal",
+        "colourFamily": "apricot",
+        "canvasL": 0.8394594735904612,
+        "hue": 44.22842648805344,
+        "mode": "light",
+        "chroma": 0.09416227734341978,
+        "harmony": 167.614,
+        "font": "classic",
+        "kind": "serif",
+        "scale": 1.294,
+        "composition": "type",
+        "density": 0.483,
+        "split": 0.525,
+        "graphic": "editorial-mark",
+        "filled": false,
+        "count": 4,
+        "amplitude": 0.543,
+        "texture": "none",
+        "depth": "flat"
+      },
+      "at": "2026-11-03T04:06:46.576Z",
+      "status": "shown",
+      "algorithm": "random-design/2",
+      "library": "71caaea0f85d569c"
+    }
+  ]
+}

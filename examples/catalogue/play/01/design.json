@@ -1,0 +1,73 @@
+{
+  "schema": 2,
+  "algorithm": "random-design/2",
+  "library": "71caaea0f85d569c",
+  "direction": "play",
+  "seed": "random-design-catalogue-v2/play/0",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "dark",
+    "family": "cobalt",
+    "hue": 265.599,
+    "harmony": 170.767,
+    "chroma": 0.169,
+    "paper": "#153298",
+    "ink": "#c9d1e2",
+    "muted": "#b3bbcb",
+    "accent": "#f3c672",
+    "accentInk": "#d8b576",
+    "accent2": "#00afd8",
+    "panel": "#9fceff",
+    "panelInk": "#343944",
+    "rule": "#aebbd5",
+    "onAccent": "#484136"
+  },
+  "typography": {
+    "id": "cjk-playful",
+    "display": "ZCOOL KuaiLe",
+    "body": "Nunito Sans",
+    "cjk": "ZCOOL KuaiLe",
+    "kind": "handwritten",
+    "weight": 400,
+    "scale": 1.234,
+    "tracking": -0.02,
+    "lineHeight": 1.566,
+    "titleWeight": 400
+  },
+  "layout": {
+    "composition": "split",
+    "density": 0.495,
+    "margin": 4.5,
+    "split": 0.608,
+    "align": "left",
+    "tilt": 0,
+    "columns": 8,
+    "graphicSide": "right",
+    "rhythm": "even"
+  },
+  "graphic": {
+    "family": "interlock",
+    "seed": 814565009,
+    "count": 6,
+    "stroke": 3.46,
+    "amplitude": 0.135,
+    "filled": false,
+    "symmetry": "asymmetric",
+    "rotation": 0
+  },
+  "surface": {
+    "texture": "none",
+    "radius": 0,
+    "border": 1,
+    "depth": "flat",
+    "grain": 0.177,
+    "registration": 0
+  },
+  "id": "a4b1f3033e053a68187cab469a16f74da13c2278244aa3ef9add33b214335678",
+  "name": {
+    "zh": "几何游乐 · 钴蓝",
+    "en": "Constructed play / cobalt"
+  },
+  "novelty": 1
+}

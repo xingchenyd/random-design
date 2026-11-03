@@ -1,0 +1,73 @@
+{
+  "schema": 2,
+  "algorithm": "random-design/2",
+  "library": "71caaea0f85d569c",
+  "direction": "journal",
+  "seed": "random-design-catalogue-v2/journal/0",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "light",
+    "family": "apricot",
+    "hue": 44.621,
+    "harmony": 167.614,
+    "chroma": 0.127,
+    "paper": "#ffb798",
+    "ink": "#43342d",
+    "muted": "#4e3e38",
+    "accent": "#00606f",
+    "accentInk": "#004b57",
+    "accent2": "#b1b36f",
+    "panel": "#7c3d32",
+    "panelInk": "#fbebe4",
+    "rule": "#553c31",
+    "onAccent": "#c1d2d6"
+  },
+  "typography": {
+    "id": "classic",
+    "display": "Libre Baskerville",
+    "body": "Lato",
+    "cjk": "Noto Serif SC",
+    "kind": "serif",
+    "weight": 700,
+    "scale": 1.294,
+    "tracking": -0.021,
+    "lineHeight": 1.614,
+    "titleWeight": 700
+  },
+  "layout": {
+    "composition": "type",
+    "density": 0.483,
+    "margin": 7.303,
+    "split": 0.525,
+    "align": "left",
+    "tilt": 0,
+    "columns": 12,
+    "graphicSide": "right",
+    "rhythm": "progressive"
+  },
+  "graphic": {
+    "family": "editorial-mark",
+    "seed": 2771930161,
+    "count": 4,
+    "stroke": 1.525,
+    "amplitude": 0.543,
+    "filled": false,
+    "symmetry": "asymmetric",
+    "rotation": 0
+  },
+  "surface": {
+    "texture": "none",
+    "radius": 0,
+    "border": 1,
+    "depth": "flat",
+    "grain": 0.175,
+    "registration": 0
+  },
+  "id": "15fef37bdeae10233f450d6aa4800408178c5b557d3fd92b243aaa8c8fc6fb69",
+  "name": {
+    "zh": "艺术刊物 · 杏橘",
+    "en": "Editorial colour / apricot"
+  },
+  "novelty": 1
+}

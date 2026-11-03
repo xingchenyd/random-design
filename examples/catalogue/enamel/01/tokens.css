@@ -1,0 +1,22 @@
+:root{
+  --paper:#b02722;
+  --ink:#ffffff;
+  --muted:#e8d2cf;
+  --accent:#f0d3a8;
+  --accent-ink:#f9d194;
+  --accent2:#f0d3a8;
+  --panel:#efab8f;
+  --panel-ink:#382b29;
+  --rule:#d3b1ac;
+  --on-accent:#484137;
+  --font-display:"Ma Shan Zheng","Ma Shan Zheng",sans-serif;
+  --font-body:"Source Sans 3","Noto Sans SC",sans-serif;
+  --font-cjk:"Ma Shan Zheng";
+  --type-scale:1.221;
+  --tracking:0.009em;
+  --leading:1.592;
+  --page-margin:5.223%;
+  --radius:0px;
+  --border:2.5px;
+  --section-gap:89px;
+}

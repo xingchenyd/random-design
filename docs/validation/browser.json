@@ -6,7 +6,7 @@
     "native browser PPTX download",
     "design import reproduces saved theme",
     "390px studio layout",
-    "36 website layouts across all composition operators / languages / widths"
+    "64 website layouts across all supported direction/layout pairs / languages / widths"
   ],
   "javascriptErrors": [],
   "actualDeviceTest": false,

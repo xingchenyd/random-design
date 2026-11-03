@@ -1,0 +1,73 @@
+{
+  "schema": 2,
+  "algorithm": "random-design/2",
+  "library": "71caaea0f85d569c",
+  "direction": "botanical",
+  "seed": "random-design-catalogue-v2/botanical/0",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "light",
+    "family": "apricot",
+    "hue": 54.602,
+    "harmony": 149.55,
+    "chroma": 0.138,
+    "paper": "#ffbb8d",
+    "ink": "#44362d",
+    "muted": "#4d3f36",
+    "accent": "#324729",
+    "accentInk": "#2a4d18",
+    "accent2": "#7e5823",
+    "panel": "#1d3725",
+    "panelInk": "#cbbdb4",
+    "rule": "#533d2e",
+    "onAccent": "#b5beb1"
+  },
+  "typography": {
+    "id": "classic",
+    "display": "Libre Baskerville",
+    "body": "Lato",
+    "cjk": "Noto Serif SC",
+    "kind": "serif",
+    "weight": 700,
+    "scale": 1.321,
+    "tracking": -0.018,
+    "lineHeight": 1.5,
+    "titleWeight": 700
+  },
+  "layout": {
+    "composition": "rail",
+    "density": 0.598,
+    "margin": 7.415,
+    "split": 0.382,
+    "align": "left",
+    "tilt": 0,
+    "columns": 12,
+    "graphicSide": "right",
+    "rhythm": "progressive"
+  },
+  "graphic": {
+    "family": "botanical",
+    "seed": 3392569583,
+    "count": 4,
+    "stroke": 3.366,
+    "amplitude": 0.327,
+    "filled": false,
+    "symmetry": "asymmetric",
+    "rotation": 0
+  },
+  "surface": {
+    "texture": "grain",
+    "radius": 0,
+    "border": 1,
+    "depth": "flat",
+    "grain": 0.144,
+    "registration": 0
+  },
+  "id": "3362d0b2d9612c3ce61a20c68246886060d25feb5d0e589e3fedd0677dfa0e96",
+  "name": {
+    "zh": "植物图鉴 · 杏橘",
+    "en": "Botanical folio / apricot"
+  },
+  "novelty": 1
+}

@@ -1,0 +1,22 @@
+:root{
+  --paper:#8fe48d;
+  --ink:#344034;
+  --muted:#3b463a;
+  --accent:#6c3f81;
+  --accent-ink:#543263;
+  --accent2:#6c3f81;
+  --panel:#074c27;
+  --panel-ink:#cfdace;
+  --rule:#364835;
+  --on-accent:#ccc3d0;
+  --font-display:"Space Grotesk","Noto Sans SC",sans-serif;
+  --font-body:"DM Sans","Noto Sans SC",sans-serif;
+  --font-cjk:"Noto Sans SC";
+  --type-scale:1.222;
+  --tracking:-0.026em;
+  --leading:1.591;
+  --page-margin:7.22%;
+  --radius:0px;
+  --border:1px;
+  --section-gap:79px;
+}

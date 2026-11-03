@@ -1,0 +1,73 @@
+{
+  "schema": 2,
+  "algorithm": "random-design/2",
+  "library": "71caaea0f85d569c",
+  "direction": "edition",
+  "seed": "random-design-catalogue-v2/edition/0",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "light",
+    "family": "pistachio",
+    "hue": 143.747,
+    "harmony": 169.755,
+    "chroma": 0.144,
+    "paper": "#8fe48d",
+    "ink": "#344034",
+    "muted": "#3b463a",
+    "accent": "#6c3f81",
+    "accentInk": "#543263",
+    "accent2": "#6c3f81",
+    "panel": "#074c27",
+    "panelInk": "#cfdace",
+    "rule": "#364835",
+    "onAccent": "#ccc3d0"
+  },
+  "typography": {
+    "id": "geometric",
+    "display": "Space Grotesk",
+    "body": "DM Sans",
+    "cjk": "Noto Sans SC",
+    "kind": "sans",
+    "weight": 700,
+    "scale": 1.222,
+    "tracking": -0.026,
+    "lineHeight": 1.591,
+    "titleWeight": 700
+  },
+  "layout": {
+    "composition": "split",
+    "density": 0.727,
+    "margin": 7.22,
+    "split": 0.475,
+    "align": "left",
+    "tilt": 0,
+    "columns": 12,
+    "graphicSide": "left",
+    "rhythm": "progressive"
+  },
+  "graphic": {
+    "family": "fold",
+    "seed": 3434496968,
+    "count": 4,
+    "stroke": 1.063,
+    "amplitude": 0.433,
+    "filled": false,
+    "symmetry": "asymmetric",
+    "rotation": 0
+  },
+  "surface": {
+    "texture": "grain",
+    "radius": 0,
+    "border": 1,
+    "depth": "flat",
+    "grain": 0.12,
+    "registration": 4.682
+  },
+  "id": "9414c5a8700ba3a5799448df1257a3392cd9688b261106bc0d212048122b6097",
+  "name": {
+    "zh": "套色版画 · 开心果绿",
+    "en": "Colour edition / pistachio"
+  },
+  "novelty": 1
+}

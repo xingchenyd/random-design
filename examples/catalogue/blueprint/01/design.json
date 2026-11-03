@@ -1,0 +1,73 @@
+{
+  "schema": 2,
+  "algorithm": "random-design/2",
+  "library": "71caaea0f85d569c",
+  "direction": "blueprint",
+  "seed": "random-design-catalogue-v2/blueprint/0",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "dark",
+    "family": "ocean",
+    "hue": 212.329,
+    "harmony": 170.642,
+    "chroma": 0.108,
+    "paper": "#005967",
+    "ink": "#ddf4f9",
+    "muted": "#b3c9ce",
+    "accent": "#b8d8df",
+    "accentInk": "#78d2e4",
+    "accent2": "#e6bd77",
+    "panel": "#8edafd",
+    "panelInk": "#303f42",
+    "rule": "#9ec2ca",
+    "onAccent": "#364549"
+  },
+  "typography": {
+    "id": "technical",
+    "display": "IBM Plex Mono",
+    "body": "IBM Plex Sans",
+    "cjk": "Noto Sans SC",
+    "kind": "mono",
+    "weight": 600,
+    "scale": 1.278,
+    "tracking": -0.012,
+    "lineHeight": 1.572,
+    "titleWeight": 600
+  },
+  "layout": {
+    "composition": "frame",
+    "density": 0.484,
+    "margin": 6.085,
+    "split": 0.601,
+    "align": "left",
+    "tilt": 0,
+    "columns": 6,
+    "graphicSide": "right",
+    "rhythm": "alternating"
+  },
+  "graphic": {
+    "family": "guilloche",
+    "seed": 565986234,
+    "count": 4,
+    "stroke": 1.887,
+    "amplitude": 0.394,
+    "filled": true,
+    "symmetry": "asymmetric",
+    "rotation": 0
+  },
+  "surface": {
+    "texture": "fine-lines",
+    "radius": 0,
+    "border": 1,
+    "depth": "flat",
+    "grain": 0.139,
+    "registration": 0
+  },
+  "id": "2697a2bb2dadd959eba5a6b86f22cfdf0ebef64c3c8ba5513253c16625441348",
+  "name": {
+    "zh": "蓝晒图纸 · 海蓝",
+    "en": "Cyanotype study / ocean"
+  },
+  "novelty": 1
+}

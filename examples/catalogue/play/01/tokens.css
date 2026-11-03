@@ -1,0 +1,22 @@
+:root{
+  --paper:#153298;
+  --ink:#c9d1e2;
+  --muted:#b3bbcb;
+  --accent:#f3c672;
+  --accent-ink:#d8b576;
+  --accent2:#00afd8;
+  --panel:#9fceff;
+  --panel-ink:#343944;
+  --rule:#aebbd5;
+  --on-accent:#484136;
+  --font-display:"ZCOOL KuaiLe","ZCOOL KuaiLe",sans-serif;
+  --font-body:"Nunito Sans","Noto Sans SC",sans-serif;
+  --font-cjk:"ZCOOL KuaiLe";
+  --type-scale:1.234;
+  --tracking:-0.02em;
+  --leading:1.566;
+  --page-margin:4.5%;
+  --radius:0px;
+  --border:1px;
+  --section-gap:95px;
+}

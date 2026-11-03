@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "entries": [
+    {
+      "id": "c578055c4dbc10afba32855b56410116176cff7311efd018c8c59792941bdb9a",
+      "signature": {
+        "id": "c578055c4dbc10afba32855b56410116176cff7311efd018c8c59792941bdb9a",
+        "direction": "enamel",
+        "colourFamily": "vermilion",
+        "canvasL": 0.49697446305659865,
+        "hue": 27.800506370074135,
+        "mode": "dark",
+        "chroma": 0.17416865892264474,
+        "harmony": 170.836,
+        "font": "cjk-brush",
+        "kind": "handwritten",
+        "scale": 1.221,
+        "composition": "stack",
+        "density": 0.591,
+        "split": 0.399,
+        "graphic": "seal",
+        "filled": false,
+        "count": 4,
+        "amplitude": 0.339,
+        "texture": "none",
+        "depth": "flat"
+      },
+      "at": "2026-11-03T04:11:11.142Z",
+      "status": "shown",
+      "algorithm": "random-design/2",
+      "library": "71caaea0f85d569c"
+    }
+  ]
+}

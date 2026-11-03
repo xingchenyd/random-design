@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generate, reproduce, validateDesign, historyEntries, distance, signature, RequestSchema, designId } from '../src/core/index.js';
+import { generate, reproduce, validateDesign, historyEntries, distance, signature, RequestSchema, designId, colorCoordinates } from '../src/core/index.js';
+import { directionById } from '../src/core/directions.js';
 import { pageHtml } from '../src/render.js';
 
 test('selection is reproducible given the same seed, request and history', () => {
@@ -13,12 +14,12 @@ test('history excludes exact and nearby themes across repeated usage', () => {
   const options = { seed: 'repeat', count: 5 };
   const a = generate(options), history = historyEntries(a), b = generate(options, history);
   const ids = new Set(a.designs.map(d => d.id));
-  b.designs.forEach(d => { assert(!ids.has(d.id)); a.designs.forEach(old => assert(distance(signature(d), signature(old)) >= options.minDistance || distance(signature(d), signature(old)) >= 0.25)); });
+  b.designs.forEach(d => { assert(!ids.has(d.id)); a.designs.forEach(old => assert(distance(signature(d), signature(old)) >= RequestSchema.parse({}).minDistance)); });
 });
 test('brand, mode and dimension locks survive generation', () => {
   const a = generate({ seed: 'brand', brand: '#ffee00', mode: 'light', count: 1 }).designs[0];
   assert.equal(a.palette.accent, '#ffee00'); assert(validateDesign(a).valid);
-  const b = generate({ seed: 'lock', count: 3, locks: { palette: a.palette, font: a.typography.id, graphic: a.graphic.family } });
+  const b = generate({ seed: 'lock', count: 3, minDistance: 0.05, locks: { palette: a.palette, font: a.typography.id, graphic: a.graphic.family } });
   b.designs.forEach(d => { assert.deepEqual(d.palette, a.palette); assert.equal(d.typography.id, a.typography.id); assert.equal(d.graphic.family, a.graphic.family); });
   assert.throws(() => generate({ mode: 'dark', locks: { palette: a.palette } }), /conflicts/);
 });
@@ -29,7 +30,7 @@ test('all scenarios and modes meet declared token contrast and geometry rules', 
   }
 });
 test('infeasible novelty request fails explicitly rather than relaxing constraints', () => {
-  assert.throws(() => generate({ count: 5, seed: 'too-close', minDistance: 0.8, attempts: 30, locks: { font: 'technical', graphic: 'lattice', composition: 'split' }, mode: 'light' }), /Novelty exhausted/);
+  assert.throws(() => generate({ count: 5, seed: 'too-close', minDistance: 0.8, attempts: 30, locks: { font: 'technical', graphic: 'guilloche', composition: 'frame' }, mode: 'light' }), /Novelty exhausted/);
 });
 test('saved JSON tampering, incompatible versions and invalid requests are rejected', () => {
   const a = generate({ count: 1, seed: 'valid' }).designs[0];
@@ -39,11 +40,31 @@ test('saved JSON tampering, incompatible versions and invalid requests are rejec
   for (const bad of [{ count: 0 }, { count: 99 }, { brand: 'red' }, { scenario: 'unknown' }, { mode: 'both' }]) assert(!RequestSchema.safeParse(bad).success);
 });
 test('labels and operator-unused seed values cannot manufacture visual novelty', () => {
-  const a = generate({ count: 1, seed: 'semantic', locks: { graphic: 'orbits' } }).designs[0];
+  const a = generate({ count: 1, seed: 'semantic', locks: { graphic: 'isometric' } }).designs[0];
   const b = structuredClone(a); b.seed = 'different'; b.name.zh = '不同名字'; b.graphic.seed++;
   assert.equal(designId(a), designId(b));
   const injection = structuredClone(a); injection.layout.columns = '6;}body{display:none';
   assert(!validateDesign(injection).valid);
+});
+test('rich defaults produce actual coloured canvases and distinct art directions, not accent-only variety', () => {
+  for (let i = 0; i < 25; i++) {
+    const b = generate({ seed: `visual-regression-${i}` });
+    assert.equal(new Set(b.designs.map(d => d.direction)).size, 5);
+    assert.equal(new Set(b.designs.map(d => d.palette.family)).size, 5);
+    for (const d of b.designs) {
+      const canvas = colorCoordinates(d.palette.paper);
+      assert(canvas.c > 0.055, 'Canvas must carry visible chroma');
+      assert(canvas.l > 0.3 && canvas.l < 0.94, 'Default canvas must not collapse to near-white or near-black');
+      const grammar = directionById(d.direction);
+      assert(grammar.graphics.includes(d.graphic.family));
+      assert(grammar.fonts.includes(d.typography.id));
+      assert(grammar.textures.includes(d.surface.texture));
+      assert.equal(d.graphic.rotation, 0);
+    }
+  }
+});
+test('incompatible graphic/layout mixes are rejected before rendering', () => {
+  assert.throws(() => generate({ locks: { graphic: 'botanical', composition: 'stack' } }), /do not share an art-direction grammar/);
 });
 test('untrusted text is escaped and scripts cannot execute in previews', () => {
   const d = generate({ count: 1, seed: 'escape' }).designs[0];

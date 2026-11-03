@@ -1,0 +1,22 @@
+:root{
+  --paper:#005967;
+  --ink:#ddf4f9;
+  --muted:#b3c9ce;
+  --accent:#b8d8df;
+  --accent-ink:#78d2e4;
+  --accent2:#e6bd77;
+  --panel:#8edafd;
+  --panel-ink:#303f42;
+  --rule:#9ec2ca;
+  --on-accent:#364549;
+  --font-display:"IBM Plex Mono","Noto Sans SC",sans-serif;
+  --font-body:"IBM Plex Sans","Noto Sans SC",sans-serif;
+  --font-cjk:"Noto Sans SC";
+  --type-scale:1.278;
+  --tracking:-0.012em;
+  --leading:1.572;
+  --page-margin:6.085%;
+  --radius:0px;
+  --border:1px;
+  --section-gap:96px;
+}

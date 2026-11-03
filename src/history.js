@@ -4,13 +4,13 @@ import os from 'node:os';
 import lockfile from 'proper-lockfile';
 import { historyEntries, generate, LIBRARY, VERSION } from './core/index.js';
 
-export const historyPath = () => process.env.RANDOM_DESIGN_HISTORY ?? path.join(os.homedir(), '.random-design', 'history.json');
+export const historyPath = () => process.env.RANDOM_DESIGN_HISTORY ?? path.join(os.homedir(), '.random-design', 'history-v2.json');
 export function mergeHistory(...lists) {
   const map = new Map();
   for (const h of lists.flat()) {
     if (!h || !/^[a-f0-9]{64}$/.test(h.id) || !h.signature || h.signature.id !== h.id) throw new Error('Invalid history entry');
     const s = h.signature;
-    if (['hue', 'chroma', 'harmony', 'scale', 'density', 'split', 'count', 'amplitude'].some(k => !Number.isFinite(s[k])) || ['mode', 'font', 'kind', 'composition', 'graphic', 'texture', 'depth'].some(k => typeof s[k] !== 'string') || typeof s.filled !== 'boolean') throw new Error('Invalid history signature');
+    if (['canvasL', 'hue', 'chroma', 'harmony', 'scale', 'density', 'split', 'count', 'amplitude'].some(k => !Number.isFinite(s[k])) || ['direction', 'colourFamily', 'mode', 'font', 'kind', 'composition', 'graphic', 'texture', 'depth'].some(k => typeof s[k] !== 'string') || typeof s.filled !== 'boolean') throw new Error('Invalid history signature');
     if (h.library !== LIBRARY || h.algorithm !== VERSION) throw new Error('History version mismatch; archive old history or use its matching release');
     const previous = map.get(h.id);
     map.set(h.id, previous?.status === 'selected' && h.status !== 'selected' ? previous : h);

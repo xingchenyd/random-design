@@ -1,0 +1,73 @@
+{
+  "schema": 2,
+  "algorithm": "random-design/2",
+  "library": "71caaea0f85d569c",
+  "direction": "enamel",
+  "seed": "random-design-catalogue-v2/enamel/0/0",
+  "scenario": "general",
+  "intensity": "balanced",
+  "palette": {
+    "mode": "dark",
+    "family": "vermilion",
+    "hue": 27.902,
+    "harmony": 170.836,
+    "chroma": 0.174,
+    "paper": "#b02722",
+    "ink": "#ffffff",
+    "muted": "#e8d2cf",
+    "accent": "#f0d3a8",
+    "accentInk": "#f9d194",
+    "accent2": "#f0d3a8",
+    "panel": "#efab8f",
+    "panelInk": "#382b29",
+    "rule": "#d3b1ac",
+    "onAccent": "#484137"
+  },
+  "typography": {
+    "id": "cjk-brush",
+    "display": "Ma Shan Zheng",
+    "body": "Source Sans 3",
+    "cjk": "Ma Shan Zheng",
+    "kind": "handwritten",
+    "weight": 400,
+    "scale": 1.221,
+    "tracking": 0.009,
+    "lineHeight": 1.592,
+    "titleWeight": 400
+  },
+  "layout": {
+    "composition": "stack",
+    "density": 0.591,
+    "margin": 5.223,
+    "split": 0.399,
+    "align": "center",
+    "tilt": 0,
+    "columns": 12,
+    "graphicSide": "right",
+    "rhythm": "alternating"
+  },
+  "graphic": {
+    "family": "seal",
+    "seed": 531540524,
+    "count": 4,
+    "stroke": 2.285,
+    "amplitude": 0.339,
+    "filled": true,
+    "symmetry": "asymmetric",
+    "rotation": 0
+  },
+  "surface": {
+    "texture": "none",
+    "radius": 0,
+    "border": 2.5,
+    "depth": "flat",
+    "grain": 0.115,
+    "registration": 0
+  },
+  "id": "c578055c4dbc10afba32855b56410116176cff7311efd018c8c59792941bdb9a",
+  "name": {
+    "zh": "珐琅招牌 · 朱砂红",
+    "en": "Enamel sign / vermilion"
+  },
+  "novelty": 1
+}

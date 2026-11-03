@@ -1,21 +1,22 @@
 :root{
-  --paper:#191b17;
-  --ink:#c2c7bc;
-  --muted:#a0a897;
-  --accent:#a9c288;
-  --accent-ink:#96af76;
-  --accent2:#75afc1;
-  --panel:#24281f;
-  --rule:#4c5344;
-  --on-accent:#111111;
+  --paper:#ffb5db;
+  --ink:#44353c;
+  --muted:#4d3d45;
+  --accent:#e8bcae;
+  --accent-ink:#692e1b;
+  --accent2:#b07c83;
+  --panel:#63273a;
+  --panel-ink:#d8c9d0;
+  --rule:#533a46;
+  --on-accent:#4c3f3b;
   --font-display:"Nunito Sans","Noto Sans SC",sans-serif;
   --font-body:"Nunito Sans","Noto Sans SC",sans-serif;
   --font-cjk:"Noto Sans SC";
-  --type-scale:1.224;
-  --tracking:0.012em;
-  --leading:1.539;
-  --page-margin:7.481%;
-  --radius:14.814px;
-  --border:0.629px;
-  --section-gap:75px;
+  --type-scale:1.399;
+  --tracking:-0.033em;
+  --leading:1.554;
+  --page-margin:7.77%;
+  --radius:0px;
+  --border:1px;
+  --section-gap:98px;
 }

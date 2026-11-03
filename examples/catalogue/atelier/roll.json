@@ -1,0 +1,104 @@
+{
+  "schema": 2,
+  "algorithm": "random-design/2",
+  "library": "71caaea0f85d569c",
+  "seed": "random-design-catalogue-v2/atelier",
+  "request": {
+    "count": 1,
+    "seed": "random-design-catalogue-v2/atelier",
+    "scenario": "general",
+    "mode": "mixed",
+    "colorfulness": "rich",
+    "direction": "atelier",
+    "intensity": "balanced",
+    "language": "zh",
+    "locks": {},
+    "minDistance": 0.22,
+    "recentWindow": 40,
+    "attempts": 1400
+  },
+  "designs": [
+    {
+      "schema": 2,
+      "algorithm": "random-design/2",
+      "library": "71caaea0f85d569c",
+      "direction": "atelier",
+      "seed": "random-design-catalogue-v2/atelier/0",
+      "scenario": "general",
+      "intensity": "balanced",
+      "palette": {
+        "mode": "dark",
+        "family": "wine",
+        "hue": 345.569,
+        "harmony": 174.621,
+        "chroma": 0.117,
+        "paper": "#69204e",
+        "ink": "#ddcad4",
+        "muted": "#c7b4be",
+        "accent": "#8de3b6",
+        "accentInk": "#86cda7",
+        "accent2": "#ed9561",
+        "panel": "#e09ec0",
+        "panelInk": "#2e2329",
+        "rule": "#cfb1c0",
+        "onAccent": "#39463f"
+      },
+      "typography": {
+        "id": "cjk-literary",
+        "display": "ZCOOL XiaoWei",
+        "body": "Source Sans 3",
+        "cjk": "ZCOOL XiaoWei",
+        "kind": "serif",
+        "weight": 400,
+        "scale": 1.337,
+        "tracking": -0.033,
+        "lineHeight": 1.517,
+        "titleWeight": 400
+      },
+      "layout": {
+        "composition": "split",
+        "density": 0.507,
+        "margin": 7.711,
+        "split": 0.602,
+        "align": "left",
+        "tilt": 0,
+        "columns": 8,
+        "graphicSide": "right",
+        "rhythm": "alternating"
+      },
+      "graphic": {
+        "family": "cut-paper",
+        "seed": 3143895100,
+        "count": 6,
+        "stroke": 2.481,
+        "amplitude": 0.642,
+        "filled": false,
+        "symmetry": "asymmetric",
+        "rotation": 0
+      },
+      "surface": {
+        "texture": "grain",
+        "radius": 0,
+        "border": 1,
+        "depth": "offset",
+        "grain": 0.171,
+        "registration": 0
+      },
+      "id": "d9c948cdc54fcce39a189b6ff0c68d943d44655b8c61b04153aa48fda149df5d",
+      "name": {
+        "zh": "剪纸工坊 · 酒红",
+        "en": "Paper atelier / wine"
+      },
+      "novelty": 1
+    }
+  ],
+  "diagnostics": {
+    "tried": 24,
+    "rejectedQuality": 0,
+    "rejectedNovelty": 0,
+    "minDistance": 0.22,
+    "recentCompared": 0,
+    "exactCompared": 0,
+    "distanceType": "art direction + actual canvas colour + visual attributes (not a perceptual proof)"
+  }
+}

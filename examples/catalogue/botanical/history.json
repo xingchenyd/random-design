@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "entries": [
+    {
+      "id": "3362d0b2d9612c3ce61a20c68246886060d25feb5d0e589e3fedd0677dfa0e96",
+      "signature": {
+        "id": "3362d0b2d9612c3ce61a20c68246886060d25feb5d0e589e3fedd0677dfa0e96",
+        "direction": "botanical",
+        "colourFamily": "apricot",
+        "canvasL": 0.8445719531742512,
+        "hue": 55.012080118675314,
+        "mode": "light",
+        "chroma": 0.09930725029842791,
+        "harmony": 149.55,
+        "font": "classic",
+        "kind": "serif",
+        "scale": 1.321,
+        "composition": "rail",
+        "density": 0.598,
+        "split": 0.382,
+        "graphic": "botanical",
+        "filled": false,
+        "count": 4,
+        "amplitude": 0.327,
+        "texture": "grain",
+        "depth": "flat"
+      },
+      "at": "2026-11-03T04:06:46.504Z",
+      "status": "shown",
+      "algorithm": "random-design/2",
+      "library": "71caaea0f85d569c"
+    }
+  ]
+}

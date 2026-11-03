@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "entries": [
+    {
+      "id": "9414c5a8700ba3a5799448df1257a3392cd9688b261106bc0d212048122b6097",
+      "signature": {
+        "id": "9414c5a8700ba3a5799448df1257a3392cd9688b261106bc0d212048122b6097",
+        "direction": "edition",
+        "colourFamily": "pistachio",
+        "canvasL": 0.8435349002142664,
+        "hue": 143.6651659480309,
+        "mode": "light",
+        "chroma": 0.14465918470833888,
+        "harmony": 169.755,
+        "font": "geometric",
+        "kind": "sans",
+        "scale": 1.222,
+        "composition": "split",
+        "density": 0.727,
+        "split": 0.475,
+        "graphic": "fold",
+        "filled": false,
+        "count": 4,
+        "amplitude": 0.433,
+        "texture": "grain",
+        "depth": "flat"
+      },
+      "at": "2026-11-03T04:06:46.446Z",
+      "status": "shown",
+      "algorithm": "random-design/2",
+      "library": "71caaea0f85d569c"
+    }
+  ]
+}

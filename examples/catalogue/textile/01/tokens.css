@@ -1,0 +1,22 @@
+:root{
+  --paper:#c4adfb;
+  --ink:#2f2b39;
+  --muted:#44404e;
+  --accent:#e3b9ce;
+  --accent-ink:#632c4c;
+  --accent2:#9e80a5;
+  --panel:#3b2a5f;
+  --panel-ink:#c4c0cf;
+  --rule:#443e55;
+  --on-accent:#4b3e44;
+  --font-display:"ZCOOL XiaoWei","ZCOOL XiaoWei",serif;
+  --font-body:"Source Sans 3","Noto Sans SC",sans-serif;
+  --font-cjk:"ZCOOL XiaoWei";
+  --type-scale:1.263;
+  --tracking:-0.027em;
+  --leading:1.709;
+  --page-margin:5.365%;
+  --radius:0px;
+  --border:1px;
+  --section-gap:70px;
+}

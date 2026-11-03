@@ -3,12 +3,13 @@
   "renderedSlides": 60,
   "files": 10,
   "declaredTitleFonts": [
+    "ZCOOL QingKe HuangYou",
     "Noto Sans SC",
-    "Ma Shan Zheng",
-    "Barlow Condensed",
-    "Outfit",
+    "Noto Serif SC",
+    "IBM Plex Mono",
+    "Cormorant Garamond",
     "Nunito Sans",
-    "Archivo Black"
+    "Bodoni Moda"
   ],
   "fontsEmbedded": false,
   "nativePowerPointTest": false,

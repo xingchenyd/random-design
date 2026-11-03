@@ -3,7 +3,7 @@ import { pageHtml, tokensCss, brief } from '../src/render.js';
 import { graphicSvg } from '../src/core/graphics.js';
 import { mergeHistory } from './history-browser.js';
 
-const $ = s => document.querySelector(s), KEY = 'random-design.history.v1';
+const $ = s => document.querySelector(s), KEY = 'random-design.history.v2';
 let language = localStorage.getItem('random-design.language') ?? 'zh';
 let history = [], current, locked, selectedId;
 const messages = {
@@ -75,7 +75,7 @@ async function doGenerate(initial = false) {
     const operation = async () => {
       // Re-read under Web Locks to coordinate tabs on supported browsers.
       history = mergeHistory(JSON.parse(localStorage.getItem(KEY) ?? '{"entries":[]}').entries);
-      const request = { count: Number($('#count').value), scenario: $('#scenario').value, mode: $('#mode').value, intensity: $('#intensity').value, language, locks: locked ?? {} };
+      const request = { count: Number($('#count').value), scenario: $('#scenario').value, mode: $('#mode').value, colorfulness: $('#colorfulness').value, intensity: $('#intensity').value, language, locks: locked ?? {} };
       if ($('#brand-toggle').checked) request.brand = $('#brand').value;
       const next = generate(request, history);
       const nextHistory = mergeHistory(history, historyEntries(next));

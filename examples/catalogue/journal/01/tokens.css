@@ -1,0 +1,22 @@
+:root{
+  --paper:#ffb798;
+  --ink:#43342d;
+  --muted:#4e3e38;
+  --accent:#00606f;
+  --accent-ink:#004b57;
+  --accent2:#b1b36f;
+  --panel:#7c3d32;
+  --panel-ink:#fbebe4;
+  --rule:#553c31;
+  --on-accent:#c1d2d6;
+  --font-display:"Libre Baskerville","Noto Serif SC",serif;
+  --font-body:"Lato","Noto Sans SC",sans-serif;
+  --font-cjk:"Noto Serif SC";
+  --type-scale:1.294;
+  --tracking:-0.021em;
+  --leading:1.614;
+  --page-margin:7.303%;
+  --radius:0px;
+  --border:1px;
+  --section-gap:96px;
+}

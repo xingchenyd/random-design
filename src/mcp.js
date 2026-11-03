@@ -11,7 +11,7 @@ import { graphicSvg } from './core/graphics.js';
 
 const result = data => ({ content: [{ type: 'text', text: JSON.stringify(data) }], structuredContent: data });
 export function createServer({ localHistory = false } = {}) {
-  const server = new McpServer({ name: 'random-design', version: '0.1.0' }, { instructions: 'Generate multiple visual directions, present comparable previews and let the user select. Preserve content and facts. Save returned JSON; explicit reuse is allowed. History is scoped to this client or local machine, never assume global uniqueness. Do not claim render scores prove aesthetic quality.' });
+  const server = new McpServer({ name: 'random-design', version: '0.2.0' }, { instructions: 'Generate coherent art directions, not independently randomized ornaments. Default to rich canvas colours and varied design languages. Each graphic must follow the chosen direction grammar and visual purpose. Present comparable previews and let the user select. Preserve content and facts. Save returned JSON; explicit reuse is allowed. History is scoped to this client or local machine. Numerical novelty is not evidence of aesthetic quality.' });
   server.registerTool('generate_directions', {
     description: 'Generate 1–8 coherent procedural visual systems. Uses local history over stdio; HTTP uses supplied history only. Returns full JSON, diagnostics and portable history entries. No copywriting changes.',
     inputSchema: { ...RequestSchema.shape, history: z.array(z.any()).max(20000).optional() },

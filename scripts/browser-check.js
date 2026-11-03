@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { serve } from './serve.js';
 import { generate } from '../src/core/index.js';
+import { DIRECTIONS } from '../src/core/directions.js';
 import { pageHtml } from '../src/render.js';
 
 const server = await serve({ port: 0 });
@@ -44,17 +45,17 @@ try {
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
   await page.screenshot({ path: 'docs/assets/studio-mobile.png', fullPage: true });
   checks.push('390px studio layout');
-  // Exercise every composition at desktop + mobile width with both languages.
+  // Exercise every supported direction/layout pair at desktop + mobile with both languages.
   let pages = 0;
-  for (const language of ['zh', 'en']) for (const composition of ['split', 'stack', 'rail', 'frame', 'diagonal', 'island', 'type', 'band', 'offset']) {
-    const d = generate({ seed: `browser/${composition}/${language}`, count: 1, locks: { composition } }).designs[0];
+  for (const language of ['zh', 'en']) for (const direction of DIRECTIONS) for (const composition of direction.layouts) {
+    const d = generate({ seed: `browser/${direction.id}/${composition}/${language}`, count: 1, direction: direction.id, locks: { composition } }).designs[0];
     for (const width of [1280, 390]) {
       await page.setViewportSize({ width, height: 900 }); await page.setContent(pageHtml(d, { language, fonts: false }));
       const report = await page.evaluate(() => ({ overflow: document.documentElement.scrollWidth > innerWidth, h1: (() => { const r = document.querySelector('h1').getBoundingClientRect(); return r.x >= -1 && r.right <= innerWidth + 1; })() }));
-      assert(!report.overflow && report.h1, `${language}/${composition}/${width} overflow`); pages++;
+      assert(!report.overflow && report.h1, `${language}/${direction.id}/${composition}/${width} overflow`); pages++;
     }
   }
-  checks.push(`${pages} website layouts across all composition operators / languages / widths`);
+  checks.push(`${pages} website layouts across all supported direction/layout pairs / languages / widths`);
   assert.deepEqual(errors, []);
   const report = { checks, javascriptErrors: errors, actualDeviceTest: false, powerpointDesktopTest: false };
   await fs.mkdir('docs/validation', { recursive: true }); await fs.writeFile('docs/validation/browser.json', JSON.stringify(report, null, 2));

@@ -1,0 +1,104 @@
+{
+  "schema": 2,
+  "algorithm": "random-design/2",
+  "library": "71caaea0f85d569c",
+  "seed": "random-design-catalogue-v2/textile",
+  "request": {
+    "count": 1,
+    "seed": "random-design-catalogue-v2/textile",
+    "scenario": "general",
+    "mode": "mixed",
+    "colorfulness": "rich",
+    "direction": "textile",
+    "intensity": "balanced",
+    "language": "zh",
+    "locks": {},
+    "minDistance": 0.22,
+    "recentWindow": 40,
+    "attempts": 1400
+  },
+  "designs": [
+    {
+      "schema": 2,
+      "algorithm": "random-design/2",
+      "library": "71caaea0f85d569c",
+      "direction": "textile",
+      "seed": "random-design-catalogue-v2/textile/0",
+      "scenario": "general",
+      "intensity": "balanced",
+      "palette": {
+        "mode": "light",
+        "family": "lilac",
+        "hue": 297.228,
+        "harmony": 192.121,
+        "chroma": 0.11,
+        "paper": "#c4adfb",
+        "ink": "#2f2b39",
+        "muted": "#44404e",
+        "accent": "#e3b9ce",
+        "accentInk": "#632c4c",
+        "accent2": "#9e80a5",
+        "panel": "#3b2a5f",
+        "panelInk": "#c4c0cf",
+        "rule": "#443e55",
+        "onAccent": "#4b3e44"
+      },
+      "typography": {
+        "id": "cjk-literary",
+        "display": "ZCOOL XiaoWei",
+        "body": "Source Sans 3",
+        "cjk": "ZCOOL XiaoWei",
+        "kind": "serif",
+        "weight": 400,
+        "scale": 1.263,
+        "tracking": -0.027,
+        "lineHeight": 1.709,
+        "titleWeight": 400
+      },
+      "layout": {
+        "composition": "band",
+        "density": 0.863,
+        "margin": 5.365,
+        "split": 0.467,
+        "align": "left",
+        "tilt": 0,
+        "columns": 12,
+        "graphicSide": "right",
+        "rhythm": "progressive"
+      },
+      "graphic": {
+        "family": "weave",
+        "seed": 8827318,
+        "count": 6,
+        "stroke": 3.248,
+        "amplitude": 0.526,
+        "filled": false,
+        "symmetry": "asymmetric",
+        "rotation": 0
+      },
+      "surface": {
+        "texture": "woven",
+        "radius": 0,
+        "border": 1,
+        "depth": "flat",
+        "grain": 0.243,
+        "registration": 0
+      },
+      "id": "87356e5217bdab3b648efa9fbe486f083febac7d3eee7db40d6b100ab059b2b1",
+      "name": {
+        "zh": "织物图样 · 丁香紫",
+        "en": "Woven rhythm / lilac"
+      },
+      "novelty": 1
+    }
+  ],
+  "diagnostics": {
+    "tried": 24,
+    "rejectedQuality": 0,
+    "rejectedNovelty": 0,
+    "minDistance": 0.22,
+    "recentCompared": 0,
+    "exactCompared": 0,
+    "distanceType": "art direction + actual canvas colour + visual attributes (not a perceptual proof)"
+  }
+}

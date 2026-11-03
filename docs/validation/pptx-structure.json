@@ -3,7 +3,7 @@
     {
       "file": "examples/01/theme.pptx",
       "slides": 6,
-      "nativeTextRuns": 55,
+      "nativeTextRuns": 57,
       "nativeTables": 1,
       "nativeCharts": 1,
       "embeddedWorkbooks": 1,
@@ -12,7 +12,7 @@
     {
       "file": "examples/02/theme.pptx",
       "slides": 6,
-      "nativeTextRuns": 55,
+      "nativeTextRuns": 57,
       "nativeTables": 1,
       "nativeCharts": 1,
       "embeddedWorkbooks": 1,
@@ -21,7 +21,7 @@
     {
       "file": "examples/03/theme.pptx",
       "slides": 6,
-      "nativeTextRuns": 55,
+      "nativeTextRuns": 57,
       "nativeTables": 1,
       "nativeCharts": 1,
       "embeddedWorkbooks": 1,
@@ -30,7 +30,7 @@
     {
       "file": "examples/04/theme.pptx",
       "slides": 6,
-      "nativeTextRuns": 55,
+      "nativeTextRuns": 57,
       "nativeTables": 1,
       "nativeCharts": 1,
       "embeddedWorkbooks": 1,
@@ -39,7 +39,7 @@
     {
       "file": "examples/05/theme.pptx",
       "slides": 6,
-      "nativeTextRuns": 55,
+      "nativeTextRuns": 57,
       "nativeTables": 1,
       "nativeCharts": 1,
       "embeddedWorkbooks": 1,
