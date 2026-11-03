@@ -105,7 +105,7 @@ export function createPresentation(design, { language = 'zh', content: input = {
 
   const s2 = base(2); heading(s2, c.sectionTitle);
   rect(s2, 0.65, 2.05, 6.45, 4.2, p.panel);
-  text(s2, quote(c.description), 1.0, 2.5, 5.7, 2.8, { fontSize: 24, color: color(p.panelInk), fontFace: displayFont, valign: 'top', breakLine: false });
+  text(s2, quote(c.description), 1.0, 2.5, 5.7, 2.8, { fontSize: language === 'zh' ? 21 : 24, color: color(p.panelInk), fontFace: displayFont, valign: 'top', breakLine: false });
   rule(s2, 7.6, 2.2, 4.6, p.accent);
   c.sections.slice(0, 3).forEach(([a, b], i) => {
     text(s2, `0${i + 1}   ${a}`, 7.65, 2.4 + i * 1.2, 4.7, 0.35, { fontSize: 18, bold: true });
