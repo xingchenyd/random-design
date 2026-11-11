@@ -12,7 +12,11 @@ async function exercise(transport, name) {
   const client = new Client({ name: 'random-design-test', version: '1.0.0' });
   await client.connect(transport);
   try {
-    const list = await client.listTools(); assert.equal(list.tools.length, 5);
+    const list = await client.listTools(); assert.equal(list.tools.length, 7);
+    const catalogue = await client.callTool({ name: 'list_presets', arguments: {} });
+    assert.equal(catalogue.structuredContent.presets.length, 21);
+    const fixed = await client.callTool({ name: 'get_preset', arguments: { id: 'new-chinese' } });
+    assert.equal(fixed.structuredContent.design.source, 'preset');
     if (name === 'stdio') {
       const local = await client.callTool({ name: 'generate_directions', arguments: { seed: 'local-ledger', count: 1 } });
       assert(!local.isError);

@@ -8,7 +8,7 @@
 
 Colour, type, composition and procedural graphics work together. Portable history reduces frequent recurrence of similar recent themes.
 
-[**Open the studio →**](https://xingchenyd.github.io/random-design/) · [Compare five real examples](https://xingchenyd.github.io/random-design/examples/english/compare.html) · [Architecture](docs/architecture.md) · [Integrations](docs/integrations.md)
+[**Open the studio →**](https://xingchenyd.github.io/random-design/) · [21 fixed styles](https://xingchenyd.github.io/random-design/presets/en.html) · [Hash example](https://xingchenyd.github.io/random-design/presets/hash-en.html) · [Integrations](docs/integrations.md)
 
 ![Actual studio screenshot](docs/assets/studio-desktop.png)
 
@@ -16,7 +16,25 @@ Colour, type, composition and procedural graphics work together. Portable histor
 
 </div>
 
-## Visual direction in v0.2
+## Fixed styles and random hash
+
+Choose one of the **21 fixed styles** identified in the reference video. The catalogue compares the same fictional coffee menu across palettes, typography, surfaces and layouts. Use a style in the studio or export it directly. [Style IDs and names](docs/presets.md)
+
+![Rendered websites for four fixed styles](docs/assets/presets-v3.png)
+
+![Rendered PowerPoint covers for the same four styles](docs/assets/presets-pptx-v3.png)
+
+The **random hash** samples from the 21 preset directions and the eight existing procedural directions. It varies compatible palette sets and proportions, checks recent visual distance and gives less weight to directions seen frequently. Some curated palettes come from the historical MIT-licensed hash-design catalogue. [Architecture](docs/architecture.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
+
+![Rendered hash-generated directions](docs/assets/hash-v3.png)
+
+```sh
+node src/cli.js list-presets
+node src/cli.js preset --style new-chinese --language en --out output/new-chinese
+node src/cli.js generate --seed design-2026 --language en --out output/hash-run
+```
+
+## Visual examples from v0.2
 
 The default uses **chromatic large canvases**, not almost-white/almost-black stock with different accent swatches. Twelve hue families supply continuous colours; neutral grounds are an explicit option.
 
@@ -107,7 +125,7 @@ node src/cli.js select --id FULL_DESIGN_ID
 
 `--no-history` explicitly disables both history reads and writes for isolated examples or tests.
 
-v0.2 uses `random-design/2` and separate history storage, preserving v0.1 data. Use the matching [v0.1.0 release](https://github.com/xingchenyd/random-design/releases/tag/v0.1.0) to reproduce old specifications.
+v0.3 uses `random-design/3` and accepts v0.2 saved specifications and histories. Use the corresponding release to reproduce the old mapping from a seed. Fixed style selection can be repeated and random history applies to hashed variants. [v0.2.0](https://github.com/xingchenyd/random-design/releases/tag/v0.2.0) · [v0.1.0](https://github.com/xingchenyd/random-design/releases/tag/v0.1.0)
 
 ## Lock and reproduce
 
@@ -155,6 +173,6 @@ PPTX text, basic shapes, tables and charts remain editable. Complex procedural a
 
 ## Authorship
 
-Created by **xingchenyd**. Independent code, visual rules, tests and interfaces; no core code or style data copied from hash-design. The compare–select–freeze workflow was inspired by [qybaihe/hash-design](https://github.com/qybaihe/hash-design).
+Created by **xingchenyd**. The compare-and-select workflow was inspired by hash-design. Version 0.3 uses selected MIT-licensed colour sets from its historical branch catalogue. [qybaihe/hash-design](https://github.com/qybaihe/hash-design) · [Third-party notices](THIRD_PARTY_NOTICES.md)
 
 [MIT License](LICENSE) · [Dependencies and fonts](THIRD_PARTY_NOTICES.md) · [Contributing](CONTRIBUTING.md)

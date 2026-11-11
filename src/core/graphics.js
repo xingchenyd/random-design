@@ -1,8 +1,11 @@
 import { assertDesign } from './engine.js';
+import { presetById } from './presets.js';
+import { presetArtwork } from './preset-art.js';
 import { rng, between, round } from './util.js';
 
 // Every operator draws a single subject or a disciplined repeat. No automatic mirrored/rotated ghosts.
 export function graphicSvg(design, { decorative = false } = {}) {
+  if (presetById(design.direction)) return presetArtwork(assertDesign(design), decorative);
   const d = assertDesign(design), g = d.graphic, p = d.palette, r = rng(String(g.seed));
   const a = p.accent, b = p.accent2, c = p.panel;
   const paths = [], defs = [];

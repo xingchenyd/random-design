@@ -2,11 +2,43 @@ import PptxGenJS from 'pptxgenjs';
 import { assertDesign } from './core/engine.js';
 import { graphicSvg, textureSvg } from './core/graphics.js';
 import { directionById } from './core/directions.js';
+import { presetById } from './core/presets.js';
+import { contrast, textOn } from './core/color.js';
 import { normalizeContent } from './render.js';
+
+const COVER_CARDS = {
+  brutalism: { fills: ['#ffdf24', '#fffdf5', '#f74832'], stroke: '#181818', weight: 2.5 },
+  'pop-art': { fills: ['#ffdf57', '#fbf1d9', '#b2c5ff'], stroke: '#241b28', weight: 2.5 },
+  memphis: { fills: ['#fbe17b', '#d7c7fb', '#8bdfc7'], stroke: '#282139', weight: 1.7 },
+  claymorphism: { fills: ['#fff2e8', '#e5d9f5', '#d5eddf'], shadow: true },
+  neumorphism: { shadow: true },
+  neubrutalism: { fills: ['#ffdc56', '#b9ddfa', '#f5a1b9'], stroke: '#172821', weight: 2.5 },
+  bauhaus: { fills: ['#f2c21b', '#2451a4', '#a9231b'], stroke: '#191919', weight: 1.4 },
+  bento: { fills: ['#ecdfc6', '#a7cdb1', '#dc937a'] }
+};
+const RULED_COVERS = new Set(['editorial', 'swiss', 'retro-terminal', 'new-chinese']);
+const LIGHT_FIELDS = {
+  aurora: ['#21856d', '#4778bd', '#443275'],
+  glassmorphism: ['#29846e', '#466db2', '#99694c'],
+  y2k: ['#e8b7f0', '#a8edf2', '#debafb']
+};
+
+function lightField(direction, paper) {
+  const colours = LIGHT_FIELDS[direction];
+  if (!colours) return undefined;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+    <defs><linearGradient id="field" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${colours[0]}"/><stop offset="31%" stop-color="${colours[1]}"/>
+      <stop offset="67%" stop-color="${paper}"/><stop offset="100%" stop-color="${colours[2]}"/>
+    </linearGradient></defs><path d="M0 0H1280V720H0Z" fill="url(#field)"/></svg>`;
+}
 
 // Product exporter: portable JS, no desktop application or model API required.
 export function createPresentation(design, { language = 'zh', content: input = {} } = {}) {
-  const d = assertDesign(design), c = normalizeContent(input, language), p = d.palette, l = d.layout, t = d.typography;
+  const d = assertDesign(design);
+  const coffeeSample = d.schema === 3 && !Object.keys(input).length;
+  const c = normalizeContent(input, language, coffeeSample), p = d.palette, l = d.layout, t = d.typography;
+  const preset = presetById(d.direction);
   if (c.sections.length > 3) throw new Error('The six-slide specimen supports up to three sections. Use the visual JSON in a content-aware deck workflow for a larger outline.');
   const limits = language === 'zh' ? { title: 24, description: 160, heading: 18, section: 80 } : { title: 90, description: 320, heading: 40, section: 160 };
   if (c.title.length > limits.title || c.description.length > limits.description || c.sections.some(([a, b]) => a.length > limits.heading || b.length > limits.section)) throw new Error('Content exceeds the theme specimen text budget. Keep the original content and use an agent to paginate it; no text was truncated.');
@@ -36,14 +68,19 @@ export function createPresentation(design, { language = 'zh', content: input = {
   }
   function rect(s, x, y, w, h, fill) { s.addShape(pptx.ShapeType.rect, { x, y, w, h, line: { color: color(fill), transparency: 100 }, fill: { color: color(fill) } }); }
   function rule(s, x, y, w, fill = p.rule) { s.addShape(pptx.ShapeType.line, { x, y, w, h: 0, line: { color: color(fill), width: d.surface.border } }); }
+  function svgImage(slide, svg, x, y, w, h, transparency = 0) {
+    const encoded = typeof Buffer !== 'undefined' ? Buffer.from(svg).toString('base64') : btoa(unescape(encodeURIComponent(svg)));
+    slide.addImage({ data: `data:image/svg+xml;base64,${encoded}`, x, y, w, h, transparency });
+  }
   function base(number) {
     const s = pptx.addSlide(); s.background = { color: color(p.paper) };
+    const field = number === 1 ? lightField(d.direction, p.paper) : undefined;
+    if (field) svgImage(s, field, 0, 0, W, H);
     if (['grid', 'fine-lines', 'woven'].includes(d.surface.texture)) {
       for (let y = 0.2; y < 7.5; y += d.surface.texture === 'woven' ? 0.08 : 0.35) s.addShape(pptx.ShapeType.line, { x: 0, y, w: W, h: 0, line: { color: color(p.ink), transparency: 91, width: 0.35 } });
       if (d.surface.texture !== 'fine-lines') for (let x = 0.2; x < W; x += d.surface.texture === 'woven' ? 0.08 : 0.35) s.addShape(pptx.ShapeType.line, { x, y: 0, w: 0, h: H, line: { color: color(p.ink), transparency: 91, width: 0.35 } });
     } else if (['grain', 'fibres', 'halftone'].includes(d.surface.texture)) {
-      const svg = textureSvg(d); const encoded = typeof Buffer !== 'undefined' ? Buffer.from(svg).toString('base64') : btoa(unescape(encodeURIComponent(svg)));
-      s.addImage({ data: `data:image/svg+xml;base64,${encoded}`, x: 0, y: 0, w: W, h: H, transparency: 50 });
+      svgImage(s, textureSvg(d), 0, 0, W, H, 50);
     }
     text(s, c.subtitle, 0.6, 0.25, 9.5, 0.24, { fontSize: 10, color: color(p.muted) });
     text(s, String(number).padStart(2, '0'), 11.8, 6.95, 0.8, 0.22, { fontSize: 10, align: 'right', color: color(p.muted) });
@@ -57,9 +94,7 @@ export function createPresentation(design, { language = 'zh', content: input = {
   }
   function heading(s, value) { text(s, value, 0.65, 0.95, 11.9, 0.85, { fontSize: 32, fontFace: displayFont, bold: t.titleWeight >= 650, charSpacing: t.tracking * 20 }); }
   function art(s, x, y, w, h, transparency = 0) {
-    const svg = graphicSvg(d);
-    const base64 = typeof Buffer !== 'undefined' ? Buffer.from(svg).toString('base64') : btoa(unescape(encodeURIComponent(svg)));
-    s.addImage({ data: `data:image/svg+xml;base64,${base64}`, x, y, w, h, transparency });
+    svgImage(s, graphicSvg(d), x, y, w, h, transparency);
   }
   const s1 = base(1), direction = directionById(d.direction);
   let titleBox = { x: 0.8, y: 2.0, w: 6.0, h: 2.5 }, artBox = { x: 7.0, y: 1.0, w: 5.5, h: 5.2 };
@@ -97,11 +132,70 @@ export function createPresentation(design, { language = 'zh', content: input = {
     artBox = { x: 10.3, y: 4.5, w: 2, h: 1.9 };
     rule(s1, 0.85, 1.35, 10.8, p.ink);
   }
+  if (preset) {
+    const menuSide = ['menu', 'scroll', 'bento'].includes(preset.layout);
+    const center = preset.layout === 'center';
+    titleBox = { x: center ? 1.2 : 0.85, y: center ? 2.45 : 1.4, w: center ? 10.9 : 6.15, h: 1.65 };
+    titleSize = center ? 59 : ['brutalism', 'swiss', 'bauhaus'].includes(preset.id) ? 67 : 56;
+    align = center ? 'center' : 'left';
+    artBox = center
+      ? { x: 5.2, y: 0.65, w: 2.9, h: 1.9 }
+      : menuSide ? { x: 2.8, y: 3.7, w: 3.75, h: 2.8 } : { x: 7.15, y: 0.7, w: 5.15, h: 4.0 };
+    if (preset.layout === 'bento') {
+      s1.addShape(pptx.ShapeType.roundRect, {
+        x: 0.55, y: 0.8, w: 6.5, h: 5.75, rectRadius: 0.22,
+        line: { color: color(p.panel), transparency: 100 }, fill: { color: color(p.panel) }
+      });
+      titleColor = p.panelInk;
+    }
+    if (preset.layout === 'scroll' && language === 'zh' && [...c.title].length <= 6) {
+      titleBox = { x: 0.85, y: 1.05, w: 1.2, h: 4.8 };
+      titleSize = 42;
+      artBox = { x: 2.05, y: 1.45, w: 4.85, h: 3.95 };
+    }
+    if (['retro-terminal', 'art-deco', 'new-chinese', 'sci-fi-hud', 'y2k'].includes(preset.id)) {
+      s1.addShape(pptx.ShapeType.rect, {
+        x: 0.45, y: 0.65, w: 12.4, h: 5.95,
+        line: { color: color(p.accent), width: preset.id === 'art-deco' ? 2 : 1 },
+        fill: { color: color(p.paper), transparency: 100 }
+      });
+    }
+    if (preset.graphic === 'none') artBox = undefined;
+    const cards = COVER_CARDS[preset.id] ?? {};
+    const ruled = RULED_COVERS.has(preset.id);
+    if (c.prices) c.sections.forEach(([name], index) => {
+      const bento = preset.layout === 'bento';
+      const smallTile = bento && index > 0;
+      const x = bento ? (index === 2 ? 10.18 : 7.55) : menuSide ? 7.55 : 0.8 + index * 4.02;
+      const y = bento ? (smallTile ? 3.76 : 1.28) : menuSide ? 1.28 + index * 1.57 : 5.16;
+      const width = smallTile ? 2.29 : menuSide ? 4.92 : 3.78;
+      const height = bento ? 2.18 : menuSide ? 1.30 : 1.22;
+      const fill = ruled ? p.paper : cards.fills?.[index] ?? p.panel;
+      const cardInk = contrast(p.ink, fill) >= 4.5 ? p.ink : textOn(fill, p.hue, 0.025, 7);
+      if (ruled) {
+        rule(s1, x, y, width, p.rule);
+      } else {
+        s1.addShape(d.surface.radius ? pptx.ShapeType.roundRect : pptx.ShapeType.rect, {
+          x, y, w: width, h: height, rectRadius: 0.12,
+          line: { color: color(cards.stroke ?? p.accent), width: cards.weight ?? 0.8 },
+          fill: { color: color(fill) },
+          ...(cards.shadow ? { shadow: { type: 'outer', color: '292431', opacity: 0.17, blur: 8, angle: 45, distance: 3 } } : {})
+        });
+      }
+      const nameWidth = smallTile ? width - 0.4 : width - 1.65;
+      text(s1, name, x + 0.2, y + 0.26, nameWidth, 0.69, { fontSize: 19, bold: true, color: color(cardInk) });
+      text(s1, c.prices[index], smallTile ? x + 0.2 : x + width - 1.37, y + (smallTile ? 1.12 : 0.24), 1.12, 0.72, {
+        fontSize: 23, fit: 'shrink', align: smallTile ? 'left' : 'right', color: color(cardInk), fontFace: displayFont
+      });
+    });
+  }
   if (artBox) art(s1, artBox.x, artBox.y, artBox.w, artBox.h);
   const eyebrowY = d.direction === 'enamel' ? 1.92 : titleBox.y - 0.5;
-  text(s1, c.eyebrow, titleBox.x, eyebrowY, titleBox.w, 0.25, { fontSize: 9, color: color(titleColor), align });
-  text(s1, c.title, titleBox.x, titleBox.y, titleBox.w, titleBox.h, { fontSize: language === 'en' ? titleSize - 4 : titleSize, color: color(titleColor), fontFace: displayFont, bold: t.titleWeight >= 650, align, charSpacing: t.tracking * 20 });
-  text(s1, c.subtitle, titleBox.x, Math.min(titleBox.y + titleBox.h + 0.23, 5.8), titleBox.w, 0.45, { fontSize: 17, color: color(d.direction === 'atelier' ? p.panelInk : p.ink), align });
+  if (!preset) text(s1, c.eyebrow, titleBox.x, eyebrowY, titleBox.w, 0.25, { fontSize: 9, color: color(titleColor), align });
+  const verticalTitle = preset?.layout === 'scroll' && language === 'zh' && [...c.title].length <= 6;
+  const coverTitle = verticalTitle ? [...c.title].join('\n') : c.title;
+  text(s1, coverTitle, titleBox.x, titleBox.y, titleBox.w, titleBox.h, { fontSize: language === 'en' ? titleSize - 4 : titleSize, color: color(titleColor), fontFace: displayFont, bold: t.titleWeight >= 650, align, charSpacing: t.tracking * 20, ...(preset ? { fit: 'shrink' } : {}) });
+  if (!preset) text(s1, c.subtitle, titleBox.x, Math.min(titleBox.y + titleBox.h + 0.23, 5.8), titleBox.w, 0.45, { fontSize: 17, color: color(d.direction === 'atelier' ? p.panelInk : p.ink), align });
 
   const s2 = base(2); heading(s2, c.sectionTitle);
   rect(s2, 0.65, 2.05, 6.45, 4.2, p.panel);
@@ -112,7 +206,8 @@ export function createPresentation(design, { language = 'zh', content: input = {
     text(s2, b, 7.65, 2.85 + i * 1.2, 4.6, 0.65, { fontSize: 14, valign: 'top', color: color(p.muted) });
   });
 
-  const s3 = base(3); heading(s3, language === 'zh' ? '从观察到表达' : 'A process of expression');
+  const s3 = base(3);
+  heading(s3, coffeeSample ? (language === 'zh' ? '三款咖啡' : 'Three coffees') : (language === 'zh' ? '从观察到表达' : 'A process of expression'));
   c.sections.slice(0, 3).forEach(([a, b], i) => {
     const x = 0.8 + i * 4.15, y = 2.6 + (l.rhythm === 'progressive' ? i * 0.28 : l.rhythm === 'alternating' ? (i % 2) * 0.45 : 0);
     text(s3, `0${i + 1}`, x, y, 3.5, 0.75, { fontSize: 40, color: color(p.accentInk), fontFace: displayFont });
@@ -123,8 +218,11 @@ export function createPresentation(design, { language = 'zh', content: input = {
 
   const s4 = base(4); heading(s4, c.dataTitle);
   text(s4, language === 'zh' ? '演示数据 · 非研究结果' : 'Illustrative data · not research results', 0.8, 1.9, 11.5, 0.35, { fontSize: 12, color: color(p.muted) });
-  const labels = language === 'zh' ? ['观察', '构建', '交流'] : ['Observe', 'Build', 'Exchange'];
-  s4.addChart(pptx.ChartType.bar, [{ name: language === 'zh' ? '示例数量' : 'Example count', labels, values: [24, 38, 31] }], {
+  const labels = coffeeSample ? c.sections.map(([name]) => name) :
+    language === 'zh' ? ['观察', '构建', '交流'] : ['Observe', 'Build', 'Exchange'];
+  const values = coffeeSample ? [18, 15, 28] : [24, 38, 31];
+  const seriesName = coffeeSample ? c.dataTitle : language === 'zh' ? '示例数量' : 'Example count';
+  s4.addChart(pptx.ChartType.bar, [{ name: seriesName, labels, values }], {
     x: 0.85, y: 2.65, w: 8, h: 3.7, catAxisLabelFontFace: bodyFont, catAxisLabelFontSize: 16, valAxisLabelFontFace: bodyFont, valAxisLabelFontSize: 12,
     catAxisLabelColor: color(p.ink), valAxisLabelColor: color(p.muted), chartColors: [color(p.accent)], showLegend: false, showTitle: false,
     showValue: true, dataLabelFormatCode: '0', dataLabelColor: color(p.ink), dataLabelBkgrdColor: color(p.paper), dataLabelPosition: 'outEnd', dataLabelFormatCodeSourceLinked: false,
@@ -135,11 +233,17 @@ export function createPresentation(design, { language = 'zh', content: input = {
     chartArea: { fill: { color: color(p.paper) } }, plotArea: { fill: { color: color(p.paper) } },
     showPercent: false, lang: pptx.lang
   });
-  text(s4, '38', 9.6, 3.1, 2.6, 1.1, { fontSize: 64, color: color(p.accentInk), fontFace: displayFont });
-  text(s4, language === 'zh' ? '构建方向的示例数量' : 'Example count for Build', 9.6, 4.5, 2.6, 1, { fontSize: 17 });
+  text(s4, coffeeSample ? '¥28' : '38', 9.6, 3.1, 2.6, 1.1, { fontSize: coffeeSample ? 56 : 64, color: color(p.accentInk), fontFace: displayFont });
+  const highlight = coffeeSample ? labels[2] : language === 'zh' ? '构建方向的示例数量' : 'Example count for Build';
+  text(s4, highlight, 9.6, 4.5, 2.6, 1, { fontSize: 17 });
 
-  const s5 = base(5); heading(s5, language === 'zh' ? '为不同内容保留空间' : 'Room for different kinds of content');
-  const rows = language === 'zh' ? [['内容', '表达重点', '呈现方式'], ['观点', '清晰的主次关系', '标题与段落'], ['过程', '步骤与关联', '原生形状与连线'], ['数据', '尺度与比较', '可编辑图表']] : [['Content', 'Focus', 'Presentation'], ['Ideas', 'Clear hierarchy', 'Headings and text'], ['Process', 'Steps and connections', 'Native shapes'], ['Data', 'Scale and comparison', 'Editable chart']];
+  const s5 = base(5);
+  heading(s5, coffeeSample ? c.sectionTitle : language === 'zh' ? '为不同内容保留空间' : 'Room for different kinds of content');
+  const rows = coffeeSample
+    ? [language === 'zh' ? ['饮品', '配方', '价格'] : ['Drink', 'Preparation', 'Price'],
+      ...c.sections.map(([name, detail], index) => [name, detail, c.prices[index]])]
+    : language === 'zh' ? [['内容', '表达重点', '呈现方式'], ['观点', '清晰的主次关系', '标题与段落'], ['过程', '步骤与关联', '原生形状与连线'], ['数据', '尺度与比较', '可编辑图表']]
+      : [['Content', 'Focus', 'Presentation'], ['Ideas', 'Clear hierarchy', 'Headings and text'], ['Process', 'Steps and connections', 'Native shapes'], ['Data', 'Scale and comparison', 'Editable chart']];
   s5.addTable(rows, { x: 0.8, y: 2.4, w: 11.7, h: 3.1, colW: [2.1, 4.6, 5], rowH: 0.78, fontFace: bodyFont, fontSize: 18, color: color(p.ink), fill: color(p.paper), border: { type: 'solid', color: color(p.rule), pt: 0.7 }, margin: 0.16, bold: false, autoPage: false });
   text(s5, c.note, 0.8, 5.9, 11.5, 0.35, { fontSize: 10, color: color(p.muted) });
 
@@ -148,7 +252,8 @@ export function createPresentation(design, { language = 'zh', content: input = {
   else if (editorial) art(s6, 10.1, 4.45, 2.1, 1.95);
   else art(s6, 7.2, 1.3, 5.2, 4.7);
   const endWidth = sign ? 11.7 : editorial ? 9.4 : 6.4;
-  text(s6, language === 'zh' ? '让下一次表达，\n有自己的形状' : 'Give the next idea\na shape of its own', 0.8, sign ? 2.35 : 2, endWidth, 2.5, { fontSize: language === 'zh' ? 36 : 38, fontFace: displayFont, bold: t.titleWeight >= 650, align: sign ? 'center' : 'left' });
+  const closing = coffeeSample ? (language === 'zh' ? '今天也要好好喝一杯' : 'A quiet moment\nwith a cup of coffee') : (language === 'zh' ? '让下一次表达，\n有自己的形状' : 'Give the next idea\na shape of its own');
+  text(s6, closing, 0.8, sign ? 2.35 : 2, endWidth, 2.5, { fontSize: language === 'zh' ? 36 : 38, fontFace: displayFont, bold: t.titleWeight >= 650, align: sign ? 'center' : 'left' });
   text(s6, c.subtitle, 0.8, 5.1, endWidth, 0.6, { fontSize: 18, color: color(p.accentInk), align: sign ? 'center' : 'left' });
   return pptx;
 }

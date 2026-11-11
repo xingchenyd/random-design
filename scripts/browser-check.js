@@ -2,12 +2,12 @@ import { chromium } from 'playwright';
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { serve } from './serve.js';
-import { generate } from '../src/core/index.js';
+import { generate, getPreset, PRESETS } from '../src/core/index.js';
 import { DIRECTIONS } from '../src/core/directions.js';
 import { pageHtml } from '../src/render.js';
 
 const server = await serve({ port: 0 });
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, channel: process.env.RANDOM_DESIGN_BROWSER });
 const errors = [], checks = [];
 await fs.mkdir('.private/browser', { recursive: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1050 }, deviceScaleFactor: 1 });
@@ -45,6 +45,21 @@ try {
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
   await page.screenshot({ path: 'docs/assets/studio-mobile.png', fullPage: true });
   checks.push('390px studio layout');
+  await page.locator('#mode-fixed').click();
+  assert.equal(await page.locator('#preset-select option').count(), 21);
+  await page.locator('#preset-select').selectOption('new-chinese');
+  assert.equal(await page.locator('.design-card').count(), 1);
+  assert.match(await page.locator('.design-head h3').innerText(), /新中式/);
+  const fixedDownload = page.waitForEvent('download');
+  await page.locator('.design-card').getByRole('button', { name: 'PPTX', exact: true }).click();
+  await (await fixedDownload).saveAs('.private/browser/new-chinese.pptx');
+  await page.goto(`http://127.0.0.1:${server.address().port}/presets/en.html`, { waitUntil: 'domcontentloaded' });
+  assert.equal(await page.locator('main article').count(), 21);
+  await page.locator('main article').last().getByRole('link', { name: /Use in studio/ }).click();
+  await page.waitForFunction(() => document.querySelector('#preset-select')?.value === 'new-chinese');
+  assert.equal(await page.locator('#preset-select').inputValue(), 'new-chinese');
+  assert.match(await page.locator('.design-head h3').innerText(), /New Chinese Style/);
+  checks.push('21-item gallery, direct selection, English deep link and fixed PPTX download');
   // Exercise every supported direction/layout pair at desktop + mobile with both languages.
   let pages = 0;
   for (const language of ['zh', 'en']) for (const direction of DIRECTIONS) for (const composition of direction.layouts) {
@@ -56,6 +71,21 @@ try {
     }
   }
   checks.push(`${pages} website layouts across all supported direction/layout pairs / languages / widths`);
+  let fixedPages = 0;
+  for (const preset of PRESETS) for (const language of ['zh', 'en']) {
+    const design = getPreset(preset.id);
+    for (const width of [1280, 390]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.setContent(pageHtml(design, { language, fonts: false }));
+      assert.equal(await page.locator('.price').count(), 3);
+      assert(await page.evaluate(() => {
+        const title = document.querySelector('h1').getBoundingClientRect();
+        return document.documentElement.scrollWidth <= innerWidth && title.x >= 0 && title.right <= innerWidth;
+      }), `${preset.id}/${language}/${width} overflow`);
+      fixedPages++;
+    }
+  }
+  checks.push(`${fixedPages} fixed-style / language / viewport combinations`);
   assert.deepEqual(errors, []);
   const report = { checks, javascriptErrors: errors, actualDeviceTest: false, powerpointDesktopTest: false };
   await fs.mkdir('docs/validation', { recursive: true }); await fs.writeFile('docs/validation/browser.json', JSON.stringify(report, null, 2));

@@ -3,6 +3,8 @@
     {
       "transport": "stdio",
       "tools": [
+        "list_presets",
+        "get_preset",
         "generate_directions",
         "render_design",
         "validate_design",
@@ -17,6 +19,8 @@
     {
       "transport": "streamable-http",
       "tools": [
+        "list_presets",
+        "get_preset",
         "generate_directions",
         "render_design",
         "validate_design",

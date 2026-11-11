@@ -2,7 +2,13 @@
 
 [中文首页](../README.md) · [English](../README.en.md)
 
-## Visual grammar, not a completed theme catalogue
+## Fixed styles and hash generation
+
+The 21 [fixed styles](presets.md) define stable names, palette roles, fonts, illustrations and website layouts. The browser, CLI and MCP use the same preset lookup. Direct selection uses a stable specification and can be repeated independently of random history.
+
+Hash generation samples those 21 directions plus the original eight. A direction's palette candidates include the compatible [historical hash-design swatches](../THIRD_PARTY_NOTICES.md), where available. Small shared hue shifts and bounded changes in lightness preserve the source palette relationships. The original directions also sample continuous colour ranges. Actual canvas chroma and text contrast are checked after conversion to sRGB.
+
+## Original procedural directions
 
 The finite building blocks are **operators**, not complete styles. Eight art-direction grammars constrain typography, allowed layouts, colour families, colour relationships, graphic purpose and material. Eleven structured graphic operators construct one subject or one repeat system. The engine samples actual palette colours, layout balance, density, whitespace, typography metrics, meaningful graphic amplitude/count/line weight and surface parameters. Arbitrary rotation and mirrored copies are disabled. It combines these rules under scenario and readability constraints.
 
@@ -17,7 +23,7 @@ These components are intentionally finite and inspectable. The engine does not i
 3. Derive a deterministic non-cryptographic PRNG stream from SHA-256 of the versioned seed. This is procedural sampling, not a source of additional entropy.
 4. Select a coherent art direction, then generate continuous OKLCH colours within compatible families, font roles, supported spatial relations and meaningful graphic parameters. Default large canvases are chromatic. Materials and graphics must obey the same direction. See [visual-direction.md](visual-direction.md).
 5. Check schema, semantic visual fingerprint and selected text contrast. Typography uses real referenced fonts and CJK fallback families.
-6. Within each block of 24 candidates, retain the valid candidate with the greatest minimum distance to recent history and already selected candidates. Refuse candidates below the requested threshold. Continue until the set is complete or the attempt budget is exhausted.
+6. Within each block of 24 candidates, rank valid candidates by minimum distance, recent direction frequency and light/dark diversity. Reject candidates below the requested threshold and continue until the set is complete or the attempt budget is exhausted.
 
 ## Novelty policy
 
@@ -27,7 +33,7 @@ These components are intentionally finite and inspectable. The engine does not i
 - **Failure:** no silent relaxation. The caller receives an exhaustion error; no partial set is added to history.
 - **History scope:** Node defaults to `~/.random-design/history-v2.json` with a process lock and atomic file replacement. Browser uses localStorage and Web Locks when available; without Web Locks, concurrent tabs are not fully serialized. Export/import transfers history between environments. HTTP MCP receives client-owned history; it has no cross-user ledger.
 
-The distance measure is a transparent engineering heuristic. It has not been calibrated against human similarity ratings. There is no image-embedding or screenshot perceptual similarity model in v0.2.0. Claims of tens of thousands of "unique art styles" would be unjustified.
+The distance measure compares specified attributes. The rendered catalogue provides the visual review surface. Fixed styles and hashed variants share the same exporters.
 
 ## Reproduction and content
 
@@ -37,4 +43,4 @@ Content is supplied separately. The engine does not randomize factual text, numb
 
 ## Versioning
 
-`random-design/2` identifies behavioral rules. `LIBRARY` hashes declarative pools. Any change to sampling, distance, visual rendering or pools that alters reproduction requires a version/release decision and regenerated examples/validation. A library fingerprint alone does not identify a modified source checkout; retain the Git commit or release as well.
+`random-design/3` identifies the v0.3 sampling rules. `LIBRARY` hashes the declarative pools. v0.3 reads the v0.2 saved specifications and history entries. Use the release matching the stored seed if you need to reconstruct a previous sampling sequence from the seed.

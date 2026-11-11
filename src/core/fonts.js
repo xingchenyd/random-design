@@ -15,7 +15,8 @@ export const FONTS = [
   { id: 'cjk-literary', display: 'ZCOOL XiaoWei', body: 'Source Sans 3', cjk: 'ZCOOL XiaoWei', kind: 'serif', weight: 400 },
   { id: 'cjk-condensed', display: 'ZCOOL QingKe HuangYou', body: 'Barlow', cjk: 'ZCOOL QingKe HuangYou', kind: 'condensed', weight: 400 },
   { id: 'cjk-playful', display: 'ZCOOL KuaiLe', body: 'Nunito Sans', cjk: 'ZCOOL KuaiLe', kind: 'handwritten', weight: 400 },
-  { id: 'cjk-brush', display: 'Ma Shan Zheng', body: 'Source Sans 3', cjk: 'Ma Shan Zheng', kind: 'handwritten', weight: 400 }
+  { id: 'cjk-brush', display: 'Ma Shan Zheng', body: 'Source Sans 3', cjk: 'Ma Shan Zheng', kind: 'handwritten', weight: 400 },
+  { id: 'deco', display: 'Cinzel', body: 'DM Sans', cjk: 'Noto Serif SC', kind: 'serif', weight: 600 }
 ];
 export function fontUrl(font) {
   const families = [...new Set([font.display, font.body, font.cjk])];

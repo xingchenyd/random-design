@@ -1,4 +1,6 @@
 import { renderWebsite } from './website.js';
+import { renderPresetWebsite } from './preset-website.js';
+import { presetById } from './core/presets.js';
 import { directionById } from './core/directions.js';
 import { assertDesign, validateDesign } from './core/engine.js';
 import { fontUrl } from './core/fonts.js';
@@ -9,13 +11,32 @@ export const SAMPLE = {
   zh: { title: '把想法，\n展开成可能', subtitle: '星辰开放日', description: '一次关于设计、技术与日常创造的交流。用清晰的结构呈现内容，让每一个想法获得自己的表达。', sectionTitle: '让内容找到自己的形状', sections: [ ['观察', '从真实的问题出发，梳理内容与使用情境。'], ['构建', '用颜色、文字和图形建立一致的视觉语言。'], ['交流', '在讨论与反馈中，把方向变成具体的作品。'] ], action: '了解活动', eyebrow: 'DESIGN · TECHNOLOGY · CULTURE', note: '虚构演示内容，用于比较主题；不代表真实活动或研究结论。', dataTitle: '不同方向的探索', data: ['观察', '构建', '交流'] },
   en: { title: 'Ideas into\npossibilities', subtitle: 'Xingchen Open Day', description: 'A gathering about design, technology and everyday creativity. Clear structure gives every idea room to find its own expression.', sectionTitle: 'Give content a visual voice', sections: [ ['Observe', 'Start with real questions, content and the context of use.'], ['Build', 'Connect colour, type and graphics into a coherent visual language.'], ['Exchange', 'Turn a direction into a concrete work through conversation and feedback.'] ], action: 'Explore the event', eyebrow: 'DESIGN · TECHNOLOGY · CULTURE', note: 'Fictional demonstration content. Not a real event or research finding.', dataTitle: 'Exploration by direction', data: ['Observe', 'Build', 'Exchange'] }
 };
-export function normalizeContent(input = {}, language = 'zh') {
-  const base = SAMPLE[language] ?? SAMPLE.zh;
+export const COFFEE_SAMPLE = {
+  zh: {
+    title: '岚谷咖啡', subtitle: '岚谷咖啡', description: '今天也要好好喝一杯。现磨咖啡，留给一天里安静的片刻。',
+    sectionTitle: '今日菜单', action: '查看菜单', eyebrow: 'LANGU COFFEE',
+    sections: [['拿铁', '浓缩咖啡与鲜奶'], ['美式', '浓缩咖啡与水'], ['手冲', '单品豆与滤纸慢萃']],
+    prices: ['¥18', '¥15', '¥28'], dataTitle: '菜单价格示例', note: '岚谷咖啡为虚构示例。'
+  },
+  en: {
+    title: 'Langu Coffee', subtitle: 'Langu Coffee', description: 'Freshly ground coffee for a quiet moment in your day.',
+    sectionTitle: 'Today’s menu', action: 'View menu', eyebrow: 'LANGU COFFEE',
+    sections: [['Latte', 'Espresso and fresh milk'], ['Americano', 'Espresso and water'], ['Pour-over', 'Single-origin filter coffee']],
+    prices: ['¥18', '¥15', '¥28'], dataTitle: 'Sample menu prices', note: 'Langu Coffee is a fictional example.'
+  }
+};
+export function normalizeContent(input = {}, language = 'zh', coffee = false) {
+  const samples = coffee && !Object.keys(input).length ? COFFEE_SAMPLE : SAMPLE;
+  const base = samples[language] ?? samples.zh;
   const content = { ...base, ...input };
   for (const key of ['title', 'subtitle', 'description', 'sectionTitle', 'action', 'eyebrow', 'note', 'dataTitle']) {
     if (typeof content[key] !== 'string' || content[key].length > ({ title: 120, subtitle: 100, description: 800, sectionTitle: 160 }[key] ?? 400)) throw new Error(`Invalid or overlong content.${key}`);
   }
   if (!Array.isArray(content.sections) || content.sections.length < 1 || content.sections.length > 6 || content.sections.some(s => !Array.isArray(s) || s.length !== 2 || typeof s[0] !== 'string' || typeof s[1] !== 'string' || s[0].length > 100 || s[1].length > 500)) throw new Error('sections must contain 1–6 [heading, text] pairs');
+  if (content.prices !== undefined && (!Array.isArray(content.prices) || content.prices.length !== content.sections.length
+    || content.prices.some(price => typeof price !== 'string' || price.length > 24))) {
+    throw new Error('prices must contain one short string per section');
+  }
   return content;
 }
 export function tokensCss(d) {
@@ -31,7 +52,10 @@ export function brief(d, { language = 'zh' } = {}) {
 }
 export function pageHtml(d, { language = 'zh', content: input = {}, fonts = true } = {}) {
   assertDesign(d);
-  return renderWebsite(d, normalizeContent(input, language), { language, fonts, css: tokensCss(d) });
+  const preset = presetById(d.direction);
+  const content = normalizeContent(input, language, d.schema === 3);
+  const options = { language, fonts, css: tokensCss(d) };
+  return preset ? renderPresetWebsite(d, preset, content, options) : renderWebsite(d, content, options);
 }
 export function compareHtml(bundle, { language = 'zh', content = {}, pptx = true } = {}) {
   return `<!doctype html><html lang="${language}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Random Design · Compare</title><style>body{margin:0;padding:36px;background:#f4f2ed;color:#1f2826;font:15px system-ui}h1{font-size:32px}header{max-width:1200px;margin:auto auto 30px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px}article{min-width:0}iframe{border:1px solid #ccc;width:100%;height:590px;background:white}a{color:inherit}small{color:#555}</style></head><body><header><p>RANDOM DESIGN / ${bundle.library}</p><h1>${language === 'zh' ? '同一份内容，多种视觉可能' : 'One story, distinct visual systems'}</h1><p>${language === 'zh' ? '同一设计规范的网页预览；请打开原页面检查真实尺寸。' : 'Website previews from shared visual specifications. Open each page to inspect full size.'}</p></header><div class="grid">${bundle.designs.map((d, i) => `<article><h2>${i + 1}. ${e(d.name[language])}</h2><p><a href="${String(i + 1).padStart(2, '0')}/page.html">${language === 'zh' ? '打开网页' : 'Open page'}</a>${pptx ? ` · <a href="${String(i + 1).padStart(2, '0')}/theme.pptx">PPTX</a>` : ''} · <a href="${String(i + 1).padStart(2, '0')}/brief.md">Brief</a></p><iframe title="${e(d.name[language])}" sandbox="allow-same-origin" srcdoc="${e(pageHtml(d, { language, content }))}" loading="lazy"></iframe></article>`).join('')}</div></body></html>`;

@@ -1,3 +1,5 @@
+import { PRESETS } from './presets.js';
+
 // Art-direction grammars: constrain type, composition, material and the role of the graphic.
 export const DIRECTIONS = [
   { id: 'edition', name: { zh: '套色版画', en: 'Colour edition' }, source: 'Two-ink exhibition prints', role: 'One interlocking emblem; two opaque inks and one registration offset.', graphics: ['interlock', 'fold'], layouts: ['split', 'type', 'band'], fonts: ['poster', 'industrial', 'geometric', 'cjk-condensed'], textures: ['grain', 'halftone'], edge: 'square', motif: 'register', type: 'display' },
@@ -26,5 +28,9 @@ export const DIRECTION_COLOURS = {
   atelier: ['aqua', 'rose', 'lilac', 'apricot', 'pistachio', 'wine', 'umber'],
   play: ['citrus', 'cobalt', 'vermilion', 'aqua', 'lilac', 'apricot']
 };
-export const directionById = id => DIRECTIONS.find(d => d.id === id);
+export const ALL_DIRECTIONS = [...DIRECTIONS, ...PRESETS.map(preset => ({
+  id: preset.id, name: preset.name, source: '21-style comparison video', role: preset.role,
+  graphics: [preset.graphic], layouts: [preset.layout], fonts: [preset.font], textures: [preset.texture]
+}))];
+export const directionById = id => ALL_DIRECTIONS.find(d => d.id === id);
 export const TEXTURES = ['none', 'fine-lines', 'dots', 'grid', 'grain', 'fibres', 'halftone', 'woven', 'enamel'];

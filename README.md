@@ -8,7 +8,7 @@
 
 先确定有依据的视觉语言，再生成颜色、排印、构图和图形；用实际预览比较方案。
 
-[**打开在线工作台 →**](https://xingchenyd.github.io/random-design/) · [五方案实际对比](https://xingchenyd.github.io/random-design/examples/compare.html) · [设计机制](docs/architecture.md) · [跨环境接入](docs/integrations.md)
+[**打开在线工作台 →**](https://xingchenyd.github.io/random-design/) · [21 种固定风格](https://xingchenyd.github.io/random-design/presets/) · [随机哈希示例](https://xingchenyd.github.io/random-design/presets/hash.html) · [跨环境接入](docs/integrations.md)
 
 ![工作台实际截图](docs/assets/studio-desktop.png)
 
@@ -16,7 +16,25 @@
 
 </div>
 
-## v0.2 的视觉生成方式
+## 固定风格与随机哈希
+
+**固定风格**可按名字直接选用。21 项按参考视频的顺序收录，包含赛博朋克、玻璃拟态、瑞士风格、像素风、便当盒和新中式。图录让同一家虚构咖啡店使用相同文案和价格，便于比较布局、配色、排印与材质。网页和六页 PPTX 均可从工作台导出。[完整风格与 ID](docs/presets.md)
+
+![四种固定风格的实际网页截图](docs/assets/presets-v3.png)
+
+![同四种固定风格的实际 PPTX 封面渲染](docs/assets/presets-pptx-v3.png)
+
+**随机哈希**从 21 个预设方向与原有 8 个方向中生成候选，并按场景、明暗偏好、锁定条件和近期历史筛选。部分配色来自 hash-design 早期的 MIT 许可风格库。同一组内的颜色关系保留，哈希对色相、明度和比例做有限变化。原有方向也继续使用连续色域采样。[生成机制](docs/architecture.md) · [开源来源与许可](THIRD_PARTY_NOTICES.md)
+
+![新版随机哈希实际输出](docs/assets/hash-v3.png)
+
+```sh
+node src/cli.js list-presets
+node src/cli.js preset --style new-chinese --out output/new-chinese
+node src/cli.js generate --seed design-2026 --out output/hash-run
+```
+
+## v0.2 设计方向示例
 
 默认使用**有彩色大底**，提供柠檬黄、朱砂红、钴蓝、玉绿、湖水青、丁香紫、蔷薇粉、赭棕等色彩范围，再连续生成具体色值与比例。中性色是单独的选项。
 
@@ -102,9 +120,9 @@ flowchart LR
 | 层次 | 生成与约束 |
 |---|---|
 | 颜色 | OKLCH 中的色相、明度、彩度与色彩关系；生成语义色并检查指定文字对比度；品牌色可锁定 |
-| 排印 | 16 组真实字体角色，包括中文标题字体；字号比例、字距、行距和字重参与生成 |
+| 排印 | 17 组字体角色，包括中文标题字体。字号比例、字距、行距和字重参与生成 |
 | 构图 | 从当前视觉语言允许的空间关系中选择，组合主次区域、比例、密度、留白和节奏 |
-| 图形 | 11 类有结构约束的图形操作器，绘制一个主体或一个有规律的重复系统；取消任意镜像与透明副本 |
+| 图形 | 设计方向限定图形的结构与职责。图形可以是插图、规则纹理，也可以由文字和网格承担画面重心 |
 | 表面 | 纸纤维、印刷颗粒、半调、织物、珐琅与图纸网格等材质，跟随所选视觉语言 |
 | 场景 | 学术、商务、产品、文化、创意、通用；场景约束和视觉强度共同限制候选范围 |
 
@@ -127,7 +145,7 @@ node src/cli.js select --id FULL_DESIGN_ID
 
 `--no-history` 用于隔离演示或测试，会明确关闭历史读取和写入。
 
-v0.2 使用新算法版本 `random-design/2` 和独立历史空间，保留 v0.1 的本地历史。旧规范请使用 [v0.1.0](https://github.com/xingchenyd/random-design/releases/tag/v0.1.0) 复现，不会被重新解释为新视觉规则。
+v0.3 使用 `random-design/3`，支持导入 v0.2 规范和历史。旧版随机种子的映射保存在对应发行版。固定风格可重复选用，随机历史记录生成的变体。[v0.2.0](https://github.com/xingchenyd/random-design/releases/tag/v0.2.0) · [v0.1.0](https://github.com/xingchenyd/random-design/releases/tag/v0.1.0)
 
 ## 固定与复现
 
@@ -156,7 +174,7 @@ node src/cli.js validate --file examples/01/design.json
 | 支持自定义 MCP 的网页客户端 | 部署本项目 Streamable HTTP 服务，按账号权限及认证方式注册 |
 | 自己的应用 | JavaScript 核心库或浏览器 ESM，直接获得结构化规范 |
 
-MCP 提供 `generate_directions`、`render_design`、`validate_design`、`compare_designs`、`get_capabilities` 五个工具。
+MCP 通过 `list_presets` 和 `get_preset` 查询固定风格，通过 `generate_directions` 生成哈希变体。其他工具包括 `render_design`、`validate_design`、`compare_designs` 和 `get_capabilities`。
 
 **[完整配置、WorkBuddy 路径、ChatGPT 接入边界 →](docs/integrations.md)**
 
@@ -180,6 +198,6 @@ PPTX 的文字、基本形状、表格和图表可编辑，复杂图形为 SVG �
 
 ## 项目与来源
 
-作者：**xingchenyd**。本项目独立实现，核心代码和风格数据未复制自 hash-design。多方案比较、选择和保存设计规范的工作流受到 [qybaihe/hash-design](https://github.com/qybaihe/hash-design) 启发。
+作者为 **xingchenyd**。多方案比较的工作流受到 hash-design 启发，v0.3 引入了该项目早期风格库的部分 MIT 许可配色数据。21 种固定风格按参考视频重新编排。[qybaihe/hash-design](https://github.com/qybaihe/hash-design) · [第三方许可](THIRD_PARTY_NOTICES.md)
 
 [MIT License](LICENSE) · [依赖与字体说明](THIRD_PARTY_NOTICES.md) · [贡献指南](CONTRIBUTING.md)

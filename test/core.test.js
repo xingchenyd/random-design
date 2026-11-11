@@ -1,8 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generate, reproduce, validateDesign, historyEntries, distance, signature, RequestSchema, designId, colorCoordinates } from '../src/core/index.js';
+import fs from 'node:fs/promises';
+import { generate, getPreset, PRESETS, reproduce, validateDesign, historyEntries, distance, signature, RequestSchema, designId, colorCoordinates } from '../src/core/index.js';
+import { mergeHistory } from '../src/history.js';
 import { directionById } from '../src/core/directions.js';
 import { pageHtml } from '../src/render.js';
+
+test('all fixed presets are stable and reusable without consuming the random history', () => {
+  assert.equal(PRESETS.length, 21);
+  const designs = PRESETS.map(({ id }) => getPreset(id));
+  assert.equal(new Set(designs.map(design => design.id)).size, 21);
+  for (const design of designs) assert.deepEqual(getPreset(design.direction), design);
+  assert.deepEqual(historyEntries({ designs }), []);
+  assert.throws(() => getPreset('unknown-style'), /Unknown fixed preset/);
+});
+
+test('v0.2 stored specifications and history can be reused in v0.3', async () => {
+  const design = JSON.parse(await fs.readFile(new URL('../examples/01/design.json', import.meta.url)));
+  const history = JSON.parse(await fs.readFile(new URL('../examples/history.json', import.meta.url)));
+  assert.deepEqual(reproduce(design), [design]);
+  const bundle = generate({ seed: 'legacy-history', count: 3 }, mergeHistory(history.entries));
+  assert.equal(mergeHistory(history.entries, historyEntries(bundle)).length, history.entries.length + 3);
+});
 
 test('selection is reproducible given the same seed, request and history', () => {
   const a = generate({ seed: 'deterministic', count: 3 });

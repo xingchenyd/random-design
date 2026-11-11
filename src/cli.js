@@ -3,14 +3,16 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { fileURLToPath } from 'node:url';
-import { generate, reproduce, validateDesign, historyEntries } from './core/index.js';
+import { generate, getPreset, PRESETS, reproduce, validateDesign, historyEntries } from './core/index.js';
 import { historyPath, readHistory, writeHistory, withHistory, mergeHistory, selectDesign } from './history.js';
 import { writeBundle } from './export.js';
 import { pageHtml, brief } from './render.js';
 import { writePresentation } from './pptx.js';
 
-const help = `random-design v0.2.0 — art-directed visual systems
+const help = `random-design v0.3.0 — fixed styles and hash variations
 
+  node src/cli.js list-presets
+  node src/cli.js preset --style new-chinese --out output/chinese [--language en]
   node src/cli.js generate --out output/run-01 [--scenario academic] [--language zh]
     --count 5 --mode mixed --colorfulness rich --intensity balanced --brand '#336699'
     --direction edition  # optional visual grammar, otherwise varied automatically
@@ -32,7 +34,7 @@ History is local to this machine by default. --no-history neither reads nor writ
 Seed + request + identical history reproduces selection; saved JSON reproduces the chosen visual rules.
 Never overwrite a prior output directory. Font files are not embedded.
 `;
-const flags = ['out', 'file', 'count', 'scenario', 'language', 'mode', 'colorfulness', 'direction', 'intensity', 'brand', 'seed', 'history', 'content', 'lock', 'lock-fields', 'min-distance', 'recent-window', 'id', 'target', 'dir'];
+const flags = ['out', 'file', 'count', 'scenario', 'language', 'mode', 'colorfulness', 'direction', 'intensity', 'brand', 'seed', 'history', 'content', 'lock', 'lock-fields', 'min-distance', 'recent-window', 'id', 'target', 'dir', 'style'];
 export async function main(args = process.argv.slice(2)) {
   const command = args[0];
   if (!command || ['help', '--help', '-h'].includes(command)) { console.log(help); return; }
@@ -42,6 +44,19 @@ export async function main(args = process.argv.slice(2)) {
   const language = v.language ?? 'zh';
   if (!['zh', 'en'].includes(language)) throw new Error('language must be zh or en');
   const content = v.content ? await read(v.content) : {};
+  if (command === 'list-presets') {
+    console.log(JSON.stringify(PRESETS.map(({ id, name, layout, role }) => ({ id, name, layout, role })), null, 2));
+    return;
+  }
+  if (command === 'preset') {
+    if (!v.style || !v.out) throw new Error('--style and --out are required');
+    const design = getPreset(v.style);
+    const bundle = { schema: design.schema, algorithm: design.algorithm, library: design.library,
+      request: { language }, designs: [design] };
+    const out = await writeBundle(bundle, v.out, { content, pptx: !v['no-pptx'] });
+    console.log(JSON.stringify({ out, style: v.style, id: design.id }, null, 2));
+    return;
+  }
   if (command === 'generate') {
     const request = {};
     for (const k of ['scenario', 'language', 'mode', 'colorfulness', 'direction', 'intensity', 'brand', 'seed']) if (v[k] !== undefined) request[k] = v[k];
@@ -80,7 +95,7 @@ export async function main(args = process.argv.slice(2)) {
   if (command === 'brief') { console.log(brief(d, { language })); return; }
   if (!v.out) throw new Error('--out required');
   if (command === 'reproduce') {
-    const bundle = data.designs ? data : { schema: 1, algorithm: d.algorithm, library: d.library, request: { language }, designs: [d] };
+    const bundle = data.designs ? data : { schema: d.schema, algorithm: d.algorithm, library: d.library, request: { language }, designs: [d] };
     reproduce(bundle); await writeBundle(bundle, v.out, { content, pptx: !v['no-pptx'] }); return;
   }
   await fs.access(v.out).then(() => { throw new Error('Output exists; choose another file'); }, err => { if (err.code !== 'ENOENT') throw err; });

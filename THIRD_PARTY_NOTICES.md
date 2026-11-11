@@ -1,6 +1,6 @@
 # Third-party notices
 
-random-design is independently implemented and licensed under MIT. The compare/select/freeze workflow was inspired by [qybaihe/hash-design](https://github.com/qybaihe/hash-design); its source code and design-branch catalogue are not included or copied. This is not a fork or an official derivative release of that project.
+random-design is independently maintained and licensed under MIT. Version 0.3 incorporates 45 palette sets from 15 historical branches of [qybaihe/hash-design](https://github.com/qybaihe/hash-design/tree/7e344d74de621ee595f6d83b50da9b5c04205368/packages/core/src/data/branches). The extracted swatches are in `src/core/upstream-palettes.js`. The original [MIT copyright and permission notice](licenses/hash-design-MIT.txt) accompanies the source and prebuilt site. The random-design sampling, renderers, interfaces and preset artwork are maintained in this repository.
 
 Dependencies retain their respective licenses. `package-lock.json` pins installed versions. Bundled browser distributions include generated legal comment files; retain them when redistributing `dist/`.
 

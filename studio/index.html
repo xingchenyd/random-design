@@ -7,10 +7,21 @@
   <link rel="stylesheet" href="./studio.css">
 </head>
 <body>
-  <header class="masthead"><a class="brand" href="./" aria-label="Random Design home"><span class="mark">r<span>↗</span>d</span><span>RANDOM<br>DESIGN</span></a><nav><a href="./examples/compare.html" data-i18n="examples">示例</a><a href="https://github.com/xingchenyd/random-design" target="_blank" rel="noreferrer">GitHub ↗</a><button id="language" class="lang" aria-label="Switch language">EN</button></nav></header>
+  <header class="masthead"><a class="brand" href="./" aria-label="Random Design home"><span class="mark">r<span>↗</span>d</span><span>RANDOM<br>DESIGN</span></a><nav><a id="examples-link" href="./presets/hash.html" data-i18n="examples">示例</a><a href="https://github.com/xingchenyd/random-design" target="_blank" rel="noreferrer">GitHub ↗</a><button id="language" class="lang" aria-label="Switch language">EN</button></nav></header>
   <main>
     <section class="intro"><p class="kicker">PROCEDURAL VISUAL SYSTEMS / 01</p><h1 data-i18n="headline">给每次表达，<br>一个新主题。</h1><div class="intro-aside"><p data-i18n="intro">颜色、字体、构图与图形一起生成。选择一个方向，把它带到网页或幻灯片。</p><p class="quiet" data-i18n="privacy">无需账号或 API 密钥。设计在浏览器内生成，历史保存在此浏览器。</p></div></section>
-    <section class="workbench" aria-label="Design generation controls">
+    <div class="design-mode" role="group" aria-label="Design mode">
+      <button id="mode-hash" type="button" aria-pressed="true" data-i18n="hashMode">随机哈希</button>
+      <button id="mode-fixed" type="button" aria-pressed="false" data-i18n="fixedMode">固定风格 · 21</button>
+    </div>
+    <section id="fixed-panel" class="fixed-panel" hidden>
+      <div class="control">
+        <label for="preset-select" data-i18n="choosePreset">选择固定风格</label>
+        <select id="preset-select"></select>
+      </div>
+      <a id="preset-gallery-link" href="./presets/" data-i18n="allPresets">查看 21 种效果 ↗</a>
+    </section>
+    <section id="hash-panel" class="workbench" aria-label="Design generation controls">
       <div class="control"><label for="scenario" data-i18n="scenario">使用场景</label><select id="scenario"><option value="general">通用 / General</option><option value="academic">学术 / Academic</option><option value="business">商务 / Business</option><option value="product">产品 / Product</option><option value="culture">文化活动 / Culture</option><option value="creative">创意 / Creative</option></select></div>
       <div class="control"><label for="mode" data-i18n="mode">明暗范围</label><select id="mode"><option value="mixed">自由 / Mixed</option><option value="light">浅色 / Light</option><option value="dark">深色 / Dark</option></select></div>
       <div class="control"><label for="colorfulness">色彩范围 / Colour</label><select id="colorfulness"><option value="rich">丰富色彩 / Rich</option><option value="balanced">兼容中性 / Balanced</option><option value="neutral">中性色 / Neutral</option></select></div>

@@ -2,6 +2,7 @@ import { build } from 'esbuild';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writePresetGallery } from './preset-gallery.js';
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const output = path.resolve('dist');
 if (output !== path.join(root, 'dist')) throw new Error('Run build from the repository root');
@@ -13,4 +14,6 @@ await build({ entryPoints: { app: 'studio/app.js', 'random-design': 'src/core/in
 await Promise.all(['index.html', 'studio.css'].map(f => fs.copyFile(`studio/${f}`, `dist/${f}`)));
 await Promise.all(['LICENSE', 'THIRD_PARTY_NOTICES.md'].map(f => fs.copyFile(f, `dist/${f}`)));
 await fs.cp('examples', 'dist/examples', { recursive: true }).catch(err => { if (err.code !== 'ENOENT') throw err; });
+await fs.cp('licenses', 'dist/licenses', { recursive: true });
+await writePresetGallery('dist/presets');
 console.log('Built static studio + standalone browser engine in dist/');

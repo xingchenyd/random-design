@@ -1,16 +1,22 @@
-import { generate, historyEntries, reproduce, signature, LIBRARY } from '../src/core/index.js';
+import { generate, getPreset, PRESETS, presetById, historyEntries, reproduce, LIBRARY } from '../src/core/index.js';
 import { pageHtml, tokensCss, brief } from '../src/render.js';
 import { graphicSvg } from '../src/core/graphics.js';
 import { mergeHistory } from './history-browser.js';
 
 const $ = s => document.querySelector(s), KEY = 'random-design.history.v2';
-let language = localStorage.getItem('random-design.language') ?? 'zh';
+const query = new URLSearchParams(location.search);
+let language = (query.get('lang') ?? localStorage.getItem('random-design.language')) === 'en' ? 'en' : 'zh';
 let history = [], current, locked, selectedId;
+let activeMode = 'hash';
+const presetLabels = {
+  zh: { hashMode: '随机哈希', fixedMode: '固定风格 · 21', choosePreset: '选择固定风格', allPresets: '查看 21 种效果 ↗' },
+  en: { hashMode: 'Random hash', fixedMode: 'Fixed styles · 21', choosePreset: 'Choose a fixed style', allPresets: 'View all 21 styles ↗' }
+};
 const messages = {
   zh: { headline: '给每次表达，<br>一个新主题。', intro: '颜色、字体、构图与图形一起生成。选择一个方向，把它带到网页或幻灯片。', privacy: '无需账号或 API 密钥。设计在浏览器内生成，历史保存在此浏览器。', scenario: '使用场景', mode: '明暗范围', intensity: '视觉强度', count: '方案数量', brand: '锁定品牌色', generate: '生成下一组方向 ↗', examples: '示例', exportHistory: '导出历史', importHistory: '导入历史', importDesign: '打开规范', ready: '准备好探索下一组方向', directions: '你的候选方向', compareHint: '同一份示例内容，比较视觉差异。点击放大后选择。', method1: '连续参数生成配色；构图规则与程序图形组合成统一的视觉语言。', method2: '筛掉精确重复与近期过近的主题。差异指标是属性比较，不代表审美评分。', method3: '下载网页、设计规范、SVG 或六页可编辑 PPTX。文字内容与风格分开管理。', footer: '字体按需从 Google Fonts 加载；离线时使用本机替代字体。PPTX 不嵌入字体。所有数据仅为示例。', close: '关闭 ×', select: '选择此方向', selected: '已选择 ✓', expand: '放大', explore: '锁定后继续探索', palette: '颜色', font: '字体', graphic: '图形', composition: '构图' },
   en: { headline: 'A new expression.<br>Every time.', intro: 'Colour, type, composition and graphics, generated together. Take a direction to the web or the slide.', privacy: 'No account or API key. Designs are generated here; history stays in this browser.', scenario: 'SCENARIO', mode: 'LIGHT / DARK', intensity: 'INTENSITY', count: 'DIRECTIONS', brand: 'Lock brand colour', generate: 'Generate next directions ↗', examples: 'Examples', exportHistory: 'Export history', importHistory: 'Import history', importDesign: 'Open design', ready: 'Ready for the next direction', directions: 'Your visual directions', compareHint: 'Same content. Different expressions. Open a preview to choose.', method1: 'Continuous colour parameters meet composition rules and procedural graphics.', method2: 'Reject exact duplicates and nearby recent themes. Attribute distance is not an aesthetic score.', method3: 'Download a page, specification, SVG or six editable PowerPoint slides. Content stays separate.', footer: 'Fonts load from Google Fonts when online; local fallbacks apply offline. PPTX fonts are not embedded. All data is illustrative.', close: 'Close ×', select: 'Choose direction', selected: 'Selected ✓', expand: 'Enlarge', explore: 'Explore with locks', palette: 'Palette', font: 'Type', graphic: 'Graphic', composition: 'Layout' }
 };
-function t(k) { return messages[language][k]; }
+function t(k) { return presetLabels[language][k] ?? messages[language][k]; }
 function notice(text) { $('#notice').textContent = text; $('#notice').hidden = !text; }
 function persist() { localStorage.setItem(KEY, JSON.stringify({ schema: 1, entries: history })); }
 try { history = mergeHistory(JSON.parse(localStorage.getItem(KEY) ?? '{"entries":[]}').entries); }
@@ -20,7 +26,18 @@ function applyLanguage() {
   document.querySelectorAll('[data-i18n]').forEach(el => { const value = t(el.dataset.i18n); if (el.dataset.i18n === 'headline') el.innerHTML = value; else el.textContent = value; });
   $('#language').textContent = language === 'zh' ? 'EN' : '中文';
   localStorage.setItem('random-design.language', language);
-  if (current) render();
+  $('#preset-gallery-link').href = language === 'zh' ? './presets/' : './presets/en.html';
+  $('#examples-link').href = language === 'zh' ? './presets/hash.html' : './presets/hash-en.html';
+  const selected = $('#preset-select').value;
+  $('#preset-select').replaceChildren(...PRESETS.map(preset => {
+    const option = document.createElement('option');
+    option.value = preset.id;
+    option.textContent = language === 'zh' ? `${preset.name.zh} · ${preset.name.en}` : preset.name.en;
+    return option;
+  }));
+  $('#preset-select').value = selected || PRESETS[0].id;
+  if (activeMode === 'fixed') showPreset();
+  else if (current) render();
 }
 function download(name, text, type = 'text/plain;charset=utf-8') {
   const url = URL.createObjectURL(new Blob([text], { type }));
@@ -31,7 +48,11 @@ function addButton(parent, label, handler) {
   b.onclick = async () => { b.disabled = true; try { await handler(); } catch (err) { notice(err.message); } finally { b.disabled = false; } };
   parent.append(b); return b;
 }
+const previewSizer = new ResizeObserver(entries => {
+  for (const { target } of entries) target.querySelector('iframe').style.transform = `scale(${target.clientWidth / 1200})`;
+});
 function render() {
+  previewSizer.disconnect();
   const root = $('#results'); root.replaceChildren();
   current.designs.forEach((d, i) => {
     const card = document.createElement('article'); card.className = 'design-card' + (selectedId === d.id ? ' selected' : '');
@@ -51,7 +72,7 @@ function render() {
     addButton(actions, 'JSON', () => download(`${d.id.slice(0, 10)}.json`, JSON.stringify(d, null, 2), 'application/json'));
     addButton(actions, 'HTML', () => download('page.html', pageHtml(d, { language }), 'text/html'));
     addButton(actions, 'PPTX', async () => { const { createPresentation } = await import('../src/pptx.js'); await createPresentation(d, { language }).writeFile({ fileName: 'random-design-theme.pptx' }); });
-    addButton(actions, 'SVG', () => download('graphic.svg', graphicSvg(d), 'image/svg+xml'));
+    if (d.graphic.family !== 'none') addButton(actions, 'SVG', () => download('graphic.svg', graphicSvg(d), 'image/svg+xml'));
     addButton(actions, 'CSS', () => download('tokens.css', tokensCss(d), 'text/css'));
     addButton(actions, 'Brief', () => download('brief.md', brief(d, { language })));
     const locks = document.createElement('div'); locks.className = 'locks';
@@ -62,17 +83,34 @@ function render() {
       locked = {};
       locks.querySelectorAll('input:checked').forEach(input => { const f = input.dataset.lock; locked[f] = f === 'font' ? d.typography.id : f === 'graphic' ? d.graphic.family : f === 'composition' ? d.layout.composition : d.palette; });
       if (!Object.keys(locked).length) throw new Error(language === 'zh' ? '请至少勾选一个锁定项。' : 'Select at least one dimension to lock.');
+      setMode('hash');
       return doGenerate();
     });
     card.append(head, wrap, bottom, actions, locks); root.append(card);
-    new ResizeObserver(() => { iframe.style.transform = `scale(${wrap.clientWidth / 1200})`; }).observe(wrap);
+    previewSizer.observe(wrap);
   });
 }
-async function doGenerate(initial = false) {
+function setMode(mode) {
+  activeMode = mode;
+  $('#mode-hash').setAttribute('aria-pressed', String(mode === 'hash'));
+  $('#mode-fixed').setAttribute('aria-pressed', String(mode === 'fixed'));
+  $('#hash-panel').hidden = mode !== 'hash';
+  $('#fixed-panel').hidden = mode !== 'fixed';
+}
+function showPreset() {
+  const preset = getPreset($('#preset-select').value);
+  current = { designs: [preset] };
+  if (selectedId !== preset.id) selectedId = null;
+  notice('');
+  $('#status').textContent = `${t('fixedMode')} · ${preset.name[language]}`;
+  render();
+}
+async function doGenerate() {
   $('#generate').disabled = true; notice(''); $('#status').textContent = language === 'zh' ? '正在生成与比较…' : 'Generating and comparing…';
   await new Promise(resolve => setTimeout(resolve, 30));
   try {
     const operation = async () => {
+      if (activeMode !== 'hash') return;
       // Re-read under Web Locks to coordinate tabs on supported browsers.
       history = mergeHistory(JSON.parse(localStorage.getItem(KEY) ?? '{"entries":[]}').entries);
       const request = { count: Number($('#count').value), scenario: $('#scenario').value, mode: $('#mode').value, colorfulness: $('#colorfulness').value, intensity: $('#intensity').value, language, locks: locked ?? {} };
@@ -88,6 +126,13 @@ async function doGenerate(initial = false) {
   finally { locked = undefined; $('#generate').disabled = false; }
 }
 $('#generate').onclick = () => doGenerate();
+$('#mode-fixed').onclick = () => { setMode('fixed'); showPreset(); };
+$('#mode-hash').onclick = () => {
+  if (activeMode === 'hash') return;
+  setMode('hash');
+  if (!$('#generate').disabled) void doGenerate();
+};
+$('#preset-select').onchange = showPreset;
 $('#language').onclick = () => { language = language === 'zh' ? 'en' : 'zh'; applyLanguage(); };
 $('#close-preview').onclick = () => $('#preview').close();
 $('#history-export').onclick = () => download('random-design-history.json', JSON.stringify({ schema: 1, entries: history }, null, 2), 'application/json');
@@ -98,4 +143,8 @@ $('#design-import').onchange = async ev => {
   try { const data = JSON.parse(await ev.target.files[0].text()); const designs = reproduce(data); current = { designs }; history = mergeHistory(history, historyEntries({ designs })); persist(); render(); notice(''); } catch (err) { notice(err.message); } finally { ev.target.value = ''; }
 };
 applyLanguage();
-if (!$('#generate').disabled) doGenerate(true);
+if (presetById(query.get('preset'))) {
+  $('#preset-select').value = query.get('preset');
+  setMode('fixed');
+  showPreset();
+} else if (!$('#generate').disabled) doGenerate();

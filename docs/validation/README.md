@@ -1,15 +1,15 @@
 # Validation record / 验证记录
 
-Release candidate: v0.2.0. Checked 2026-11-03. Read the machine-readable files for the actual measurements and limits.
+v0.3.0 checks were run on 2026-11-11. Read the linked records for the tested scope.
 
 | Evidence | Observed result | What it establishes |
 |---|---|---|
-| Node tests | 14 passed | Reproduction, locks, constraints, content escaping, failure behaviour, concurrent history, all graphic exports, overwrite protection and excess-content refusal |
+| Node tests | 16 passed | Fixed preset stability, v0.2 import, seed reproduction, locks, content escaping, concurrent history and export checks |
 | [benchmark.json](benchmark.json) | 10,000 specifications; 10,000 distinct visual fingerprints; zero rule failures | Tested specification-scale generation and recent weighted attribute distance; not 10,000 human-certified art styles |
-| [browser.json](browser.json) | Five-direction generation, repeat usage, language switch, JSON import, PPTX download, 390px layout; 64 supported direction/layout/language/width combinations | Browser interaction and bounded-layout checks in Chromium; not a physical phone or all-browser audit |
-| [mcp.json](mcp.json) | Five tools exercised over stdio and Streamable HTTP | Standard-client protocol behaviour; not registration in a WorkBuddy or ChatGPT account |
-| [pptx-structure.json](pptx-structure.json) | 10 exports / 60 slides; native text, table, chart and embedded chart workbook present; no broken relationships | Structural and editable-object evidence; not native editor fidelity |
-| [pptx-render.json](pptx-render.json) | Actual PPTX imports rendered, 60 slides | Rendering evidence using the named renderer; font substitution depends on availability |
+| [browser.json](browser.json) | 21-item catalogue, direct selection, language switch, JSON import, downloads; 84 fixed-style checks plus 64 original direction checks | Browser interaction and desktop/mobile width checks |
+| [mcp.json](mcp.json) | Preset list, preset lookup, generation and rendering tested over stdio and Streamable HTTP | Standard MCP client behaviour |
+| [presets-v3.json](presets-v3.json) | 42 preset PPTX exports, 147 rendered slides | Actual preset deck imports and covers |
+| [pptx-structure.json](pptx-structure.json) and [pptx-render.json](pptx-render.json) | Archived v0.2 examples, 10 files and 60 slides | Historical verification of examples still distributed under `examples/` |
 | Visual review | English/Chinese specimens reviewed, coherent coloured canvases and graphic roles inspected, representative website and studio screenshots inspected | Specific observed layout quality; no universal aesthetic guarantee |
 | Dependency audit | `npm audit --omit=dev --audit-level=high`: zero reported vulnerabilities after lockfile update | Registry advisories at the time of checking, not a security certification |
 | Skill validation | Skill Creator validator passed | Frontmatter and package structure, not every agent's runtime behaviour |
@@ -22,4 +22,4 @@ The benchmark's diversity measure is transparent and heuristic. It does not meas
 
 The static studio is a separate deployment from the optional HTTP MCP server. Public static-site verification and GitHub Actions status should be checked against the relevant deployment/commit, rather than inferred from local tests.
 
-`deployment-v0.1.0.json` is an archived check of the old release. It is not evidence that the new studio has deployed. The v0.2.0 release attaches its public deployment check with the tested source commit.
+The v0.3.0 release includes the public deployment check and tested source commit. `deployment-v0.1.0.json` records the original studio check.

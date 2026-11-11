@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 — 2026-11-11
+
+- Add the 21 fixed styles in the reference video with stable IDs, a bilingual gallery, browser selection, CLI export and MCP lookup.
+- Hash sampling draws from the expanded direction library and compatible palette sets adapted from the historical MIT-licensed hash-design catalogue. Recent direction frequency informs selection and the recent visual-distance threshold remains active.
+- Add menu, card, centered, bento and scroll layouts for the new web presets and adapt their covers for the editable PPTX exporter.
+- Read v0.2 saved specifications and histories alongside v0.3 output.
+
 ## 0.2.0 — 2026-11-03
 
 The visual generator now starts from one coherent art direction. This revision addresses the near-white/near-black canvases and independently combined decorative graphics in 0.1.

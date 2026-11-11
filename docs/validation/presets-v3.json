@@ -1,0 +1,13 @@
+{
+  "algorithm": "random-design/3",
+  "library": "3dab00d49b610d74",
+  "fixedStyles": 21,
+  "websiteScreenshots": 21,
+  "fixedPptxExports": 42,
+  "slidesPerPptx": 6,
+  "renderedSlides": 147,
+  "renderCoverage": "all six slides in Chinese and the cover of each English export",
+  "renderer": "@oai/artifact-tool 2.8.106",
+  "nativePowerPointTest": false,
+  "nativeWPSTest": false
+}

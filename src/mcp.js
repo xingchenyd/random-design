@@ -4,14 +4,24 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { z } from 'zod';
-import { generate, RequestSchema, validateDesign, signature, distance, LIBRARY, RULES } from './core/index.js';
+import { generate, getPreset, PRESETS, RequestSchema, validateDesign, signature, distance, LIBRARY, RULES } from './core/index.js';
 import { generateRecorded, mergeHistory } from './history.js';
 import { pageHtml, tokensCss, brief } from './render.js';
 import { graphicSvg } from './core/graphics.js';
 
 const result = data => ({ content: [{ type: 'text', text: JSON.stringify(data) }], structuredContent: data });
 export function createServer({ localHistory = false } = {}) {
-  const server = new McpServer({ name: 'random-design', version: '0.2.0' }, { instructions: 'Generate coherent art directions, not independently randomized ornaments. Default to rich canvas colours and varied design languages. Each graphic must follow the chosen direction grammar and visual purpose. Present comparable previews and let the user select. Preserve content and facts. Save returned JSON; explicit reuse is allowed. History is scoped to this client or local machine. Numerical novelty is not evidence of aesthetic quality.' });
+  const server = new McpServer({ name: 'random-design', version: '0.3.0' }, { instructions: 'Use get_preset for a named fixed style and generate_directions for hash-based variants. Present comparable previews, preserve supplied copy and facts, and retain the selected visual JSON. History applies to generated variants.' });
+  server.registerTool('list_presets', {
+    description: 'List the 21 selectable fixed visual styles and their IDs.',
+    inputSchema: {},
+    annotations: { readOnlyHint: true, openWorldHint: false }
+  }, async () => result({ presets: PRESETS.map(({ id, name, layout, role }) => ({ id, name, layout, role })) }));
+  server.registerTool('get_preset', {
+    description: 'Return the stable visual specification of a fixed style. Repeated calls return the same style without recording random history.',
+    inputSchema: { id: z.enum(PRESETS.map(preset => preset.id)) },
+    annotations: { readOnlyHint: true, openWorldHint: false }
+  }, async ({ id }) => result({ design: getPreset(id) }));
   server.registerTool('generate_directions', {
     description: 'Generate 1–8 coherent procedural visual systems. Uses local history over stdio; HTTP uses supplied history only. Returns full JSON, diagnostics and portable history entries. No copywriting changes.',
     inputSchema: { ...RequestSchema.shape, history: z.array(z.any()).max(20000).optional() },

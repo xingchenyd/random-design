@@ -2,6 +2,8 @@
 
 Last documentation check: 2026-11-03. Standard protocol tests are recorded in [validation/mcp.json](validation/mcp.json); they are not account-specific integration proof.
 
+The v0.3 tool surface adds `list_presets` and `get_preset`. A client can pick any of the [21 preset IDs](presets.md), then pass the returned `design` to `render_design`. `generate_directions` retains hash sampling and portable history. Browser-only clients can open the [preset catalogue](https://xingchenyd.github.io/random-design/presets/) and download the selected JSON or PPTX in the studio.
+
 ## Browser / 浏览器（无需本机 Node）
 
 Open **https://xingchenyd.github.io/random-design/**. The engine runs in the browser; generate directions and download selected JSON, CSS, SVG, brief, HTML or a six-slide editable PPTX. History stays in this browser and can be exported/imported. No account, model API or server-side generation is required. Font stylesheets are optional external Google Fonts requests; fallback fonts apply offline.

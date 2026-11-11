@@ -1,6 +1,6 @@
 {
   "name": "@xingchenyd/random-design",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Procedural visual systems for websites and presentations. Diverse directions, reproducible rules, portable history.",
   "type": "module",
   "license": "MIT",
@@ -25,6 +25,7 @@
     "src",
     "skills",
     "docs",
+    "licenses",
     "LICENSE",
     "THIRD_PARTY_NOTICES.md",
     "README.md",
