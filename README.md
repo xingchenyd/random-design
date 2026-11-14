@@ -16,17 +16,25 @@
 
 </div>
 
+## v0.4 材质与版式重做
+
+21 种固定风格重新对照参考视频调整。新增统一光源的陶瓷杯盘、木框与悬挂纸签、透光玻璃、黏土体积、同色凹凸、虹彩镀铬、极光光幕；杂志、瑞士、波普、便当盒等分别编排。实现保留原文、价格和数据。它是参考视频的独立适配，不声称逐像素复刻。
+
+![材质重做后的实际网页截图](docs/assets/materials-web-v4.png)
+
+![对应原生 PPTX 的实际渲染](docs/assets/materials-pptx-v4.png)
+
+[全部 21 种新网页实图](docs/assets/materials-all-v4.jpg) · [本次修订与验证](docs/material-revision.md) · [逐种风格执行要求](skills/random-design/references/materials.md)
+
 ## 固定风格与随机哈希
 
 **固定风格**可按名字直接选用。21 项按参考视频的顺序收录，包含赛博朋克、玻璃拟态、瑞士风格、像素风、便当盒和新中式。图录让同一家虚构咖啡店使用相同文案和价格，便于比较布局、配色、排印与材质。网页和六页 PPTX 均可从工作台导出。[完整风格与 ID](docs/presets.md)
 
-![四种固定风格的实际网页截图](docs/assets/presets-v3.png)
 
-![同四种固定风格的实际 PPTX 封面渲染](docs/assets/presets-pptx-v3.png)
 
 **随机哈希**从 21 个预设方向与原有 8 个方向中生成候选，并按场景、明暗偏好、锁定条件和近期历史筛选。部分配色来自 hash-design 早期的 MIT 许可风格库。同一组内的颜色关系保留，哈希对色相、明度和比例做有限变化。原有方向也继续使用连续色域采样。[生成机制](docs/architecture.md) · [开源来源与许可](THIRD_PARTY_NOTICES.md)
 
-![新版随机哈希实际输出](docs/assets/hash-v3.png)
+![v0.3 随机哈希输出历史截图](docs/assets/hash-v3.png)
 
 ```sh
 node src/cli.js list-presets

@@ -82,6 +82,14 @@ try {
         const title = document.querySelector('h1').getBoundingClientRect();
         return document.documentElement.scrollWidth <= innerWidth && title.x >= 0 && title.right <= innerWidth;
       }), `${preset.id}/${language}/${width} overflow`);
+      const clipped = await page.locator('.item').evaluateAll(items => items.flatMap(item => {
+        const outer=item.getBoundingClientRect();
+        return [...item.querySelectorAll('h3,p,.price')].filter(el=>{
+          const r=el.getBoundingClientRect();
+          return r.left<outer.left-2 || r.right>outer.right+2 || r.top<outer.top-2 || r.bottom>outer.bottom+2 || el.scrollWidth>el.clientWidth+2;
+        }).map(el=>el.textContent);
+      }));
+      assert.deepEqual(clipped,[],`${preset.id}/${language}/${width} clipped menu content`);
       fixedPages++;
     }
   }

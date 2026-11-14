@@ -16,13 +16,21 @@ Colour, type, composition and procedural graphics work together. Portable histor
 
 </div>
 
+## v0.4 material and composition rebuild
+
+All 21 styles have been reviewed against the supplied video. The new renderer includes consistent ceramic lighting, hanging paper tags inside a wood frame, translucent glass, soft clay volumes, same-colour relief, iridescent chrome and aurora curtains. Editorial, Swiss, Pop Art and Bento use their own compositions. Copy and prices are preserved. These are independent reference-informed adaptations, not pixel-identical replicas.
+
+![Actual rebuilt website screenshots](docs/assets/materials-web-v4.png)
+
+![Rendered native PPTX exports](docs/assets/materials-pptx-v4.png)
+
+[All 21 rendered web styles](docs/assets/materials-all-v4.jpg) · [Revision and verification](docs/material-revision.md) · [Style-specific execution guide](skills/random-design/references/materials.md)
+
 ## Fixed styles and random hash
 
 Choose one of the **21 fixed styles** identified in the reference video. The catalogue compares the same fictional coffee menu across palettes, typography, surfaces and layouts. Use a style in the studio or export it directly. [Style IDs and names](docs/presets.md)
 
-![Rendered websites for four fixed styles](docs/assets/presets-v3.png)
 
-![Rendered PowerPoint covers for the same four styles](docs/assets/presets-pptx-v3.png)
 
 The **random hash** samples from the 21 preset directions and the eight existing procedural directions. It varies compatible palette sets and proportions, checks recent visual distance and gives less weight to directions seen frequently. Some curated palettes come from the historical MIT-licensed hash-design catalogue. [Architecture](docs/architecture.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
 

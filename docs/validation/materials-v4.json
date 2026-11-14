@@ -1,0 +1,15 @@
+{
+  "release": "v0.4.0",
+  "visualRenderer": "material/1",
+  "algorithm": "random-design/3",
+  "library": "3dab00d49b610d74",
+  "fixedStyles": 21,
+  "webScreenshots": 21,
+  "browserFixedCombinations": 84,
+  "browserMenuContainmentChecked": true,
+  "pptxFiles": 42,
+  "renderedSlides": 62,
+  "coverage": "21 Chinese and 21 English covers; all six Chinese pages for skeuomorphism, glassmorphism, neumorphism and new-chinese",
+  "nativePowerPointTest": false,
+  "nativeWPSTest": false
+}

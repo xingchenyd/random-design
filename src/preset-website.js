@@ -1,6 +1,8 @@
+import { MATERIAL_BASE, MATERIAL_CSS } from './material-css.js';
 import { escapeHtml as escape } from './core/util.js';
 import { graphicSvg } from './core/graphics.js';
 import { fontUrl } from './core/fonts.js';
+import { menuIcon } from './core/material-art.js';
 import { PRESET_CSS } from './preset-css.js';
 
 const baseCss = `
@@ -64,11 +66,18 @@ footer { min-height: 55px; border-bottom: 0; border-top: 1px solid color-mix(in 
 `;
 
 const responsiveCss = `
+.layout-center .hero { grid-template-columns: minmax(0,1fr); }
+.layout-center .hero .visual { max-width: 100%; }
+.item-copy { min-width: 0; }
 @media (max-width: 800px) {
   .layout-menu .sheet, .layout-bento .sheet, .layout-scroll .sheet { grid-template-columns: 1fr; min-height: 0; }
   .layout-cards .hero { grid-template-columns: minmax(0,1fr) minmax(0,.85fr); min-height: 270px; }
   .layout-scroll .hero { min-height: 300px; }
   .layout-menu .visual { margin-top: 0; }
+  .style-brutalism .hero { border-right: 0; }
+  .style-brutalism .menu { padding-left: 0; }
+  .style-editorial .menu, .style-new-chinese .menu { border-left: 0; padding-left: 0; }
+  .style-retro-terminal .menu { margin-bottom: 20px; }
 }
 @media (max-width: 560px) {
   .frame { padding-inline: 5%; }
@@ -93,7 +102,7 @@ export function renderPresetWebsite(design, preset, content, { language, fonts, 
   const artwork = preset.graphic === 'none' ? '' : `<figure class="visual">${graphicSvg(design, { decorative: true })}</figure>`;
   const items = content.sections.map(([name, detail], index) => {
     const price = content.prices?.[index];
-    return `<article class="item"><div><h3>${escape(name)}</h3><p>${escape(detail)}</p></div>${price ? `<span class="price">${escape(price)}</span>` : ''}</article>`;
+    return `<article class="item"><span class="item-mark" aria-hidden="true">${content.prices ? menuIcon(design,index) : String(index + 1).padStart(2,'0')}</span><div class="item-copy"><h3>${escape(name)}</h3><p>${escape(detail)}</p></div>${price ? `<span class="price">${escape(price)}</span>` : ''}</article>`;
   }).join('');
   const fontLink = fonts ? `<link rel="stylesheet" href="${escape(fontUrl(design.typography))}">` : '';
   return `<!doctype html>
@@ -106,15 +115,19 @@ export function renderPresetWebsite(design, preset, content, { language, fonts, 
   :root { --copy: ${design.layout.split * 2.16}fr; --cols: ${Math.min(3, content.sections.length)}; --weight: ${design.typography.titleWeight}; }
   ${baseCss}
   ${PRESET_CSS[preset.id]}
+  ${MATERIAL_BASE}
+  ${MATERIAL_CSS[preset.id]}
   ${responsiveCss}
   </style>
 </head>
-<body class="layout-${preset.layout} style-${preset.id}" data-design="${design.id}" data-direction="${preset.id}">
+<body class="layout-${preset.layout} style-${preset.id}" data-renderer="material/1" data-design="${design.id}" data-direction="${preset.id}">
   <div class="frame">
-    <header class="mast"><strong>${escape(content.subtitle)}</strong><a href="#menu">${escape(content.sectionTitle)} ↗</a></header>
+    <div class="ambient" aria-hidden="true"></div>
+    <header class="mast"><strong><span class="brand-mark" aria-hidden="true">◉</span> ${escape(content.subtitle)}</strong><a href="#menu">${escape(content.sectionTitle)} ↗</a></header>
     <main class="sheet">
       <section class="hero">
         <div class="copy">
+          <p class="eyebrow">${escape(content.eyebrow)}</p>
           <h1${vertical ? ' class="vertical-title"' : ''}>${title}</h1>
           <p class="description">${escape(content.description)}</p>
           <a class="action" href="#menu">${escape(content.action)} <span aria-hidden="true">↗</span></a>

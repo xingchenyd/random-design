@@ -1,3 +1,5 @@
+import { materialBackground, materialPanel } from './core/material-surface.js';
+import { menuIcon } from './core/material-art.js';
 import PptxGenJS from 'pptxgenjs';
 import { assertDesign } from './core/engine.js';
 import { graphicSvg, textureSvg } from './core/graphics.js';
@@ -74,7 +76,7 @@ export function createPresentation(design, { language = 'zh', content: input = {
   }
   function base(number) {
     const s = pptx.addSlide(); s.background = { color: color(p.paper) };
-    const field = number === 1 ? lightField(d.direction, p.paper) : undefined;
+    const field = number === 1 ? (materialBackground(d.direction, p.paper) || lightField(d.direction, p.paper)) : undefined;
     if (field) svgImage(s, field, 0, 0, W, H);
     if (['grid', 'fine-lines', 'woven'].includes(d.surface.texture)) {
       for (let y = 0.2; y < 7.5; y += d.surface.texture === 'woven' ? 0.08 : 0.35) s.addShape(pptx.ShapeType.line, { x: 0, y, w: W, h: 0, line: { color: color(p.ink), transparency: 91, width: 0.35 } });
@@ -89,7 +91,7 @@ export function createPresentation(design, { language = 'zh', content: input = {
       s.addShape(pptx.ShapeType.rect, { x: 0.4, y: 0.7, w: 12.5, h: 5.9, line: { color: color(p.rule), width: 0.7 }, fill: { color: color(p.paper), transparency: 100 } });
     }
     if (number > 1 && d.direction === 'textile') rect(s, 0.6, 0.72, 12.1, 0.06, p.accent);
-    s.addNotes(`random-design ${d.algorithm}; rule fingerprint ${d.library}; design ${d.id}. Fictional demonstration content and chart values; no empirical claims. Fonts are referenced, not embedded. Decorative procedural artwork is an SVG image; text, shapes and charts are native editable objects.`);
+    s.addNotes(`Renderer material/1; random-design ${d.algorithm}; rule fingerprint ${d.library}; design ${d.id}. Fictional demonstration content and chart values; no empirical claims. Fonts are referenced, not embedded. Decorative procedural artwork is an SVG image; text, shapes and charts are native editable objects.`);
     return s;
   }
   function heading(s, value) { text(s, value, 0.65, 0.95, 11.9, 0.85, { fontSize: 32, fontFace: displayFont, bold: t.titleWeight >= 650, charSpacing: t.tracking * 20 }); }
@@ -160,19 +162,25 @@ export function createPresentation(design, { language = 'zh', content: input = {
         fill: { color: color(p.paper), transparency: 100 }
       });
     }
-    if (preset.graphic === 'none') artBox = undefined;
+    if (preset.graphic === 'none' || ['skeuomorphism','glassmorphism','pop-art'].includes(preset.id)) artBox = undefined;
+    if (preset.id === 'glassmorphism') svgImage(s1, materialPanel('glassmorphism',p.panel,610,490), .65,1.0,6.1,4.9);
+    if (preset.id === 'skeuomorphism') { rect(s1,7.25,1.05,5.45,5.2,'#9a7846');rect(s1,7.34,1.14,5.27,5.02,'#19372c'); }
     const cards = COVER_CARDS[preset.id] ?? {};
     const ruled = RULED_COVERS.has(preset.id);
     if (c.prices) c.sections.forEach(([name], index) => {
       const bento = preset.layout === 'bento';
       const smallTile = bento && index > 0;
-      const x = bento ? (index === 2 ? 10.18 : 7.55) : menuSide ? 7.55 : 0.8 + index * 4.02;
-      const y = bento ? (smallTile ? 3.76 : 1.28) : menuSide ? 1.28 + index * 1.57 : 5.16;
-      const width = smallTile ? 2.29 : menuSide ? 4.92 : 3.78;
-      const height = bento ? 2.18 : menuSide ? 1.30 : 1.22;
-      const fill = ruled ? p.paper : cards.fills?.[index] ?? p.panel;
+      const hanging = preset.id === 'skeuomorphism';
+      const x = hanging ? 7.55 + index*1.63 : bento ? (index === 2 ? 10.18 : 7.55) : menuSide ? 7.55 : 0.8 + index * 4.02;
+      const y = hanging ? 1.65 : bento ? (smallTile ? 3.76 : 1.28) : menuSide ? 1.28 + index * 1.57 : 5.16;
+      const width = hanging ? 1.46 : smallTile ? 2.29 : menuSide ? 4.92 : 3.78;
+      const height = hanging ? 3.95 : bento ? 2.18 : menuSide ? 1.30 : 1.22;
+      const fill = hanging ? '#eee1be' : ruled ? p.paper : cards.fills?.[index] ?? p.panel;
       const cardInk = contrast(p.ink, fill) >= 4.5 ? p.ink : textOn(fill, p.hue, 0.025, 7);
-      if (ruled) {
+      const material = materialPanel(preset.id, fill, Math.round(width*100), Math.round(height*100));
+      if (material) {
+        svgImage(s1,material,x,y,width,height);
+      } else if (ruled) {
         rule(s1, x, y, width, p.rule);
       } else {
         s1.addShape(d.surface.radius ? pptx.ShapeType.roundRect : pptx.ShapeType.rect, {
@@ -182,11 +190,13 @@ export function createPresentation(design, { language = 'zh', content: input = {
           ...(cards.shadow ? { shadow: { type: 'outer', color: '292431', opacity: 0.17, blur: 8, angle: 45, distance: 3 } } : {})
         });
       }
-      const nameWidth = smallTile ? width - 0.4 : width - 1.65;
-      text(s1, name, x + 0.2, y + 0.26, nameWidth, 0.69, { fontSize: 19, bold: true, color: color(cardInk) });
-      text(s1, c.prices[index], smallTile ? x + 0.2 : x + width - 1.37, y + (smallTile ? 1.12 : 0.24), 1.12, 0.72, {
-        fontSize: 23, fit: 'shrink', align: smallTile ? 'left' : 'right', color: color(cardInk), fontFace: displayFont
-      });
+      const hasIcon = ['skeuomorphism','glassmorphism','claymorphism','neumorphism','bento','y2k','pixel-art'].includes(preset.id);
+      if (hasIcon) svgImage(s1,menuIcon(d,index),x+(hanging?.13:.12),y+(hanging?.25:.3),hanging?1.2:.55,hanging?1.15:.55);
+      const offset = hanging ? .12 : hasIcon ? .77 : .2;
+      const nameWidth = hanging ? width-.24 : smallTile ? width-offset-.1 : width-offset-1.25;
+      text(s1,name,x+offset,y+(hanging?1.7:.24),nameWidth,.69,{fontSize:hanging?17:18,bold:true,color:color(cardInk),align:hanging?'center':'left',fit:'shrink'});
+      text(s1,c.prices[index],hanging?x+.12:smallTile?x+.2:x+width-1.22,y+(hanging?2.9:smallTile?1.12:.24),hanging?width-.24:1.02,.72,{fontSize:hanging?20:23,fit:'shrink',align:hanging?'center':smallTile?'left':'right',color:color(cardInk),fontFace:displayFont});
+
     });
   }
   if (artBox) art(s1, artBox.x, artBox.y, artBox.w, artBox.h);
@@ -194,11 +204,26 @@ export function createPresentation(design, { language = 'zh', content: input = {
   if (!preset) text(s1, c.eyebrow, titleBox.x, eyebrowY, titleBox.w, 0.25, { fontSize: 9, color: color(titleColor), align });
   const verticalTitle = preset?.layout === 'scroll' && language === 'zh' && [...c.title].length <= 6;
   const coverTitle = verticalTitle ? [...c.title].join('\n') : c.title;
-  text(s1, coverTitle, titleBox.x, titleBox.y, titleBox.w, titleBox.h, { fontSize: language === 'en' ? titleSize - 4 : titleSize, color: color(titleColor), fontFace: displayFont, bold: t.titleWeight >= 650, align, charSpacing: t.tracking * 20, ...(preset ? { fit: 'shrink' } : {}) });
+  const expressive = new Set(['cyberpunk','retro-terminal','brutalism','pop-art','memphis','swiss','pixel-art','neubrutalism','bauhaus']);
+  if (['cyberpunk','pop-art','y2k'].includes(preset?.id)) {
+    text(s1,coverTitle,titleBox.x+.035,titleBox.y+.035,titleBox.w,titleBox.h,{fontSize:language==='en'?titleSize-4:titleSize,fontFace:displayFont,bold:true,color:color(p.accent2),align,fit:'shrink'});
+  }
+  text(s1, coverTitle, titleBox.x, titleBox.y, titleBox.w, titleBox.h, { fontSize: language === 'en' ? titleSize - 4 : titleSize, color: color(titleColor), fontFace: displayFont, bold: expressive.has(preset?.id) || t.titleWeight >= 650, align, charSpacing: t.tracking * 20, ...(preset ? { fit: 'shrink' } : {}) });
+  if (preset && !verticalTitle) {
+    const center = preset.layout === 'center';
+    const descY = center ? 4.28 : 3.2;
+    text(s1,c.description,titleBox.x,descY,titleBox.w,.68,{fontSize:14,color:color(titleColor),align,valign:'top',fit:'shrink'});
+    if(!center) {
+      const buttonFill = p.accent;
+      s1.addShape(pptx.ShapeType.roundRect,{x:titleBox.x,y:4.1,w:1.6,h:.4,rectRadius:.08,line:{color:color(buttonFill),transparency:100},fill:{color:color(buttonFill)}});
+      text(s1,c.action,titleBox.x+.1,4.1,1.4,.4,{fontSize:11,color:color(p.onAccent),align:'center'});
+    }
+  }
   if (!preset) text(s1, c.subtitle, titleBox.x, Math.min(titleBox.y + titleBox.h + 0.23, 5.8), titleBox.w, 0.45, { fontSize: 17, color: color(d.direction === 'atelier' ? p.panelInk : p.ink), align });
 
   const s2 = base(2); heading(s2, c.sectionTitle);
-  rect(s2, 0.65, 2.05, 6.45, 4.2, p.panel);
+  const detailPanel = materialPanel(d.direction,p.panel,645,420);
+  if(detailPanel) svgImage(s2,detailPanel,.65,2.05,6.45,4.2); else rect(s2,.65,2.05,6.45,4.2,p.panel);
   text(s2, quote(c.description), 1.0, 2.5, 5.7, 2.8, { fontSize: language === 'zh' ? 21 : 24, color: color(p.panelInk), fontFace: displayFont, valign: 'top', breakLine: false });
   rule(s2, 7.6, 2.2, 4.6, p.accent);
   c.sections.slice(0, 3).forEach(([a, b], i) => {

@@ -1,3 +1,4 @@
+import { materialCup } from './material-art.js';
 // Original motif drawings for the preset renderers. Coordinate units are SVG
 // viewBox units, shared by the website and PowerPoint exports.
 function cup(fill, edge, coffee = '#56331e', shine = '#fff1d4') {
@@ -53,25 +54,20 @@ export function presetArtwork(design, decorative) {
   let art = '';
   switch (shape) {
     case 'ceramic':
-      art = `<ellipse cx="316" cy="252" rx="224" ry="190" fill="${p.accent2}" opacity=".21"/>
-        ${cup('url(#ceramic)', '#78594b')}`;
+      art = materialCup({top: true, colour: design.direction === 'neumorphism' ? '#e4edf2' : '#fff4dd'});
       break;
     case 'clay-cup':
-      art = `<circle cx="320" cy="248" r="190" fill="${p.panel}" opacity=".68"/>
-        ${cup('url(#clay)', '#ad634f', '#704032')}
-        <path d="M267 285h3m72 0h3m-50 13q12 12 24 0" fill="none" stroke="#603835" stroke-width="7" stroke-linecap="round"/>`;
+      art = materialCup({clay:true});
       break;
     case 'chrome':
-      art = `<circle cx="320" cy="245" r="194" fill="url(#chrome)" stroke="${p.accent}" stroke-width="3"/>
-        <ellipse cx="320" cy="245" rx="251" ry="77" transform="rotate(-23 320 245)" fill="none" stroke="#fff9ff" stroke-width="6"/>
-        ${cup('url(#chrome)', '#45397f')}`;
+      art = `<circle cx="320" cy="242" r="199" fill="url(#chrome)" stroke="#fff" stroke-width="3"/><circle cx="320" cy="242" r="190" fill="none" stroke="#6e57ad" stroke-width="2"/>${materialCup({chrome:true})}`;
       break;
     case 'neon':
     case 'sunset': {
       const cyber = shape === 'neon';
       art = `<g clip-path="url(#moon-window)"><circle cx="320" cy="250" r="196" fill="url(#sun)"/>
         ${Array.from({length: 9}, (_, i) => `<path d="M100 ${279 + i * 19}H540" stroke="${p.paper}" stroke-width="${3 + i * .8}"/>`).join('')}</g>
-        ${cup(cyber ? p.paper : '#8de9e3', cyber ? '#63fff2' : '#341d60', '#513153')}
+        ${cyber ? `<path d="M200 220H422L408 308Q309 378 219 309ZM422 229H463V279L412 292" fill="${p.paper}" stroke="#65fff0" stroke-width="4"/><path d="M209 230H414" stroke="#ef46b3" stroke-width="3"/>` : materialCup({colour:'#77e3e5'})}
         ${cyber ? `<path d="M222 284h38l20-22 24 39 19-17h62" fill="none" stroke="${p.accent}" stroke-width="5"/>` : ''}`;
       break;
     }
@@ -136,7 +132,7 @@ export function presetArtwork(design, decorative) {
         <path d="M97 267Q148 216 207 228Q263 159 305 201Q327 218 374 236Q418 191 489 217L544 243V333H97Z" fill="#729080" opacity=".45"/>
         <path d="M103 301Q174 243 236 269Q298 205 367 263Q413 249 543 299V361H103Z" fill="#3e6d62" opacity=".68"/>
         <path d="M109 331Q228 310 340 327T542 322M145 360Q290 333 483 355M172 386Q312 358 454 379" stroke="#f3eedb" stroke-width="5" opacity=".63" fill="none"/>
-        <g transform="translate(105 172) scale(.68)">${cup('#93b4a3', '#305043')}</g>
+        <path d="M212 339Q320 387 430 339L412 361Q320 399 230 361Z" fill="#234f43"/><ellipse cx="321" cy="338" rx="109" ry="15" fill="#b7d2bb"/><ellipse cx="321" cy="338" rx="91" ry="10" fill="#3b5946"/><path d="M192 385Q315 407 443 385" fill="none" stroke="#5e7c6b" stroke-width="3"/>
       </g><circle cx="320" cy="250" r="196" fill="none" stroke="${p.ink}" stroke-width="5"/>
       <circle cx="320" cy="250" r="208" fill="none" stroke="${p.ink}" stroke-width="1"/>`;
       break;
