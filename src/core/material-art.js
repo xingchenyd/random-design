@@ -25,7 +25,7 @@ export function materialCup({ top = false, clay = false, chrome = false, dark = 
     ${dark ? '' : heart}
     <path d="M205 194A110 110 0 0 1 304 128" fill="none" stroke="#fff" stroke-width="3" opacity=".75"/>`
     : `${shadow(332,395,177,29)}
-    <ellipse cx="311" cy="378" rx="158" ry="32" fill="url(#glaze)"/><ellipse cx="311" cy="372" rx="147" ry="25" fill="${clay?'#fbd7c2':'#e9edf1'}"/>
+    <ellipse cx="311" cy="378" rx="158" ry="32" fill="${clay?'#d39a87':chrome?'#b4a2ce':'#c4ced2'}"/><ellipse cx="311" cy="372" rx="147" ry="25" fill="${clay?'#fbd7c2':'#e9edf1'}"/>
     <path d="M422 221C509 202 497 322 420 303" fill="none" stroke="${clay ? '#c77463' : '#98a6af'}" stroke-width="31"/>
     <path d="M422 216C501 201 493 310 420 296" fill="none" stroke="url(#glaze)" stroke-width="24"/>
     <path d="M191 205Q193 284 215 325Q235 366 310 369Q390 368 409 326Q429 279 431 205Z" fill="url(#glaze)"/>
