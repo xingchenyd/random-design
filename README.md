@@ -4,17 +4,45 @@
 
 # random-design
 
+**由 xingchenyd 独立创建并维护的公开仓库。** 项目地址为 [`xingchenyd/random-design`](https://github.com/xingchenyd/random-design)。账号中的 `xingchenyd/hash-design` 是另一个用于保留上游项目的 fork。复用的部分调色板保留了[来源与 MIT 许可](THIRD_PARTY_NOTICES.md)。
+
 ### 为网页与 PPT 生成多套视觉方案，选择后再制作。
 
 先确定有依据的视觉语言，再生成颜色、排印、构图和图形；用实际预览比较方案。
 
 [**打开在线工作台 →**](https://xingchenyd.github.io/random-design/) · [21 种固定风格](https://xingchenyd.github.io/random-design/presets/) · [随机哈希示例](https://xingchenyd.github.io/random-design/presets/hash.html) · [跨环境接入](docs/integrations.md)
 
-![工作台实际截图](docs/assets/studio-desktop.png)
+
 
 **独立实现 · 浏览器 / CLI / MCP / Skill · 中英文 · MIT · 无需模型 API 密钥**
 
 </div>
+
+## 21 种固定风格 · 完整效果图
+
+下面直接展示全部 21 种实际网页效果，顺序与参考视频一致。点击表格中的风格名称即可在工作台选用，并下载网页、设计规范或 PPTX。随机哈希模式仍然保留。
+
+![全部 21 种固定风格的实际网页效果](docs/assets/materials-all-v4.jpg)
+
+| 风格 | 风格 | 风格 |
+|---|---|---|
+| [01 · 赛博朋克](https://xingchenyd.github.io/random-design/?preset=cyberpunk&lang=zh) | [02 · 复古终端](https://xingchenyd.github.io/random-design/?preset=retro-terminal&lang=zh) | [03 · 拟物](https://xingchenyd.github.io/random-design/?preset=skeuomorphism&lang=zh) |
+| [04 · 玻璃拟态](https://xingchenyd.github.io/random-design/?preset=glassmorphism&lang=zh) | [05 · 粗野主义](https://xingchenyd.github.io/random-design/?preset=brutalism&lang=zh) | [06 · 波普艺术](https://xingchenyd.github.io/random-design/?preset=pop-art&lang=zh) |
+| [07 · 孟菲斯](https://xingchenyd.github.io/random-design/?preset=memphis&lang=zh) | [08 · 杂志排版](https://xingchenyd.github.io/random-design/?preset=editorial&lang=zh) | [09 · 瑞士风格](https://xingchenyd.github.io/random-design/?preset=swiss&lang=zh) |
+| [10 · 黏土拟态](https://xingchenyd.github.io/random-design/?preset=claymorphism&lang=zh) | [11 · 新拟态](https://xingchenyd.github.io/random-design/?preset=neumorphism&lang=zh) | [12 · 千禧 Y2K](https://xingchenyd.github.io/random-design/?preset=y2k&lang=zh) |
+| [13 · 像素风](https://xingchenyd.github.io/random-design/?preset=pixel-art&lang=zh) | [14 · 新粗野主义](https://xingchenyd.github.io/random-design/?preset=neubrutalism&lang=zh) | [15 · 包豪斯](https://xingchenyd.github.io/random-design/?preset=bauhaus&lang=zh) |
+| [16 · 蒸汽波](https://xingchenyd.github.io/random-design/?preset=vaporwave&lang=zh) | [17 · 极光渐变](https://xingchenyd.github.io/random-design/?preset=aurora&lang=zh) | [18 · 装饰艺术](https://xingchenyd.github.io/random-design/?preset=art-deco&lang=zh) |
+| [19 · 科幻 HUD 界面](https://xingchenyd.github.io/random-design/?preset=sci-fi-hud&lang=zh) | [20 · 便当盒布局](https://xingchenyd.github.io/random-design/?preset=bento&lang=zh) | [21 · 新中式](https://xingchenyd.github.io/random-design/?preset=new-chinese&lang=zh) |
+
+[打开大尺寸风格图录](https://xingchenyd.github.io/random-design/presets/) · [进入随机哈希工作台](https://xingchenyd.github.io/random-design/) · [查看调用 ID 与说明](docs/presets.md)
+
+<details>
+<summary>展开在线工作台截图</summary>
+
+![工作台实际截图](docs/assets/studio-desktop.png)
+
+</details>
+
 
 ## v0.4 材质与版式重做
 

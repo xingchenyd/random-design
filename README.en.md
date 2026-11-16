@@ -4,17 +4,45 @@
 
 # random-design
 
+**An independent public repository created and maintained by xingchenyd.** The project is [`xingchenyd/random-design`](https://github.com/xingchenyd/random-design). The separate `xingchenyd/hash-design` repository is an upstream fork. Reused palettes retain their [source attribution and MIT license](THIRD_PARTY_NOTICES.md).
+
 ### Generate visual directions for websites and presentations. Choose, then build.
 
 Colour, type, composition and procedural graphics work together. Portable history reduces frequent recurrence of similar recent themes.
 
 [**Open the studio →**](https://xingchenyd.github.io/random-design/) · [21 fixed styles](https://xingchenyd.github.io/random-design/presets/en.html) · [Hash example](https://xingchenyd.github.io/random-design/presets/hash-en.html) · [Integrations](docs/integrations.md)
 
-![Actual studio screenshot](docs/assets/studio-desktop.png)
+
 
 **Independent implementation · Browser / CLI / MCP / Skill · English + Chinese · MIT · No model API key**
 
 </div>
+
+## All 21 fixed styles · Visual catalogue
+
+All 21 actual website previews appear below in the reference video's order. Select a style name to open it in the studio and download HTML, the design specification or PPTX. Random hash exploration remains available.
+
+![All 21 fixed styles rendered as real websites](docs/assets/materials-all-v4.jpg)
+
+| Style | Style | Style |
+|---|---|---|
+| [01 · Cyberpunk](https://xingchenyd.github.io/random-design/?preset=cyberpunk&lang=en) | [02 · Retro Terminal](https://xingchenyd.github.io/random-design/?preset=retro-terminal&lang=en) | [03 · Skeuomorphism](https://xingchenyd.github.io/random-design/?preset=skeuomorphism&lang=en) |
+| [04 · Glassmorphism](https://xingchenyd.github.io/random-design/?preset=glassmorphism&lang=en) | [05 · Brutalism](https://xingchenyd.github.io/random-design/?preset=brutalism&lang=en) | [06 · Pop Art](https://xingchenyd.github.io/random-design/?preset=pop-art&lang=en) |
+| [07 · Memphis](https://xingchenyd.github.io/random-design/?preset=memphis&lang=en) | [08 · Editorial](https://xingchenyd.github.io/random-design/?preset=editorial&lang=en) | [09 · Swiss Style](https://xingchenyd.github.io/random-design/?preset=swiss&lang=en) |
+| [10 · Claymorphism](https://xingchenyd.github.io/random-design/?preset=claymorphism&lang=en) | [11 · Neumorphism](https://xingchenyd.github.io/random-design/?preset=neumorphism&lang=en) | [12 · Y2K Aesthetic](https://xingchenyd.github.io/random-design/?preset=y2k&lang=en) |
+| [13 · Pixel Art](https://xingchenyd.github.io/random-design/?preset=pixel-art&lang=en) | [14 · Neubrutalism](https://xingchenyd.github.io/random-design/?preset=neubrutalism&lang=en) | [15 · Bauhaus](https://xingchenyd.github.io/random-design/?preset=bauhaus&lang=en) |
+| [16 · Vaporwave](https://xingchenyd.github.io/random-design/?preset=vaporwave&lang=en) | [17 · Aurora Gradient](https://xingchenyd.github.io/random-design/?preset=aurora&lang=en) | [18 · Art Deco](https://xingchenyd.github.io/random-design/?preset=art-deco&lang=en) |
+| [19 · Sci-Fi HUD](https://xingchenyd.github.io/random-design/?preset=sci-fi-hud&lang=en) | [20 · Bento Grid](https://xingchenyd.github.io/random-design/?preset=bento&lang=en) | [21 · New Chinese Style](https://xingchenyd.github.io/random-design/?preset=new-chinese&lang=en) |
+
+[Open the full-size gallery](https://xingchenyd.github.io/random-design/presets/en.html) · [Open random hash exploration](https://xingchenyd.github.io/random-design/?lang=en) · [Style IDs and usage](docs/presets.md)
+
+<details>
+<summary>Show the studio screenshot</summary>
+
+![Actual studio screenshot](docs/assets/studio-desktop.png)
+
+</details>
+
 
 ## v0.4 material and composition rebuild
 
