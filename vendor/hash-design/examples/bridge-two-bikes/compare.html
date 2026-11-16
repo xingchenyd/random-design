@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二号桥单车铺 — hash-design 对比</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+  :root {
+    --table: #d8d5ce; --ink: #151412; --muted: #55524b; --line: #151412; --mark: #e2401c; --card: #f3f1ec;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --sans: "IBM Plex Sans Condensed", "Noto Sans SC", "Arial Narrow", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--table); color: var(--ink); font: 14px/1.45 var(--sans); }
+  .bar { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-items: end; padding: 20px 24px 16px; border-bottom: 2px solid var(--line); }
+  .bar h1 { margin: 0; font: 600 28px/1.1 var(--sans); letter-spacing: -0.01em; }
+  .bar p { margin: 4px 0 0; font: 12px/1.4 var(--mono); color: var(--muted); }
+  .controls { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .controls button { font: 600 12px var(--mono); padding: 6px 10px; border: 1.5px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+  .controls button[aria-pressed="true"] { background: var(--ink); color: var(--table); }
+  .strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 16px; padding: 16px 24px 24px; overflow-x: auto; scroll-snap-type: x mandatory; }
+  body.cols-2 .strip { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); }
+  body.focus .strip { grid-auto-flow: row; grid-template-columns: 1fr; }
+  body.focus .frame:not(.on) { display: none; }
+  .frame { scroll-snap-align: start; background: var(--card); border: 2px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
+  .frame.on { outline: 4px solid var(--mark); outline-offset: 2px; }
+  .frame-head { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border-bottom: 2px solid var(--line); }
+  .num { font: 600 30px/1 var(--mono); }
+  .who { display: flex; flex-direction: column; min-width: 0; }
+  .who strong { font-size: 16px; }
+  .who span { font: 11px var(--mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hash { font: 11px var(--mono); background: var(--ink); color: var(--card); padding: 2px 6px; }
+  .screen { position: relative; overflow: hidden; background: #fff; border-bottom: 2px solid var(--line); }
+  .screen iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; background: #fff; }
+  .spec { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; padding: 10px; font-size: 12.5px; }
+  .spec dt { font: 600 11px/1.6 var(--mono); color: var(--muted); }
+  .spec dd { margin: 0; min-width: 0; }
+  .sw { display: inline-flex; vertical-align: -2px; margin-right: 4px; border: 1px solid var(--line); }
+  .sw i { width: 12px; height: 12px; display: block; }
+  .frame-foot { margin-top: auto; display: flex; gap: 12px; align-items: center; padding: 8px 10px; border-top: 1px dashed var(--line); font: 12px var(--mono); }
+  .frame-foot a { color: var(--ink); }
+  .focus-btn { margin-left: auto; font: 600 12px var(--mono); border: 1.5px solid var(--line); background: transparent; padding: 4px 8px; cursor: pointer; }
+  .pick { margin: 0 24px 32px; padding: 14px 16px; border: 2px dashed var(--line); font-size: 15px; }
+  .pick b { font-family: var(--mono); }
+  @media (max-width: 720px) { .bar { grid-template-columns: 1fr; } .controls { justify-content: flex-start; } body.cols-2 .strip { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <div>
+      <h1>二号桥单车铺</h1>
+      <p>5 个方向 · seed:bridge-two-bikes-5 · hash-design/v1 · library c7b166fe6ec0 · 2026-11-02</p>
+    </div>
+    <div class="controls" role="toolbar" aria-label="视图">
+      <button type="button" data-view="strip" aria-pressed="true">并排</button>
+      <button type="button" data-view="cols-2" aria-pressed="false">两列</button>
+      <button type="button" data-view="focus" aria-pressed="false">单张</button>
+      <button type="button" data-device="desktop" aria-pressed="true">桌面 1440</button>
+      <button type="button" data-device="mobile" aria-pressed="false">手机 390</button>
+    </div>
+  </header>
+  <main class="strip">
+
+    <article class="frame" id="d1" data-n="1">
+      <header class="frame-head">
+        <span class="num">01</span>
+        <div class="who">
+          <strong>瑞士网格</strong>
+          <span>Swiss grid</span>
+        </div>
+        <code class="hash" title="0377a498f0119f4f640840bd7c48820d0f2eac30756f28efeba4029b5ab4d846">0377a498</code>
+      </header>
+      <div class="screen" data-src="previews/01-swiss-grid.html">
+        <iframe src="previews/01-swiss-grid.html" title="#1 Swiss grid" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>版式</dt><dd>Numbered index</dd>
+        <dt>字体</dt><dd>Archivo / Archivo</dd>
+        <dt>配色</dt><dd><span class="sw"><i style="background:#121212" title="paper #121212"></i><i style="background:#f1eee6" title="ink #f1eee6"></i><i style="background:#ff5a1f" title="accent #ff5a1f"></i><i style="background:#4a8fd1" title="accent2 #4a8fd1"></i><i style="background:#232323" title="panel #232323"></i><i style="background:#a3a097" title="muted #a3a097"></i><i style="background:#f1eee6" title="rule #f1eee6"></i></span> Tonhalle night</dd>
+        <dt>密度</dt><dd>airy</dd>
+        <dt>语气</dt><dd>问答访谈</dd>
+        <dt>变数</dt><dd>首屏无按钮</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/01-swiss-grid.html" target="_blank" rel="noopener">打开整页 ↗</a>
+        <a href="briefs/01-swiss-grid.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="1">放大看 · 1</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d2" data-n="2">
+      <header class="frame-head">
+        <span class="num">02</span>
+        <div class="who">
+          <strong>时装画册</strong>
+          <span>Couture lookbook</span>
+        </div>
+        <code class="hash" title="92818df99d3eaeee4ab934e524f41bb56abca6ae73320d8fd48b647aa658fca8+1">92818df9</code>
+      </header>
+      <div class="screen" data-src="previews/02-couture-lookbook.html">
+        <iframe src="previews/02-couture-lookbook.html" title="#2 Couture lookbook" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>版式</dt><dd>Look sequence</dd>
+        <dt>字体</dt><dd>Italiana / Cormorant Garamond</dd>
+        <dt>配色</dt><dd><span class="sw"><i style="background:#0d0c0b" title="paper #0d0c0b"></i><i style="background:#f2eee6" title="ink #f2eee6"></i><i style="background:#c8a46a" title="accent #c8a46a"></i><i style="background:#8e1a1f" title="accent2 #8e1a1f"></i><i style="background:#1a1816" title="panel #1a1816"></i><i style="background:#a39d92" title="muted #a39d92"></i><i style="background:#f2eee6" title="rule #f2eee6"></i></span> Noir &amp; champagne</dd>
+        <dt>密度</dt><dd>airy</dd>
+        <dt>语气</dt><dd>田野笔记</dd>
+        <dt>变数</dt><dd>强调色配给</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/02-couture-lookbook.html" target="_blank" rel="noopener">打开整页 ↗</a>
+        <a href="briefs/02-couture-lookbook.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="2">放大看 · 2</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d3" data-n="3">
+      <header class="frame-head">
+        <span class="num">03</span>
+        <div class="who">
+          <strong>票根</strong>
+          <span>Ticket stub</span>
+        </div>
+        <code class="hash" title="a49063502037857ce8846937fc2524f991fdbcb094a46c682d1c676cae47326b+1">a4906350</code>
+      </header>
+      <div class="screen" data-src="previews/03-ticket-stub.html">
+        <iframe src="previews/03-ticket-stub.html" title="#3 Ticket stub" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>版式</dt><dd>Oversized card ticket</dd>
+        <dt>字体</dt><dd>Bevan / Old Standard TT</dd>
+        <dt>配色</dt><dd><span class="sw"><i style="background:#e9dcb8" title="paper #e9dcb8"></i><i style="background:#1d1b16" title="ink #1d1b16"></i><i style="background:#2f5d3a" title="accent #2f5d3a"></i><i style="background:#c8541f" title="accent2 #c8541f"></i><i style="background:#d8c792" title="panel #d8c792"></i><i style="background:#5a5240" title="muted #5a5240"></i><i style="background:#1d1b16" title="rule #1d1b16"></i></span> Buff railway card</dd>
+        <dt>密度</dt><dd>packed</dd>
+        <dt>语气</dt><dd>田野笔记</dd>
+        <dt>变数</dt><dd>首屏无按钮</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/03-ticket-stub.html" target="_blank" rel="noopener">打开整页 ↗</a>
+        <a href="briefs/03-ticket-stub.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="3">放大看 · 3</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d4" data-n="4">
+      <header class="frame-head">
+        <span class="num">04</span>
+        <div class="who">
+          <strong>游戏说明书</strong>
+          <span>Game manual</span>
+        </div>
+        <code class="hash" title="40257aad1bad4bda9c195b35779c75d0dc3ba971b03c888c15bdc1e83321779a">40257aad</code>
+      </header>
+      <div class="screen" data-src="previews/04-game-manual.html">
+        <iframe src="previews/04-game-manual.html" title="#4 Game manual" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>版式</dt><dd>Strategy-guide spread</dd>
+        <dt>字体</dt><dd>Press Start 2P / Chakra Petch</dd>
+        <dt>配色</dt><dd><span class="sw"><i style="background:#111010" title="paper #111010"></i><i style="background:#fcfcfc" title="ink #fcfcfc"></i><i style="background:#fca044" title="accent #fca044"></i><i style="background:#3cbcfc" title="accent2 #3cbcfc"></i><i style="background:#000000" title="panel #000000"></i><i style="background:#a4a4a4" title="muted #a4a4a4"></i><i style="background:#7c7c7c" title="rule #7c7c7c"></i></span> Title-screen black</dd>
+        <dt>密度</dt><dd>regular</dd>
+        <dt>语气</dt><dd>问答访谈</dd>
+        <dt>变数</dt><dd>分节编号</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/04-game-manual.html" target="_blank" rel="noopener">打开整页 ↗</a>
+        <a href="briefs/04-game-manual.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="4">放大看 · 4</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d5" data-n="5">
+      <header class="frame-head">
+        <span class="num">05</span>
+        <div class="who">
+          <strong>老黄历</strong>
+          <span>Chinese almanac</span>
+        </div>
+        <code class="hash" title="67d7ad9674f570e3e07cbb0c1f19b566c77b87bc276073a8351bf230f4054d01+1">67d7ad96</code>
+      </header>
+      <div class="screen" data-src="previews/05-chinese-almanac.html">
+        <iframe src="previews/05-chinese-almanac.html" title="#5 Chinese almanac" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>版式</dt><dd>Tear-off day sheet</dd>
+        <dt>字体</dt><dd>Limelight / Cormorant Garamond</dd>
+        <dt>配色</dt><dd><span class="sw"><i style="background:#e6eee5" title="paper #e6eee5"></i><i style="background:#1d2420" title="ink #1d2420"></i><i style="background:#2f7a5f" title="accent #2f7a5f"></i><i style="background:#c95a45" title="accent2 #c95a45"></i><i style="background:#f5efe2" title="panel #f5efe2"></i><i style="background:#4a554e" title="muted #4a554e"></i><i style="background:#8fa79a" title="rule #8fa79a"></i></span> Celadon poster</dd>
+        <dt>密度</dt><dd>regular</dd>
+        <dt>语气</dt><dd>配方步骤</dd>
+        <dt>变数</dt><dd>粗线分区</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/05-chinese-almanac.html" target="_blank" rel="noopener">打开整页 ↗</a>
+        <a href="briefs/05-chinese-almanac.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="5">放大看 · 5</button>
+      </footer>
+    </article>
+  </main>
+  <p class="pick">看完后，<b>回复编号（1–5）</b>选定一个方向，Agent 会按该编号的 brief 落地正式页面。默认整套采用，不混搭；确需混搭请明确说出“取 #a 的什么 + #b 的什么”。键盘：<b>1–5</b> 放大 · <b>←/→</b> 切换 · <b>D/M</b> 桌面/手机 · <b>Esc</b> 返回并排。</p>
+<script>
+(() => {
+  const devices = { desktop: [1440, 900], mobile: [390, 844] };
+  let device = 'desktop';
+  const body = document.body;
+  const frames = [...document.querySelectorAll('.frame')];
+  function fit() {
+    const [w, h] = devices[device];
+    for (const screen of document.querySelectorAll('.screen')) {
+      const iframe = screen.querySelector('iframe');
+      const avail = screen.clientWidth;
+      const scale = Math.min(1, avail / w);
+      iframe.style.width = w + 'px';
+      iframe.style.height = h + 'px';
+      iframe.style.transform = 'scale(' + scale + ')';
+      screen.style.height = Math.round(h * scale) + 'px';
+      if (device === 'mobile') { iframe.style.left = Math.max(0, (avail - w * scale) / 2) + 'px'; } else { iframe.style.left = '0'; }
+    }
+  }
+  function setView(view) {
+    body.classList.remove('cols-2', 'focus');
+    if (view !== 'strip') body.classList.add(view);
+    for (const b of document.querySelectorAll('[data-view]')) b.setAttribute('aria-pressed', String(b.dataset.view === view));
+    if (view !== 'focus') frames.forEach((f) => f.classList.remove('on'));
+    requestAnimationFrame(fit);
+  }
+  function focus(n) {
+    const target = frames.find((f) => f.dataset.n === String(n));
+    if (!target) return;
+    frames.forEach((f) => f.classList.toggle('on', f === target));
+    setView('focus');
+    target.scrollIntoView({ block: 'start' });
+  }
+  function setDevice(d) {
+    device = d;
+    for (const b of document.querySelectorAll('[data-device]')) b.setAttribute('aria-pressed', String(b.dataset.device === d));
+    fit();
+  }
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('button');
+    if (!t) return;
+    if (t.dataset.view) setView(t.dataset.view);
+    if (t.dataset.device) setDevice(t.dataset.device);
+    if (t.classList.contains('focus-btn')) focus(t.dataset.n);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, textarea')) return;
+    const n = Number(e.key);
+    if (n >= 1 && n <= frames.length) focus(n);
+    const cur = frames.findIndex((f) => f.classList.contains('on'));
+    if (e.key === 'ArrowRight' && cur >= 0) focus(((cur + 1) % frames.length) + 1);
+    if (e.key === 'ArrowLeft' && cur >= 0) focus(((cur - 1 + frames.length) % frames.length) + 1);
+    if (e.key === 'Escape') setView('strip');
+    if (e.key === 'd' || e.key === 'D') setDevice('desktop');
+    if (e.key === 'm' || e.key === 'M') setDevice('mobile');
+  });
+  const params = new URLSearchParams(location.search);
+  if (params.get('device') === 'mobile') setDevice('mobile');
+  if (params.get('view')) setView(params.get('view'));
+  if (params.get('focus')) focus(params.get('focus'));
+  addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>

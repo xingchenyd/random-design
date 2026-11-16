@@ -1,0 +1,1019 @@
+<!doctype html>
+<!-- hash-design #4 · risograph-duotone · ref bde66a3f031a0742a4a55c569080a96c9b1921916f352d8feecf0ea59aa24b0f -->
+<!--
+  Notes on brief conflicts:
+  · Colophon inks follow the rolled palette (red + green → RISO Red / RISO Green), not the layout's example text
+    "fluorescent pink + federal blue". Paper stock and edition size are not in the facts, so they read 待补 / screen note.
+  · Twist "numerals as display" vs layout "top-left corner block in small spot-ink type": branch wins, so the
+    No.17 / 2019 in the top-left corner stay small; every other key number on the page is set as display.
+  · Small text that the brief calls "spot ink" is set in --ink (the two drums overprinted), because --accent and
+    --accent2 are decorative-only on paper.
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第四巷面包店 · Fourth Lane Bakery — 第四巷历</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Familjen+Grotesk:ital,wght@0,400;0,600;1,400;1,600&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+/* hash-design bde66a3f · risograph-duotone · red-green-white */
+:root {
+  --paper: #fbfbf8;
+  --ink: #14352a;
+  --muted: #3f5a4f;
+  --accent: #ff665e;
+  --on-accent: #000000;
+  --accent2: #00a95c;
+  --on-accent2: #000000;
+  --rule: #00a95c;
+  --panel: #ffe0dc;
+
+  --font-display: Unbounded, "ZCOOL KuaiLe", "Arial Black", sans-serif;
+  --font-body: "Familjen Grotesk", "Noto Sans SC", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.563rem; /* 9px */
+  --step-n1: 0.796rem; /* 12.7px */
+  --step-0: 1.125rem; /* 18px */
+  --step-1: 1.591rem; /* 25.5px */
+  --step-2: 2.249rem; /* 36px */
+  --step-3: 3.181rem; /* 50.9px */
+  --step-4: 4.497rem; /* 72px */
+  --step-5: 6.359rem; /* 101.7px */
+  --step-6: 8.992rem; /* 143.9px */
+  --step-7: 12.714rem; /* 203.4px */
+  --leading: 1.65;
+
+  --space-1: 10px;
+  --space-2: 20px;
+  --space-3: 30px;
+  --space-4: 40px;
+  --space-5: 50px;
+  --space-6: 60px;
+  --space-7: 70px;
+  --space-8: 80px;
+  --section-gap: 168px;
+  --max-width: 1080px;
+
+  --motion-duration: 200ms;
+  --motion-easing: cubic-bezier(.4,0,.2,1);
+}
+
+html { font-size: 112.5%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ───────── print set-up: two drums on one 8-column grid ───────── */
+:root {
+  --mx: 2px;            /* drum 2 misregistration */
+  --my: 3px;
+  --m: 32px;            /* margin = riso's unprintable edge */
+  --g: 16px;            /* gutter */
+  --name: clamp(4rem, 18vw, 16rem);
+  --n7: clamp(4.5rem, 14vw, 12.714rem);
+  --n6: clamp(3.5rem, 10vw, 8.992rem);
+  --n5: clamp(3.25rem, 7vw, 6.359rem);
+  --n4: clamp(3rem, 5vw, 4.497rem);
+  --font-zh: "Noto Sans SC", "Familjen Grotesk", Arial, sans-serif;
+  --font-zh-display: "ZCOOL KuaiLe", Unbounded, "Arial Black", sans-serif;
+}
+@media (max-width: 640px) { :root { --m: 20px; --g: 12px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; font-size: 1rem; overflow-x: clip;
+  font-kerning: normal; line-break: strict; text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+p, h1, h2, h3, ol, ul, dl, dd, figure { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; }
+::selection { background: var(--accent); color: var(--ink); }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.sheet {
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); column-gap: var(--g);
+  max-width: 1520px; margin-inline: auto; padding-inline: var(--m);
+}
+@media (max-width: 640px) { .sheet { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+main > .sheet, main + .sheet { margin-top: var(--section-gap); }
+@media (max-width: 640px) { main > .sheet, main + .sheet { margin-top: 112px; } }
+
+/* drum 2: green, multiplied, 2px 3px out of register */
+.ink2 {
+  color: var(--accent2); mix-blend-mode: multiply;
+  transform: translate(var(--mx), var(--my));
+  transition: transform var(--motion-duration) var(--motion-easing);
+}
+svg.ink2, svg .ink2 { transform-box: view-box; }
+
+/* type */
+.lbl {
+  font-family: "Familjen Grotesk", var(--font-zh); font-weight: 600; font-size: .667rem;
+  letter-spacing: .08em; text-transform: uppercase; line-height: 1.3; color: var(--ink);
+}
+.zh-lbl { font-family: var(--font-zh); font-weight: 700; font-size: .778rem; letter-spacing: .14em; color: var(--ink); }
+.body { font-family: var(--font-zh); font-size: 1rem; line-height: var(--leading); max-width: 34em; text-wrap: pretty; hanging-punctuation: allow-end; }
+.item {
+  font-family: var(--font-zh); font-weight: 700; font-size: var(--step-1); line-height: 1.15;
+  letter-spacing: .02em; color: var(--ink);
+}
+.item small { display: block; margin-top: 8px; }
+
+/* numerals — the protagonists. .num = printed on both drums (red in register, green 2px 3px off) */
+.num, .big2 {
+  display: inline-block; position: relative; white-space: nowrap;
+  font-family: Unbounded, "Arial Black", sans-serif; font-weight: 800;
+  letter-spacing: -.03em; line-height: .92; font-synthesis: none;
+  font-variant-numeric: lining-nums;
+}
+.num { color: var(--accent); }
+.num::after {
+  content: attr(data-n) / ""; position: absolute; left: 0; top: 0;
+  color: var(--accent2); mix-blend-mode: multiply; pointer-events: none;
+  transform: translate(var(--mx), var(--my));
+  transition: transform var(--motion-duration) var(--motion-easing);
+}
+.n7 { font-size: var(--n7); }
+.n6 { font-size: var(--n6); }
+.n5 { font-size: var(--n5); }
+.n4 { font-size: var(--n4); }
+.unit {
+  font-family: var(--font-zh); font-weight: 700; font-size: var(--step-0); letter-spacing: .06em;
+  color: var(--ink); white-space: nowrap;
+}
+.cur {
+  display: inline-block; font-family: Unbounded, "Arial Black", sans-serif; font-weight: 800;
+  font-size: .36em; line-height: 1; vertical-align: top; margin-top: .14em; margin-right: .06em;
+  letter-spacing: 0;
+}
+
+/* drum drift: hover pulls drum 2 into register */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .sheet:hover .ink2,
+  .sheet:hover .num::after,
+  .sheet:hover .reg-g { transform: translate(0, 0); }
+}
+
+/* coarse screen tint (brief surface) */
+.screen-r {
+  background-image: radial-gradient(var(--accent) 34%, transparent 36%), radial-gradient(var(--accent) 34%, transparent 36%);
+  background-size: 6px 6px; background-position: 0 0, 3px 3px;
+}
+.screen-g {
+  background-image: radial-gradient(var(--accent2) 34%, transparent 36%), radial-gradient(var(--accent2) 34%, transparent 36%);
+  background-size: 6px 6px; background-position: 0 0, 3px 3px;
+}
+
+/* registration target, both drums */
+.reg { width: 34px; height: 34px; overflow: visible; display: block; }
+.reg-r { stroke: var(--accent); }
+.reg-g { stroke: var(--accent2); mix-blend-mode: multiply; transform: translate(var(--mx), var(--my)); transition: transform var(--motion-duration) var(--motion-easing); }
+
+/* ───────── 1 + 2 · poster: corner block + overlap field ───────── */
+.poster {
+  min-height: 100svh; padding-block: var(--m);
+  grid-template-rows: auto 1fr auto; row-gap: var(--g);
+}
+.c-tl { grid-column: 1 / 3; grid-row: 1; align-self: start; position: relative; z-index: 2; max-width: 300px; }
+.c-tl .lbl { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 8px; position: relative; }
+.c-tl .lbl::before, .c-tl .lbl::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; }
+.c-tl .lbl::before { background: var(--accent); }
+.c-tl .lbl::after { background: var(--accent2); mix-blend-mode: multiply; transform: translate(var(--mx), var(--my)); transition: transform var(--motion-duration) var(--motion-easing); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .sheet:hover .c-tl .lbl::after { transform: none; } }
+.c-tl p + p { margin-top: 6px; }
+.tl-a, .tl-b { font-family: var(--font-zh); font-size: .833rem; line-height: 1.45; color: var(--ink); }
+.tl-a { margin-top: 12px !important; font-weight: 700; }
+.tl-a b, .tl-b b { font-family: Unbounded, sans-serif; font-weight: 700; letter-spacing: -.01em; }
+
+.reg-top { grid-column: 4 / 6; grid-row: 1; justify-self: center; align-self: start; margin-top: 4px; }
+
+.c-tr {
+  grid-column: 7 / 9; grid-row: 1 / 3; justify-self: end; align-self: start; position: relative; z-index: 2;
+  writing-mode: vertical-rl;
+}
+.yj + .yj { margin-block-start: 16px; }
+.yj { font-family: var(--font-zh); font-size: .889rem; letter-spacing: .32em; line-height: 1.5; color: var(--ink); }
+.yj-k {
+  display: inline-block; width: 1.75em; height: 1.75em; line-height: 1.75em; text-align: center; letter-spacing: 0;
+  font-family: var(--font-zh-display); font-size: 1.5rem; color: var(--ink); margin-block-end: .5em;
+}
+.yj-k.yi { background: var(--accent); }
+.yj-k.ji { background: var(--accent2); }
+
+.disc {
+  grid-column: 1 / 7; grid-row: 1 / 4; justify-self: center; align-self: center;
+  width: min(100%, calc(100svh - 2 * var(--m) - 8px)); height: auto; display: block;
+}
+.name {
+  grid-column: 3 / 9; grid-row: 1 / 4; align-self: center;
+  font-family: var(--font-zh-display); font-weight: 400; font-synthesis: none;
+  font-size: var(--name); line-height: .92; letter-spacing: -.03em;
+  padding-top: .1em;
+}
+.name > span { display: block; width: max-content; }
+.name .n2 { margin-left: .5em; }
+.name .n3 {
+  margin-top: .32em; margin-left: .04em;
+  font-size: clamp(1.5rem, 3.6vw, var(--step-3)); line-height: 1; letter-spacing: -.035em;
+}
+.name .n3 .num { line-height: 1; }
+
+.c-bl { grid-column: 1 / 3; grid-row: 3; align-self: end; position: relative; z-index: 2; max-width: 300px; }
+.c-bl p { font-family: var(--font-zh); font-size: .889rem; line-height: 1.6; }
+.c-bl b { display: block; font-family: var(--font-zh-display); font-weight: 400; font-size: var(--step-1); line-height: 1.2; letter-spacing: .04em; margin-bottom: 6px; color: var(--accent2); }
+
+.c-br { grid-column: 7 / 9; grid-row: 3; align-self: end; position: relative; z-index: 2; }
+.c-br .lbl { border-bottom: 2px solid var(--rule); padding-bottom: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; }
+.c-br ol { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, auto); grid-auto-flow: column; column-gap: 16px; row-gap: 2px; }
+.c-br a { display: flex; align-items: baseline; gap: 10px; font-family: var(--font-zh); font-size: .889rem; font-weight: 700; padding: 4px 0; letter-spacing: .08em; }
+.c-br a i { font-style: normal; font-family: var(--font-zh-display); font-weight: 400; color: var(--muted); min-width: 1.2em; }
+.c-br a:hover { text-decoration: underline 2px var(--accent); text-underline-offset: 5px; }
+
+/* ───────── plate head (almanac entry) ───────── */
+main > .sheet + .sheet { margin-top: 96px; }
+@media (max-width: 640px) { main > .sheet + .sheet { margin-top: 88px; } }
+.ph {
+  grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: end;
+  border-top: 2px solid var(--rule); padding-top: 18px; margin-bottom: 32px;
+}
+.ph-no { grid-column: 1; align-self: start; display: flex; flex-direction: column; gap: 8px; }
+.ph-no b { font-family: var(--font-zh-display); font-weight: 400; font-size: var(--step-2); line-height: 1; color: var(--ink); }
+.ph-t {
+  grid-column: 2 / 6; font-family: var(--font-zh-display); font-weight: 400; font-size: var(--step-4);
+  line-height: .92; letter-spacing: .02em;
+}
+.ph-note { grid-column: 6 / 9; justify-self: end; text-align: right; font-family: var(--font-zh); font-size: 1rem; letter-spacing: .12em; color: var(--muted); padding-bottom: 6px; }
+.ph-note b {
+  display: inline-block; width: 1.7em; height: 1.7em; line-height: 1.7em; text-align: center; margin-right: .5em;
+  background: var(--accent); color: var(--ink); font-family: var(--font-zh-display); font-weight: 400; letter-spacing: 0;
+}
+@media (max-width: 640px) {
+  .ph { row-gap: 12px; }
+  .ph-t { grid-column: 2 / 5; font-size: var(--step-3); }
+  .ph-note { grid-column: 1 / -1; justify-self: start; text-align: left; padding-bottom: 0; }
+}
+
+/* ───────── 一 · two bakes ───────── */
+.sun-am, .sun-noon { display: grid; position: relative; }
+.sun-am > *, .sun-noon > * { grid-area: 1 / 1; }
+.sun-am { grid-column: 1 / 5; grid-row: 2; align-self: end; }
+.sun-am svg { width: 76%; justify-self: start; align-self: end; display: block; }
+.sun-am .big2 { justify-self: end; align-self: end; margin-bottom: -.035em; margin-right: 2%; }
+.sun-noon { grid-column: 5 / 9; grid-row: 2; align-self: start; padding-bottom: 48px; }
+.sun-noon svg { width: 46%; justify-self: end; align-self: start; display: block; }
+.sun-noon .big2 { justify-self: start; align-self: end; margin-bottom: 8%; }
+.big2 { color: var(--accent2); }
+.horizon { grid-column: 1 / -1; grid-row: 3; height: 2px; background: var(--rule); }
+.horizon-2 { display: none; }
+.bake { padding-top: 20px; }
+.bake-1 { grid-column: 1 / 4; grid-row: 4; }
+.bake-2 { grid-column: 5 / 8; grid-row: 4; }
+.bake .zh-lbl { display: flex; gap: 14px; align-items: baseline; }
+.bake .zh-lbl .lbl { color: var(--muted); }
+.bake .item { margin-top: 12px; font-size: var(--step-2); letter-spacing: .06em; }
+.bake .item span { color: var(--muted); font-weight: 400; margin-inline: .2em; }
+.ph-note.say { color: var(--ink); font-weight: 700; font-size: var(--step-1); letter-spacing: .08em; line-height: 1.3; }
+.say span { position: relative; z-index: 0; white-space: nowrap; }
+.say span::before { content: ""; position: absolute; left: -.12em; right: -.12em; bottom: .02em; height: .42em; z-index: -1; }
+.say .s1::before { background: var(--accent); }
+.say .s2::before { background-image: radial-gradient(var(--accent2) 34%, transparent 36%), radial-gradient(var(--accent2) 34%, transparent 36%); background-size: 6px 6px; background-position: 0 0, 3px 3px; }
+@media (max-width: 640px) {
+  .sun-am { grid-column: 1 / -1; grid-row: 2; }
+  .sun-am svg { width: 74%; }
+  .bake-1 { grid-column: 1 / -1; grid-row: 4; }
+  .sun-noon { grid-column: 1 / -1; grid-row: 5; margin-top: 64px; padding-bottom: 0; }
+  .sun-noon svg { width: 58%; }
+  .sun-noon .big2 { margin-bottom: -.035em; }
+  .bake .item { font-size: var(--step-1); }
+  .horizon-2 { display: block; grid-row: 6; }
+  .bake-2 { grid-column: 1 / -1; grid-row: 7; }
+}
+
+/* ───────── 二 · breads ───────── */
+.stack { display: grid; position: relative; }
+.stack > * { grid-area: 1 / 1; }
+.stack svg { display: block; width: 100%; height: auto; }
+.price { font-size: var(--n6); }
+.price.big { font-size: var(--n7); }
+.price.mid { font-size: var(--n5); }
+.price-tag { display: flex; align-items: baseline; gap: 12px; }
+.price-tag .lbl { color: var(--muted); }
+
+.loaf { grid-column: 1 / 6; grid-row: 2; display: grid; grid-template-columns: 1.15fr 1fr; column-gap: 28px; align-items: end; }
+.loaf .whole svg { width: 80%; }
+.loaf .whole .big2 { justify-self: end; align-self: center; margin-right: -2%; margin-top: 8%; }
+.loaf .half svg { width: 92%; }
+.loaf .half .big2 { justify-self: end; align-self: end; margin-bottom: -.04em; }
+.loaf .tags { grid-column: 1 / 3; display: flex; justify-content: space-between; margin-top: 14px; }
+.loaf .meta { grid-column: 1 / 3; margin-top: 28px; display: grid; grid-template-columns: auto 1fr; column-gap: 56px; align-items: end; }
+.meta .ferment { display: flex; align-items: flex-end; gap: 12px; }
+.meta .ferment .unit { padding-bottom: .5em; line-height: 1.4; white-space: normal; }
+
+.rye { grid-column: 6 / 9; grid-row: 2 / 4; align-self: start; }
+.rye .stack svg { width: 54%; }
+.rye .stack .big2 { justify-self: end; align-self: center; margin-top: 30%; }
+.rye .item { margin-top: 24px; }
+.spec { margin-top: 22px; }
+.spec li { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-top: 2px solid var(--rule); padding: 12px 0 10px; }
+.spec li:last-child { border-bottom: 2px solid var(--rule); }
+.spec .unit { padding-bottom: .35em; text-align: right; line-height: 1.35; }
+.spec .unit .lbl { display: block; color: var(--muted); }
+
+.croissant { grid-column: 1 / 4; grid-row: 3; margin-top: 64px; }
+.croissant .stack svg { width: 90%; }
+.croissant .stack .big2 { justify-self: start; align-self: end; margin-left: 20%; margin-bottom: -.05em; }
+.roll { grid-column: 4 / 6; grid-row: 3; margin-top: 76px; }
+.roll .stack svg { width: 74%; justify-self: end; }
+.roll .stack .big2 { justify-self: start; align-self: center; margin-top: 16%; }
+.bread .item { margin-top: 20px; }
+.bread .body { margin-top: 8px; color: var(--ink); }
+.bread .when { display: inline-block; margin-top: 8px; font-family: var(--font-zh); font-size: .833rem; font-weight: 700; letter-spacing: .14em; color: var(--muted); }
+@media (max-width: 900px) and (min-width: 641px) {
+  .loaf { grid-column: 1 / -1; }
+  .rye { grid-column: 1 / 5; grid-row: 3; margin-top: 96px; }
+  .croissant { grid-column: 5 / 9; grid-row: 3; margin-top: 96px; }
+  .roll { grid-column: 5 / 9; grid-row: 4; margin-top: 72px; }
+}
+@media (max-width: 640px) {
+  .loaf { grid-column: 1 / -1; grid-row: 2; column-gap: 12px; }
+  .loaf .whole svg { width: 100%; }
+  .loaf .meta { grid-template-columns: 1fr; row-gap: 18px; }
+  .rye { grid-column: 1 / -1; grid-row: 3; margin-top: 96px; }
+  .rye .stack .big2 { justify-self: start; margin-left: 40%; }
+  .croissant { grid-column: 1 / -1; grid-row: 4; margin-top: 96px; }
+  .croissant .stack svg { width: 86%; }
+  .roll { grid-column: 1 / -1; grid-row: 5; margin-top: 96px; }
+  .roll .stack svg { width: 62%; justify-self: center; }
+  .roll .stack .big2 { margin-left: 4%; }
+}
+
+/* ───────── 三 · the starter ───────── */
+.bubbles { grid-column: 1 / 6; grid-row: 2; display: grid; position: relative; align-self: start; }
+.bubbles > * { grid-area: 1 / 1; }
+.bubbles svg { width: 82%; height: auto; display: block; }
+.bubbles .big2 { font-size: var(--name); align-self: end; justify-self: end; margin-right: 12%; margin-bottom: 0; line-height: .8; }
+.bubbles .yr { align-self: end; justify-self: end; margin-bottom: 3%; margin-right: 4%; font-family: var(--font-zh-display); font-size: var(--step-3); line-height: 1; }
+.lao-col { grid-column: 6 / 9; grid-row: 2; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
+.lao h3 { font-family: var(--font-zh-display); font-weight: 400; font-size: var(--step-5); line-height: .95; letter-spacing: .02em; margin: 10px 0 20px; }
+.flour { border-top: 2px solid var(--rule); padding-top: 18px; }
+.flour .big-zh { margin-top: 14px; font-family: var(--font-zh); font-weight: 700; font-size: var(--step-2); line-height: 1.15; letter-spacing: .04em; }
+.flour .lbl { color: var(--muted); }
+.flour .plus { font-family: Unbounded, sans-serif; font-weight: 800; font-size: var(--step-3); line-height: 1; margin: 10px 0 6px; }
+.flour .f2 { display: flex; align-items: flex-end; gap: 14px; }
+.flour .f2 .unit { padding-bottom: .45em; }
+@media (max-width: 640px) {
+  .bubbles { grid-column: 1 / -1; }
+  .bubbles svg { width: 100%; }
+  .bubbles .big2 { margin-right: 22%; }
+  .bubbles .yr { margin-right: 4%; }
+  .lao-col { grid-column: 1 / -1; grid-row: 3; padding-top: 28px; }
+}
+
+/* ───────── 四 · Saturday class, printed on pink stock ───────── */
+.stock { grid-column: 1 / -1; background: var(--panel); display: grid; grid-template-columns: subgrid; padding: 36px 0 44px; }
+.stock > * { position: relative; }
+.stock .ph { grid-column: 2 / 8; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: var(--g); }
+.stock .ph .ph-t { grid-column: 2 / 5; }
+.stock .ph .ph-note { grid-column: 5 / 7; }
+.class-art { grid-column: 5 / 8; grid-row: 2; justify-self: end; align-self: end; width: 100%; max-width: 460px; }
+.class-art svg { width: 100%; height: auto; display: block; }
+.ctime { grid-column: 2 / 8; grid-row: 2; align-self: end; }
+.ctime .times { display: flex; flex-wrap: wrap; align-items: baseline; }
+.ctime .zh-lbl { margin-top: 16px; display: block; color: var(--muted); }
+.cfacts { grid-column: 2 / 8; grid-row: 3; margin-top: 40px; display: flex; flex-wrap: wrap; border-top: 2px solid var(--rule); border-bottom: 2px solid var(--rule); }
+.cfacts li { display: flex; align-items: flex-end; gap: 12px; padding: 18px 40px 16px 0; }
+.cfacts li + li { border-left: 2px solid var(--rule); padding-left: 32px; }
+.cfacts li .unit { padding-bottom: .4em; }
+.cfacts li .cur { font-size: calc(var(--n5) * .36); color: var(--accent2); align-self: flex-start; margin: calc(var(--n5) * .1) -6px 0 0; }
+.cfacts li.take { align-items: center; flex: 1; padding-right: 0; }
+.cfacts li.take p { font-family: var(--font-zh); font-weight: 700; font-size: var(--step-1); letter-spacing: .06em; line-height: 1.3; }
+@media (max-width: 900px) {
+  .stock .ph { grid-column: 1 / -1; padding-inline: 24px; }
+  .ctime, .cfacts { grid-column: 1 / -1; margin-inline: 24px; }
+  .class-art { grid-column: 1 / -1; max-width: 320px; margin-right: 16px; align-self: start; }
+  .ctime { padding-top: 120px; }
+}
+@media (max-width: 640px) {
+  .stock { padding: 32px 0 40px; }
+  .stock .ph { padding-inline: 18px; grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .stock .ph .ph-t { grid-column: 2 / 5; }
+  .stock .ph .ph-note { grid-column: 1 / -1; }
+  .ctime, .cfacts { margin-inline: 18px; }
+  .class-art { max-width: 220px; }
+  .ctime { padding-top: 88px; }
+  .cfacts { flex-direction: column; }
+  .cfacts li { padding-right: 0; }
+  .cfacts li + li { border-left: 0; padding-left: 0; border-top: 2px solid var(--rule); }
+}
+
+/* ───────── 五 · in the shop ───────── */
+.since { grid-column: 1 / 4; grid-row: 2; align-self: end; }
+.since .stack svg { width: 54%; }
+.since .stack .num { align-self: end; justify-self: start; margin-bottom: -.06em; }
+.since .item { font-size: var(--step-1); margin-top: 20px; }
+.since .body { margin-top: 6px; }
+.seats { grid-column: 4 / 7; grid-row: 2; align-self: end; }
+.seats .stack .big2 { justify-self: start; align-self: end; font-size: var(--n7); margin-bottom: -.06em; margin-left: 3%; }
+.seats .item, .coffee .item { font-size: var(--step-1); margin-top: 20px; }
+.coffee { grid-column: 7 / 9; grid-row: 2; align-self: end; justify-self: end; }
+.coffee .price-row { display: flex; align-items: flex-start; }
+.coffee .price-row .cur { font-size: calc(var(--n6) * .36); color: var(--accent2); }
+@media (max-width: 900px) and (min-width: 641px) {
+  .since { grid-column: 1 / 5; }
+  .seats { grid-column: 5 / 9; }
+  .coffee { grid-column: 1 / 5; grid-row: 3; justify-self: start; margin-top: 64px; }
+}
+@media (max-width: 640px) {
+  .since { grid-column: 1 / -1; grid-row: 2; }
+  .seats { grid-column: 1 / -1; grid-row: 3; margin-top: 72px; }
+  .coffee { grid-column: 1 / -1; grid-row: 4; margin-top: 64px; justify-self: start; }
+}
+
+/* ───────── 六 · bottom band, three columns ───────── */
+.band { row-gap: 0; }
+.band .cols { grid-column: 1 / -1; display: grid; grid-template-columns: 1.05fr 1fr 1.1fr; column-gap: 40px; }
+.band .col { border-top: 2px solid var(--rule); padding-top: 18px; display: flex; flex-direction: column; gap: 16px; }
+.band .col > .zh-lbl { display: flex; justify-content: space-between; align-items: baseline; }
+.band .col > .zh-lbl .lbl { color: var(--muted); }
+.band .lead { font-family: var(--font-zh); font-weight: 700; font-size: var(--step-1); letter-spacing: .06em; line-height: 1.3; margin-top: 10px; }
+.band .stackn { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.band .stackn .dash { font-family: var(--font-zh); font-weight: 700; font-size: .833rem; letter-spacing: .3em; color: var(--muted); line-height: 1; margin: 6px 0 4px 4px; }
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 8px; }
+.week li { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 6px; font-family: var(--font-zh); font-size: .778rem; line-height: 1.2; }
+.week li b { font-family: var(--font-zh-display); font-weight: 400; font-size: 1.111rem; }
+.week li { position: relative; }
+.week li.on::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 9px; background-image: radial-gradient(var(--accent) 34%, transparent 36%), radial-gradient(var(--accent) 34%, transparent 36%); background-size: 6px 6px; background-position: 0 0, 3px 3px; }
+.week li.on { padding-bottom: 15px; border-top: 2px solid var(--accent); }
+.week li.off { border-top: 2px solid var(--accent2); background: var(--accent2); padding-bottom: 15px; }
+.week li.off span { font-weight: 700; }
+.ji-line { font-family: var(--font-zh); font-size: 1rem; letter-spacing: .08em; }
+.ji-line b, .yi-b { display: inline-block; width: 1.7em; height: 1.7em; line-height: 1.7em; text-align: center; margin-right: .5em; font-family: var(--font-zh-display); font-weight: 400; letter-spacing: 0; }
+.ji-line b { background: var(--accent2); }
+.door-no { display: flex; align-items: flex-end; gap: 10px; }
+.door-no .unit { padding-bottom: .45em; }
+.doors svg { width: 100%; max-width: 320px; height: auto; display: block; }
+.doors figcaption { display: flex; justify-content: space-between; max-width: 320px; margin-top: 8px; }
+.doors figcaption .lbl { color: var(--muted); }
+.addr { font-family: var(--font-zh); font-size: 1rem; line-height: 1.65; }
+.addr b { font-weight: 700; }
+.tel { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 4px 0; }
+.tel:hover .num { text-decoration: none; }
+.tel-lbl { display: flex; gap: 12px; align-items: baseline; }
+.order-by { display: flex; align-items: flex-end; gap: 10px; }
+.order-by .unit { padding-bottom: .45em; }
+@media (max-width: 980px) { .band .cols { grid-template-columns: 1fr 1fr; row-gap: 72px; } .band .col:last-child { grid-column: 1 / -1; } }
+@media (max-width: 640px) { .band .cols { grid-template-columns: 1fr; row-gap: 64px; } }
+
+/* ───────── colophon ───────── */
+.colophon { margin-bottom: 0; padding-bottom: 32px; }
+.colo { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; row-gap: 16px; border-top: 2px solid var(--rule); padding-top: 18px; margin-top: 56px; }
+.colo > .zh-lbl { grid-column: 1 / 3; display: flex; flex-direction: column; gap: 6px; }
+.colo .inks { grid-column: 3 / 6; }
+.colo .swatches { display: flex; gap: 6px; margin-bottom: 12px; }
+.colo .swatches span { width: 36px; height: 36px; display: block; position: relative; }
+.sw-r { background: var(--accent); }
+.sw-g { background: var(--accent2); }
+.sw-o { background: var(--accent); }
+.sw-o::after { content: ""; position: absolute; inset: 0; background: var(--accent2); mix-blend-mode: multiply; }
+.colo dl { display: grid; grid-template-columns: auto 1fr; column-gap: 16px; row-gap: 6px; font-size: .833rem; line-height: 1.5; font-family: var(--font-zh); }
+.colo dt { font-family: "Familjen Grotesk", var(--font-zh); font-weight: 600; font-size: .667rem; letter-spacing: .08em; text-transform: uppercase; padding-top: .25em; color: var(--muted); }
+.colo > .zh-lbl .reg { margin-top: 14px; }
+.colo .meta2 { grid-column: 6 / 8; }
+.colo .end { grid-column: 8 / 9; justify-self: end; text-align: right; align-self: end; font-family: "Familjen Grotesk", var(--font-zh); font-size: .722rem; line-height: 1.6; letter-spacing: .04em; color: var(--muted); font-style: italic; }
+@media (max-width: 640px) {
+  .colo > .zh-lbl, .colo .inks, .colo .meta2 { grid-column: 1 / -1; }
+  .colo .meta2, .colo .end { grid-column: 1 / -1; justify-self: start; text-align: left; }
+}
+
+/* ───────── poster on small screens ───────── */
+@media (max-width: 640px) {
+  .poster { min-height: auto; grid-template-rows: auto auto auto auto; row-gap: 22px; }
+  .c-tl { grid-column: 1 / 4; grid-row: 1; max-width: 228px; }
+  .reg-top { display: none; }
+  .c-tr { grid-column: 4 / 5; grid-row: 1 / 3; z-index: 3; }
+  .yj + .yj { margin-block-start: 8px; }
+  .yj { font-size: .778rem; letter-spacing: .2em; }
+  .yj-k { font-size: 1.111rem; }
+  .disc { grid-column: 1 / 5; grid-row: 2; width: 78%; justify-self: start; margin-top: 8px; }
+  .name { grid-column: 1 / 5; grid-row: 2; justify-self: end; align-self: center; padding-top: 0; margin-top: 14%; font-size: 20vw; width: 74%; }
+  .name .n2 { margin-left: .4em; }
+  .name .n3 { font-size: 1.75rem; width: auto; margin-top: .5em; }
+  .c-bl { grid-column: 1 / 5; grid-row: 3; max-width: none; }
+  .c-br { grid-column: 1 / 5; grid-row: 4; }
+}
+@media (min-width: 641px) and (max-width: 900px) {
+  .name { grid-column: 2 / 9; }
+}
+</style>
+</head>
+<body>
+
+<!-- shared plates: grain, dither and coarse screen (colour always comes from the shape that uses them) -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- grain-dither: alpha of the source + stochastic noise, thresholded → riso "gradient" made of grain -->
+    <filter id="dither" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".62" numOctaves="2" seed="3" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.5 0 0 0 -.75" result="na"/>
+      <feComposite in="na" in2="SourceAlpha" operator="arithmetic" k1="0" k2="1" k3="1" k4="-.5" result="s"/>
+      <feComponentTransfer in="s" result="t"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feColorMatrix in="t" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0"/>
+    </filter>
+    <!-- fixed-coverage grain tints -->
+    <filter id="grain45" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".66" numOctaves="2" seed="17" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  10 0 0 0 -4.65" result="a"/>
+      <feComponentTransfer in="a" result="th"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComposite in="SourceGraphic" in2="th" operator="in"/>
+    </filter>
+    <filter id="grain30" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" seed="29" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  10 0 0 0 -5.1" result="a"/>
+      <feComponentTransfer in="a" result="th"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComposite in="SourceGraphic" in2="th" operator="in"/>
+    </filter>
+    <!-- knockout paint for masks (default stop = no ink); never painted on the page -->
+    <linearGradient id="ko" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="0"><stop offset="0"/></linearGradient>
+    <!-- mask ramps (alpha only) -->
+    <linearGradient id="g-solid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-opacity=".965"/><stop offset="1" stop-opacity=".965"/></linearGradient>
+    <linearGradient id="g-down" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-opacity=".985"/><stop offset=".55" stop-opacity=".96"/><stop offset="1" stop-opacity=".06"/></linearGradient>
+    <linearGradient id="g-haze" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-opacity=".97"/><stop offset=".4" stop-opacity=".94"/><stop offset="1" stop-opacity=".22"/></linearGradient>
+    <linearGradient id="g-diag" x1="0" y1="0" x2="1" y2="1"><stop offset=".15" stop-opacity=".97"/><stop offset="1" stop-opacity=".38"/></linearGradient>
+    <!-- 45° coarse screen, 6px cell -->
+    <pattern id="ht-r" width="6" height="6" patternUnits="userSpaceOnUse">
+      <g style="fill:var(--accent)"><circle r="1.6"/><circle cx="6" r="1.6"/><circle cy="6" r="1.6"/><circle cx="6" cy="6" r="1.6"/><circle cx="3" cy="3" r="1.6"/></g>
+    </pattern>
+    <pattern id="ht-g" width="6" height="6" patternUnits="userSpaceOnUse">
+      <g style="fill:var(--accent2)"><circle r="1.5"/><circle cx="6" r="1.5"/><circle cy="6" r="1.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="3" cy="3" r="1.5"/></g>
+    </pattern>
+  </defs>
+</svg>
+
+<!-- ═════════ 1 · corner block  +  2 · overlap field ═════════ -->
+<header class="sheet poster" id="top">
+  <div class="c-tl">
+    <p class="lbl"><span>第四巷历</span><span lang="en">Almanac</span></p>
+    <p class="tl-a"><b>No.17</b> · 老城区第四巷</p>
+    <p class="tl-b">己亥年开张 · <b>2019</b></p>
+  </div>
+
+  <svg class="reg reg-top" viewBox="0 0 34 34" aria-hidden="true">
+    <g class="reg-r" fill="none" stroke-width="1.5"><circle cx="17" cy="17" r="9"/><path d="M17 0v34M0 17h34"/></g>
+    <g class="reg-g" fill="none" stroke-width="1.5"><circle cx="17" cy="17" r="9"/><path d="M17 0v34M0 17h34"/></g>
+  </svg>
+
+  <aside class="c-tr" aria-label="宜忌">
+    <p class="yj"><span class="yj-k yi">宜</span>早起　趁热　提前一日预订</p>
+    <p class="yj"><span class="yj-k ji">忌</span>周一登门</p>
+  </aside>
+
+  <!-- drum 1: the disc (sun / boule), grain-dithered toward the bottom, two score marks knocked out -->
+  <svg class="disc" viewBox="0 0 1000 1000" aria-hidden="true">
+    <defs>
+      <mask id="m-disc" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000">
+        <rect width="1000" height="1000" fill="url(#g-down)" filter="url(#dither)"/>
+        <g fill="none" stroke="url(#ko)" stroke-linecap="round">
+          <path d="M128 285 A430 430 0 0 0 128 715" stroke-width="18"/>
+          <path d="M196 330 A370 370 0 0 0 196 670" stroke-width="11"/>
+        </g>
+      </mask>
+    </defs>
+    <circle cx="500" cy="500" r="497" style="fill:var(--accent)" mask="url(#m-disc)"/>
+  </svg>
+
+  <!-- drum 2: the name, multiplied over the disc -->
+  <h1 class="name">
+    <span class="n1 ink2">第四巷</span>
+    <span class="n2 ink2">面包店</span>
+    <span class="n3" lang="en"><span class="num" data-n="fourth lane">fourth lane</span> <span class="num" data-n="bakery">bakery</span></span>
+  </h1>
+
+  <div class="c-bl">
+    <p><b>宜早不宜迟。</b>每天两炉，卖完即止。</p>
+  </div>
+
+  <nav class="c-br" aria-label="目录">
+    <p class="lbl"><span>目录</span><span lang="en">Contents</span></p>
+    <ol>
+      <li><a href="#bakes"><i>一</i>两炉</a></li>
+      <li><a href="#breads"><i>二</i>面包</a></li>
+      <li><a href="#starter"><i>三</i>酵种</a></li>
+      <li><a href="#class"><i>四</i>周六</a></li>
+      <li><a href="#shop"><i>五</i>店里</a></li>
+      <li><a href="#visit"><i>六</i>来店</a></li>
+    </ol>
+  </nav>
+</header>
+
+<main>
+  <!-- ═════════ 一 · two bakes ═════════ -->
+  <section class="sheet bakes" id="bakes" aria-labelledby="h-bakes">
+    <header class="ph">
+      <p class="ph-no"><b>一</b><span class="lbl" lang="en">Two bakes</span></p>
+      <h2 class="ph-t ink2" id="h-bakes">两炉</h2>
+      <p class="ph-note say"><span class="s1">卖完即止</span>，<span class="s2">当天不留货</span>。</p>
+    </header>
+
+    <div class="sun-am">
+      <svg viewBox="0 0 600 300" aria-hidden="true">
+        <defs>
+          <mask id="m-am" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="300">
+            <rect width="600" height="300" fill="url(#g-haze)" filter="url(#dither)"/>
+          </mask>
+        </defs>
+        <path d="M2 300 A298 298 0 0 1 598 300 Z" style="fill:var(--accent)" mask="url(#m-am)"/>
+      </svg>
+      <p class="big2 n7 ink2">7:00</p>
+    </div>
+
+    <div class="sun-noon">
+      <svg viewBox="0 0 440 440" aria-hidden="true">
+        <defs>
+          <mask id="m-noon" maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="440">
+            <rect width="440" height="440" fill="url(#g-solid)" filter="url(#dither)"/>
+          </mask>
+        </defs>
+        <circle cx="220" cy="220" r="218" fill="url(#ht-r)"/>
+        <circle cx="220" cy="220" r="162" style="fill:var(--accent)" mask="url(#m-noon)"/>
+      </svg>
+      <p class="big2 n7 ink2">11:00</p>
+    </div>
+
+    <div class="horizon" aria-hidden="true"></div>
+
+    <div class="bake bake-1">
+      <p class="zh-lbl">辰时 · 第一炉 <span class="lbl" lang="en">First bake</span></p>
+      <p class="item">乡村面包<span>、</span>可颂</p>
+    </div>
+
+    <div class="horizon horizon-2" aria-hidden="true"></div>
+
+    <div class="bake bake-2">
+      <p class="zh-lbl">午时 · 第二炉 <span class="lbl" lang="en">Second bake</span></p>
+      <p class="item">肉桂卷<span>、</span>黑麦面包</p>
+    </div>
+
+  </section>
+
+  <!-- ═════════ 二 · breads ═════════ -->
+  <section class="sheet breads" id="breads" aria-labelledby="h-breads">
+    <header class="ph">
+      <p class="ph-no"><b>二</b><span class="lbl" lang="en">The breads</span></p>
+      <h2 class="ph-t ink2" id="h-breads">面包</h2>
+      <p class="ph-note">四样面包，分两炉出。</p>
+    </header>
+
+    <!-- 乡村面包 -->
+    <article class="loaf bread" aria-label="乡村面包">
+      <div class="stack whole">
+        <svg viewBox="0 0 400 400" aria-hidden="true">
+          <defs>
+            <mask id="m-boule" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400">
+              <rect width="400" height="400" fill="url(#g-diag)" filter="url(#dither)"/>
+              <g fill="none" stroke="url(#ko)" stroke-width="9" stroke-linecap="round">
+                <path d="M112 148 Q200 128 288 148"/>
+                <path d="M112 252 Q200 272 288 252"/>
+                <path d="M148 112 Q128 200 148 288"/>
+                <path d="M252 112 Q272 200 252 288"/>
+              </g>
+            </mask>
+          </defs>
+          <circle cx="200" cy="200" r="198" style="fill:var(--accent)" mask="url(#m-boule)"/>
+        </svg>
+        <p class="big2 price big ink2"><span class="cur">¥</span>38</p>
+      </div>
+      <div class="stack half">
+        <svg viewBox="0 0 400 204" aria-hidden="true">
+          <defs>
+            <mask id="m-crust" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="204">
+              <rect width="400" height="204" fill="url(#g-solid)" filter="url(#dither)"/>
+              <path d="M30 204 A170 170 0 0 1 370 204 Z" fill="url(#ko)"/>
+            </mask>
+            <mask id="m-crumb" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="204">
+              <rect width="400" height="204" fill="url(#g-solid)" filter="url(#dither)"/>
+              <g fill="url(#ko)">
+                <ellipse cx="128" cy="150" rx="22" ry="12"/><ellipse cx="214" cy="120" rx="30" ry="15"/>
+                <ellipse cx="282" cy="160" rx="18" ry="10"/><ellipse cx="176" cy="178" rx="13" ry="7"/>
+                <ellipse cx="246" cy="76" rx="14" ry="8"/><ellipse cx="150" cy="96" rx="10" ry="6"/>
+                <ellipse cx="318" cy="184" rx="9" ry="5"/><ellipse cx="98" cy="186" rx="9" ry="5"/>
+              </g>
+            </mask>
+          </defs>
+          <path d="M2 204 A198 198 0 0 1 398 204 Z" style="fill:var(--accent)" mask="url(#m-crust)"/>
+          <path d="M30 204 A170 170 0 0 1 370 204 Z" fill="url(#ht-r)" mask="url(#m-crumb)"/>
+        </svg>
+        <p class="big2 price mid ink2"><span class="cur">¥</span>20</p>
+      </div>
+      <div class="tags">
+        <p class="price-tag"><span class="zh-lbl">整个</span><span class="lbl" lang="en">Whole</span></p>
+        <p class="price-tag"><span class="zh-lbl">半个</span><span class="lbl" lang="en">Half</span></p>
+      </div>
+      <div class="meta">
+        <div>
+          <h3 class="item">乡村面包<small class="lbl" lang="en">Country loaf</small></h3>
+          <p class="body">天然酵种。</p>
+          <span class="when">第一炉 · 辰时</span>
+        </div>
+        <p class="ferment"><span class="num n5" data-n="48">48</span><span class="unit">小时<br>低温发酵</span></p>
+      </div>
+    </article>
+
+    <!-- 黑麦面包 -->
+    <article class="rye bread" aria-label="黑麦面包">
+      <div class="stack">
+        <svg viewBox="0 0 300 420" aria-hidden="true">
+          <defs>
+            <mask id="m-rye" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="420">
+              <rect width="300" height="420" fill="url(#g-solid)" filter="url(#dither)"/>
+            </mask>
+          </defs>
+          <path d="M14 418 V96 Q14 28 82 28 H218 Q286 28 286 96 V418 Z" style="fill:var(--accent)" mask="url(#m-rye)"/>
+          <path class="ink2" d="M14 418 V96 Q14 28 82 28 H218 Q286 28 286 96 V418 Z" style="fill:var(--accent2)" filter="url(#grain30)"/>
+        </svg>
+        <p class="big2 price ink2"><span class="cur">¥</span>42</p>
+      </div>
+      <h3 class="item">黑麦面包<small class="lbl" lang="en">Rye</small></h3>
+      <span class="when">第二炉 · 午时</span>
+      <ul class="spec">
+        <li><span class="num n4" data-n="70%">70%</span><span class="unit">黑麦<span class="lbl" lang="en">Rye flour</span></span></li>
+        <li><span class="num n4" data-n="750 g">750 g</span><span class="unit">每个<span class="lbl" lang="en">Per loaf</span></span></li>
+        <li><span class="num n4" data-n="12">12</span><span class="unit">每日限<span class="lbl" lang="en">Loaves a day</span></span></li>
+      </ul>
+    </article>
+
+    <!-- 可颂 -->
+    <article class="croissant bread" aria-label="可颂">
+      <div class="stack">
+        <svg viewBox="0 0 420 200" aria-hidden="true">
+          <defs>
+            <mask id="m-cro" maskUnits="userSpaceOnUse" x="0" y="0" width="420" height="200">
+              <rect width="420" height="200" fill="url(#g-diag)" filter="url(#dither)"/>
+              <g fill="none" stroke="url(#ko)" stroke-linecap="round">
+                <path d="M210 168 Q204 90 210 8" stroke-width="9"/>
+                <path d="M266 170 Q284 100 330 30" stroke-width="8"/>
+                <path d="M154 170 Q136 100 90 30" stroke-width="8"/>
+                <path d="M308 196 Q350 140 418 96" stroke-width="7"/>
+                <path d="M112 196 Q70 140 2 96" stroke-width="7"/>
+              </g>
+            </mask>
+          </defs>
+          <path d="M28 176 C36 74 126 20 210 20 C294 20 384 74 392 176 C388 190 372 192 360 182 C326 156 266 146 210 148 C154 146 94 156 60 182 C48 192 32 190 28 176 Z" style="fill:var(--accent)" mask="url(#m-cro)"/>
+        </svg>
+        <p class="big2 price ink2"><span class="cur">¥</span>16</p>
+      </div>
+      <h3 class="item">可颂<small class="lbl" lang="en">Croissant</small></h3>
+      <p class="body">法国发酵黄油。</p>
+      <span class="when">第一炉 · 辰时</span>
+    </article>
+
+    <!-- 肉桂卷 -->
+    <article class="roll bread" aria-label="肉桂卷">
+      <div class="stack">
+        <svg viewBox="0 0 320 320" aria-hidden="true">
+          <defs>
+            <mask id="m-roll" maskUnits="userSpaceOnUse" x="0" y="0" width="320" height="320">
+              <rect width="320" height="320" fill="url(#g-solid)" filter="url(#dither)"/>
+              <path fill="none" stroke="url(#ko)" stroke-width="8" stroke-linecap="round"
+                d="M160 160 a10 10 0 0 1 20 0 a20 20 0 0 1 -40 0 a30 30 0 0 1 60 0 a40 40 0 0 1 -80 0 a50 50 0 0 1 100 0 a60 60 0 0 1 -120 0 a70 70 0 0 1 140 0 a80 80 0 0 1 -160 0 a90 90 0 0 1 180 0 a100 100 0 0 1 -200 0 a110 110 0 0 1 220 0 a120 120 0 0 1 -240 0 a130 130 0 0 1 132 -128"/>
+            </mask>
+          </defs>
+          <circle cx="160" cy="160" r="156" style="fill:var(--accent)" mask="url(#m-roll)"/>
+          <circle class="ink2" cx="160" cy="160" r="156" style="fill:var(--accent2)" filter="url(#grain30)" mask="url(#m-roll)"/>
+        </svg>
+        <p class="big2 price ink2"><span class="cur">¥</span>18</p>
+      </div>
+      <h3 class="item">肉桂卷<small class="lbl" lang="en">Cinnamon roll</small></h3>
+      <p class="body">只在第二炉。</p>
+      <span class="when">午时</span>
+    </article>
+  </section>
+
+  <!-- ═════════ 三 · the starter ═════════ -->
+  <section class="sheet starter" id="starter" aria-labelledby="h-starter">
+    <header class="ph">
+      <p class="ph-no"><b>三</b><span class="lbl" lang="en">The starter</span></p>
+      <h2 class="ph-t ink2" id="h-starter">酵种</h2>
+      <p class="ph-note">酵种一罐，面粉两种。</p>
+    </header>
+
+    <div class="bubbles">
+      <svg viewBox="0 0 760 580" aria-hidden="true">
+        <defs>
+          <mask id="m-bub" maskUnits="userSpaceOnUse" x="0" y="0" width="760" height="580">
+            <rect width="760" height="580" fill="url(#g-solid)" filter="url(#dither)"/>
+          </mask>
+        </defs>
+        <circle cx="290" cy="370" r="205" fill="url(#ht-r)"/>
+        <g style="fill:var(--accent)" mask="url(#m-bub)">
+          <circle cx="486" cy="236" r="118"/>
+          <circle cx="168" cy="136" r="54"/>
+          <circle cx="630" cy="86" r="38"/>
+          <circle cx="392" cy="80" r="24"/>
+          <circle cx="700" cy="34" r="13"/>
+          <circle cx="552" cy="26" r="9"/>
+          <circle cx="262" cy="40" r="11"/>
+        </g>
+        <circle class="ink2" cx="420" cy="430" r="140" style="fill:var(--accent2)" filter="url(#grain45)"/>
+      </svg>
+      <p class="big2 ink2" aria-hidden="true">9</p>
+      <p class="yr ink2" aria-hidden="true">年</p>
+    </div>
+
+    <div class="lao-col">
+      <div class="lao">
+        <p class="zh-lbl">店里叫它 <span class="lbl" lang="en">House name</span></p>
+        <h3 class="ink2">老周</h3>
+        <p class="body">酵种养了 9 年，店里叫它“老周”。</p>
+      </div>
+      <div class="flour">
+        <p class="zh-lbl">面粉 <span class="lbl" lang="en">Flour</span></p>
+        <p class="big-zh">本地石磨全麦粉</p>
+        <p class="plus ink2" aria-hidden="true">+</p>
+        <p class="f2"><span class="unit">法国</span><span class="num n5" data-n="T65">T65</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 四 · Saturday class (pink stock) ═════════ -->
+  <section class="sheet klass" id="class" aria-labelledby="h-class">
+    <div class="stock">
+      <header class="ph">
+        <p class="ph-no"><b>四</b><span class="lbl" lang="en">Saturday class</span></p>
+        <h2 class="ph-t ink2" id="h-class">面包课</h2>
+        <p class="ph-note"><b>宜</b>周六上午，学烤面包。</p>
+      </header>
+
+      <div class="class-art" aria-hidden="true">
+        <svg viewBox="0 0 520 300">
+          <defs>
+            <mask id="m-take" maskUnits="userSpaceOnUse" x="0" y="0" width="520" height="300">
+              <rect width="520" height="300" fill="url(#g-down)" filter="url(#dither)"/>
+            </mask>
+          </defs>
+          <path d="M10 296 A250 250 0 0 1 510 296 Z" style="fill:var(--accent)" mask="url(#m-take)"/>
+          <rect class="ink2" x="292" y="0" width="190" height="190" style="fill:var(--accent2)" filter="url(#grain45)"/>
+        </svg>
+      </div>
+
+      <div class="ctime">
+        <p class="times"><span class="num n6" data-n="9:00–">9:00–</span><span class="num n6" data-n="11:30">11:30</span></p>
+        <span class="zh-lbl">每周六 · 巳初至午初二刻</span>
+      </div>
+
+      <ul class="cfacts">
+        <li><span class="num n5" data-n="6">6</span><span class="unit">人小班</span></li>
+        <li><span class="cur ink2">¥</span><span class="num n5" data-n="260">260</span><span class="unit">每人</span></li>
+        <li class="take"><p>带走自己烤的面包。</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═════════ 五 · in the shop ═════════ -->
+  <section class="sheet shop" id="shop" aria-labelledby="h-shop">
+    <header class="ph">
+      <p class="ph-no"><b>五</b><span class="lbl" lang="en">In the shop</span></p>
+      <h2 class="ph-t ink2" id="h-shop">店里</h2>
+      <p class="ph-note">坐下，喝一杯。</p>
+    </header>
+
+    <div class="since">
+      <div class="stack">
+        <svg viewBox="0 0 300 250" aria-hidden="true">
+          <path d="M0 250 V130 A130 130 0 0 1 260 130 V250 Z" fill="url(#ht-r)"/>
+        </svg>
+        <span class="num n6" data-n="2019">2019</span>
+      </div>
+      <h3 class="item">己亥年开店<small class="lbl" lang="en">Opened</small></h3>
+      <p class="body">店主周岚，前建筑师。</p>
+    </div>
+
+    <div class="seats">
+      <div class="stack">
+        <svg viewBox="0 0 560 150" aria-hidden="true">
+          <defs>
+            <mask id="m-seat" maskUnits="userSpaceOnUse" x="0" y="0" width="560" height="150">
+              <rect width="560" height="150" fill="url(#g-solid)" filter="url(#dither)"/>
+            </mask>
+          </defs>
+          <rect x="0" y="0" width="560" height="34" fill="url(#ht-r)"/>
+          <g style="fill:var(--accent)" mask="url(#m-seat)">
+            <circle cx="44" cy="102" r="40"/><circle cx="138" cy="102" r="40"/><circle cx="232" cy="102" r="40"/>
+            <circle cx="328" cy="102" r="40"/><circle cx="422" cy="102" r="40"/><circle cx="516" cy="102" r="40"/>
+          </g>
+        </svg>
+        <p class="big2 ink2" aria-hidden="true">6</p>
+      </div>
+      <h3 class="item">店内 6 个座位<small class="lbl" lang="en">Seats</small></h3>
+    </div>
+
+    <div class="coffee">
+      <p class="price-row"><span class="cur ink2">¥</span><span class="num n6" data-n="22">22</span></p>
+      <h3 class="item">手冲咖啡<small class="lbl" lang="en">Pour-over</small></h3>
+    </div>
+  </section>
+</main>
+
+<!-- ═════════ 3 · bottom band: three facts, three columns ═════════ -->
+<section class="sheet band" id="visit" aria-labelledby="h-visit">
+  <header class="ph">
+    <p class="ph-no"><b>六</b><span class="lbl" lang="en">Visit</span></p>
+    <h2 class="ph-t ink2" id="h-visit">来店</h2>
+    <p class="ph-note">时辰、方位、预订。</p>
+  </header>
+  <div class="cols">
+    <div class="col">
+      <p class="zh-lbl">营业 <span class="lbl" lang="en">Open</span></p>
+      <p class="lead">周二至周日</p>
+      <p class="stackn"><span class="num n5" data-n="7:00">7:00</span><span class="dash">至</span><span class="num n5" data-n="19:00">19:00</span></p>
+      <ol class="week" aria-label="一周">
+        <li class="off"><b>一</b><span>休</span></li>
+        <li class="on"><b>二</b><span>开</span></li>
+        <li class="on"><b>三</b><span>开</span></li>
+        <li class="on"><b>四</b><span>开</span></li>
+        <li class="on"><b>五</b><span>开</span></li>
+        <li class="on"><b>六</b><span>开·课</span></li>
+        <li class="on"><b>日</b><span>开</span></li>
+      </ol>
+      <p class="ji-line"><b>忌</b>周一，休息。</p>
+    </div>
+
+    <div class="col">
+      <p class="zh-lbl">方位 <span class="lbl" lang="en">Find us</span></p>
+      <p class="lead">老城区第四巷</p>
+      <p class="door-no"><span class="num n5" data-n="17">17</span><span class="unit">号</span></p>
+      <figure class="doors">
+        <svg viewBox="0 0 320 150" aria-hidden="true">
+          <defs>
+            <mask id="m-door" maskUnits="userSpaceOnUse" x="0" y="0" width="320" height="150">
+              <rect width="320" height="150" fill="url(#g-solid)" filter="url(#dither)"/>
+              <circle cx="246" cy="92" r="5" fill="url(#ko)"/>
+            </mask>
+          </defs>
+          <path d="M0 148 H320" style="stroke:var(--accent2)" stroke-width="2"/>
+          <path d="M2 18 V148" style="stroke:var(--accent2)" stroke-width="2"/>
+          <rect x="94" y="30" width="62" height="117" fill="none" style="stroke:var(--accent2)" stroke-width="2"/>
+          <rect x="196" y="28" width="64" height="120" style="fill:var(--accent2)" mask="url(#m-door)"/>
+          <path d="M14 90 h44 m-10 -7 l10 7 l-10 7" fill="none" style="stroke:var(--accent)" stroke-width="2"/>
+        </svg>
+        <figcaption><span class="lbl">巷口</span><span class="lbl">第一门</span><span class="lbl">第二门 · 绿</span></figcaption>
+      </figure>
+      <p class="addr">巷口数第二个门，<b>绿色木门</b>。</p>
+    </div>
+
+    <div class="col">
+      <p class="zh-lbl">预订 <span class="lbl" lang="en">Order ahead</span></p>
+      <p class="lead">提前一天</p>
+      <p class="order-by"><span class="num n5" data-n="17:00">17:00</span><span class="unit">前</span></p>
+      <a class="tel" href="tel:+862155550417" aria-label="电话 021-5555-0417">
+        <span class="tel-lbl"><span class="zh-lbl">电话</span><span class="lbl" lang="en">Call</span></span>
+        <span class="num n4" data-n="021">021</span>
+        <span class="num n4" data-n="5555">5555</span>
+        <span class="num n4" data-n="0417">0417</span>
+      </a>
+      <p class="ji-line"><b class="yi-b" style="background:var(--accent)">宜</b>或店内登记。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 4 · colophon strip ═════════ -->
+<footer class="sheet colophon">
+  <div class="colo">
+    <div class="zh-lbl">
+      <p>版记 <span class="lbl" lang="en">Colophon</span></p>
+      <svg class="reg" viewBox="0 0 34 34" aria-hidden="true">
+        <g class="reg-r" fill="none" stroke-width="1.5"><circle cx="17" cy="17" r="9"/><path d="M17 0v34M0 17h34"/></g>
+        <g class="reg-g" fill="none" stroke-width="1.5"><circle cx="17" cy="17" r="9"/><path d="M17 0v34M0 17h34"/></g>
+      </svg>
+    </div>
+    <div class="inks">
+      <div class="swatches" aria-hidden="true">
+        <span class="sw-r"></span><span class="sw-g"></span><span class="sw-o"></span><span class="screen-r"></span><span class="screen-g"></span>
+      </div>
+      <dl>
+        <dt>Inks</dt><dd>两色孔版：RISO Red + RISO Green；两版相叠处印出第三色。</dd>
+        <dt>Screen</dt><dd>平网与颗粒，不用渐变。</dd>
+      </dl>
+    </div>
+    <div class="meta2">
+      <dl>
+        <dt>Paper</dt><dd>白纸；周六一页为粉纸。</dd>
+        <dt>Edition</dt><dd>印数：待补。</dd>
+        <dt>Type</dt><dd>Unbounded · Familjen Grotesk · 站酷快乐体 · Noto Sans SC</dd>
+      </dl>
+    </div>
+    <p class="end">第四巷面包店 · Fourth Lane Bakery<br>绿版比红版偏了一点，是故意的。</p>
+  </div>
+</footer>
+
+</body>
+</html>

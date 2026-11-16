@@ -1,0 +1,55 @@
+name: New branch proposal
+description: Propose a new design branch (a real-world design genre) for the library.
+title: 'branch: '
+labels: [branch-proposal]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A branch is a **real-world design genre** with references you can point to — a printed artifact, a signage system, a historical movement — not a mood like "modern" or "clean". Browse the existing 40 in [docs/branches.md](https://github.com/qybaihe/hash-design/blob/main/docs/branches.md) first.
+  - type: input
+    id: name
+    attributes:
+      label: Name (English / Chinese if you know it)
+      placeholder: 'Seed packet / 种子包装'
+    validations:
+      required: true
+  - type: dropdown
+    id: family
+    attributes:
+      label: Family
+      options:
+        - print
+        - document
+        - signage
+        - screen
+        - craft
+        - modernist
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Real-world references
+      description: At least two concrete references (artifacts, designers, periods, collections). Links welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: distinct
+    attributes:
+      label: How is it different from existing branches?
+      description: Name the closest existing branch and explain what a page in this genre does that one does not.
+    validations:
+      required: true
+  - type: textarea
+    id: tokens
+    attributes:
+      label: Ideas for type, colour and layout
+      description: Google Fonts candidates (none of the banned fonts), palette ideas, layouts, first-screen anchors, motifs. Rough notes are fine.
+  - type: checkboxes
+    id: implement
+    attributes:
+      label: Implementation
+      options:
+        - label: I would like to implement it myself (see "Adding or changing a design branch" in CONTRIBUTING.md).

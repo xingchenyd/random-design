@@ -1,0 +1,44 @@
+{
+  "name": "hash-design-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Random-hash–driven design directions that break the LLM default aesthetic. Core library, CLI, MCP server and Agent Skill.",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/core",
+    "packages/mcp"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -b packages/core packages/mcp",
+    "clean": "rm -rf packages/*/dist packages/*/*.tsbuildinfo",
+    "typecheck": "tsc -b packages/core packages/mcp && tsc -p tsconfig.test.json --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "sync": "npm run build && node scripts/sync.mjs",
+    "examples": "node scripts/examples.mjs list",
+    "example:roll": "node scripts/examples.mjs roll",
+    "example:compare": "node scripts/examples.mjs compare",
+    "example:critique": "node scripts/examples.mjs critique",
+    "screenshots": "node scripts/screenshot.mjs",
+    "hero": "node scripts/hero.mjs",
+    "hero:gif": "node scripts/hero-gif.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.0.0",
+    "eslint": "^10.14.0",
+    "playwright": "^1.64.1",
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^4.1.12"
+  }
+}

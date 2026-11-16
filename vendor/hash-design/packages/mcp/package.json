@@ -1,0 +1,55 @@
+{
+  "name": "hash-design-mcp",
+  "version": "0.1.0",
+  "description": "MCP server (stdio) for hash-design: roll random design directions, reproduce briefs, browse the branch library, critique pages for AI-template tells.",
+  "license": "MIT",
+  "author": "qybaihe",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qybaihe/hash-design.git",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://github.com/qybaihe/hash-design#readme",
+  "bugs": "https://github.com/qybaihe/hash-design/issues",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "design",
+    "ai",
+    "agent"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "hash-design-mcp": "./dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "prepack": "node -e \"require('fs').copyFileSync('../../LICENSE','LICENSE')\" && tsc -b"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "hash-design": "^0.1.0",
+    "zod": "^4.6.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

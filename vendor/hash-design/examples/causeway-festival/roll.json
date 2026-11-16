@@ -1,0 +1,2308 @@
+{
+  "algorithm": "hash-design/v1",
+  "library": "c7b166fe6ec0",
+  "createdAt": "2026-11-02T08:07:42.483Z",
+  "source": "seed:causeway-festival-6",
+  "constraints": {
+    "lightOnly": false,
+    "darkOnly": false,
+    "reducedMotion": false,
+    "brandColors": [],
+    "families": [],
+    "include": [],
+    "exclude": []
+  },
+  "content": {
+    "subject": "Causeway — a music festival on Skerrow Island",
+    "facts": [
+      "Name: Causeway — a one-day music festival on Skerrow Island",
+      "Date: Saturday 19 June 2027",
+      "The island is reached on foot over a 1.2 km tidal causeway",
+      "Causeway open for arrivals 09:40–13:10 and for departures 22:15–01:30 (that day's tide times)",
+      "Nobody crosses outside those windows; the harbour boat is for emergencies only",
+      "Capacity: 900 people",
+      "Tickets: £54 adult, £27 for ages 12–17, free under 12; on sale 1 March 2027",
+      "Two stages: the Boathouse (indoors, 220 people) and the Field (outdoors)",
+      "Field line-up: The Lantern Choir, Mara Quist, Seven Herons, Low Orbit Brass",
+      "Boathouse line-up: Ada Fenwick (solo cello), Tomasz & the Weir, Kelp, Ruth Ono Trio",
+      "The last set ends at 21:45 so everyone reaches the causeway in time",
+      "No single-use plastic on the island: bring a cup, or buy an enamel one for £6",
+      "Food from two island kitchens; cash and card",
+      "Organised by the Skerrow Island Trust, a volunteer charity; profits go to repairing the sea wall",
+      "Fourth year of the festival, first held in 2024",
+      "Wear boots: parts of the causeway are wet sand and seaweed"
+    ],
+    "language": "en"
+  },
+  "designs": [
+    {
+      "number": 1,
+      "slug": "01-engineering-plate",
+      "ref": "c7893950bed02a108955f7a9b57281677dfa09f3093e2a6ba899e9dd96390784",
+      "hash": "c7893950bed02a108955f7a9b57281677dfa09f3093e2a6ba899e9dd96390784",
+      "short": "c7893950",
+      "probe": 0,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "Causeway — a music festival on Skerrow Island",
+        "facts": [
+          "Name: Causeway — a one-day music festival on Skerrow Island",
+          "Date: Saturday 19 June 2027",
+          "The island is reached on foot over a 1.2 km tidal causeway",
+          "Causeway open for arrivals 09:40–13:10 and for departures 22:15–01:30 (that day's tide times)",
+          "Nobody crosses outside those windows; the harbour boat is for emergencies only",
+          "Capacity: 900 people",
+          "Tickets: £54 adult, £27 for ages 12–17, free under 12; on sale 1 March 2027",
+          "Two stages: the Boathouse (indoors, 220 people) and the Field (outdoors)",
+          "Field line-up: The Lantern Choir, Mara Quist, Seven Herons, Low Orbit Brass",
+          "Boathouse line-up: Ada Fenwick (solo cello), Tomasz & the Weir, Kelp, Ruth Ono Trio",
+          "The last set ends at 21:45 so everyone reaches the causeway in time",
+          "No single-use plastic on the island: bring a cup, or buy an enamel one for £6",
+          "Food from two island kitchens; cash and card",
+          "Organised by the Skerrow Island Trust, a volunteer charity; profits go to repairing the sea wall",
+          "Fourth year of the festival, first held in 2024",
+          "Wear boots: parts of the causeway are wet sand and seaweed"
+        ],
+        "language": "en"
+      },
+      "branch": {
+        "id": "engineering-plate",
+        "name": {
+          "zh": "工程图版",
+          "en": "Engineering plate"
+        },
+        "family": "document",
+        "concept": {
+          "zh": "刚从晒图室取出的工程图纸：带分区编号的图框、右下角的标题栏、尺寸线与箭头、修订表、“第 3 张 / 共 12 张”。蓝晒、氨熏晒图或描图纸上的单线字，一切都被标注、编号、可追溯。",
+          "en": "The engineering drawing as it leaves the print room: a border frame with zone markers, a title block in the bottom-right corner, dimension lines with arrowheads, a revision table, “Sheet 3 of 12”. Cyanotype, diazo or drafting vellum with single-stroke lettering — everything labelled, numbered and traceable."
+        },
+        "references": [
+          "ISO 5457 / ISO 7200 drawing-sheet frames and title blocks",
+          "ISO 3098 lettering and Leroy / Rotring stencil lettering templates",
+          "Apollo-era engineering drawings (North American Aviation, Grumman Lunar Module)",
+          "Cyanotype blueprints and Pellet-process prints, 1870s–1940s",
+          "GB/T 14689 图纸幅面与格式 and GB/T 14691 长仿宋体 lettering"
+        ],
+        "tokens": {
+          "grid": "Drawing sheet with a 24px border frame; the frame is divided into zones — columns 1–8 across the top and bottom, rows A–F down both sides — mapped to CSS grid tracks; everything inside snaps to an 8px drafting grid.",
+          "radius": "0 everywhere. The only circles are balloon callouts (28px, border-radius 50%) and centre marks.",
+          "border": "Frame: 2px solid ink outer line + 1px zone ticks; object lines 1.5px; dimension and leader lines 1px; hidden lines 1px dashed (6px/3px); centre lines 1px dash-dot (stroke-dasharray 12 3 2 3).",
+          "shadow": "none. Depth is shown only by section hatching: 45° 1px lines at a 6px pitch."
+        },
+        "must": [
+          "A visible drawing frame with zone markers and a title block holding title, drawing number, scale or date, and “SHEET n OF N”.",
+          "All labels uppercase in the ISO lettering sizes; every number carries its unit.",
+          "At least one dimension line or balloon callout carries a real fact from the brief.",
+          "A revision table or revision letter is present and consistent across the page."
+        ],
+        "mustNot": [
+          "No rendered 3D isometrics with gradients or glows — line drawing only.",
+          "No sci-fi HUD styling (neon, scanlines, hexagon grids); this is paper.",
+          "No decorative arrows: every arrowhead terminates a dimension or a leader."
+        ]
+      },
+      "voice": {
+        "id": "field-notes",
+        "name": {
+          "zh": "田野笔记",
+          "en": "Field notes"
+        },
+        "description": "观察者的记录：带日期、时间、度量和第一手细节，克制、不评价。",
+        "devices": [
+          "日期/时间戳",
+          "度量单位",
+          "\"观察到…\"式陈述",
+          "括号补充"
+        ],
+        "example": "06:40 — 窗内温度 31°C，面团第二次发酵完成（目测体积 ×2）。"
+      },
+      "layout": {
+        "id": "exploded-assembly",
+        "name": "Exploded assembly",
+        "description": "An exploded view: the topic broken into parts floating along centre lines, each part ballooned and listed in a parts list beside it.",
+        "grid": "Two zones: 8-column field for the exploded view (parts positioned along a 30° axis), 4-column parts list; 8px grid; 28px balloons.",
+        "structure": [
+          "Header strip: drawing title in wide caps, DWG NO. right-aligned",
+          "Exploded view: 4–8 parts (content blocks) spaced along dash-dot centre lines with balloon numbers",
+          "Parts list table aligned to the balloon numbers",
+          "One dimension line spanning the whole view carrying the key figure (size, price, date range)",
+          "Title block with approval signatures"
+        ]
+      },
+      "anchor": {
+        "id": "general-arrangement",
+        "name": "General arrangement",
+        "description": "A large orthographic diagram (front / top / side views) of the subject in simple SVG shapes with dimensions, filling ~70% of the first screen."
+      },
+      "type": {
+        "id": "draftsman-hand",
+        "name": "Architects Daughter + IBM Plex Sans Condensed",
+        "display": {
+          "family": "Architects Daughter",
+          "weights": [
+            400
+          ],
+          "fallback": "\"Segoe Print\", cursive",
+          "source": "google"
+        },
+        "body": {
+          "family": "IBM Plex Sans Condensed",
+          "weights": [
+            400,
+            600
+          ],
+          "fallback": "\"Arial Narrow\", sans-serif",
+          "source": "google"
+        },
+        "mono": {
+          "family": "IBM Plex Mono",
+          "weights": [
+            400,
+            500
+          ],
+          "fallback": "\"Courier New\", monospace",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "Noto Serif SC",
+          "body": "Noto Sans SC"
+        },
+        "notes": "Architects Daughter for titles and callouts, UPPERCASE ONLY with 0.08em tracking at 24–48px — the hand lettering of a draughtsman on vellum. IBM Plex Sans Condensed 400/600 for notes and schedules at 15px/1.35. IBM Plex Mono 500 for drawing numbers, part numbers and dimensions; thousands separated by a thin space (“1 200”)."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "\"Architects Daughter\", \"Segoe Print\", cursive",
+          "body": "\"IBM Plex Sans Condensed\", \"Arial Narrow\", sans-serif",
+          "mono": "\"IBM Plex Mono\", \"Courier New\", monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Architects+Daughter&family=IBM+Plex+Sans+Condensed:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      },
+      "palette": {
+        "id": "drafting-vellum",
+        "name": "Drafting vellum",
+        "colors": {
+          "paper": "#eef0ea",
+          "ink": "#1c2024",
+          "muted": "#4b535a",
+          "accent": "#b3261e",
+          "accent2": "#2e6e8e",
+          "rule": "#9aa5ab",
+          "panel": "#e1e5de"
+        },
+        "usage": "Cool translucent vellum ground; graphite-black linework and lettering; red reserved for revision clouds, redlines and “VOID” stamps; steel blue (accent2) for dimension figures; grey rule for the 8px construction grid at low visibility."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 14.27,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 6.81,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 12.85,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 5.69,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 4.89,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#ffffff on accent",
+            "ratio": 6.54,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#ffffff on accent2",
+            "ratio": 5.62,
+            "verdict": "AA — body text OK"
+          }
+        ],
+        "onAccent": "#ffffff",
+        "onAccent2": "#ffffff"
+      },
+      "density": {
+        "id": "compact",
+        "name": {
+          "zh": "紧凑",
+          "en": "Compact"
+        },
+        "baseSize": 15,
+        "lineHeight": 1.45,
+        "unit": 6,
+        "sectionGap": 64,
+        "maxWidth": 1320,
+        "description": "信息密集，多栏并行；用细线和对齐建立秩序，首屏就能看到 3 个以上信息块。"
+      },
+      "scale": {
+        "id": "perfect-fourth",
+        "name": "Perfect fourth 1.333",
+        "ratio": 1.333,
+        "steps": [
+          {
+            "step": -2,
+            "px": 8.4,
+            "rem": 0.528
+          },
+          {
+            "step": -1,
+            "px": 11.3,
+            "rem": 0.703
+          },
+          {
+            "step": 0,
+            "px": 15,
+            "rem": 0.938
+          },
+          {
+            "step": 1,
+            "px": 20,
+            "rem": 1.25
+          },
+          {
+            "step": 2,
+            "px": 26.7,
+            "rem": 1.666
+          },
+          {
+            "step": 3,
+            "px": 35.5,
+            "rem": 2.221
+          },
+          {
+            "step": 4,
+            "px": 47.4,
+            "rem": 2.96
+          },
+          {
+            "step": 5,
+            "px": 63.1,
+            "rem": 3.946
+          },
+          {
+            "step": 6,
+            "px": 84.2,
+            "rem": 5.26
+          },
+          {
+            "step": 7,
+            "px": 112.2,
+            "rem": 7.011
+          }
+        ]
+      },
+      "motion": {
+        "id": "zone-locate",
+        "name": "Zone locate",
+        "description": "Hovering a cross-reference (“SEE C4”) highlights the matching zone markers on the frame and draws a 1px crosshair to that zone.",
+        "duration": "120ms",
+        "easing": "steps(2, end)",
+        "reduced": "Highlight the zone markers in accent without the crosshair."
+      },
+      "motif": {
+        "id": "revision-clouds",
+        "name": "Revision clouds & triangles",
+        "description": "A scalloped SVG cloud around whatever changed plus a triangle holding the revision letter, matching a row in the revision table."
+      },
+      "surface": {
+        "id": "vellum",
+        "name": "Drafting vellum",
+        "description": "Translucent, slightly milky vellum with faint eraser smudges.",
+        "css": "background-color: var(--paper); background-image: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,.5), transparent 40%), radial-gradient(ellipse at 20% 80%, rgba(0,0,0,.035), transparent 35%);"
+      },
+      "twist": {
+        "id": "vertical-text",
+        "name": {
+          "zh": "竖排一处",
+          "en": "Vertical text once"
+        },
+        "description": "至少一处使用竖排文字（中文 writing-mode: vertical-rl）或旋转 90° 的标签作为结构元素。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design c7893950 · engineering-plate · drafting-vellum */\n:root {\n  --paper: #eef0ea;\n  --ink: #1c2024;\n  --muted: #4b535a;\n  --accent: #b3261e;\n  --on-accent: #ffffff;\n  --accent2: #2e6e8e;\n  --on-accent2: #ffffff;\n  --rule: #9aa5ab;\n  --panel: #e1e5de;\n\n  --font-display: \"Architects Daughter\", \"Segoe Print\", cursive;\n  --font-body: \"IBM Plex Sans Condensed\", \"Arial Narrow\", sans-serif;\n  --font-mono: \"IBM Plex Mono\", \"Courier New\", monospace;\n\n  --step-n2: 0.528rem; /* 8.4px */\n  --step-n1: 0.703rem; /* 11.3px */\n  --step-0: 0.938rem; /* 15px */\n  --step-1: 1.25rem; /* 20px */\n  --step-2: 1.666rem; /* 26.7px */\n  --step-3: 2.221rem; /* 35.5px */\n  --step-4: 2.96rem; /* 47.4px */\n  --step-5: 3.946rem; /* 63.1px */\n  --step-6: 5.26rem; /* 84.2px */\n  --step-7: 7.011rem; /* 112.2px */\n  --leading: 1.45;\n\n  --space-1: 6px;\n  --space-2: 12px;\n  --space-3: 18px;\n  --space-4: 24px;\n  --space-5: 30px;\n  --space-6: 36px;\n  --space-7: 42px;\n  --space-8: 48px;\n  --section-gap: 64px;\n  --max-width: 1320px;\n\n  --motion-duration: 120ms;\n  --motion-easing: steps(2, end);\n}\n\nhtml { font-size: 93.8%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "c7 89",
+          "rule": "0xc789 = 51081; 51081 mod 40 = 1",
+          "poolSize": 40,
+          "index": 1,
+          "result": "engineering-plate"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "39",
+          "rule": "0x39 = 57; 57 mod 14 = 1",
+          "poolSize": 14,
+          "index": 1,
+          "result": "field-notes"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "50",
+          "rule": "0x50 = 80; 80 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "exploded-assembly"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "be",
+          "rule": "0xbe = 190; 190 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "draftsman-hand"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "d0",
+          "rule": "0xd0 = 208; 208 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "drafting-vellum"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "2a",
+          "rule": "0x2a = 42; 42 mod 2 = 0",
+          "poolSize": 2,
+          "index": 0,
+          "result": "compact"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "10",
+          "rule": "0x10 = 16; 16 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "zone-locate"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "89",
+          "rule": "0x89 = 137; 137 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "revision-clouds"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "55",
+          "rule": "0x55 = 85; 85 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "general-arrangement"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "f7",
+          "rule": "0xf7 = 247; 247 mod 2 = 1",
+          "poolSize": 2,
+          "index": 1,
+          "result": "perfect-fourth"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "a9",
+          "rule": "0xa9 = 169; 169 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "vellum"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "b5",
+          "rule": "0xb5 = 181; 181 mod 16 = 5",
+          "poolSize": 16,
+          "index": 5,
+          "result": "vertical-text"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "slug": "02-topographic-map",
+      "ref": "ffc2f9c17e02b46cf5b743c8146922b6e19691925ba0fc9b476cda0d9b947212",
+      "hash": "ffc2f9c17e02b46cf5b743c8146922b6e19691925ba0fc9b476cda0d9b947212",
+      "short": "ffc2f9c1",
+      "probe": 0,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "Causeway — a music festival on Skerrow Island",
+        "facts": [
+          "Name: Causeway — a one-day music festival on Skerrow Island",
+          "Date: Saturday 19 June 2027",
+          "The island is reached on foot over a 1.2 km tidal causeway",
+          "Causeway open for arrivals 09:40–13:10 and for departures 22:15–01:30 (that day's tide times)",
+          "Nobody crosses outside those windows; the harbour boat is for emergencies only",
+          "Capacity: 900 people",
+          "Tickets: £54 adult, £27 for ages 12–17, free under 12; on sale 1 March 2027",
+          "Two stages: the Boathouse (indoors, 220 people) and the Field (outdoors)",
+          "Field line-up: The Lantern Choir, Mara Quist, Seven Herons, Low Orbit Brass",
+          "Boathouse line-up: Ada Fenwick (solo cello), Tomasz & the Weir, Kelp, Ruth Ono Trio",
+          "The last set ends at 21:45 so everyone reaches the causeway in time",
+          "No single-use plastic on the island: bring a cup, or buy an enamel one for £6",
+          "Food from two island kitchens; cash and card",
+          "Organised by the Skerrow Island Trust, a volunteer charity; profits go to repairing the sea wall",
+          "Fourth year of the festival, first held in 2024",
+          "Wear boots: parts of the causeway are wet sand and seaweed"
+        ],
+        "language": "en"
+      },
+      "branch": {
+        "id": "topographic-map",
+        "name": {
+          "zh": "地形图",
+          "en": "Topographic map"
+        },
+        "family": "signage",
+        "concept": {
+          "zh": "测绘局出版的地形图：等高线一圈圈收紧，图廓上刻满坐标刻度，图例方框、比例尺和出版说明整齐地排在图边。水系是蓝色斜体，等高线是赭色，林地是淡绿色块——每一种颜色都是一层数据。",
+          "en": "The survey office’s topographic sheet: contours tightening ring by ring, grid references ticked along the neat-line, legend boxes, scale bar and imprint lined up in the margin. Water is blue italic, contours ochre, woodland a pale green tint — every colour is a data layer."
+        },
+        "references": [
+          "Ordnance Survey 1:50 000 Landranger and 1:25 000 Explorer sheets",
+          "USGS 7.5-minute topographic quadrangles",
+          "swisstopo Landeskarte der Schweiz 1:25 000",
+          "Eduard Imhof — Cartographic Relief Presentation (1965)",
+          "国家测绘局 1:5 万地形图"
+        ],
+        "tokens": {
+          "grid": "Map sheet: a neat-line frame inset 48px from the viewport; inside, a grid square every 96px drawn as hairlines with two-digit references at both ends of every line in the margin; content panels snap to whole grid squares.",
+          "radius": "0. Only symbols are round (spot heights, survey points); trig points are triangles.",
+          "border": "Neat-line: 1px ink inner line + 6px ink outer line, 8px apart. Grid lines 1px var(--rule); legend boxes 1px ink; scale bar segments 1px ink outline.",
+          "shadow": "none. Relief, if any, is a hillshade tint inside the map field — never a drop shadow on UI."
+        },
+        "must": [
+          "A neat-line frame with coordinate ticks and labels on at least two sides.",
+          "A legend explains every symbol and colour used; a scale bar appears on the page.",
+          "Water-related or secondary names are italic; colours are assigned by layer, never decoratively."
+        ],
+        "mustNot": [
+          "No satellite imagery, web-map pins or rounded map controls.",
+          "No random squiggles: contours are concentric, non-crossing and evenly stepped.",
+          "No more than four layer colours plus ink."
+        ]
+      },
+      "voice": {
+        "id": "dictionary-entry",
+        "name": {
+          "zh": "词条",
+          "en": "Dictionary entry"
+        },
+        "description": "把主题写成词典词条：词头、注音/词性、编号释义、例句、参见。",
+        "devices": [
+          "词头加粗",
+          "注音或词性",
+          "① ② 释义",
+          "例句 / 参见 →"
+        ],
+        "example": "第四巷 dì sì xiàng ⟨名⟩ ① 一条只有一家面包店的巷子。"
+      },
+      "layout": {
+        "id": "legend-led",
+        "name": "Legend-led",
+        "description": "The legend is the page: content arranged as entries of a large two-column key, with a small locator map inset at the top right.",
+        "grid": "8 col; legend entries in 2 columns, each entry = a 48px symbol cell + text; locator inset 3 col × 3 rows with its own neat-line.",
+        "structure": [
+          "Series header band: series name, sheet number, edition",
+          "Locator inset map with the current area outlined",
+          "Legend sections (roads & paths / water / vegetation / buildings) relabelled as the facts’ categories",
+          "Reference table: grid reference for each item, e.g. \"SD 284 093\" format",
+          "Margin notes and publication imprint"
+        ]
+      },
+      "anchor": {
+        "id": "contour-field",
+        "name": "Contour field",
+        "description": "The first screen is a field of contours with the title set as a feature name along the slope (letter-spaced on an SVG textPath)."
+      },
+      "type": {
+        "id": "barlow-landeskarte",
+        "name": "Barlow Condensed + Barlow + Azeret Mono",
+        "display": {
+          "family": "Barlow Condensed",
+          "weights": [
+            500,
+            600
+          ],
+          "italic": true,
+          "fallback": "\"Arial Narrow\", sans-serif",
+          "source": "google"
+        },
+        "body": {
+          "family": "Barlow",
+          "weights": [
+            400,
+            500
+          ],
+          "fallback": "Arial, sans-serif",
+          "source": "google"
+        },
+        "mono": {
+          "family": "Azeret Mono",
+          "weights": [
+            400
+          ],
+          "fallback": "\"Courier New\", monospace",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "Noto Sans SC",
+          "body": "Noto Sans SC"
+        },
+        "notes": "Place names in Barlow Condensed: settlements upright 600; area names letter-spaced +0.15em across their feature; water names italic. Spot heights and grid numbers in Azeret Mono 11px tabular. Hierarchy by size and spacing, not colour."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "\"Barlow Condensed\", \"Arial Narrow\", sans-serif",
+          "body": "Barlow, Arial, sans-serif",
+          "mono": "\"Azeret Mono\", \"Courier New\", monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;1,500;1,600&family=Barlow:wght@400;500&family=Azeret+Mono&display=swap"
+      },
+      "palette": {
+        "id": "cyanotype-field",
+        "name": "Cyanotype field copy",
+        "colors": {
+          "paper": "#16457a",
+          "ink": "#f2f5f7",
+          "muted": "#b9cde0",
+          "accent": "#ffffff",
+          "accent2": "#f0c75e",
+          "rule": "#5d82ab",
+          "panel": "#1d5590"
+        },
+        "usage": "Prussian-blue blueprint of the field sheet: all line work and text in white/ink; muted for grid labels; yellow survey-crayon accent2 only for the current-location mark and corrections."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 8.85,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 5.94,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 6.96,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 9.69,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 6.02,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#000000 on accent",
+            "ratio": 21,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "#000000 on accent2",
+            "ratio": 13.04,
+            "verdict": "AAA — any text"
+          }
+        ],
+        "onAccent": "#000000",
+        "onAccent2": "#000000"
+      },
+      "density": {
+        "id": "compact",
+        "name": {
+          "zh": "紧凑",
+          "en": "Compact"
+        },
+        "baseSize": 15,
+        "lineHeight": 1.45,
+        "unit": 6,
+        "sectionGap": 64,
+        "maxWidth": 1320,
+        "description": "信息密集，多栏并行；用细线和对齐建立秩序，首屏就能看到 3 个以上信息块。"
+      },
+      "scale": {
+        "id": "minor-third",
+        "name": "Minor third 1.2",
+        "ratio": 1.2,
+        "steps": [
+          {
+            "step": -2,
+            "px": 10.4,
+            "rem": 0.651
+          },
+          {
+            "step": -1,
+            "px": 12.5,
+            "rem": 0.781
+          },
+          {
+            "step": 0,
+            "px": 15,
+            "rem": 0.938
+          },
+          {
+            "step": 1,
+            "px": 18,
+            "rem": 1.125
+          },
+          {
+            "step": 2,
+            "px": 21.6,
+            "rem": 1.35
+          },
+          {
+            "step": 3,
+            "px": 25.9,
+            "rem": 1.62
+          },
+          {
+            "step": 4,
+            "px": 31.1,
+            "rem": 1.944
+          },
+          {
+            "step": 5,
+            "px": 37.3,
+            "rem": 2.333
+          },
+          {
+            "step": 6,
+            "px": 44.8,
+            "rem": 2.799
+          },
+          {
+            "step": 7,
+            "px": 53.7,
+            "rem": 3.359
+          }
+        ]
+      },
+      "motion": {
+        "id": "contour-plot",
+        "name": "Contour plot",
+        "description": "Contours draw themselves on first load via stroke-dashoffset, innermost ring first, at constant plotter speed; 40ms stagger per contour.",
+        "duration": "900ms",
+        "easing": "linear",
+        "reduced": "Contours drawn complete."
+      },
+      "motif": {
+        "id": "scale-bar",
+        "name": "Scale bar",
+        "description": "Alternating ink/paper segmented bar (0–1–2 km) with \"1:25 000\" above and small numbers under each division."
+      },
+      "surface": {
+        "id": "woodland-stipple",
+        "name": "Woodland stipple",
+        "description": "Vegetation areas as a regular stipple of small dots on the panel tint.",
+        "css": "background-color: var(--panel); background-image: radial-gradient(color-mix(in srgb, var(--ink) 25%, transparent) 1px, transparent 1.4px); background-size: 10px 8px;"
+      },
+      "twist": {
+        "id": "accent-rationed",
+        "name": {
+          "zh": "强调色配给",
+          "en": "Accent rationed"
+        },
+        "description": "强调色在全页最多出现 3 处；其余一切只用 ink / paper / rule。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design ffc2f9c1 · topographic-map · cyanotype-field */\n:root {\n  --paper: #16457a;\n  --ink: #f2f5f7;\n  --muted: #b9cde0;\n  --accent: #ffffff;\n  --on-accent: #000000;\n  --accent2: #f0c75e;\n  --on-accent2: #000000;\n  --rule: #5d82ab;\n  --panel: #1d5590;\n\n  --font-display: \"Barlow Condensed\", \"Arial Narrow\", sans-serif;\n  --font-body: Barlow, Arial, sans-serif;\n  --font-mono: \"Azeret Mono\", \"Courier New\", monospace;\n\n  --step-n2: 0.651rem; /* 10.4px */\n  --step-n1: 0.781rem; /* 12.5px */\n  --step-0: 0.938rem; /* 15px */\n  --step-1: 1.125rem; /* 18px */\n  --step-2: 1.35rem; /* 21.6px */\n  --step-3: 1.62rem; /* 25.9px */\n  --step-4: 1.944rem; /* 31.1px */\n  --step-5: 2.333rem; /* 37.3px */\n  --step-6: 2.799rem; /* 44.8px */\n  --step-7: 3.359rem; /* 53.7px */\n  --leading: 1.45;\n\n  --space-1: 6px;\n  --space-2: 12px;\n  --space-3: 18px;\n  --space-4: 24px;\n  --space-5: 30px;\n  --space-6: 36px;\n  --space-7: 42px;\n  --space-8: 48px;\n  --section-gap: 64px;\n  --max-width: 1320px;\n\n  --motion-duration: 900ms;\n  --motion-easing: linear;\n}\n\nhtml { font-size: 93.8%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "ff c2",
+          "rule": "0xffc2 = 65474; 65474 mod 40 = 34",
+          "poolSize": 40,
+          "index": 34,
+          "result": "topographic-map"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "f9",
+          "rule": "0xf9 = 249; 249 mod 14 = 11",
+          "poolSize": 14,
+          "index": 11,
+          "result": "dictionary-entry"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "c1",
+          "rule": "0xc1 = 193; 193 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "legend-led"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "7e",
+          "rule": "0x7e = 126; 126 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "barlow-landeskarte"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "02",
+          "rule": "0x02 = 2; 2 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "cyanotype-field"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "b4",
+          "rule": "0xb4 = 180; 180 mod 2 = 0",
+          "poolSize": 2,
+          "index": 0,
+          "result": "compact"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "6c",
+          "rule": "0x6c = 108; 108 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "contour-plot"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "f5",
+          "rule": "0xf5 = 245; 245 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "scale-bar"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "b7",
+          "rule": "0xb7 = 183; 183 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "contour-field"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "43",
+          "rule": "0x43 = 67; 67 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "minor-third"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "c8",
+          "rule": "0xc8 = 200; 200 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "woodland-stipple"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "14",
+          "rule": "0x14 = 20; 20 mod 16 = 4",
+          "poolSize": 16,
+          "index": 4,
+          "result": "accent-rationed"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "slug": "03-warm-handmade",
+      "ref": "ee7a4e447e6e69a008ec2e7dd9ce52e7dcffc7a789f6794848f1de5ccb2d2219+1",
+      "hash": "ee7a4e447e6e69a008ec2e7dd9ce52e7dcffc7a789f6794848f1de5ccb2d2219",
+      "short": "ee7a4e44",
+      "probe": 1,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "Causeway — a music festival on Skerrow Island",
+        "facts": [
+          "Name: Causeway — a one-day music festival on Skerrow Island",
+          "Date: Saturday 19 June 2027",
+          "The island is reached on foot over a 1.2 km tidal causeway",
+          "Causeway open for arrivals 09:40–13:10 and for departures 22:15–01:30 (that day's tide times)",
+          "Nobody crosses outside those windows; the harbour boat is for emergencies only",
+          "Capacity: 900 people",
+          "Tickets: £54 adult, £27 for ages 12–17, free under 12; on sale 1 March 2027",
+          "Two stages: the Boathouse (indoors, 220 people) and the Field (outdoors)",
+          "Field line-up: The Lantern Choir, Mara Quist, Seven Herons, Low Orbit Brass",
+          "Boathouse line-up: Ada Fenwick (solo cello), Tomasz & the Weir, Kelp, Ruth Ono Trio",
+          "The last set ends at 21:45 so everyone reaches the causeway in time",
+          "No single-use plastic on the island: bring a cup, or buy an enamel one for £6",
+          "Food from two island kitchens; cash and card",
+          "Organised by the Skerrow Island Trust, a volunteer charity; profits go to repairing the sea wall",
+          "Fourth year of the festival, first held in 2024",
+          "Wear boots: parts of the causeway are wet sand and seaweed"
+        ],
+        "language": "en"
+      },
+      "branch": {
+        "id": "warm-handmade",
+        "name": {
+          "zh": "手作温度",
+          "en": "Warm handmade"
+        },
+        "family": "craft",
+        "concept": {
+          "zh": "街角手作小店的温度：牛皮纸、橡皮章、手写标签、麻绳、木刻版画小插图，以及歪一点的手绘边框。不完美是证据——说明真的有人一件件做出来、一个个写上去。",
+          "en": "The warmth of a corner shop that makes things by hand: kraft paper, rubber stamps, handwritten labels, twine, linocut vignettes and slightly crooked hand-drawn borders. The imperfection is evidence — someone really made each thing and wrote each label."
+        },
+        "references": [
+          "Edward Bawden linocuts and shop posters (1950s–1980s)",
+          "Whole Earth Catalog hand-pasted layouts (1968–1972)",
+          "Hand-written POP price cards in Japanese 雑貨 shops",
+          "Kraft-paper bakery bags with rubber-stamped logos",
+          "Farmers’ market chalkboards"
+        ],
+        "tokens": {
+          "grid": "Loose 6-column grid, 24px gutter, 32px margins; at most one element in three sits ±1–2° off-axis or ±4px off-grid; 8px baseline for body only.",
+          "radius": "0–3px on paper tags; tag corners cut with clip-path; hand-drawn borders are SVG paths, not border-radius.",
+          "border": "Hand-drawn: SVG strokes 1.5–2.5px with slight wobble (feTurbulence + feDisplacementMap, scale 2–3); 2px dashed \"stitch\" lines for sewn edges.",
+          "shadow": "Paper only: 1px 2px 0 rgba(60,40,20,.25) under taped or pinned labels; no blurred shadows."
+        },
+        "must": [
+          "At least one genuinely hand-made element: hand-lettered display, a stamp with uneven ink, or a wobbly hand-drawn border.",
+          "Prices, hours and items are written as labels or tags, not as a generic table.",
+          "Illustrations, if any, are one-colour linocut-style and depict real items from the facts."
+        ],
+        "mustNot": [
+          "No farmhouse clip-art clichés: \"Live Laugh Love\" script, mason-jar icons, wood-plank photo backgrounds.",
+          "No handwriting face for body paragraphs — labels and titles only.",
+          "No glossy gradients, no perfect geometric icon sets.",
+          "Do not tilt everything: at most one element in three is off-axis."
+        ]
+      },
+      "voice": {
+        "id": "almanac",
+        "name": {
+          "zh": "历书",
+          "en": "Almanac"
+        },
+        "description": "黄历/年鉴口吻：宜忌、节令、方位，短句并列，带一点古意但信息准确。",
+        "devices": [
+          "宜 / 忌 并列",
+          "节气或日期",
+          "四字短语",
+          "方位与时辰"
+        ],
+        "example": "宜：早起、趁热。忌：周一来访。"
+      },
+      "layout": {
+        "id": "kraft-bag",
+        "name": "Kraft bag",
+        "description": "The page is a kraft bag: a big rubber-stamp logo on the front, a paper label band wrapped around, the back panel printed with details.",
+        "grid": "8 col; stamp 4 col wide in the first screen; label band full width rotated -2°; back panel in 2 columns of 4, 24px gutter.",
+        "structure": [
+          "Front: stamp logo + a handwritten note on a small label",
+          "Label band: one-line statement across the width",
+          "Back panel: materials/ingredients list + care or usage notes",
+          "Seal sticker: contact info inside a round sticker",
+          "Footer with a stitched (dashed) bottom edge"
+        ]
+      },
+      "anchor": {
+        "id": "big-stamp",
+        "name": "Big stamp",
+        "description": "One large circular rubber stamp (40vw) with the name around the ring and a linocut vignette in the centre."
+      },
+      "type": {
+        "id": "caveat-alegreya-sans",
+        "name": "Caveat + Alegreya Sans",
+        "display": {
+          "family": "Caveat",
+          "weights": [
+            500,
+            700
+          ],
+          "fallback": "\"Bradley Hand\", \"Segoe Print\", cursive",
+          "source": "google"
+        },
+        "body": {
+          "family": "Alegreya Sans",
+          "weights": [
+            400,
+            500,
+            700
+          ],
+          "fallback": "\"Gill Sans\", Calibri, sans-serif",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "Long Cang",
+          "body": "Noto Sans SC"
+        },
+        "notes": "Caveat for handwritten labels, prices and titles at 28–72px; rotate whole labels -2° to +2°, never individual letters; never for paragraphs. Alegreya Sans body 17/1.6. Prices in Caveat 700 with a smaller currency sign."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "Caveat, \"Bradley Hand\", \"Segoe Print\", cursive",
+          "body": "\"Alegreya Sans\", \"Gill Sans\", Calibri, sans-serif",
+          "mono": "ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Alegreya+Sans:wght@400;500;700&display=swap"
+      },
+      "palette": {
+        "id": "chalkboard",
+        "name": "Chalkboard",
+        "colors": {
+          "paper": "#2e3430",
+          "ink": "#f1ede2",
+          "muted": "#b9b9ae",
+          "accent": "#f2c14e",
+          "accent2": "#e98a7d",
+          "rule": "#c8c6bb",
+          "panel": "#3a413c"
+        },
+        "usage": "Green-black board; chalk-white handwriting and body; yellow chalk for prices, pink chalk for one highlight per section; panels a step lighter like a cleaner patch of board."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 10.88,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 6.43,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 8.97,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 7.58,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 5.09,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#000000 on accent",
+            "ratio": 12.51,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "#000000 on accent2",
+            "ratio": 8.4,
+            "verdict": "AAA — any text"
+          }
+        ],
+        "onAccent": "#000000",
+        "onAccent2": "#000000"
+      },
+      "density": {
+        "id": "airy",
+        "name": {
+          "zh": "疏朗",
+          "en": "Airy"
+        },
+        "baseSize": 18,
+        "lineHeight": 1.65,
+        "unit": 10,
+        "sectionGap": 168,
+        "maxWidth": 1080,
+        "description": "大留白，一屏只讲一件事；正文行长 60–68 字符（中文 30–36 字）。"
+      },
+      "scale": {
+        "id": "major-third",
+        "name": "Major third 1.25",
+        "ratio": 1.25,
+        "steps": [
+          {
+            "step": -2,
+            "px": 11.5,
+            "rem": 0.72
+          },
+          {
+            "step": -1,
+            "px": 14.4,
+            "rem": 0.9
+          },
+          {
+            "step": 0,
+            "px": 18,
+            "rem": 1.125
+          },
+          {
+            "step": 1,
+            "px": 22.5,
+            "rem": 1.406
+          },
+          {
+            "step": 2,
+            "px": 28.1,
+            "rem": 1.758
+          },
+          {
+            "step": 3,
+            "px": 35.2,
+            "rem": 2.197
+          },
+          {
+            "step": 4,
+            "px": 43.9,
+            "rem": 2.747
+          },
+          {
+            "step": 5,
+            "px": 54.9,
+            "rem": 3.433
+          },
+          {
+            "step": 6,
+            "px": 68.7,
+            "rem": 4.292
+          },
+          {
+            "step": 7,
+            "px": 85.8,
+            "rem": 5.364
+          }
+        ]
+      },
+      "motion": {
+        "id": "tag-swing",
+        "name": "Tag swing",
+        "description": "Hovering a hanging tag swings it from its hole: 0° → 4° → -2° → 0°.",
+        "duration": "600ms",
+        "easing": "cubic-bezier(.36,.07,.19,.97)",
+        "reduced": "No swing; the tag text gets a hand-drawn underline."
+      },
+      "motif": {
+        "id": "linocut-vignettes",
+        "name": "Linocut vignettes",
+        "description": "Small one-colour SVG illustrations with gouged-line texture (solid shapes, white carving lines), depicting the actual products (bread, cup, leaf, needle)."
+      },
+      "surface": {
+        "id": "chalk-dust",
+        "name": "Chalk dust",
+        "description": "A board with faint smudged eraser marks.",
+        "css": "background-image: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,.05), transparent 60%), radial-gradient(ellipse at 75% 70%, rgba(255,255,255,.04), transparent 55%);"
+      },
+      "twist": {
+        "id": "giant-glyph",
+        "name": {
+          "zh": "巨字",
+          "en": "Giant glyph"
+        },
+        "description": "一个巨大的单字、单字母或单数字作为首屏视觉锚点（占视口高度 40% 以上）。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design ee7a4e44 · warm-handmade · chalkboard */\n:root {\n  --paper: #2e3430;\n  --ink: #f1ede2;\n  --muted: #b9b9ae;\n  --accent: #f2c14e;\n  --on-accent: #000000;\n  --accent2: #e98a7d;\n  --on-accent2: #000000;\n  --rule: #c8c6bb;\n  --panel: #3a413c;\n\n  --font-display: Caveat, \"Bradley Hand\", \"Segoe Print\", cursive;\n  --font-body: \"Alegreya Sans\", \"Gill Sans\", Calibri, sans-serif;\n  --font-mono: ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace;\n\n  --step-n2: 0.72rem; /* 11.5px */\n  --step-n1: 0.9rem; /* 14.4px */\n  --step-0: 1.125rem; /* 18px */\n  --step-1: 1.406rem; /* 22.5px */\n  --step-2: 1.758rem; /* 28.1px */\n  --step-3: 2.197rem; /* 35.2px */\n  --step-4: 2.747rem; /* 43.9px */\n  --step-5: 3.433rem; /* 54.9px */\n  --step-6: 4.292rem; /* 68.7px */\n  --step-7: 5.364rem; /* 85.8px */\n  --leading: 1.65;\n\n  --space-1: 10px;\n  --space-2: 20px;\n  --space-3: 30px;\n  --space-4: 40px;\n  --space-5: 50px;\n  --space-6: 60px;\n  --space-7: 70px;\n  --space-8: 80px;\n  --section-gap: 168px;\n  --max-width: 1080px;\n\n  --motion-duration: 600ms;\n  --motion-easing: cubic-bezier(.36,.07,.19,.97);\n}\n\nhtml { font-size: 112.5%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "ee 7a",
+          "rule": "0xee7a = 61050; 61050 mod 40 = 10; collision → +1 = 11",
+          "poolSize": 40,
+          "index": 11,
+          "result": "warm-handmade",
+          "note": "primary branch (or its family) already used in this roll; walked forward 1 step(s)"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "4e",
+          "rule": "0x4e = 78; 78 mod 14 = 8",
+          "poolSize": 14,
+          "index": 8,
+          "result": "almanac"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "44",
+          "rule": "0x44 = 68; 68 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "kraft-bag"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "7e",
+          "rule": "0x7e = 126; 126 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "caveat-alegreya-sans"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "6e",
+          "rule": "0x6e = 110; 110 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "chalkboard"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "69",
+          "rule": "0x69 = 105; 105 mod 2 = 1",
+          "poolSize": 2,
+          "index": 1,
+          "result": "airy"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "a0",
+          "rule": "0xa0 = 160; 160 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "tag-swing"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "08",
+          "rule": "0x08 = 8; 8 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "linocut-vignettes"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "ec",
+          "rule": "0xec = 236; 236 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "big-stamp"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "2e",
+          "rule": "0x2e = 46; 46 mod 2 = 0",
+          "poolSize": 2,
+          "index": 0,
+          "result": "major-third"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "7d",
+          "rule": "0x7d = 125; 125 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "chalk-dust"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "d9",
+          "rule": "0xd9 = 217; 217 mod 16 = 9",
+          "poolSize": 16,
+          "index": 9,
+          "result": "giant-glyph"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "slug": "04-editorial-magazine",
+      "ref": "90fa12c08e8706c9a86c6a123a6420d8f83eb3093909e8b5e332a8ddc16583ad+1",
+      "hash": "90fa12c08e8706c9a86c6a123a6420d8f83eb3093909e8b5e332a8ddc16583ad",
+      "short": "90fa12c0",
+      "probe": 1,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "Causeway — a music festival on Skerrow Island",
+        "facts": [
+          "Name: Causeway — a one-day music festival on Skerrow Island",
+          "Date: Saturday 19 June 2027",
+          "The island is reached on foot over a 1.2 km tidal causeway",
+          "Causeway open for arrivals 09:40–13:10 and for departures 22:15–01:30 (that day's tide times)",
+          "Nobody crosses outside those windows; the harbour boat is for emergencies only",
+          "Capacity: 900 people",
+          "Tickets: £54 adult, £27 for ages 12–17, free under 12; on sale 1 March 2027",
+          "Two stages: the Boathouse (indoors, 220 people) and the Field (outdoors)",
+          "Field line-up: The Lantern Choir, Mara Quist, Seven Herons, Low Orbit Brass",
+          "Boathouse line-up: Ada Fenwick (solo cello), Tomasz & the Weir, Kelp, Ruth Ono Trio",
+          "The last set ends at 21:45 so everyone reaches the causeway in time",
+          "No single-use plastic on the island: bring a cup, or buy an enamel one for £6",
+          "Food from two island kitchens; cash and card",
+          "Organised by the Skerrow Island Trust, a volunteer charity; profits go to repairing the sea wall",
+          "Fourth year of the festival, first held in 2024",
+          "Wear boots: parts of the causeway are wet sand and seaweed"
+        ],
+        "language": "en"
+      },
+      "branch": {
+        "id": "editorial-magazine",
+        "name": {
+          "zh": "杂志编辑",
+          "en": "Editorial magazine"
+        },
+        "family": "print",
+        "concept": {
+          "zh": "长篇杂志特稿：大号首字下沉、标题下的导语、署名行、多栏正文、打断栏位的引语和页脚页码。节奏来自栏宽、栏间细线和标题字号的大落差——是印刷杂志的版面，而不是大片留白的“生活方式”网页。",
+          "en": "The long-form magazine feature: a big drop cap, a deck under the headline, a byline, multi-column body text, a pull quote breaking the columns and folios at the foot. Rhythm comes from column measure, hairline column rules and dramatic headline scale — a printed magazine spread, not a whitespace-heavy lifestyle site."
+        },
+        "references": [
+          "The New Yorker feature pages (Rea Irvin display, Caslon body)",
+          "Harper’s Bazaar under Alexey Brodovitch (1934–58)",
+          "Esquire under Harold Hayes and George Lois (1960s)",
+          "The New York Times Magazine redesign by Matt Willey (2015)",
+          "London Review of Books"
+        ],
+        "tokens": {
+          "grid": "12 columns, 18px gutter, max 1240px; body in 3 columns of 4 grid columns (≈ 22em) on desktop, 2 on tablet, 1 on mobile (column-count with column-rule); 24px baseline; opening spreads split 6 + 6.",
+          "radius": "0.",
+          "border": "Column rules 1px var(--rule) (column-rule); folio rule 1px full width; pull quotes with a 3px accent rule above and 1px rule below; section breaks as a centred ornament (❧) or a 3em rule.",
+          "shadow": "none."
+        },
+        "must": [
+          "Body text runs in multiple columns on desktop at a 45–75 character measure.",
+          "The feature opens with headline, deck and byline, and the body starts with a drop cap.",
+          "At least one pull quote taken verbatim from the provided facts or body text.",
+          "Folios or a running footer with issue and section information."
+        ],
+        "mustNot": [
+          "No Kinfolk-style minimal lifestyle layout: no expanses of beige whitespace around one centred paragraph.",
+          "No card grids of article teasers with rounded thumbnails.",
+          "No real magazine mastheads (The New Yorker, Vogue…) used as branding."
+        ]
+      },
+      "voice": {
+        "id": "museum-label",
+        "name": {
+          "zh": "展签",
+          "en": "Museum label"
+        },
+        "description": "博物馆藏品标签：名称、年代、材质、尺寸，最后一句冷静的注解。",
+        "devices": [
+          "名称 / 年代 / 材质 三行",
+          "馆藏编号",
+          "一句注解",
+          "尺寸"
+        ],
+        "example": "乡村面包，2026。小麦、水、盐、九年酵种。直径 22 cm。"
+      },
+      "layout": {
+        "id": "opening-spread",
+        "name": "Opening spread",
+        "description": "A two-page opener: left page a full-height image or a giant typographic headline, right page deck, byline and the first columns with a drop cap.",
+        "grid": "6 + 6 columns at ≥ 1024px; left half headline or image at 100vh; right half: deck across 4 columns, body in 2 columns × 3; folio row at the foot of both halves.",
+        "structure": [
+          "Rubric (section name) top-left in small caps, folio number",
+          "Left page: headline at 8–12vw or full-bleed image with a credit line",
+          "Right page: deck/standfirst in italic, byline “By … · Photographs by …”",
+          "Body starts with a 4-line drop cap and runs in 2–3 columns",
+          "Pull quote spanning 2 columns mid-body; end mark ■ or “Continued on p. 74”"
+        ]
+      },
+      "anchor": {
+        "id": "giant-headline",
+        "name": "Giant headline",
+        "description": "The first screen is the headline at 10–14vw over 2–3 lines with deck and byline beneath; no image."
+      },
+      "type": {
+        "id": "bodoni-fashion",
+        "name": "Bodoni Moda + Libre Baskerville",
+        "display": {
+          "family": "Bodoni Moda",
+          "weights": [
+            400,
+            700
+          ],
+          "italic": true,
+          "fallback": "Didot, \"Bodoni 72\", serif",
+          "source": "google"
+        },
+        "body": {
+          "family": "Libre Baskerville",
+          "weights": [
+            400,
+            700
+          ],
+          "italic": true,
+          "fallback": "Baskerville, Georgia, serif",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "ZCOOL XiaoWei",
+          "body": "Noto Serif SC"
+        },
+        "notes": "Bodoni Moda 400 italic and 700 roman mixed inside one headline at 72–160px (optical sizing on so hairlines stay sharp), leading 0.92; deck Bodoni Moda 400 at 24px. Body Libre Baskerville 400 at 16px/26px, ragged-right. Bylines uppercase 11px with 0.2em tracking in Libre Baskerville 700. 6-line drop cap in Bodoni Moda 700."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "\"Bodoni Moda\", Didot, \"Bodoni 72\", serif",
+          "body": "\"Libre Baskerville\", Baskerville, Georgia, serif",
+          "mono": "ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      },
+      "palette": {
+        "id": "weekly-white",
+        "name": "Weekly white",
+        "colors": {
+          "paper": "#fdfcf8",
+          "ink": "#111111",
+          "muted": "#505050",
+          "accent": "#a6192e",
+          "accent2": "#1d3f6e",
+          "rule": "#1a1a1a",
+          "panel": "#f1eee6"
+        },
+        "usage": "Black on white for ≥ 95% of the page; red (accent) only for the rubric, the drop cap and the end mark ■; navy (accent2) for links and illustration line work; panel for sidebars."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 18.39,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 7.85,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 16.29,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 7.31,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 10.29,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "#ffffff on accent",
+            "ratio": 7.5,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "#ffffff on accent2",
+            "ratio": 10.56,
+            "verdict": "AAA — any text"
+          }
+        ],
+        "onAccent": "#ffffff",
+        "onAccent2": "#ffffff"
+      },
+      "density": {
+        "id": "regular",
+        "name": {
+          "zh": "常规",
+          "en": "Regular"
+        },
+        "baseSize": 17,
+        "lineHeight": 1.55,
+        "unit": 8,
+        "sectionGap": 112,
+        "maxWidth": 1200,
+        "description": "常规阅读节奏；区块之间用明确的分隔（线、色块或编号），不靠空白硬撑。"
+      },
+      "scale": {
+        "id": "golden",
+        "name": "Golden ratio 1.618",
+        "ratio": 1.618,
+        "steps": [
+          {
+            "step": -2,
+            "px": 6.5,
+            "rem": 0.406
+          },
+          {
+            "step": -1,
+            "px": 10.5,
+            "rem": 0.657
+          },
+          {
+            "step": 0,
+            "px": 17,
+            "rem": 1.063
+          },
+          {
+            "step": 1,
+            "px": 27.5,
+            "rem": 1.719
+          },
+          {
+            "step": 2,
+            "px": 44.5,
+            "rem": 2.782
+          },
+          {
+            "step": 3,
+            "px": 72,
+            "rem": 4.501
+          },
+          {
+            "step": 4,
+            "px": 116.5,
+            "rem": 7.282
+          },
+          {
+            "step": 5,
+            "px": 188.5,
+            "rem": 11.782
+          },
+          {
+            "step": 6,
+            "px": 305,
+            "rem": 19.063
+          },
+          {
+            "step": 7,
+            "px": 493.5,
+            "rem": 30.845
+          }
+        ]
+      },
+      "motion": {
+        "id": "page-turn",
+        "name": "Page turn",
+        "description": "Moving between spreads turns the page: the outgoing page rotates −180° around the spine (rotateY, perspective 1600px) while the next spread is revealed beneath.",
+        "duration": "600ms",
+        "easing": "cubic-bezier(.45,.05,.2,1)",
+        "reduced": "Cut directly to the next spread."
+      },
+      "motif": {
+        "id": "drop-cap",
+        "name": "Drop cap",
+        "description": "A 3–6 line drop cap in the display face opening the feature and each major section, aligned to the baseline grid."
+      },
+      "surface": {
+        "id": "coated-magazine",
+        "name": "Coated magazine stock",
+        "description": "Bright smooth paper with no texture; image areas at full saturation."
+      },
+      "twist": {
+        "id": "zero-shadow",
+        "name": {
+          "zh": "零阴影",
+          "en": "Zero shadows"
+        },
+        "description": "全页没有任何 box-shadow / drop-shadow；层级只靠边框、色块和留白。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design 90fa12c0 · editorial-magazine · weekly-white */\n:root {\n  --paper: #fdfcf8;\n  --ink: #111111;\n  --muted: #505050;\n  --accent: #a6192e;\n  --on-accent: #ffffff;\n  --accent2: #1d3f6e;\n  --on-accent2: #ffffff;\n  --rule: #1a1a1a;\n  --panel: #f1eee6;\n\n  --font-display: \"Bodoni Moda\", Didot, \"Bodoni 72\", serif;\n  --font-body: \"Libre Baskerville\", Baskerville, Georgia, serif;\n  --font-mono: ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace;\n\n  --step-n2: 0.406rem; /* 6.5px */\n  --step-n1: 0.657rem; /* 10.5px */\n  --step-0: 1.063rem; /* 17px */\n  --step-1: 1.719rem; /* 27.5px */\n  --step-2: 2.782rem; /* 44.5px */\n  --step-3: 4.501rem; /* 72px */\n  --step-4: 7.282rem; /* 116.5px */\n  --step-5: 11.782rem; /* 188.5px */\n  --step-6: 19.063rem; /* 305px */\n  --step-7: 30.845rem; /* 493.5px */\n  --leading: 1.55;\n\n  --space-1: 8px;\n  --space-2: 16px;\n  --space-3: 24px;\n  --space-4: 32px;\n  --space-5: 40px;\n  --space-6: 48px;\n  --space-7: 56px;\n  --space-8: 64px;\n  --section-gap: 112px;\n  --max-width: 1200px;\n\n  --motion-duration: 600ms;\n  --motion-easing: cubic-bezier(.45,.05,.2,1);\n}\n\nhtml { font-size: 106.3%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "90 fa",
+          "rule": "0x90fa = 37114; 37114 mod 40 = 34; collision → +1 = 35",
+          "poolSize": 40,
+          "index": 35,
+          "result": "editorial-magazine",
+          "note": "primary branch (or its family) already used in this roll; walked forward 1 step(s)"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "12",
+          "rule": "0x12 = 18; 18 mod 14 = 4",
+          "poolSize": 14,
+          "index": 4,
+          "result": "museum-label"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "c0",
+          "rule": "0xc0 = 192; 192 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "opening-spread"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "8e",
+          "rule": "0x8e = 142; 142 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "bodoni-fashion"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "87",
+          "rule": "0x87 = 135; 135 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "weekly-white"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "06",
+          "rule": "0x06 = 6; 6 mod 2 = 0",
+          "poolSize": 2,
+          "index": 0,
+          "result": "regular"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "c9",
+          "rule": "0xc9 = 201; 201 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "page-turn"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "a8",
+          "rule": "0xa8 = 168; 168 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "drop-cap"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "6c",
+          "rule": "0x6c = 108; 108 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "giant-headline"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "6a",
+          "rule": "0x6a = 106; 106 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "golden"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "12",
+          "rule": "0x12 = 18; 18 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "coated-magazine"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "3a",
+          "rule": "0x3a = 58; 58 mod 16 = 10",
+          "poolSize": 16,
+          "index": 10,
+          "result": "zero-shadow"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "slug": "05-memphis-pop",
+      "ref": "0a75884fd35836645ab3e444b59e9e403c816f24910e4207377f7dc8ef93b8f4+2",
+      "hash": "0a75884fd35836645ab3e444b59e9e403c816f24910e4207377f7dc8ef93b8f4",
+      "short": "0a75884f",
+      "probe": 2,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "Causeway — a music festival on Skerrow Island",
+        "facts": [
+          "Name: Causeway — a one-day music festival on Skerrow Island",
+          "Date: Saturday 19 June 2027",
+          "The island is reached on foot over a 1.2 km tidal causeway",
+          "Causeway open for arrivals 09:40–13:10 and for departures 22:15–01:30 (that day's tide times)",
+          "Nobody crosses outside those windows; the harbour boat is for emergencies only",
+          "Capacity: 900 people",
+          "Tickets: £54 adult, £27 for ages 12–17, free under 12; on sale 1 March 2027",
+          "Two stages: the Boathouse (indoors, 220 people) and the Field (outdoors)",
+          "Field line-up: The Lantern Choir, Mara Quist, Seven Herons, Low Orbit Brass",
+          "Boathouse line-up: Ada Fenwick (solo cello), Tomasz & the Weir, Kelp, Ruth Ono Trio",
+          "The last set ends at 21:45 so everyone reaches the causeway in time",
+          "No single-use plastic on the island: bring a cup, or buy an enamel one for £6",
+          "Food from two island kitchens; cash and card",
+          "Organised by the Skerrow Island Trust, a volunteer charity; profits go to repairing the sea wall",
+          "Fourth year of the festival, first held in 2024",
+          "Wear boots: parts of the causeway are wet sand and seaweed"
+        ],
+        "language": "en"
+      },
+      "branch": {
+        "id": "memphis-pop",
+        "name": {
+          "zh": "孟菲斯",
+          "en": "Memphis pop"
+        },
+        "family": "modernist",
+        "concept": {
+          "zh": "索特萨斯与杜·帕斯奎尔的孟菲斯小组：弯弯曲曲的粗线、水磨石斑点、彩纸屑图案、黑白小方格，粉彩和原色正面相撞。家具像玩具，图形像在开派对——故意的不和谐，但每块颜色都边缘清楚。",
+          "en": "The Memphis Group of Sottsass and du Pasquier: squiggles, terrazzo flecks, confetti prints, black-and-white grids, pastels colliding with primaries. Furniture like toys, graphics like a party — deliberate clashes, but every colour field has a crisp outline."
+        },
+        "references": [
+          "Ettore Sottsass, Carlton room divider (1981)",
+          "Nathalie du Pasquier, laminate and textile patterns for Memphis (1981–1987)",
+          "Peter Shire, Bel Air armchair (1982)",
+          "Christoph Radl, Memphis catalogues and posters (1981–1988)",
+          "Ettore Sottsass, “Bacterio” print for Abet Laminati (1978)"
+        ],
+        "tokens": {
+          "grid": "12 columns, 16px gutter, 32px margins; coloured blocks may be offset by one column or rotated ±3–8°, but text inside a block is always straight and aligned.",
+          "radius": "0 for laminate blocks; 50% for discs; half- and quarter-discs via one- or two-corner radii (e.g. border-radius: 0 0 0 100%).",
+          "border": "3px solid ink outline on every coloured block; patterns meet along 3px ink lines.",
+          "shadow": "Hard offsets only: 8px 8px 0 var(--ink) (or a pattern-filled offset block). Never blurred."
+        },
+        "must": [
+          "At least three different pattern fills (grid, squiggle, terrazzo/confetti) appear on the page.",
+          "Every coloured block has a visible ink outline or a hard offset — crisp edges.",
+          "At least one pastel and one primary colour collide in the same view.",
+          "Body copy always sits on a solid panel."
+        ],
+        "mustNot": [
+          "No gradients and no glows — Memphis is flat laminate.",
+          "No synthwave clichés: neon grids to the horizon, chrome lettering, sunsets.",
+          "No pattern behind body text.",
+          "No blurred shadows; only hard offsets."
+        ]
+      },
+      "voice": {
+        "id": "interview-qa",
+        "name": {
+          "zh": "问答访谈",
+          "en": "Interview Q&A"
+        },
+        "description": "访谈稿：问句短，答句是当事人的原话风格，具体、口语、有细节。",
+        "devices": [
+          "问：/答：",
+          "引语",
+          "具体人名/时间",
+          "一句停顿或笑声注"
+        ],
+        "example": "问：为什么周一休息？答：酵种也要歇一天。"
+      },
+      "layout": {
+        "id": "pattern-patchwork",
+        "name": "Pattern patchwork",
+        "description": "A collage of rectangular patches, each with a different fill (grid, squiggle, terrazzo, solid), with paper-coloured content panels pinned on top.",
+        "grid": "CSS grid 6 × n, 0 gap, patches span 1–3 cells; content panels span 2–4 cells and overlap patch borders by 16px.",
+        "structure": [
+          "Patchwork hero: 6–8 patterned patches with the title panel overlapping three of them",
+          "Facts as tilted label panels (rotated ±4°)",
+          "Schedule/table on a black-and-white grid ground",
+          "Footer row of patches with contact"
+        ]
+      },
+      "anchor": {
+        "id": "squiggle-title",
+        "name": "Squiggle title",
+        "description": "A huge title with a 12px squiggle underline and two geometric props (disc, triangle) touching the letters."
+      },
+      "type": {
+        "id": "chango-questrial",
+        "name": "Chango + Questrial",
+        "display": {
+          "family": "Chango",
+          "weights": [
+            400
+          ],
+          "fallback": "\"Arial Black\", sans-serif",
+          "source": "google"
+        },
+        "body": {
+          "family": "Questrial",
+          "weights": [
+            400
+          ],
+          "fallback": "Arial, sans-serif",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "ZCOOL KuaiLe",
+          "body": "Noto Sans SC"
+        },
+        "notes": "Chango (wide, heavy, toy-like) for titles at 40–96px, mixed case, line-height 1.05. Questrial body 16/1.6; captions 13px uppercase tracking 0.1em."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "Chango, \"Arial Black\", sans-serif",
+          "body": "Questrial, Arial, sans-serif",
+          "mono": "ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Chango&family=Questrial&display=swap"
+      },
+      "palette": {
+        "id": "laminate-yellow",
+        "name": "Laminate yellow",
+        "colors": {
+          "paper": "#ffd84a",
+          "ink": "#141414",
+          "muted": "#4a3d00",
+          "accent": "#e8412c",
+          "accent2": "#1b8a6b",
+          "rule": "#141414",
+          "panel": "#ffffff"
+        },
+        "usage": "Bright laminate-yellow ground; red and green blocks; white outlined panels carry all text; black grids and squiggles."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 13.31,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 7.75,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 18.42,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 2.9,
+            "verdict": "decorative only — never for text"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 3.1,
+            "verdict": "large text / UI marks only (≥24px or bold ≥19px)"
+          },
+          {
+            "pair": "#000000 on accent",
+            "ratio": 5.22,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#000000 on accent2",
+            "ratio": 4.89,
+            "verdict": "AA — body text OK"
+          }
+        ],
+        "onAccent": "#000000",
+        "onAccent2": "#000000"
+      },
+      "density": {
+        "id": "regular",
+        "name": {
+          "zh": "常规",
+          "en": "Regular"
+        },
+        "baseSize": 17,
+        "lineHeight": 1.55,
+        "unit": 8,
+        "sectionGap": 112,
+        "maxWidth": 1200,
+        "description": "常规阅读节奏；区块之间用明确的分隔（线、色块或编号），不靠空白硬撑。"
+      },
+      "scale": {
+        "id": "perfect-fifth",
+        "name": "Perfect fifth 1.5",
+        "ratio": 1.5,
+        "steps": [
+          {
+            "step": -2,
+            "px": 7.6,
+            "rem": 0.472
+          },
+          {
+            "step": -1,
+            "px": 11.3,
+            "rem": 0.708
+          },
+          {
+            "step": 0,
+            "px": 17,
+            "rem": 1.063
+          },
+          {
+            "step": 1,
+            "px": 25.5,
+            "rem": 1.594
+          },
+          {
+            "step": 2,
+            "px": 38.3,
+            "rem": 2.391
+          },
+          {
+            "step": 3,
+            "px": 57.4,
+            "rem": 3.586
+          },
+          {
+            "step": 4,
+            "px": 86.1,
+            "rem": 5.379
+          },
+          {
+            "step": 5,
+            "px": 129.1,
+            "rem": 8.068
+          },
+          {
+            "step": 6,
+            "px": 193.6,
+            "rem": 12.103
+          },
+          {
+            "step": 7,
+            "px": 290.5,
+            "rem": 18.154
+          }
+        ]
+      },
+      "motion": {
+        "id": "pattern-shuffle",
+        "name": "Pattern shuffle",
+        "description": "Hovering a patch cycles its fill through three patterns in hard steps.",
+        "duration": "300ms",
+        "easing": "steps(3, end)",
+        "reduced": "The pattern changes once, without stepping."
+      },
+      "motif": {
+        "id": "squiggles",
+        "name": "Squiggles",
+        "description": "Thick (6–10px) wavy SVG strokes with round caps in ink or accent, scattered at ±30° across panels; at most 5 per screen."
+      },
+      "surface": {
+        "id": "grid-laminate",
+        "name": "Grid laminate",
+        "description": "Black grid on paper for one large shape per screen.",
+        "css": "background-color: var(--paper); background-image: linear-gradient(var(--ink) 2px, transparent 2px), linear-gradient(90deg, var(--ink) 2px, transparent 2px); background-size: 14px 14px;"
+      },
+      "twist": {
+        "id": "vertical-text",
+        "name": {
+          "zh": "竖排一处",
+          "en": "Vertical text once"
+        },
+        "description": "至少一处使用竖排文字（中文 writing-mode: vertical-rl）或旋转 90° 的标签作为结构元素。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design 0a75884f · memphis-pop · laminate-yellow */\n:root {\n  --paper: #ffd84a;\n  --ink: #141414;\n  --muted: #4a3d00;\n  --accent: #e8412c;\n  --on-accent: #000000;\n  --accent2: #1b8a6b;\n  --on-accent2: #000000;\n  --rule: #141414;\n  --panel: #ffffff;\n\n  --font-display: Chango, \"Arial Black\", sans-serif;\n  --font-body: Questrial, Arial, sans-serif;\n  --font-mono: ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace;\n\n  --step-n2: 0.472rem; /* 7.6px */\n  --step-n1: 0.708rem; /* 11.3px */\n  --step-0: 1.063rem; /* 17px */\n  --step-1: 1.594rem; /* 25.5px */\n  --step-2: 2.391rem; /* 38.3px */\n  --step-3: 3.586rem; /* 57.4px */\n  --step-4: 5.379rem; /* 86.1px */\n  --step-5: 8.068rem; /* 129.1px */\n  --step-6: 12.103rem; /* 193.6px */\n  --step-7: 18.154rem; /* 290.5px */\n  --leading: 1.55;\n\n  --space-1: 8px;\n  --space-2: 16px;\n  --space-3: 24px;\n  --space-4: 32px;\n  --space-5: 40px;\n  --space-6: 48px;\n  --space-7: 56px;\n  --space-8: 64px;\n  --section-gap: 112px;\n  --max-width: 1200px;\n\n  --motion-duration: 300ms;\n  --motion-easing: steps(3, end);\n}\n\nhtml { font-size: 106.3%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "0a 75",
+          "rule": "0x0a75 = 2677; 2677 mod 40 = 37; collision → +2 = 39",
+          "poolSize": 40,
+          "index": 39,
+          "result": "memphis-pop",
+          "note": "primary branch (or its family) already used in this roll; walked forward 2 step(s)"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "88",
+          "rule": "0x88 = 136; 136 mod 14 = 10",
+          "poolSize": 14,
+          "index": 10,
+          "result": "interview-qa"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "4f",
+          "rule": "0x4f = 79; 79 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "pattern-patchwork"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "d3",
+          "rule": "0xd3 = 211; 211 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "chango-questrial"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "58",
+          "rule": "0x58 = 88; 88 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "laminate-yellow"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "36",
+          "rule": "0x36 = 54; 54 mod 2 = 0",
+          "poolSize": 2,
+          "index": 0,
+          "result": "regular"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "64",
+          "rule": "0x64 = 100; 100 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "pattern-shuffle"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "5a",
+          "rule": "0x5a = 90; 90 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "squiggles"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "b3",
+          "rule": "0xb3 = 179; 179 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "squiggle-title"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "e4",
+          "rule": "0xe4 = 228; 228 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "perfect-fifth"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "44",
+          "rule": "0x44 = 68; 68 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "grid-laminate"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "b5",
+          "rule": "0xb5 = 181; 181 mod 16 = 5",
+          "poolSize": 16,
+          "index": 5,
+          "result": "vertical-text"
+        }
+      ]
+    }
+  ]
+}

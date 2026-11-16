@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import {BRANCHES, referenceRoll, referenceFromRef} from './reference.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
@@ -9,8 +10,11 @@ import { writeBundle } from './export.js';
 import { pageHtml, brief } from './render.js';
 import { writePresentation } from './pptx.js';
 
-const help = `random-design v0.3.0 — fixed styles and hash variations
+const help = `random-design v0.5.0 — fixed styles and hash variations
 
+  node src/cli.js reference-list
+  node src/cli.js reference-roll --content facts.json --out output/reference [--style editorial-magazine --count 1]
+  node src/cli.js reference-reproduce --file reference-roll.json
   node src/cli.js list-presets
   node src/cli.js preset --style new-chinese --out output/chinese [--language en]
   node src/cli.js generate --out output/run-01 [--scenario academic] [--language zh]
@@ -44,6 +48,21 @@ export async function main(args = process.argv.slice(2)) {
   const language = v.language ?? 'zh';
   if (!['zh', 'en'].includes(language)) throw new Error('language must be zh or en');
   const content = v.content ? await read(v.content) : {};
+  if(command==='reference-list'){console.log(JSON.stringify(BRANCHES.map(({id,name,concept})=>({id,name,concept})),null,2));return;}
+  if(command==='reference-roll'){
+    if(!v.out)throw new Error('--out required');
+    const bundle=referenceRoll({...content,language,count:Number(v.count??(v.style?1:5)),seed:v.seed,include:v.style?[v.style]:[]});
+    await fs.mkdir(path.dirname(path.resolve(v.out)),{recursive:true});
+    await fs.mkdir(v.out); // Refuse to overwrite an existing directory.
+    await fs.writeFile(path.join(v.out,'reference-roll.json'),JSON.stringify(bundle,null,2));
+    for(const [i,b] of bundle.briefs.entries())await fs.writeFile(path.join(v.out,`${String(i+1).padStart(2,'0')}-${b.id}.md`),b.markdown);
+    console.log(JSON.stringify({out:path.resolve(v.out),briefs:bundle.briefs.map(b=>({id:b.id,ref:b.ref})),finishedPagesGenerated:false},null,2));return;
+  }
+  if(command==='reference-reproduce'){
+    if(!v.file)throw new Error('--file required');const bundle=await read(v.file);
+    if(bundle.source?.commit!=='e40a94239b50eaecf4b007af68d43237d7dded76'||bundle.roll?.library!=='c7b166fe6ec0')throw new Error('Unknown reference source/library');
+    console.log(bundle.roll.designs.map(d=>referenceFromRef(d.ref,{constraints:d.constraints??bundle.roll.constraints,content:bundle.roll.content}).markdown).join('\n\n---\n\n'));return;
+  }
   if (command === 'list-presets') {
     console.log(JSON.stringify(PRESETS.map(({ id, name, layout, role }) => ({ id, name, layout, role })), null, 2));
     return;

@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/qybaihe/hash-design/security/advisories/new
+    about: Please report security problems privately, not as a public issue.
+  - name: Live demo (4 examples)
+    url: https://qybaihe.github.io/hash-design/
+    about: Four example runs, each with five rolled directions side by side, before you open an issue.
+  - name: Documentation
+    url: https://github.com/qybaihe/hash-design/tree/main/docs
+    about: Architecture, the mapping specification and the MCP tool reference.

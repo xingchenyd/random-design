@@ -1,0 +1,819 @@
+<!doctype html>
+<!-- hash-design #2 · gallery-catalogue · ref 169a48c29375c592d4dead9d02f92a5a2036e89e793758bff47dd47b0acd0691+1 -->
+<!-- Accent note: the brief allows the accent for the red dot and the current room number, and also caps accents at one per
+     screen. Without JS (motion: still wall) a "current room" cannot be tracked, so the accent appears once: the red dot on Pl. 7. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sluice — Register of works, 2023–2026</title>
+<meta name="description" content="Sluice, a self-hosted inbox for webhooks. A register of 12 works, version 0.9.2.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<style>
+/* hash-design 169a48c2 · gallery-catalogue · white-cube */
+:root {
+  --paper: #fafaf7;
+  --ink: #161616;
+  --muted: #5e5e5a;
+  --accent: #c8332b;
+  --on-accent: #ffffff;
+  --accent2: #7d7a72;
+  --on-accent2: #000000;
+  --rule: #d8d6cf;
+  --panel: #efeee9;
+
+  --font-display: Cormorant, Garamond, "Times New Roman", serif;
+  --font-body: "EB Garamond", Garamond, Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.406rem; /* 6.5px */
+  --step-n1: 0.657rem; /* 10.5px */
+  --step-0: 1.063rem; /* 17px */
+  --step-1: 1.719rem; /* 27.5px */
+  --step-2: 2.782rem; /* 44.5px */
+  --step-3: 4.501rem; /* 72px */
+  --step-4: 7.282rem; /* 116.5px */
+  --step-5: 11.782rem; /* 188.5px */
+  --step-6: 19.063rem; /* 305px */
+  --step-7: 30.845rem; /* 493.5px */
+  --leading: 1.55;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  --section-gap: 112px;
+  --max-width: 1200px;
+
+  --motion-duration: 0ms;
+  --motion-easing: linear;
+}
+
+html { font-size: 106.3%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ───────── page: a register hung on an uncoated wall ───────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(0,0,0,.025) .6px, transparent .8px);
+  background-size: 4px 5px;
+  font-size: 17px;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  hanging-punctuation: first allow-end last;
+  overflow-x: clip;
+}
+h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+cite { font-style: italic; }
+b { font-weight: 500; }
+code {
+  font-family: var(--font-body);
+  font-size: 1em;
+  font-variant-ligatures: none;
+  font-variant-numeric: lining-nums;
+  letter-spacing: .01em;
+  overflow-wrap: break-word;
+}
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent2);
+  transition: none;
+}
+a:hover { text-decoration-color: var(--ink); }
+a:focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
+.sc { font-variant-caps: all-small-caps; letter-spacing: .075em; }
+.lnum { font-variant-numeric: lining-nums tabular-nums; }
+.nw { white-space: nowrap; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* 12-column catalogue grid, outer margins 12vw */
+.hang {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  max-width: calc(1200px + 24vw);
+  margin-inline: auto;
+  padding-inline: 12vw;
+}
+
+/* ── Entry wall: vinyl title, top-left; the rest is wall ── */
+.wall {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: max(88px, 13vh);
+}
+.wall h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(44.5px, 4.45vw, 64px);
+  line-height: 1;
+  letter-spacing: -.006em;
+  font-feature-settings: "kern", "liga";
+}
+.wall h1 .sub {
+  display: block;
+  margin-top: 16px;
+  font-style: italic;
+  font-size: 27.5px;
+  line-height: 32px;
+  letter-spacing: 0;
+}
+.wall-lines { margin-top: 36px; line-height: 24px; }
+.wall-lines p + p { color: var(--muted); }
+
+/* ── Rooms rail: starts at the foot of the entry wall, then hangs on the 40% line ── */
+.rail {
+  grid-column: 1 / 4;
+  grid-row: 1 / 6;
+  align-self: start;
+  position: sticky;
+  top: calc(40vh - 100px);
+  margin-top: calc(100vh - 276px);
+  padding-right: 24px;
+  z-index: 2;
+}
+.rail-h {
+  color: var(--muted);
+  line-height: 24px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+  max-width: 200px;
+}
+.rail li a {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: baseline;
+  padding: 6px 0;
+  text-decoration: none;
+}
+.rail .rn {
+  font-family: var(--font-display);
+  font-size: 27.5px;
+  line-height: 28px;
+  font-variant-numeric: lining-nums;
+}
+.rail .rl {
+  line-height: 24px;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent2);
+}
+.rail a:hover .rl { text-decoration-color: var(--ink); }
+
+/* ── Rooms ── */
+.room {
+  grid-column: 4 / -1;
+  margin-top: var(--section-gap);
+  scroll-margin-top: 48px;
+  min-width: 0;
+}
+#register { grid-row: 2; margin-top: 0; }
+#works { grid-row: 3; }
+#notes { grid-row: 4; }
+#credits { grid-row: 5; }
+
+.rh {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--muted);
+  line-height: 24px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+.room h2 {
+  margin-top: 56px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 44.5px;
+  line-height: 48px;
+  letter-spacing: -.004em;
+}
+.lede { margin-top: 16px; max-width: 58ch; color: var(--muted); text-wrap: pretty; }
+
+/* numbered clauses — numbers hang in their own column */
+.clauses { display: grid; gap: 16px; max-width: 58ch; }
+.clause {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.clause .no {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 27px;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--muted);
+}
+
+/* Room 1 — register header */
+.reg {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  column-gap: 24px;
+  align-items: start;
+}
+.reg-meta div {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  line-height: 24px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.reg-meta div:first-child { border-top: 1px solid var(--rule); }
+.reg-meta dt { color: var(--muted); }
+.reg-meta dd { font-variant-numeric: lining-nums; }
+
+.checklist {
+  margin-top: 64px;
+  background: var(--panel);
+  padding: 28px 32px 32px;
+}
+.checklist-h {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--muted);
+  line-height: 24px;
+  margin-bottom: 12px;
+}
+.checklist ol { columns: 2; column-gap: 48px; }
+.checklist li { break-inside: avoid; border-bottom: 1px solid var(--rule); }
+.checklist a {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  align-items: baseline;
+  padding: 4px 0;
+  line-height: 24px;
+  text-decoration: none;
+}
+.checklist a .sc { color: var(--muted); }
+.checklist a cite {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent2);
+}
+.checklist a:hover cite { text-decoration-color: var(--ink); }
+
+/* Room 2 — works */
+.works-head {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 24px;
+}
+.works-head .clause { font-size: 17px; }
+.plates {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px 24px;
+}
+.entry { min-width: 0; scroll-margin-top: 48px; }
+.entry > .pl { line-height: 24px; margin-bottom: 8px; }
+.plate { background: var(--panel); aspect-ratio: 4 / 3; }
+.plate svg { display: block; width: 100%; height: 100%; }
+.plate svg * { vector-effect: non-scaling-stroke; }
+.tomb {
+  position: relative;
+  margin-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+  line-height: 24px;
+}
+.tomb p { text-wrap: pretty; }
+.tomb .maker { font-weight: 500; padding-right: 20px; }
+.tomb .medium { color: var(--muted); }
+.tomb .dims { color: var(--muted); font-variant-numeric: lining-nums tabular-nums; }
+.tomb sup, .note-ref {
+  font-size: .64em;
+  line-height: 0;
+  vertical-align: .5em;
+  margin-left: .12em;
+  font-variant-numeric: lining-nums;
+  font-style: normal;
+}
+.tomb sup a { text-decoration: none; color: var(--muted); padding: 0 2px; }
+.tomb sup a:hover { color: var(--ink); }
+.red-dot { position: absolute; top: 7px; right: 0; width: 10px; height: 10px; display: block; }
+
+/* svg works */
+.k-ink { fill: var(--ink); }
+.k-paper { fill: var(--paper); }
+.k-panel { fill: var(--panel); }
+.k-muted { fill: var(--muted); }
+.k-accent { fill: var(--accent); }
+.s-ink { stroke: var(--ink); stroke-width: 1; fill: none; }
+.s-muted { stroke: var(--muted); stroke-width: 1; fill: none; }
+.s-rule { stroke: var(--rule); stroke-width: 1; }
+.vt { font-family: var(--font-display); font-weight: 500; font-size: 20px; letter-spacing: 5px; }
+.vt-m { fill: var(--muted); }
+.cmd-art { font-family: var(--font-body); font-size: 24px; font-variant-numeric: lining-nums; }
+.lab { font-family: var(--font-display); font-weight: 500; font-size: 17px; font-variant-numeric: lining-nums; letter-spacing: .5px; }
+.kawara { font-family: var(--font-display); font-weight: 500; font-size: 60px; letter-spacing: 3px; font-variant-numeric: lining-nums; }
+
+/* Room 3 — notes */
+.notes { margin-top: 48px; columns: 2; column-gap: 48px; }
+.note {
+  break-inside: avoid;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  padding-bottom: 24px;
+  line-height: 1.6;
+  scroll-margin-top: 48px;
+}
+.note .n {
+  font-family: var(--font-display);
+  font-size: 27.5px;
+  line-height: 27px;
+  font-variant-numeric: lining-nums;
+}
+.note .ref { display: block; color: var(--muted); line-height: 24px; margin-bottom: 2px; }
+.note p { text-wrap: pretty; }
+.board {
+  border: 1px solid var(--rule);
+  padding: 14px 18px 16px;
+  margin-top: 4px;
+}
+.board-h { display: block; line-height: 24px; color: var(--ink); margin-bottom: 4px; }
+
+/* Room 4 — credits and lenders */
+.credits { margin-top: 48px; max-width: 760px; }
+.credits div {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 168px) minmax(0, 1fr);
+  column-gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.6;
+}
+.credits div:first-child { border-top: 1px solid var(--rule); }
+.credits .no {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 27px;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--muted);
+}
+.credits dt { color: var(--muted); }
+.credits dd { font-variant-numeric: lining-nums; }
+.steps { display: grid; gap: 8px; }
+.steps li { display: grid; grid-template-columns: 80px minmax(0, 1fr); }
+.steps li > span:first-child { color: var(--muted); }
+
+.colophon {
+  margin-top: 64px;
+  padding-top: 8px;
+  padding-bottom: 96px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--muted);
+  line-height: 24px;
+}
+
+/* ── narrower desktops ── */
+@media (max-width: 1199px) {
+  .hang { padding-inline: 6vw; max-width: none; }
+  .plates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reg { grid-template-columns: 1fr; row-gap: 32px; }
+  .notes { columns: 1; }
+  .works-head { grid-template-columns: 1fr; row-gap: 12px; }
+}
+
+/* ── phones and tablets: the rooms index moves to the foot of the screen ── */
+@media (max-width: 899px) {
+  body { padding-bottom: 76px; }
+  .hang { display: block; padding-inline: 24px; }
+  .wall { min-height: calc(100svh - 76px); padding-top: 12vh; }
+  .wall h1 .sub { font-size: 24px; line-height: 30px; }
+  .rail {
+    position: fixed;
+    left: 0; right: 0; bottom: 0; top: auto;
+    margin: 0;
+    padding: 8px 16px 10px;
+    background-color: var(--paper);
+    background-image: radial-gradient(rgba(0,0,0,.025) .6px, transparent .8px);
+    background-size: 4px 5px;
+    border-top: 1px solid var(--rule);
+  }
+  .rail-h, .rail .long { display: none; }
+  .rail ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .rail li a { grid-template-columns: 1fr; padding: 0; }
+  .rail .rn { font-size: 22px; line-height: 26px; }
+  .rail .rl { font-variant-caps: all-small-caps; letter-spacing: .06em; line-height: 22px; }
+  .room { margin-top: 96px; }
+  #register { margin-top: 0; }
+  .room h2 { margin-top: 40px; font-size: 44.5px; }
+  .checklist { padding: 24px 20px 24px; margin-top: 48px; }
+  .checklist ol { columns: 1; }
+  .colophon { padding-bottom: 40px; flex-direction: column; gap: 0; }
+}
+@media (max-width: 599px) {
+  .plates { grid-template-columns: 1fr; gap: 56px; }
+  .clause { grid-template-columns: 40px minmax(0, 1fr); }
+  .credits div { grid-template-columns: 40px 112px minmax(0, 1fr); column-gap: 12px; }
+  .credits div.wide dd { grid-column: 2 / -1; }
+  .steps li { grid-template-columns: 1fr; }
+  .checklist-h { flex-direction: column; gap: 0; }
+}
+</style>
+</head>
+<body>
+<div class="hang">
+
+  <!-- 1 · Entry wall (anchor: vinyl title wall) -->
+  <header class="wall">
+    <h1>Sluice<span class="sub">A self-hosted inbox for webhooks</span></h1>
+    <div class="wall-lines">
+      <p>2023 – 14&nbsp;October 2026</p>
+      <p>Your server &middot; no hosted service</p>
+    </div>
+  </header>
+
+  <!-- 2 · Rooms: section labels in the left rail (twist: navigation is a vertical index, never a top bar) -->
+  <nav class="rail" aria-label="Rooms">
+    <p class="rail-h sc">Rooms</p>
+    <ol>
+      <li><a href="#register"><span class="rn">1</span><span class="rl">Register<span class="long"> of works</span></span></a></li>
+      <li><a href="#works"><span class="rn">2</span><span class="rl">Works<span class="long">, <span class="sc">Pl.</span> 1–12</span></span></a></li>
+      <li><a href="#notes"><span class="rn">3</span><span class="rl">Notes<span class="long"> on the works</span></span></a></li>
+      <li><a href="#credits"><span class="rn">4</span><span class="rl">Credits<span class="long"> and lenders</span></span></a></li>
+    </ol>
+  </nav>
+
+  <!-- Room 1 · Register header -->
+  <section class="room" id="register" aria-labelledby="h-register">
+    <p class="rh sc"><span>Sluice &middot; version <span class="lnum">0.9.2</span></span><span>Room 1</span></p>
+    <h2 id="h-register">Register of works</h2>
+
+    <div class="reg">
+      <dl class="reg-meta">
+        <div><dt class="sc">Title</dt><dd>Sluice — a self-hosted inbox for webhooks</dd></div>
+        <div><dt class="sc">Dates</dt><dd>2023 – 14&nbsp;October 2026</dd></div>
+        <div><dt class="sc">Works</dt><dd>12 &middot; <span class="sc">Pl.</span> 1–12</dd></div>
+        <div><dt class="sc">Notes</dt><dd>9</dd></div>
+        <div><dt class="sc">Venue</dt><dd>Your server</dd></div>
+      </dl>
+
+      <ol class="clauses">
+        <li class="clause"><span class="no">1.1</span><p><b>Scope.</b> This register lists 12 works by Ines Okafor and contributors. Each work records one function of Sluice 0.9.2, released 14&nbsp;October 2026.</p></li>
+        <li class="clause"><span class="no">1.2</span><p><b>Subject.</b> Sluice gives you a public URL for webhooks, stores every delivery, and forwards it to your local or internal service.</p></li>
+        <li class="clause"><span class="no">1.3</span><p><b>Reading order.</b> Read each entry top to bottom: plate number, plate, maker, title, year, medium, dimensions. Follow a raised numeral to its note in Room 3.</p></li>
+        <li class="clause"><span class="no">1.4</span><p><b>Mark.</b> One red dot marks one entry: <a href="#pl-7"><span class="sc">Pl.</span> 7</a>. Read that entry first.</p></li>
+      </ol>
+    </div>
+
+    <nav class="checklist" aria-labelledby="h-list">
+      <p class="checklist-h sc"><span id="h-list">List of plates</span><span>12 works, in hanging order</span></p>
+      <ol>
+        <li><a href="#pl-1"><span class="sc">Pl. 1</span><cite>Received, stored, forwarded</cite></a></li>
+        <li><a href="#pl-2"><span class="sc">Pl. 2</span><cite>One binary</cite></a></li>
+        <li><a href="#pl-3"><span class="sc">Pl. 3</span><cite>One file</cite></a></li>
+        <li><a href="#pl-4"><span class="sc">Pl. 4</span><cite>Install</cite></a></li>
+        <li><a href="#pl-5"><span class="sc">Pl. 5</span><cite>Serve</cite></a></li>
+        <li><a href="#pl-6"><span class="sc">Pl. 6</span><cite>Backoff</cite></a></li>
+        <li><a href="#pl-7"><span class="sc">Pl. 7</span><cite>Replay</cite></a></li>
+        <li><a href="#pl-8"><span class="sc">Pl. 8</span><cite>Five minutes</cite></a></li>
+        <li><a href="#pl-9"><span class="sc">Pl. 9</span><cite>8081</cite></a></li>
+        <li><a href="#pl-10"><span class="sc">Pl. 10</span><cite>Thirty days</cite></a></li>
+        <li><a href="#pl-11"><span class="sc">Pl. 11</span><cite>1,800 per second</cite></a></li>
+        <li><a href="#pl-12"><span class="sc">Pl. 12</span><cite>Untitled</cite></a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- Room 2 · Entries -->
+  <section class="room" id="works" aria-labelledby="h-works">
+    <p class="rh sc"><span>Sluice &middot; version <span class="lnum">0.9.2</span></span><span>Room 2</span></p>
+    <h2 id="h-works">Works</h2>
+    <ol class="works-head">
+      <li class="clause"><span class="no">2.1</span><p>Read left to right, top to bottom. Plate numbers run without gaps.</p></li>
+      <li class="clause"><span class="no">2.2</span><p>Each work hangs on one line, above the centre of its plate. Undated works read <i>n.d.</i></p></li>
+    </ol>
+
+    <div class="plates">
+
+      <article class="entry" id="pl-1" aria-labelledby="t1">
+        <p class="pl sc">Pl. 1</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Text work: the words received, stored, forwarded, in capitals on the wall.">
+            <g class="vt k-ink" text-anchor="middle">
+              <text x="202.5" y="99">RECEIVED</text>
+              <text x="202.5" y="129">STORED</text>
+              <text x="202.5" y="159">FORWARDED</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t1">Received, stored, forwarded</cite><sup><a href="#n1" aria-label="Note 1">1</a></sup></p>
+          <p class="year">2023–2026</p>
+          <p class="medium">Go, SQLite</p>
+          <p class="dims">Dimensions variable</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-2" aria-labelledby="t2">
+        <p class="pl sc">Pl. 2</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Sheet with six squares in three columns and two rows; one square is filled.">
+            <rect class="k-paper" x="110" y="45" width="180" height="150"/>
+            <rect class="k-ink" x="147" y="87" width="26" height="26"/>
+            <rect class="s-ink" x="187.5" y="87.5" width="25" height="25"/>
+            <rect class="s-ink" x="227.5" y="87.5" width="25" height="25"/>
+            <rect class="s-ink" x="147.5" y="127.5" width="25" height="25"/>
+            <rect class="s-ink" x="187.5" y="127.5" width="25" height="25"/>
+            <rect class="s-ink" x="227.5" y="127.5" width="25" height="25"/>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t2">One binary</cite><sup><a href="#n2" aria-label="Note 2">2</a></sup></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium">Static binary, Go</p>
+          <p class="dims">About 11 MB</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-3" aria-labelledby="t3">
+        <p class="pl sc">Pl. 3</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Text work: Redis, Postgres and queue struck through; below them, one SQLite file.">
+            <g class="vt" text-anchor="middle">
+              <text class="vt-m" x="200" y="86" textLength="76" lengthAdjust="spacing">REDIS</text>
+              <text class="vt-m" x="200" y="112" textLength="124" lengthAdjust="spacing">POSTGRES</text>
+              <text class="vt-m" x="200" y="138" textLength="82" lengthAdjust="spacing">QUEUE</text>
+              <text class="k-ink" x="200" y="172" textLength="222" lengthAdjust="spacing">ONE SQLITE FILE</text>
+            </g>
+            <line class="s-ink" x1="154" y1="80.5" x2="246" y2="80.5"/>
+            <line class="s-ink" x1="130" y1="106.5" x2="270" y2="106.5"/>
+            <line class="s-ink" x1="151" y1="132.5" x2="249" y2="132.5"/>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t3">One file</cite><sup><a href="#n3" aria-label="Note 3">3</a></sup></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium">SQLite</p>
+          <p class="dims">1 file</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-4" aria-labelledby="t4">
+        <p class="pl sc">Pl. 4</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Text work: the install command, curl -fsSL https://sluice.example/install.sh | sh, set in three lines.">
+            <g class="cmd-art k-ink">
+              <text x="55" y="97">curl -fsSL</text>
+              <text x="55" y="127">https://sluice.example/install.sh</text>
+              <text x="55" y="157">| sh</text>
+            </g>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t4">Install</cite></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium">Shell; curl, sh</p>
+          <p class="dims">1 line</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-5" aria-labelledby="t5">
+        <p class="pl sc">Pl. 5</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Wall drawing: one horizontal line from an open circle to a filled square.">
+            <line class="s-ink" x1="64" y1="120.5" x2="337" y2="120.5"/>
+            <circle class="s-ink" cx="58" cy="120.5" r="6"/>
+            <rect class="k-ink" x="337" y="114.5" width="12" height="12"/>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t5">Serve</cite></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium"><code>sluice serve --forward</code></p>
+          <p class="dims"><code>http://localhost:3000</code></p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-6" aria-labelledby="t6">
+        <p class="pl sc">Pl. 6</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Sheet with eight vertical lines; each gap is twice the one before.">
+            <rect class="k-paper" x="40" y="50" width="320" height="140"/>
+            <path class="s-ink" d="M70.5 72V168M72.5 72V168M76.5 72V168M84.5 72V168M100.5 72V168M132.5 72V168M196.5 72V168M324.5 72V168"/>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t6">Backoff</cite><sup><a href="#n4" aria-label="Note 4">4</a></sup></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium">Exponential backoff</p>
+          <p class="dims">Up to 72 hours</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-7" aria-labelledby="t7">
+        <p class="pl sc">Pl. 7</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Wall drawing: a filled rectangle and, beside it, the same rectangle in outline.">
+            <rect class="k-ink" x="114" y="92" width="76" height="56"/>
+            <rect class="s-ink" x="210.5" y="92.5" width="75" height="55"/>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <svg class="red-dot" viewBox="0 0 10 10" role="img" aria-label="Red dot"><circle class="k-accent" cx="5" cy="5" r="5"/></svg>
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t7">Replay</cite><sup><a href="#n5" aria-label="Note 5">5</a></sup></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium"><code>sluice replay &lt;delivery-id&gt;</code></p>
+          <p class="dims">Any stored delivery</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-8" aria-labelledby="t8">
+        <p class="pl sc">Pl. 8</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Wall drawing: a timeline with six ticks from 0 to 5 minutes; past the fifth tick the line is dotted.">
+            <line class="s-ink" x1="60" y1="120.5" x2="270" y2="120.5"/>
+            <line class="s-muted" x1="274" y1="120.5" x2="344" y2="120.5" stroke-dasharray="1 5"/>
+            <path class="s-ink" d="M60.5 106V135M102.5 114V127M144.5 114V127M186.5 114V127M228.5 114V127M270.5 106V135"/>
+            <text class="lab k-muted" x="60.5" y="160" text-anchor="middle">0</text>
+            <text class="lab k-muted" x="270.5" y="160" text-anchor="middle">5</text>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t8">Five minutes</cite><sup><a href="#n6" aria-label="Note 6">6</a></sup></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium">HMAC-SHA256</p>
+          <p class="dims">5 minutes</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-9" aria-labelledby="t9">
+        <p class="pl sc">Pl. 9</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Painting: the number 8081 in light figures on a dark canvas.">
+            <rect class="k-ink" x="96" y="42" width="208" height="156"/>
+            <text class="kawara k-paper" x="201.5" y="140" text-anchor="middle">8081</text>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t9">8081</cite></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium">Search by path, header, body text</p>
+          <p class="dims">Port 8081</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-10" aria-labelledby="t10">
+        <p class="pl sc">Pl. 10</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Sheet with thirty tally marks in six groups of five.">
+            <defs>
+              <path id="tally" d="M0.5 0V28M7.5 0V28M14.5 0V28M21.5 0V28M-4 24L26 4"/>
+            </defs>
+            <rect class="k-paper" x="100" y="50" width="200" height="140"/>
+            <g class="s-ink">
+              <use href="#tally" x="146" y="86"/>
+              <use href="#tally" x="190" y="86"/>
+              <use href="#tally" x="234" y="86"/>
+              <use href="#tally" x="146" y="126"/>
+              <use href="#tally" x="190" y="126"/>
+              <use href="#tally" x="234" y="126"/>
+            </g>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t10">Thirty days</cite><sup><a href="#n7" aria-label="Note 7">7</a></sup></p>
+          <p class="year">2026, version 0.9.2</p>
+          <p class="medium">Retention; <code>--retain</code></p>
+          <p class="dims">30 days by default</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-11" aria-labelledby="t11">
+        <p class="pl sc">Pl. 11</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Sheet with a field of 1,800 dots, 60 across and 30 down.">
+            <defs>
+              <pattern id="dots1800" x="80" y="60" width="4" height="4" patternUnits="userSpaceOnUse">
+                <circle class="k-ink" cx="2" cy="2" r=".85"/>
+              </pattern>
+            </defs>
+            <rect class="k-paper" x="60" y="40" width="280" height="160"/>
+            <rect x="80" y="60" width="240" height="120" fill="url(#dots1800)"/>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t11">1,800 per second</cite><sup><a href="#n8" aria-label="Note 8">8</a></sup></p>
+          <p class="year"><i>n.d.</i></p>
+          <p class="medium">Benchmark, 2-vCPU VM</p>
+          <p class="dims">1,800 deliveries per second</p>
+        </div>
+      </article>
+
+      <article class="entry" id="pl-12" aria-labelledby="t12">
+        <p class="pl sc">Pl. 12</p>
+        <figure class="plate">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Blank sheet, white on white, outlined by a hairline.">
+            <rect class="k-paper s-rule" x="128.5" y="66.5" width="143" height="107"/>
+          </svg>
+        </figure>
+        <div class="tomb">
+          <p class="maker">Ines Okafor and contributors</p>
+          <p class="title"><cite id="t12">Untitled (no hosted service, no account, no telemetry)</cite><sup><a href="#n9" aria-label="Note 9">9</a></sup></p>
+          <p class="year">2026, version 0.9.2</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Room 3 · Notes on the works -->
+  <section class="room" id="notes" aria-labelledby="h-notes">
+    <p class="rh sc"><span>Sluice &middot; version <span class="lnum">0.9.2</span></span><span>Room 3</span></p>
+    <h2 id="h-notes">Notes on the works</h2>
+    <p class="lede">Notes run 1–9. Each note names its plate. Return to the plate by its number.</p>
+
+    <ol class="notes">
+      <li class="note" id="n1"><span class="n">1</span><div><a class="ref sc" href="#pl-1">Pl. 1 · Function</a><p>Receive webhooks at a public URL. Store every delivery. Forward each delivery to your local or internal service.</p></div></li>
+      <li class="note" id="n2"><span class="n">2</span><div><a class="ref sc" href="#pl-2">Pl. 2 · Distribution</a><p>Install one static binary, about 11&nbsp;MB. Targets: Linux, macOS and Windows, each on amd64 and arm64. Language: Go.</p></div></li>
+      <li class="note" id="n3"><span class="n">3</span><div><a class="ref sc" href="#pl-3">Pl. 3 · Storage</a><p>Keep all storage in a single SQLite file. Run no Redis, no Postgres, no queue.</p></div></li>
+      <li class="note" id="n4"><span class="n">4</span><div><a class="ref sc" href="#pl-6">Pl. 6 · Retries</a><p>Sluice retries a failed forward with exponential backoff. Retrying stops after 72&nbsp;hours.</p></div></li>
+      <li class="note" id="n5"><span class="n">5</span><div><a class="ref sc" href="#pl-7">Pl. 7 · Provenance</a><p>Ines Okafor started Sluice in 2023, after losing a weekend of payment webhooks. To replay any stored delivery, run <code>sluice replay &lt;delivery-id&gt;</code>.</p></div></li>
+      <li class="note" id="n6"><span class="n">6</span><div><a class="ref sc" href="#pl-8">Pl. 8 · Verification</a><p>Sluice verifies HMAC-SHA256 signatures. It rejects deliveries older than 5&nbsp;minutes.</p></div></li>
+      <li class="note" id="n7"><span class="n">7</span><div><a class="ref sc" href="#pl-10">Pl. 10 · Retention</a>
+        <div class="board" role="note"><span class="board-h sc">Caution</span><p>Sluice keeps deliveries for 30&nbsp;days by default. Change the period with <code>--retain</code>.</p></div></div></li>
+      <li class="note" id="n8"><span class="n">8</span><div><a class="ref sc" href="#pl-11">Pl. 11 · Measurement</a>
+        <div class="board" role="note"><span class="board-h sc">Note</span><p>1,800 deliveries per second on a 2-vCPU VM, in the project’s own benchmark. The benchmark carries no date; the plate reads <i>n.d.</i></p></div></div></li>
+      <li class="note" id="n9"><span class="n">9</span><div><a class="ref sc" href="#pl-12">Pl. 12 · Absence</a><p>The plate is left blank. Sluice has no hosted service, no account, no telemetry.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- Room 4 · Credits and lenders -->
+  <section class="room" id="credits" aria-labelledby="h-credits">
+    <p class="rh sc"><span>Sluice &middot; version <span class="lnum">0.9.2</span></span><span>Room 4</span></p>
+    <h2 id="h-credits">Credits and lenders</h2>
+
+    <dl class="credits">
+      <div><span class="no">4.1</span><dt>Maintainer</dt><dd>Ines Okafor</dd></div>
+      <div><span class="no">4.2</span><dt>Begun</dt><dd>2023</dd></div>
+      <div><span class="no">4.3</span><dt>Contributors</dt><dd>41</dd></div>
+      <div><span class="no">4.4</span><dt>Language</dt><dd>Go</dd></div>
+      <div><span class="no">4.5</span><dt>Licence</dt><dd>MIT</dd></div>
+      <div><span class="no">4.6</span><dt>Current version</dt><dd>0.9.2, released 14&nbsp;October 2026</dd></div>
+      <div class="wide"><span class="no">4.7</span><dt>Lenders</dt><dd>None. No hosted service, no account, no telemetry. Each work in this register runs on your server.</dd></div>
+      <div class="wide"><span class="no">4.8</span><dt>Acquisition</dt><dd>
+        <ol class="steps">
+          <li><span class="sc">Install</span><code>curl -fsSL https://sluice.example/install.sh <span class="nw">| sh</span></code></li>
+          <li><span class="sc">Start</span><code>sluice serve --forward http://localhost:3000</code></li>
+          <li><span class="sc">Open</span><span>the web UI on port 8081</span></li>
+        </ol>
+      </dd></div>
+    </dl>
+
+    <footer class="colophon sc">
+      <span>Set in Cormorant and EB Garamond. Plates drawn for this register.</span>
+      <span>End of register</span>
+    </footer>
+  </section>
+
+</div>
+</body>
+</html>

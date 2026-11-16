@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hash-design · examples</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+  :root { --table: #d8d5ce; --ink: #151412; --muted: #55524b; --mark: #e2401c; }
+  body { margin: 0; background: var(--table); color: var(--ink); font: 16px/1.5 "IBM Plex Sans Condensed", "Noto Sans SC", "Arial Narrow", sans-serif; }
+  main { max-width: 960px; padding: 48px 24px 64px; }
+  h1 { font: 600 44px/1.05 "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif; margin: 0 0 12px; letter-spacing: -0.01em; }
+  h2 { font: 600 30px/1.1 "IBM Plex Sans Condensed", "Noto Sans SC", sans-serif; margin: 0 0 6px; }
+  h2 .n { font-family: "IBM Plex Mono", monospace; color: var(--mark); margin-right: 4px; }
+  section { margin-top: 56px; padding-top: 20px; border-top: 4px solid var(--ink); }
+  p { max-width: 64ch; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--muted); }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  nav a { margin-right: 14px; }
+  .shot { display: block; margin-top: 16px; border: 2px solid var(--ink); background: var(--ink); }
+  .shot img { display: block; width: 100%; height: auto; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; border-top: 2px solid var(--ink); }
+  td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--ink); vertical-align: baseline; }
+  td:first-child { font: 600 20px/1 "IBM Plex Mono", monospace; width: 44px; }
+  td:last-child { text-align: right; padding-right: 0; }
+  a { color: var(--ink); text-underline-offset: 3px; }
+  a:hover { color: var(--mark); }
+  .big { display: inline-block; margin-top: 16px; font: 600 17px "IBM Plex Mono", monospace; border: 2px solid var(--ink); padding: 8px 14px; text-decoration: none; }
+  @media (max-width: 640px) {
+    h1 { font-size: 34px; } h2 { font-size: 24px; }
+    td:nth-child(3) { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="mono">hash-design / examples</p>
+  <h1>Four fact sheets, twenty random directions</h1>
+  <p>Each example is one fact sheet put through <code>roll_designs</code> with a fixed seed: five hashes, five frozen briefs, five previews. Every preview was rendered by a separate agent that saw only its own brief. No direction was picked by a model, and no branch appears in two examples.</p>
+  <p lang="zh-CN">每个示例都是一份事实清单经 <code>roll_designs</code>（固定 seed）掷出 5 个哈希、5 份冻结 brief，再由 5 个互不可见的 Agent 各自渲染。没有任何一个方向是模型自己挑的，4 个示例之间也没有重复的分支。</p>
+  <nav class="mono"><a href="#fourth-lane-bakery">01 Fourth Lane Bakery</a> <a href="#sluice">02 Sluice</a> <a href="#bridge-two-bikes">03 Bridge No.2 Cycle Works</a> <a href="#causeway-festival">04 Causeway</a></nav>
+
+  <section id="fourth-lane-bakery">
+    <h2><span class="n">01</span> Fourth Lane Bakery <span lang="zh-CN">第四巷面包店</span></h2>
+    <p class="mono">A neighbourhood sourdough bakery · Chinese page · seed <code>fourth-lane-bakery</code> · <a href="https://github.com/qybaihe/hash-design/tree/main/examples/fourth-lane-bakery">facts, briefs, process</a></p>
+    <a class="shot" href="fourth-lane-bakery/compare.html"><img src="fourth-lane-bakery/screenshots/compare.png" width="1800" height="660" loading="eager" alt="Fourth Lane Bakery: five previews side by side"></a>
+    <a class="big" href="fourth-lane-bakery/compare.html">Open the compare page →</a>
+    <table>
+      <tr><td>01</td><td><a href="fourth-lane-bakery/previews/01-bureaucratic-form.html">Bureaucratic form</a> <span lang="zh-CN">公文表格</span></td><td class="mono">Numbered field form · Dropout-ink green</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/fourth-lane-bakery/briefs/01-bureaucratic-form.md">brief</a></td></tr>
+      <tr><td>02</td><td><a href="fourth-lane-bakery/previews/02-bauhaus-primary.html">Bauhaus primary</a> <span lang="zh-CN">包豪斯</span></td><td class="mono">Bauhausbuch cover · Primaries on cream</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/fourth-lane-bakery/briefs/02-bauhaus-primary.md">brief</a></td></tr>
+      <tr><td>03</td><td><a href="fourth-lane-bakery/previews/03-ink-and-seal.html">Ink and seal</a> <span lang="zh-CN">水墨印章</span></td><td class="mono">Handscroll (手卷) · Blue-green landscape on silk</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/fourth-lane-bakery/briefs/03-ink-and-seal.md">brief</a></td></tr>
+      <tr><td>04</td><td><a href="fourth-lane-bakery/previews/04-risograph-duotone.html">Risograph duotone</a> <span lang="zh-CN">Riso 双色套印</span></td><td class="mono">Overprint poster · Bright red + green on white</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/fourth-lane-bakery/briefs/04-risograph-duotone.md">brief</a></td></tr>
+      <tr><td>05</td><td><a href="fourth-lane-bakery/previews/05-hk-shop-sign.html">Hong Kong shop sign</a> <span lang="zh-CN">港式招牌</span></td><td class="mono">Projecting sign stack · Neon street at night</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/fourth-lane-bakery/briefs/05-hk-shop-sign.md">brief</a></td></tr>
+    </table>
+  </section>
+
+  <section id="sluice">
+    <h2><span class="n">02</span> Sluice</h2>
+    <p class="mono">A self-hosted webhook inbox (developer tool) · English page · seed <code>sluice</code> · <a href="https://github.com/qybaihe/hash-design/tree/main/examples/sluice">facts, briefs, process</a></p>
+    <a class="shot" href="sluice/compare.html"><img src="sluice/screenshots/compare.png" width="1800" height="660" loading="lazy" alt="Sluice: five previews side by side"></a>
+    <a class="big" href="sluice/compare.html">Open the compare page →</a>
+    <table>
+      <tr><td>01</td><td><a href="sluice/previews/01-record-sleeve.html">Record sleeve</a> <span lang="zh-CN">唱片封套</span></td><td class="mono">Blue Note crop · Factory black</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/sluice/briefs/01-record-sleeve.md">brief</a></td></tr>
+      <tr><td>02</td><td><a href="sluice/previews/02-gallery-catalogue.html">Gallery catalogue</a> <span lang="zh-CN">美术馆图录</span></td><td class="mono">Archive checklist · White cube</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/sluice/briefs/02-gallery-catalogue.md">brief</a></td></tr>
+      <tr><td>03</td><td><a href="sluice/previews/03-terminal-phosphor.html">Terminal phosphor</a> <span lang="zh-CN">终端荧光</span></td><td class="mono">Man page · P3 amber phosphor</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/sluice/briefs/03-terminal-phosphor.md">brief</a></td></tr>
+      <tr><td>04</td><td><a href="sluice/previews/04-academic-paper.html">Academic paper</a> <span lang="zh-CN">学术论文</span></td><td class="mono">Tufte handout · Preprint white</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/sluice/briefs/04-academic-paper.md">brief</a></td></tr>
+      <tr><td>05</td><td><a href="sluice/previews/05-lab-notebook.html">Lab notebook</a> <span lang="zh-CN">方格实验本</span></td><td class="mono">Dated entries · Green computation pad</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/sluice/briefs/05-lab-notebook.md">brief</a></td></tr>
+    </table>
+  </section>
+
+  <section id="bridge-two-bikes">
+    <h2><span class="n">03</span> Bridge No.2 Cycle Works <span lang="zh-CN">二号桥单车铺</span></h2>
+    <p class="mono">A bicycle repair shop under a bridge · Chinese page · seed <code>bridge-two-bikes-5</code> · <a href="https://github.com/qybaihe/hash-design/tree/main/examples/bridge-two-bikes">facts, briefs, process</a></p>
+    <a class="shot" href="bridge-two-bikes/compare.html"><img src="bridge-two-bikes/screenshots/compare.png" width="1800" height="660" loading="lazy" alt="Bridge No.2 Cycle Works: five previews side by side"></a>
+    <a class="big" href="bridge-two-bikes/compare.html">Open the compare page →</a>
+    <table>
+      <tr><td>01</td><td><a href="bridge-two-bikes/previews/01-swiss-grid.html">Swiss grid</a> <span lang="zh-CN">瑞士网格</span></td><td class="mono">Numbered index · Tonhalle night</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/bridge-two-bikes/briefs/01-swiss-grid.md">brief</a></td></tr>
+      <tr><td>02</td><td><a href="bridge-two-bikes/previews/02-couture-lookbook.html">Couture lookbook</a> <span lang="zh-CN">时装画册</span></td><td class="mono">Look sequence · Noir &amp; champagne</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/bridge-two-bikes/briefs/02-couture-lookbook.md">brief</a></td></tr>
+      <tr><td>03</td><td><a href="bridge-two-bikes/previews/03-ticket-stub.html">Ticket stub</a> <span lang="zh-CN">票根</span></td><td class="mono">Oversized card ticket · Buff railway card</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/bridge-two-bikes/briefs/03-ticket-stub.md">brief</a></td></tr>
+      <tr><td>04</td><td><a href="bridge-two-bikes/previews/04-game-manual.html">Game manual</a> <span lang="zh-CN">游戏说明书</span></td><td class="mono">Strategy-guide spread · Title-screen black</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/bridge-two-bikes/briefs/04-game-manual.md">brief</a></td></tr>
+      <tr><td>05</td><td><a href="bridge-two-bikes/previews/05-chinese-almanac.html">Chinese almanac</a> <span lang="zh-CN">老黄历</span></td><td class="mono">Tear-off day sheet · Celadon poster</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/bridge-two-bikes/briefs/05-chinese-almanac.md">brief</a></td></tr>
+    </table>
+  </section>
+
+  <section id="causeway-festival">
+    <h2><span class="n">04</span> Causeway</h2>
+    <p class="mono">A one-day music festival on a tidal island · English page · seed <code>causeway-festival-6</code> · <a href="https://github.com/qybaihe/hash-design/tree/main/examples/causeway-festival">facts, briefs, process</a></p>
+    <a class="shot" href="causeway-festival/compare.html"><img src="causeway-festival/screenshots/compare.png" width="1800" height="660" loading="lazy" alt="Causeway: five previews side by side"></a>
+    <a class="big" href="causeway-festival/compare.html">Open the compare page →</a>
+    <table>
+      <tr><td>01</td><td><a href="causeway-festival/previews/01-engineering-plate.html">Engineering plate</a> <span lang="zh-CN">工程图版</span></td><td class="mono">Exploded assembly · Drafting vellum</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/causeway-festival/briefs/01-engineering-plate.md">brief</a></td></tr>
+      <tr><td>02</td><td><a href="causeway-festival/previews/02-topographic-map.html">Topographic map</a> <span lang="zh-CN">地形图</span></td><td class="mono">Legend-led · Cyanotype field copy</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/causeway-festival/briefs/02-topographic-map.md">brief</a></td></tr>
+      <tr><td>03</td><td><a href="causeway-festival/previews/03-warm-handmade.html">Warm handmade</a> <span lang="zh-CN">手作温度</span></td><td class="mono">Kraft bag · Chalkboard</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/causeway-festival/briefs/03-warm-handmade.md">brief</a></td></tr>
+      <tr><td>04</td><td><a href="causeway-festival/previews/04-editorial-magazine.html">Editorial magazine</a> <span lang="zh-CN">杂志编辑</span></td><td class="mono">Opening spread · Weekly white</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/causeway-festival/briefs/04-editorial-magazine.md">brief</a></td></tr>
+      <tr><td>05</td><td><a href="causeway-festival/previews/05-memphis-pop.html">Memphis pop</a> <span lang="zh-CN">孟菲斯</span></td><td class="mono">Pattern patchwork · Laminate yellow</td><td class="mono"><a href="https://github.com/qybaihe/hash-design/blob/main/examples/causeway-festival/briefs/05-memphis-pop.md">brief</a></td></tr>
+    </table>
+  </section>
+
+  <p class="mono" style="margin-top:48px">Source, docs and the MCP server: <a href="https://github.com/qybaihe/hash-design">github.com/qybaihe/hash-design</a></p>
+</main>
+</body>
+</html>

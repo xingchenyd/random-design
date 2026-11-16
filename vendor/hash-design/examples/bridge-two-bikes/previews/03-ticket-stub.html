@@ -1,0 +1,694 @@
+<!doctype html>
+<!-- hash-design #3 · ticket-stub · ref a49063502037857ce8846937fc2524f991fdbcb094a46c682d1c676cae47326b+1 -->
+<!-- twist (no-button-above-fold): the first screen holds no button and no link. Phone, booking and the full address
+     appear only in the last module (庚联), as table rows and a plain text link. The card's FROM → TO is required by the
+     branch layout, so it names only the street and the shop (河西路 → 二号桥单车铺); the full address stays in 庚联.
+     Serial Nº 20261102 is taken from the date these notes were recorded (2026-11-02), as the brief requires. -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二号桥单车铺 · 票根</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bevan&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400;1,700&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;700&display=swap">
+<style>
+/* hash-design a4906350 · ticket-stub · buff-railway-card */
+:root {
+  --paper: #e9dcb8;
+  --ink: #1d1b16;
+  --muted: #5a5240;
+  --accent: #2f5d3a;
+  --on-accent: #ffffff;
+  --accent2: #c8541f;
+  --on-accent2: #000000;
+  --rule: #1d1b16;
+  --panel: #d8c792;
+
+  --font-display: Bevan, "ZCOOL XiaoWei", Rockwell, Georgia, serif;
+  --font-body: "Old Standard TT", "Noto Serif SC", Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.492rem; /* 7.9px */
+  --step-n1: 0.656rem; /* 10.5px */
+  --step-0: 0.875rem; /* 14px */
+  --step-1: 1.166rem; /* 18.7px */
+  --step-2: 1.555rem; /* 24.9px */
+  --step-3: 2.073rem; /* 33.2px */
+  --step-4: 2.763rem; /* 44.2px */
+  --step-5: 3.683rem; /* 58.9px */
+  --step-6: 4.909rem; /* 78.5px */
+  --step-7: 6.544rem; /* 104.7px */
+  --leading: 1.35;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --section-gap: 32px;
+  --max-width: 1440px;
+
+  --motion-duration: 140ms;
+  --motion-easing: steps(2, end);
+}
+
+html { font-size: 87.5%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- page ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-kerning: normal;
+  line-break: strict;
+  text-spacing-trim: trim-start;
+  text-autospace: normal;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, p, ol, table { margin: 0; padding: 0; }
+a { color: inherit; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.page { max-width: calc(1100px + 2 * var(--space-6)); margin: 0 auto; padding: 0 var(--space-6) var(--space-8); }
+
+/* page-level header: the only thing outside a ticket */
+.mast {
+  position: relative;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+  column-gap: var(--space-6); row-gap: var(--space-1);
+  padding: var(--space-4) 0 var(--space-2);
+  margin-bottom: calc(var(--space-6) + 5px);
+  border-bottom: 3px solid var(--rule);
+  font-size: var(--step-0); letter-spacing: .1em; color: var(--muted);
+}
+.mast::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; border-top: 1px solid var(--rule); }
+.mast b { font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); letter-spacing: .08em; color: var(--ink); margin-right: .7em; }
+.sc { font-variant-caps: all-small-caps; letter-spacing: .12em; }
+
+/* ---------- ticket module ---------- */
+.tk { position: relative; display: flex; border: 1.5px solid var(--rule); background: var(--panel); }
+.tk-body, .tk-stub { position: relative; min-width: 0; overflow: hidden; isolation: isolate; }
+.tk-body { flex: 3 1 0%; }
+.tk-stub { flex: 1 1 0%; }
+/* security paper: concentric fine-line rosettes behind every text panel */
+.sec { background-image: repeating-radial-gradient(circle at 30% 50%, transparent 0 6px, color-mix(in srgb, var(--accent2) 18%, transparent) 6px 6.6px); }
+
+/* perforation: 4px holes every 8px, semicircular notches at both ends */
+.perf {
+  position: relative; z-index: 3; flex: 0 0 14px;
+  background: radial-gradient(circle at 50% 50%, var(--paper) 0 1.7px, var(--rule) 1.9px 2.3px, transparent 2.5px) 0 2px / 14px 8px repeat-y;
+}
+.perf::before, .perf::after { content: ""; position: absolute; left: 50%; width: 28px; height: 14px; margin-left: -14px; }
+.perf::before { top: -1.5px; background: radial-gradient(circle at 50% 0, var(--paper) 0 10px, var(--rule) 10.3px 11.6px, transparent 12px); }
+.perf::after { bottom: -1.5px; background: radial-gradient(circle at 50% 100%, var(--paper) 0 10px, var(--rule) 10.3px 11.6px, transparent 12px); }
+
+.tk--v { flex-direction: column; }
+.tk--v > .tk-body, .tk--v > .tk-stub { flex: none; }
+.tk--v > .perf { background-position: 2px 50%; background-size: 8px 14px; background-repeat: repeat-x; }
+.tk--v > .perf::before, .tk--v > .perf::after { left: auto; top: 50%; width: 14px; height: 28px; margin: -14px 0 0; }
+.tk--v > .perf::before { left: -1.5px; background: radial-gradient(circle at 0 50%, var(--paper) 0 10px, var(--rule) 10.3px 11.6px, transparent 12px); }
+.tk--v > .perf::after { right: -1.5px; bottom: auto; background: radial-gradient(circle at 100% 50%, var(--paper) 0 10px, var(--rule) 10.3px 11.6px, transparent 12px); }
+
+/* 1px-ruled cell grid (outer edge hidden under the ticket outline) */
+.grid { position: relative; z-index: 1; display: grid; margin: -1px 0 0 -1px; }
+.c { min-width: 0; border-left: 1px solid var(--rule); border-top: 1px solid var(--rule); padding: var(--space-2) var(--space-3) var(--space-3); }
+
+/* guilloche underprint */
+.gl { position: absolute; z-index: 0; color: var(--accent2); opacity: .42; pointer-events: none; }
+
+/* ---------- type ---------- */
+.lbl {
+  display: block; font-size: var(--step-0); line-height: 1.2; letter-spacing: .1em;
+  color: var(--muted); font-variant-caps: all-small-caps; text-wrap-style: balance;
+}
+.cjk-d { font-family: "ZCOOL XiaoWei", var(--font-display); font-weight: 400; }
+.bev { font-family: var(--font-display); font-weight: 400; }
+.price { font-family: var(--font-display); line-height: 1; letter-spacing: .01em; white-space: nowrap; }
+.cur { font-size: .6em; vertical-align: .46em; line-height: 0; margin-right: .05em; }
+.price small, .num small { font-family: var(--font-body); font-size: .4em; letter-spacing: .04em; margin-left: .2em; }
+.v { font-size: var(--step-1); line-height: 1.25; margin-top: 2px; }
+.note { font-size: var(--step-0); color: var(--muted); margin-top: 3px; letter-spacing: .02em; }
+.num { font-family: var(--font-display); line-height: 1; white-space: nowrap; }
+
+/* module head: label, title, English small italic, 3px rule under it */
+.mh { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--space-3); row-gap: 3px; border-bottom: 2px solid var(--rule); padding-bottom: var(--space-2); }
+.mh .lbl { flex-basis: 100%; }
+.mh h2 { font-family: "ZCOOL XiaoWei", var(--font-display); font-weight: 400; font-size: var(--step-3); line-height: 1; letter-spacing: .04em; }
+.mh-en { font-style: italic; font-size: var(--step-0); color: var(--muted); }
+
+/* ---------- 1 · card front ---------- */
+.front { background: var(--paper); aspect-ratio: 57 / 30; container-type: inline-size; }
+.front .grid { height: calc(100% + 1px); grid-template-rows: minmax(0, 10fr) minmax(0, 16fr) minmax(0, 38fr) minmax(0, 13fr) minmax(0, 23fr); }
+.fg { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+.sg { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fg > .c, .sg > .c { padding: min(8px, .8cqi) min(12px, 1.1cqi); }
+.f-issuer { grid-column: 1 / 7; }
+.f-serial { grid-column: 7 / 10; }
+.f-route, .f-title, .f-band { grid-column: 1 / -1; }
+.f1 { grid-column: 1 / 4; } .f2 { grid-column: 4 / 6; } .f3 { grid-column: 6 / 8; } .f4 { grid-column: 8 / 10; }
+.sg > .c { grid-column: 1 / -1; }
+
+.issuer { font-size: min(var(--step-1), 1.75cqi); line-height: 1.2; margin-top: 2px; white-space: nowrap; }
+.issuer .sc { font-size: .92em; }
+.serial { font-family: var(--font-display); font-size: min(var(--step-2), 2.3cqi); line-height: 1.05; letter-spacing: .02em; margin-top: 1px; white-space: nowrap; }
+.serial .no { font-family: var(--font-body); font-size: .62em; vertical-align: .38em; margin-right: .18em; }
+
+.f-route { display: flex; align-items: center; gap: min(var(--space-4), 1.5cqi); }
+.f-route .lbl { flex: none; }
+.from { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: min(var(--step-5), 5.4cqi); line-height: 1; letter-spacing: .06em; flex: none; }
+.arrow { position: relative; flex: 1 1 auto; height: 4px; margin-right: 18px; background: var(--accent2); min-width: 40px; }
+.arrow::before { content: ""; position: absolute; left: 0; top: -5px; width: 4px; height: 14px; background: var(--accent2); }
+.arrow::after { content: ""; position: absolute; right: -18px; top: 50%; transform: translateY(-50%); border-left: 20px solid var(--accent2); border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+
+.f-title { display: flex; flex-direction: column; justify-content: space-between; }
+.f-title h1 { font-family: "ZCOOL XiaoWei", var(--font-display); font-weight: 400; font-size: min(var(--step-7), 9.6cqi); line-height: 1; letter-spacing: .03em; margin-left: -.04em; white-space: nowrap; }
+.prod { font-family: var(--font-display); font-size: min(var(--step-3), 3.05cqi); line-height: 1; letter-spacing: .005em; white-space: nowrap; }
+.title-row { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4); }
+.title-row .note { text-align: right; margin-bottom: .2em; }
+
+.f-band, .s-band { background: var(--accent); color: var(--on-accent); display: flex; align-items: center; gap: min(var(--space-4), 1.5cqi); }
+.f-band .lbl, .s-band .lbl { color: color-mix(in srgb, var(--on-accent) 82%, var(--accent)); flex: none; }
+.cls { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: min(var(--step-3), 3.05cqi); line-height: 1; letter-spacing: .1em; white-space: nowrap; }
+.cls-no { margin-left: auto; font-size: min(var(--step-1), 1.75cqi); letter-spacing: .3em; white-space: nowrap; border: 1px solid var(--on-accent); padding: .15em .2em .15em .5em; }
+
+.f-fare { display: flex; flex-direction: column; }
+.f-fare .price, .f-fare .free { margin-top: auto; }
+.f-fare .note { line-height: 1.3; word-break: keep-all; }
+.f-fare .price { font-size: min(var(--step-5), 5.4cqi); }
+.free { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: min(var(--step-4), 4cqi); line-height: 1; letter-spacing: .08em; }
+
+.admit { font-family: var(--font-display); font-size: min(var(--step-2), 2.3cqi); line-height: 1.05; letter-spacing: .06em; white-space: nowrap; }
+.s-time { display: flex; flex-direction: column; justify-content: space-between; }
+.days { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: min(var(--step-3), 3.05cqi); line-height: 1; letter-spacing: .08em; margin-top: 2px; white-space: nowrap; }
+.hours { display: grid; gap: min(6px, .55cqi); }
+.hours p { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); border-top: 1px solid var(--rule); padding-top: min(6px, .55cqi); }
+.hh { font-family: var(--font-display); font-size: min(var(--step-5), 5.4cqi); line-height: .95; letter-spacing: -.01em; white-space: nowrap; }
+.off { font-family: "Noto Serif SC", var(--font-body); font-weight: 700; font-size: min(var(--step-2), 2.3cqi); line-height: 1; letter-spacing: .06em; white-space: nowrap; }
+.s-serial .serial { font-size: min(var(--step-2), 2.3cqi); }
+
+.front > .perf { background:
+  radial-gradient(circle at 50% 50%, var(--paper) 0 1.7px, var(--rule) 1.9px 2.3px, transparent 2.5px) 0 2px / 14px 8px repeat-y,
+  linear-gradient(to bottom, transparent calc(64% - 1px), var(--accent) calc(64% - 1px), var(--accent) calc(77% - 1px), transparent calc(77% - 1px)); }
+.front .gl-rose { width: 60cqi; aspect-ratio: 1; right: -9cqi; top: 50%; transform: translateY(-46%); }
+.f-route { position: relative; }
+.front .gl-band { z-index: -1; left: 0; width: 100%; top: 12%; height: 76%; opacity: .32; }
+.front .tk-stub .gl-rose { width: 34cqi; right: -8cqi; top: 22%; transform: none; opacity: .34; }
+
+/* 2 · dating-press stamp, overprinting the card's lower right corner */
+.stamp {
+  position: absolute; z-index: 5; right: -.5cqi; bottom: .5cqi;
+  display: grid; justify-items: center; gap: 4px;
+  padding: 7px 14px 9px;
+  border: 4px double var(--accent2);
+  color: var(--accent2);
+  transform: rotate(-8deg);
+  mix-blend-mode: multiply;
+  filter: url(#ink);
+  animation: press var(--motion-duration) var(--motion-easing) .45s both, show 0s .45s both;
+}
+.st-a { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: var(--step-2); line-height: 1; letter-spacing: .32em; margin-right: -.32em; }
+.st-b { font-family: var(--font-display); font-size: var(--step-3); line-height: 1; letter-spacing: .02em; border-top: 1.5px solid var(--accent2); padding-top: 5px; }
+@keyframes press { from { transform: rotate(-8deg) scale(1.15); } to { transform: rotate(-8deg) scale(1); } }
+@keyframes show { from { visibility: hidden; } to { visibility: visible; } }
+
+/* ---------- 3–5 · reverse side ---------- */
+.rev { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--space-6); margin-top: var(--section-gap); }
+.col { display: flex; flex-direction: column; gap: var(--space-6); }
+.col > .tk:last-child { flex: 1 1 auto; }
+.col > .tk--v:last-child > .tk-body { flex: 1 0 auto; }
+.col > .tk:last-child > div > .grid { min-height: calc(100% + 1px); }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.span { grid-column: 1 / -1; }
+.tk-body .gl-band { left: 0; width: 100%; height: 34px; top: 10px; opacity: .22; }
+.tk-stub .gl-rose { width: 190px; aspect-ratio: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); opacity: .36; }
+.tk--v .tk-stub .gl-rose { width: 220px; }
+
+/* 3 · conditions of issue: two narrow columns of small type */
+.intro { line-height: 1.45; }
+.clauses ol { list-style: none; counter-reset: cl; columns: 2; column-gap: var(--space-4); column-rule: 1px solid var(--rule); font-size: 11px; line-height: 1.55; }
+.clauses li { counter-increment: cl; break-inside: avoid; padding-left: 2.1em; text-indent: -2.1em; margin-bottom: var(--space-1); }
+.clauses li::before { content: counter(cl, cjk-ideographic) "、"; display: inline-block; width: 2.1em; text-indent: 0; font-family: "ZCOOL XiaoWei", var(--font-body); color: var(--ink); }
+.no-new { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: var(--step-4); line-height: 1; letter-spacing: .1em; }
+
+/* stub numbers on the reverse */
+.big { font-size: var(--step-6); }
+.big small { font-family: "Noto Serif SC", var(--font-body); }
+
+/* 4 · fare table with dot leaders */
+table { border-collapse: collapse; width: 100%; }
+.tbl { padding: 0; }
+.fare th, .fare td { border-top: 1px solid var(--rule); padding: 6px var(--space-3) 7px; text-align: left; vertical-align: baseline; font-weight: 400; }
+.fare thead th { border-top: 0; padding-block: 5px; }
+.fare thead th .lbl { display: inline; }
+.fare td, .fare thead th + th { border-left: 1px solid var(--rule); }
+.fare tbody th { width: 100%; font-size: var(--step-1); line-height: 1.2; }
+.ld { display: flex; align-items: baseline; gap: 6px; }
+.ld::after { content: ""; flex: 1 1 auto; min-width: 18px; height: 2px; background: radial-gradient(circle, var(--ink) 0 .9px, transparent 1.15px) 0 0 / 6px 2px repeat-x; }
+.ld small { font-size: var(--step-0); color: var(--muted); letter-spacing: .04em; margin-left: .3em; white-space: nowrap; }
+.fare td { white-space: nowrap; font-size: var(--step-0); }
+.fare td.p { text-align: right; font-family: var(--font-display); font-size: var(--step-2); line-height: 1; }
+.fare td.p small { font-family: var(--font-body); font-size: .5em; margin-left: .15em; }
+.fare td.z { text-align: right; font-family: "ZCOOL XiaoWei", var(--font-display); font-size: var(--step-1); letter-spacing: .1em; }
+.mini { list-style: none; font-size: var(--step-0); line-height: 1.45; margin-top: 3px; }
+.mini li { border-top: 1px dotted var(--rule); padding: 3px 0 2px; }
+.mini li:first-child { border-top: 0; }
+
+/* timetable */
+.tt th, .tt td { border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); padding: 8px 4px; text-align: center; font-weight: 400; font-size: var(--step-0); white-space: nowrap; }
+.tt thead th { border-top: 0; font-family: "Noto Serif SC", var(--font-body); font-weight: 700; font-size: var(--step-0); letter-spacing: .06em; line-height: 1.2; padding-block: 7px; }
+.tt tr > :first-child { border-left: 0; text-align: left; padding-left: var(--space-3); width: 1%; }
+.tt tbody th .lbl { display: inline; }
+.tt .x { background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--ink) 30%, transparent) 0 1px, transparent 1px 5px); font-family: "ZCOOL XiaoWei", var(--font-display); font-size: var(--step-2); vertical-align: middle; }
+.tt .x span { background: var(--panel); padding: 0 .15em; }
+.tt .hit { background: var(--ink); color: var(--paper); font-weight: 700; }
+.tt .dash { color: var(--muted); }
+.tt .pump { letter-spacing: .06em; }
+.off-big { font-family: "Noto Serif SC", var(--font-body); font-weight: 700; font-size: var(--step-4); line-height: 1.1; letter-spacing: .04em; margin-top: 4px; }
+
+/* night-ride ticket */
+.map-c { display: flex; flex-direction: column; gap: var(--space-1); }
+.map { display: block; width: 100%; max-width: 620px; height: auto; margin: 0 auto; overflow: visible; }
+.map .water { fill: none; stroke: var(--ink); stroke-width: .8; }
+.map .w2 { stroke: var(--muted); stroke-width: .8; }
+.map .loop-line { fill: none; stroke: var(--ink); stroke-width: 3.2; stroke-linejoin: round; }
+.map .loop-ticks { fill: none; stroke: var(--panel); stroke-width: 1.2; stroke-dasharray: 1.2 10.8; }
+.map .chev { fill: var(--ink); }
+.map .stn { fill: var(--paper); stroke: var(--ink); stroke-width: 2.4; }
+.map text { fill: var(--ink); }
+.map .m-stn { font-family: var(--font-body); font-size: 15px; letter-spacing: .08em; }
+.map .m-big { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: 28px; letter-spacing: .14em; }
+.map .m-river { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: 18px; fill: var(--muted); }
+.cell-num { font-family: var(--font-display); font-size: var(--step-4); line-height: 1; white-space: nowrap; margin-top: 4px; }
+.cell-num small { font-family: var(--font-body); font-size: .36em; margin-left: .2em; letter-spacing: .04em; }
+.cell-z { font-family: "ZCOOL XiaoWei", var(--font-display); font-size: var(--step-3); line-height: 1; letter-spacing: .08em; margin-top: 4px; }
+
+/* 5 · inspector's clip + booking rows */
+.rows th, .rows td { border-top: 1px solid var(--rule); padding: 8px var(--space-3); text-align: left; vertical-align: baseline; font-weight: 400; }
+.rows tr:first-child > * { border-top: 0; }
+.rows th { width: 1%; white-space: nowrap; }
+.rows th .lbl { display: inline; }
+.rows td { border-left: 1px solid var(--rule); font-size: var(--step-1); line-height: 1.3; text-wrap: pretty; }
+.rows td.aside { font-size: var(--step-0); color: var(--muted); width: 1%; white-space: nowrap; }
+.rows a { font-family: var(--font-display); font-size: var(--step-2); letter-spacing: .02em; text-decoration-thickness: 1.5px; text-underline-offset: .18em; }
+.rows a:hover { color: var(--accent); }
+.rows a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.clip-tk { margin-top: var(--space-6); }
+.tk-ride .admit { font-size: var(--step-1); letter-spacing: .05em; }
+.bite { position: absolute; z-index: 4; top: -1.5px; right: calc(12.5% - 30px); width: 60px; height: 26px; overflow: visible; }
+.bite path { fill: var(--paper); stroke: var(--rule); stroke-width: 1.5; stroke-linejoin: round; }
+.clip-mark { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); }
+.wheel-c { display: flex; align-items: center; gap: var(--space-3); }
+.wheel { flex: none; width: 116px; height: 116px; color: var(--ink); }
+
+/* ---------- narrow screens: the card stands up, stubs drop below ---------- */
+@media (max-width: 959px) {
+  .page { padding: 0 var(--space-3) var(--space-6); }
+  .mast { padding-top: var(--space-3); }
+  .tk, .front { flex-direction: column; }
+  .tk > .tk-body, .tk > .tk-stub { flex: none; }
+  .tk > .perf { flex: 0 0 14px; background-position: 2px 50%; background-size: 8px 14px; background-repeat: repeat-x; }
+  .tk > .perf::before, .tk > .perf::after { left: auto; top: 50%; width: 14px; height: 28px; margin: -14px 0 0; }
+  .tk > .perf::before { left: -1.5px; background: radial-gradient(circle at 0 50%, var(--paper) 0 10px, var(--rule) 10.3px 11.6px, transparent 12px); }
+  .tk > .perf::after { right: -1.5px; bottom: auto; background: radial-gradient(circle at 100% 50%, var(--paper) 0 10px, var(--rule) 10.3px 11.6px, transparent 12px); }
+
+  .front { aspect-ratio: auto; }
+  .front > .perf { background: radial-gradient(circle at 50% 50%, var(--paper) 0 1.7px, var(--rule) 1.9px 2.3px, transparent 2.5px) 2px 50% / 8px 14px repeat-x; }
+  .front .grid { height: auto; grid-template-rows: none; }
+  .fg { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .sg { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fg > .c, .sg > .c { padding: var(--space-2) var(--space-3) var(--space-3); }
+  .f-issuer, .f-serial { grid-column: 1 / -1; }
+  .f1 { grid-column: 1 / 3; } .f2 { grid-column: 3 / 5; } .f3 { grid-column: 1 / 3; } .f4 { grid-column: 3 / 5; }
+  .sg > .c { grid-column: 1 / -1; }
+  .issuer { font-size: var(--step-0); white-space: normal; }
+  .serial, .admit, .s-serial .serial { font-size: var(--step-2); }
+  .f-route { gap: var(--space-2); padding-block: var(--space-3); }
+  .from { font-size: clamp(var(--step-2), 9cqi, var(--step-4)); }
+  .f-title { gap: var(--space-2); }
+  .f-title h1 { font-size: clamp(var(--step-4), 14cqi, var(--step-6)); }
+  .prod { font-size: clamp(var(--step-0), 4.6cqi, var(--step-2)); }
+  .title-row { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
+  .title-row .note { text-align: left; }
+  .f-band { flex-wrap: wrap; row-gap: var(--space-2); }
+  .cls { font-size: clamp(var(--step-1), 6cqi, var(--step-3)); }
+  .cls-no { font-size: var(--step-0); }
+  .f-fare { gap: var(--space-2); }
+  .f-fare .price { font-size: clamp(var(--step-3), 10cqi, var(--step-5)); }
+  .free { font-size: clamp(var(--step-2), 8cqi, var(--step-4)); }
+  .days { font-size: clamp(var(--step-2), 7cqi, var(--step-3)); }
+  .hours { grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .hh { font-size: clamp(var(--step-3), 10.5cqi, var(--step-5)); }
+  .s-time { gap: var(--space-2); }
+  .off { font-size: var(--step-2); }
+  .s-serial { min-height: 132px; }
+  .front .gl-rose { width: 120cqi; right: -40cqi; top: 34%; }
+  .front .tk-stub .gl-rose { width: 90cqi; right: -30cqi; top: 0; }
+  .stamp { right: -4px; bottom: 6px; }
+
+  .rev { grid-template-columns: minmax(0, 1fr); }
+  .bite { top: auto; bottom: -1.5px; right: calc(50% - 30px); transform: rotate(180deg); }
+}
+@media (max-width: 520px) {
+  .clauses ol { columns: 1; }
+  .fare th, .fare td { padding-inline: var(--space-2); }
+  .fare tbody th { font-size: var(--step-0); }
+  .tt th, .tt td { padding-inline: 2px; font-size: var(--step-n1); }
+  .tt tr > :first-child { padding-left: var(--space-2); }
+  .tt thead th { font-size: var(--step-0); }
+  .rows th, .rows td { padding-inline: var(--space-2); }
+  .rows td.aside { display: none; }
+  .cell-num { font-size: var(--step-3); }
+}
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true" focusable="false" width="0" height="0">
+<defs>
+<path id="gA" d="M150 0L159.5 3 167.1 6.3 171.2 9.6 171 12.8 166.5 15.6 158.5 17.9 148.7 19.6 138.9 20.9 130.9 22.2 126.3 23.9 125.8 26.3 129.5 29.6 136.3 33.8 144.9 38.8 153.3 44.2 159.8 49.3 162.9 53.6 161.8 56.6 156.8 58.2 148.5 58.3 138.6 57.4 128.7 56.2 120.7 55.4 115.8 55.8 114.8 57.9 117.4 62.1 122.9 67.9 129.9 75 136.7 82.3 141.6 89 143.4 93.9 141.7 96.6 136.4 96.8 128.4 94.7 119 91.3 109.8 87.6 102.3 84.7 97.4 83.9 95.9 85.7 97.3 90.3 101.2 97.4 106.1 106.1 110.7 114.9 113.7 122.6 114.2 127.8 111.8 130 106.7 128.8 99.5 124.7 91.3 119 83.4 113 76.8 108.3 72.4 106.2 70.4 107.5 70.7 112.4 72.5 120.3 75 129.9 77.2 139.6 78.1 147.8 77.3 153.1 74.4 154.5 69.7 152 63.8 146.2 57.4 138.6 51.3 130.7 46.2 124.5 42.5 121.3 40.2 122.1 39.1 126.9 38.9 135 38.8 144.9 38.4 154.9 37.2 163 35 167.8 31.9 168.5 28 164.8 23.8 157.8 19.6 148.7 15.7 139.6 12.4 132.2 9.6 128.2 7.2 128.3 5 132.7 2.6 140.4 0 150 -3 159.5 -6.3 167.1 -9.6 171.2 -12.8 171 -15.6 166.5 -17.9 158.5 -19.6 148.7 -20.9 138.9 -22.2 130.9 -23.9 126.3 -26.3 125.8 -29.6 129.5 -33.8 136.3 -38.8 144.9 -44.2 153.3 -49.3 159.8 -53.6 162.9 -56.6 161.8 -58.2 156.8 -58.3 148.5 -57.4 138.6 -56.2 128.7 -55.4 120.7 -55.8 115.8 -57.9 114.8 -62.1 117.4 -67.9 122.9 -75 129.9 -82.3 136.7 -89 141.6 -93.9 143.4 -96.6 141.7 -96.8 136.4 -94.7 128.4 -91.3 119 -87.6 109.8 -84.7 102.3 -83.9 97.4 -85.7 95.9 -90.3 97.3 -97.4 101.2 -106.1 106.1 -114.9 110.7 -122.6 113.7 -127.8 114.2 -130 111.8 -128.8 106.7 -124.7 99.5 -119 91.3 -113 83.4 -108.3 76.8 -106.2 72.4 -107.5 70.4 -112.4 70.7 -120.3 72.5 -129.9 75 -139.6 77.2 -147.8 78.1 -153.1 77.3 -154.5 74.4 -152 69.7 -146.2 63.8 -138.6 57.4 -130.7 51.3 -124.5 46.2 -121.3 42.5 -122.1 40.2 -126.9 39.1 -135 38.9 -144.9 38.8 -154.9 38.4 -163 37.2 -167.8 35 -168.5 31.9 -164.8 28 -157.8 23.8 -148.7 19.6 -139.6 15.7 -132.2 12.4 -128.2 9.6 -128.3 7.2 -132.7 5 -140.4 2.6 -150 0 -159.5 -3 -167.1 -6.3 -171.2 -9.6 -171 -12.8 -166.5 -15.6 -158.5 -17.9 -148.7 -19.6 -138.9 -20.9 -130.9 -22.2 -126.3 -23.9 -125.8 -26.3 -129.5 -29.6 -136.3 -33.8 -144.9 -38.8 -153.3 -44.2 -159.8 -49.3 -162.9 -53.6 -161.8 -56.6 -156.8 -58.2 -148.5 -58.3 -138.6 -57.4 -128.7 -56.2 -120.7 -55.4 -115.8 -55.8 -114.8 -57.9 -117.4 -62.1 -122.9 -67.9 -129.9 -75 -136.7 -82.3 -141.6 -89 -143.4 -93.9 -141.7 -96.6 -136.4 -96.8 -128.4 -94.7 -119 -91.3 -109.8 -87.6 -102.3 -84.7 -97.4 -83.9 -95.9 -85.7 -97.3 -90.3 -101.2 -97.4 -106.1 -106.1 -110.7 -114.9 -113.7 -122.6 -114.2 -127.8 -111.8 -130 -106.7 -128.8 -99.5 -124.7 -91.3 -119 -83.4 -113 -76.8 -108.3 -72.4 -106.2 -70.4 -107.5 -70.7 -112.4 -72.5 -120.3 -75 -129.9 -77.2 -139.6 -78.1 -147.8 -77.3 -153.1 -74.4 -154.5 -69.7 -152 -63.8 -146.2 -57.4 -138.6 -51.3 -130.7 -46.2 -124.5 -42.5 -121.3 -40.2 -122.1 -39.1 -126.9 -38.9 -135 -38.8 -144.9 -38.4 -154.9 -37.2 -163 -35 -167.8 -31.9 -168.5 -28 -164.8 -23.8 -157.8 -19.6 -148.7 -15.7 -139.6 -12.4 -132.2 -9.6 -128.2 -7.2 -128.3 -5 -132.7 -2.6 -140.4 0 -150 3 -159.5 6.3 -167.1 9.6 -171.2 12.8 -171 15.6 -166.5 17.9 -158.5 19.6 -148.7 20.9 -138.9 22.2 -130.9 23.9 -126.3 26.3 -125.8 29.6 -129.5 33.8 -136.3 38.8 -144.9 44.2 -153.3 49.3 -159.8 53.6 -162.9 56.6 -161.8 58.2 -156.8 58.3 -148.5 57.4 -138.6 56.2 -128.7 55.4 -120.7 55.8 -115.8 57.9 -114.8 62.1 -117.4 67.9 -122.9 75 -129.9 82.3 -136.7 89 -141.6 93.9 -143.4 96.6 -141.7 96.8 -136.4 94.7 -128.4 91.3 -119 87.6 -109.8 84.7 -102.3 83.9 -97.4 85.7 -95.9 90.3 -97.3 97.4 -101.2 106.1 -106.1 114.9 -110.7 122.6 -113.7 127.8 -114.2 130 -111.8 128.8 -106.7 124.7 -99.5 119 -91.3 113 -83.4 108.3 -76.8 106.2 -72.4 107.5 -70.4 112.4 -70.7 120.3 -72.5 129.9 -75 139.6 -77.2 147.8 -78.1 153.1 -77.3 154.5 -74.4 152 -69.7 146.2 -63.8 138.6 -57.4 130.7 -51.3 124.5 -46.2 121.3 -42.5 122.1 -40.2 126.9 -39.1 135 -38.9 144.9 -38.8 154.9 -38.4 163 -37.2 167.8 -35 168.5 -31.9 164.8 -28 157.8 -23.8 148.7 -19.6 139.6 -15.7 132.2 -12.4 128.2 -9.6 128.3 -7.2 132.7 -5 140.4 -2.6Z" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+<path id="gB" d="M94 0L106.2 4.2 116.3 9.2 122.7 14.5 124.4 19.7 121.2 24.1 113.4 27.2 102.3 28.8 89.4 29 76.7 28.3 65.9 27.3 58.5 27 55.2 28.1 56.2 31.5 60.9 37.3 68 45.4 76 55.3 83.4 65.8 88.7 75.7 90.7 83.9 89.1 89.1 83.9 90.7 75.7 88.7 65.8 83.4 55.3 76 45.4 68 37.3 60.9 31.5 56.2 28.1 55.2 27 58.5 27.3 65.9 28.3 76.7 29 89.4 28.8 102.3 27.2 113.4 24.1 121.2 19.7 124.4 14.5 122.7 9.2 116.3 4.2 106.2 0 94 -3.2 81.7 -5.6 71.2 -7.6 64 -9.7 61.2 -12.6 63.2 -16.7 69.4 -22.2 78.7 -29 89.4 -36.8 99.7 -44.6 107.7 -51.7 112.2 -57.2 112.3 -60.4 107.8 -60.9 99.4 -59 88.3 -55.3 76 -50.6 64.2 -46.4 54.3 -43.7 47.3 -43.8 43.8 -47.3 43.7 -54.3 46.4 -64.2 50.6 -76 55.3 -88.3 59 -99.4 60.9 -107.8 60.4 -112.3 57.2 -112.2 51.7 -107.7 44.6 -99.7 36.8 -89.4 29 -78.7 22.2 -69.4 16.7 -63.2 12.6 -61.2 9.7 -64 7.6 -71.2 5.6 -81.7 3.2 -94 0 -106.2 -4.2 -116.3 -9.2 -122.7 -14.5 -124.4 -19.7 -121.2 -24.1 -113.4 -27.2 -102.3 -28.8 -89.4 -29 -76.7 -28.3 -65.9 -27.3 -58.5 -27 -55.2 -28.1 -56.2 -31.5 -60.9 -37.3 -68 -45.4 -76 -55.3 -83.4 -65.8 -88.7 -75.7 -90.7 -83.9 -89.1 -89.1 -83.9 -90.7 -75.7 -88.7 -65.8 -83.4 -55.3 -76 -45.4 -68 -37.3 -60.9 -31.5 -56.2 -28.1 -55.2 -27 -58.5 -27.3 -65.9 -28.3 -76.7 -29 -89.4 -28.8 -102.3 -27.2 -113.4 -24.1 -121.2 -19.7 -124.4 -14.5 -122.7 -9.2 -116.3 -4.2 -106.2 0 -94 3.2 -81.7 5.6 -71.2 7.6 -64 9.7 -61.2 12.6 -63.2 16.7 -69.4 22.2 -78.7 29 -89.4 36.8 -99.7 44.6 -107.7 51.7 -112.2 57.2 -112.3 60.4 -107.8 60.9 -99.4 59 -88.3 55.3 -76 50.6 -64.2 46.4 -54.3 43.7 -47.3 43.8 -43.8 47.3 -43.7 54.3 -46.4 64.2 -50.6 76 -55.3 88.3 -59 99.4 -60.9 107.8 -60.4 112.3 -57.2 112.2 -51.7 107.7 -44.6 99.7 -36.8 89.4 -29 78.7 -22.2 69.4 -16.7 63.2 -12.6 61.2 -9.7 64 -7.6 71.2 -5.6 81.7 -3.2Z" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+<path id="gC" d="M186 0L190.9 2.5 192.9 5.1 190.8 7.5 185.7 9.7 180.7 11.8 178.4 14 180.3 16.6 185 19.4 189.6 22.4 191.3 25.2 189 27.4 183.7 29.1 178.4 30.7 176 32.6 177.6 35.3 181.9 38.7 186.2 42.1 187.7 45.1 185.1 47 179.7 48.1 174.3 49.1 171.6 50.8 172.9 53.7 176.9 57.5 180.8 61.4 181.9 64.4 179.1 66.1 173.6 66.7 168.2 67.1 165.4 68.5 166.3 71.5 169.9 75.7 173.4 79.9 174.2 83.1 171.3 84.5 165.7 84.4 160.2 84.3 157.3 85.4 158 88.5 161.1 93 164.1 97.6 164.6 100.8 161.5 101.9 156 101.3 150.5 100.6 147.5 101.4 147.9 104.5 150.5 109.3 153 114.2 153.1 117.5 150 118.2 144.5 117.1 139.2 115.8 136.1 116.3 136.1 119.4 138.2 124.5 140.2 129.6 140 132.9 136.8 133.2 131.5 131.5 126.3 129.7 123.2 129.8 122.9 132.9 124.5 138.2 125.9 143.6 125.3 146.8 122.1 146.8 117.1 144.5 112.1 142.2 109 142 108.3 145.1 109.3 150.5 110.2 155.9 109.3 159.1 106.1 158.8 101.3 156 96.6 153.1 93.5 152.6 92.6 155.6 93 161.1 93.3 166.6 92.1 169.6 88.9 169 84.4 165.7 80.1 162.4 77.1 161.6 75.8 164.4 75.7 169.9 75.4 175.4 73.9 178.3 70.8 177.4 66.7 173.6 62.7 169.9 59.8 168.7 58.2 171.4 57.5 176.9 56.6 182.4 54.8 185.1 51.8 183.8 48.1 179.7 44.6 175.5 41.8 174.1 40 176.6 38.7 181.9 37.3 187.3 35.2 189.8 32.3 188.2 29.1 183.7 26 179.2 23.4 177.5 21.3 179.8 19.4 185 17.5 190.1 15.1 192.4 12.5 190.5 9.7 185.7 7.1 180.9 4.7 178.9 2.4 181 0 186 -2.5 190.9 -5.1 192.9 -7.5 190.8 -9.7 185.7 -11.8 180.7 -14 178.4 -16.6 180.3 -19.4 185 -22.4 189.6 -25.2 191.3 -27.4 189 -29.1 183.7 -30.7 178.4 -32.6 176 -35.3 177.6 -38.7 181.9 -42.1 186.2 -45.1 187.7 -47 185.1 -48.1 179.7 -49.1 174.3 -50.8 171.6 -53.7 172.9 -57.5 176.9 -61.4 180.8 -64.4 181.9 -66.1 179.1 -66.7 173.6 -67.1 168.2 -68.5 165.4 -71.5 166.3 -75.7 169.9 -79.9 173.4 -83.1 174.2 -84.5 171.3 -84.4 165.7 -84.3 160.2 -85.4 157.3 -88.5 158 -93 161.1 -97.6 164.1 -100.8 164.6 -101.9 161.5 -101.3 156 -100.6 150.5 -101.4 147.5 -104.5 147.9 -109.3 150.5 -114.2 153 -117.5 153.1 -118.2 150 -117.1 144.5 -115.8 139.2 -116.3 136.1 -119.4 136.1 -124.5 138.2 -129.6 140.2 -132.9 140 -133.2 136.8 -131.5 131.5 -129.7 126.3 -129.8 123.2 -132.9 122.9 -138.2 124.5 -143.6 125.9 -146.8 125.3 -146.8 122.1 -144.5 117.1 -142.2 112.1 -142 109 -145.1 108.3 -150.5 109.3 -155.9 110.2 -159.1 109.3 -158.8 106.1 -156 101.3 -153.1 96.6 -152.6 93.5 -155.6 92.6 -161.1 93 -166.6 93.3 -169.6 92.1 -169 88.9 -165.7 84.4 -162.4 80.1 -161.6 77.1 -164.4 75.8 -169.9 75.7 -175.4 75.4 -178.3 73.9 -177.4 70.8 -173.6 66.7 -169.9 62.7 -168.7 59.8 -171.4 58.2 -176.9 57.5 -182.4 56.6 -185.1 54.8 -183.8 51.8 -179.7 48.1 -175.5 44.6 -174.1 41.8 -176.6 40 -181.9 38.7 -187.3 37.3 -189.8 35.2 -188.2 32.3 -183.7 29.1 -179.2 26 -177.5 23.4 -179.8 21.3 -185 19.4 -190.1 17.5 -192.4 15.1 -190.5 12.5 -185.7 9.7 -180.9 7.1 -178.9 4.7 -181 2.4 -186 0 -190.9 -2.5 -192.9 -5.1 -190.8 -7.5 -185.7 -9.7 -180.7 -11.8 -178.4 -14 -180.3 -16.6 -185 -19.4 -189.6 -22.4 -191.3 -25.2 -189 -27.4 -183.7 -29.1 -178.4 -30.7 -176 -32.6 -177.6 -35.3 -181.9 -38.7 -186.2 -42.1 -187.7 -45.1 -185.1 -47 -179.7 -48.1 -174.3 -49.1 -171.6 -50.8 -172.9 -53.7 -176.9 -57.5 -180.8 -61.4 -181.9 -64.4 -179.1 -66.1 -173.6 -66.7 -168.2 -67.1 -165.4 -68.5 -166.3 -71.5 -169.9 -75.7 -173.4 -79.9 -174.2 -83.1 -171.3 -84.5 -165.7 -84.4 -160.2 -84.3 -157.3 -85.4 -158 -88.5 -161.1 -93 -164.1 -97.6 -164.6 -100.8 -161.5 -101.9 -156 -101.3 -150.5 -100.6 -147.5 -101.4 -147.9 -104.5 -150.5 -109.3 -153 -114.2 -153.1 -117.5 -150 -118.2 -144.5 -117.1 -139.2 -115.8 -136.1 -116.3 -136.1 -119.4 -138.2 -124.5 -140.2 -129.6 -140 -132.9 -136.8 -133.2 -131.5 -131.5 -126.3 -129.7 -123.2 -129.8 -122.9 -132.9 -124.5 -138.2 -125.9 -143.6 -125.3 -146.8 -122.1 -146.8 -117.1 -144.5 -112.1 -142.2 -109 -142 -108.3 -145.1 -109.3 -150.5 -110.2 -155.9 -109.3 -159.1 -106.1 -158.8 -101.3 -156 -96.6 -153.1 -93.5 -152.6 -92.6 -155.6 -93 -161.1 -93.3 -166.6 -92.1 -169.6 -88.9 -169 -84.4 -165.7 -80.1 -162.4 -77.1 -161.6 -75.8 -164.4 -75.7 -169.9 -75.4 -175.4 -73.9 -178.3 -70.8 -177.4 -66.7 -173.6 -62.7 -169.9 -59.8 -168.7 -58.2 -171.4 -57.5 -176.9 -56.6 -182.4 -54.8 -185.1 -51.8 -183.8 -48.1 -179.7 -44.6 -175.5 -41.8 -174.1 -40 -176.6 -38.7 -181.9 -37.3 -187.3 -35.2 -189.8 -32.3 -188.2 -29.1 -183.7 -26 -179.2 -23.4 -177.5 -21.3 -179.8 -19.4 -185 -17.5 -190.1 -15.1 -192.4 -12.5 -190.5 -9.7 -185.7 -7.1 -180.9 -4.7 -178.9 -2.4 -181 0 -186 2.5 -190.9 5.1 -192.9 7.5 -190.8 9.7 -185.7 11.8 -180.7 14 -178.4 16.6 -180.3 19.4 -185 22.4 -189.6 25.2 -191.3 27.4 -189 29.1 -183.7 30.7 -178.4 32.6 -176 35.3 -177.6 38.7 -181.9 42.1 -186.2 45.1 -187.7 47 -185.1 48.1 -179.7 49.1 -174.3 50.8 -171.6 53.7 -172.9 57.5 -176.9 61.4 -180.8 64.4 -181.9 66.1 -179.1 66.7 -173.6 67.1 -168.2 68.5 -165.4 71.5 -166.3 75.7 -169.9 79.9 -173.4 83.1 -174.2 84.5 -171.3 84.4 -165.7 84.3 -160.2 85.4 -157.3 88.5 -158 93 -161.1 97.6 -164.1 100.8 -164.6 101.9 -161.5 101.3 -156 100.6 -150.5 101.4 -147.5 104.5 -147.9 109.3 -150.5 114.2 -153 117.5 -153.1 118.2 -150 117.1 -144.5 115.8 -139.2 116.3 -136.1 119.4 -136.1 124.5 -138.2 129.6 -140.2 132.9 -140 133.2 -136.8 131.5 -131.5 129.7 -126.3 129.8 -123.2 132.9 -122.9 138.2 -124.5 143.6 -125.9 146.8 -125.3 146.8 -122.1 144.5 -117.1 142.2 -112.1 142 -109 145.1 -108.3 150.5 -109.3 155.9 -110.2 159.1 -109.3 158.8 -106.1 156 -101.3 153.1 -96.6 152.6 -93.5 155.6 -92.6 161.1 -93 166.6 -93.3 169.6 -92.1 169 -88.9 165.7 -84.4 162.4 -80.1 161.6 -77.1 164.4 -75.8 169.9 -75.7 175.4 -75.4 178.3 -73.9 177.4 -70.8 173.6 -66.7 169.9 -62.7 168.7 -59.8 171.4 -58.2 176.9 -57.5 182.4 -56.6 185.1 -54.8 183.8 -51.8 179.7 -48.1 175.5 -44.6 174.1 -41.8 176.6 -40 181.9 -38.7 187.3 -37.3 189.8 -35.2 188.2 -32.3 183.7 -29.1 179.2 -26 177.5 -23.4 179.8 -21.3 185 -19.4 190.1 -17.5 192.4 -15.1 190.5 -12.5 185.7 -9.7 180.9 -7.1 178.9 -4.7 181 -2.4Z" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+<path id="gD" d="M36 0L43.6 2.4 49.8 5.6 53.7 9.1 54.6 12.5 52.3 15.1 47.3 16.6 40.3 16.7 32.4 15.6 24.8 13.7 18.5 11.6 14.3 10.1 12.5 10 13.1 11.7 15.5 15.5 18.9 21.1 22.4 28.1 25.3 35.6 26.7 42.5 26.4 47.7 24.3 50.5 20.8 50.3 16.6 47.3 12.1 41.9 8 35.1 4.7 27.9 2.4 21.7 1 17.5 0 16 -1 17.5 -2.4 21.7 -4.7 27.9 -8 35.1 -12.1 41.9 -16.6 47.3 -20.8 50.3 -24.3 50.5 -26.4 47.7 -26.7 42.5 -25.3 35.6 -22.4 28.1 -18.9 21.1 -15.5 15.5 -13.1 11.7 -12.5 10 -14.3 10.1 -18.5 11.6 -24.8 13.7 -32.4 15.6 -40.3 16.7 -47.3 16.6 -52.3 15.1 -54.6 12.5 -53.7 9.1 -49.8 5.6 -43.6 2.4 -36 0 -28.3 -1.6 -21.7 -2.4 -17.3 -2.9 -15.6 -3.6 -16.8 -4.9 -20.6 -7.2 -26.2 -10.8 -32.4 -15.6 -38.2 -21.1 -42.5 -26.7 -44.4 -31.5 -43.8 -34.9 -40.6 -36.3 -35.5 -35.5 -29.1 -32.6 -22.4 -28.1 -16.4 -23.1 -11.6 -18.5 -8.5 -15.3 -6.9 -14.4 -6.7 -16.2 -7.2 -20.6 -7.8 -27.2 -8 -35.1 -7.3 -43 -5.6 -49.8 -3.1 -54.4 0 -56 3.1 -54.4 5.6 -49.8 7.3 -43 8 -35.1 7.8 -27.2 7.2 -20.6 6.7 -16.2 6.9 -14.4 8.5 -15.3 11.6 -18.5 16.4 -23.1 22.4 -28.1 29.1 -32.6 35.5 -35.5 40.6 -36.3 43.8 -34.9 44.4 -31.5 42.5 -26.7 38.2 -21.1 32.4 -15.6 26.2 -10.8 20.6 -7.2 16.8 -4.9 15.6 -3.6 17.3 -2.9 21.7 -2.4 28.3 -1.6Z" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+<path id="wA" d="M-36 20L-33 27 -30 32.1 -27 34 -24 32.1 -21 27 -18 20 -15 13 -12 7.9 -9 6 -6 7.9 -3 13 0 20 3 27 6 32.1 9 34 12 32.1 15 27 18 20 21 13 24 7.9 27 6 30 7.9 33 13 36 20 39 27 42 32.1 45 34 48 32.1 51 27 54 20 57 13 60 7.9 63 6 66 7.9 69 13 72 20 75 27 78 32.1 81 34 84 32.1 87 27 90 20 93 13 96 7.9 99 6 102 7.9 105 13 108 20 111 27 114 32.1 117 34 120 32.1 123 27 126 20 129 13 132 7.9 135 6 138 7.9 141 13 144 20 147 27 150 32.1 153 34 156 32.1 159 27 162 20 165 13 168 7.9 171 6 174 7.9 177 13 180 20 183 27 186 32.1 189 34 192 32.1 195 27 198 20 201 13 204 7.9 207 6 210 7.9 213 13 216 20 219 27 222 32.1 225 34 228 32.1 231 27 234 20 237 13 240 7.9 243 6 246 7.9 249 13 252 20 255 27 258 32.1 261 34 264 32.1 267 27 270 20 273 13 276 7.9 279 6 282 7.9 285 13 288 20 291 27 294 32.1 297 34 300 32.1 303 27 306 20 309 13 312 7.9 315 6 318 7.9 321 13 324 20 327 27 330 32.1 333 34 336 32.1 339 27 342 20 345 13 348 7.9 351 6 354 7.9 357 13 360 20 363 27 366 32.1 369 34 372 32.1 375 27 378 20 381 13 384 7.9 387 6 390 7.9 393 13 396 20 399 27 402 32.1 405 34 408 32.1 411 27 414 20 417 13 420 7.9 423 6 426 7.9 429 13 432 20 435 27 438 32.1 441 34 444 32.1 447 27 450 20 453 13 456 7.9 459 6 462 7.9 465 13 468 20 471 27 474 32.1 477 34 480 32.1 483 27 486 20 489 13 492 7.9 495 6 498 7.9 501 13 504 20 507 27 510 32.1 513 34 516 32.1 519 27 522 20 525 13 528 7.9 531 6 534 7.9 537 13 540 20 543 27 546 32.1 549 34 552 32.1 555 27 558 20 561 13 564 7.9 567 6 570 7.9 573 13 576 20 579 27 582 32.1 585 34 588 32.1 591 27 594 20 597 13 600 7.9 603 6 606 7.9 609 13 612 20 615 27 618 32.1 621 34 624 32.1 627 27 630 20 633 13 636 7.9 639 6 642 7.9 645 13 648 20 651 27 654 32.1 657 34 660 32.1 663 27 666 20 669 13 672 7.9 675 6 678 7.9 681 13 684 20 687 27 690 32.1 693 34 696 32.1 699 27 702 20 705 13 708 7.9 711 6 714 7.9 717 13 720 20 723 27 726 32.1 729 34 732 32.1 735 27 738 20 741 13 744 7.9 747 6 750 7.9 753 13 756 20 759 27 762 32.1 765 34 768 32.1 771 27 774 20 777 13 780 7.9 783 6 786 7.9 789 13 792 20 795 27 798 32.1 801 34 804 32.1 807 27 810 20 813 13 816 7.9 819 6 822 7.9 825 13 828 20 831 27 834 32.1 837 34 840 32.1 843 27 846 20 849 13 852 7.9 855 6 858 7.9 861 13 864 20 867 27 870 32.1 873 34 876 32.1 879 27 882 20 885 13 888 7.9 891 6 894 7.9 897 13 900 20 903 27 906 32.1 909 34 912 32.1 915 27 918 20 921 13 924 7.9 927 6 930 7.9 933 13 936 20 939 27 942 32.1 945 34 948 32.1 951 27 954 20 957 13 960 7.9 963 6 966 7.9 969 13 972 20 975 27 978 32.1 981 34 984 32.1 987 27 990 20 993 13 996 7.9 999 6 1002 7.9 1005 13 1008 20 1011 27 1014 32.1 1017 34 1020 32.1 1023 27 1026 20 1029 13 1032 7.9 1035 6 1038 7.9 1041 13 1044 20 1047 27 1050 32.1 1053 34 1056 32.1 1059 27 1062 20 1065 13 1068 7.9 1071 6 1074 7.9 1077 13 1080 20 1083 27 1086 32.1 1089 34 1092 32.1 1095 27 1098 20 1101 13 1104 7.9 1107 6 1110 7.9 1113 13 1116 20 1119 27 1122 32.1 1125 34 1128 32.1 1131 27 1134 20 1137 13 1140 7.9 1143 6 1146 7.9 1149 13 1152 20 1155 27 1158 32.1 1161 34 1164 32.1 1167 27 1170 20 1173 13 1176 7.9 1179 6 1182 7.9 1185 13 1188 20 1191 27 1194 32.1 1197 34 1200 32.1 1203 27 1206 20 1209 13 1212 7.9 1215 6 1218 7.9 1221 13 1224 20 1227 27 1230 32.1 1233 34 1236 32.1" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+<path id="wB" d="M-180 20L-174 23.7 -168 27.3 -162 30.6 -156 33.4 -150 35.6 -144 37.1 -138 37.9 -132 37.9 -126 37.1 -120 35.6 -114 33.4 -108 30.6 -102 27.3 -96 23.7 -90 20 -84 16.3 -78 12.7 -72 9.4 -66 6.6 -60 4.4 -54 2.9 -48 2.1 -42 2.1 -36 2.9 -30 4.4 -24 6.6 -18 9.4 -12 12.7 -6 16.3 0 20 6 23.7 12 27.3 18 30.6 24 33.4 30 35.6 36 37.1 42 37.9 48 37.9 54 37.1 60 35.6 66 33.4 72 30.6 78 27.3 84 23.7 90 20 96 16.3 102 12.7 108 9.4 114 6.6 120 4.4 126 2.9 132 2.1 138 2.1 144 2.9 150 4.4 156 6.6 162 9.4 168 12.7 174 16.3 180 20 186 23.7 192 27.3 198 30.6 204 33.4 210 35.6 216 37.1 222 37.9 228 37.9 234 37.1 240 35.6 246 33.4 252 30.6 258 27.3 264 23.7 270 20 276 16.3 282 12.7 288 9.4 294 6.6 300 4.4 306 2.9 312 2.1 318 2.1 324 2.9 330 4.4 336 6.6 342 9.4 348 12.7 354 16.3 360 20 366 23.7 372 27.3 378 30.6 384 33.4 390 35.6 396 37.1 402 37.9 408 37.9 414 37.1 420 35.6 426 33.4 432 30.6 438 27.3 444 23.7 450 20 456 16.3 462 12.7 468 9.4 474 6.6 480 4.4 486 2.9 492 2.1 498 2.1 504 2.9 510 4.4 516 6.6 522 9.4 528 12.7 534 16.3 540 20 546 23.7 552 27.3 558 30.6 564 33.4 570 35.6 576 37.1 582 37.9 588 37.9 594 37.1 600 35.6 606 33.4 612 30.6 618 27.3 624 23.7 630 20 636 16.3 642 12.7 648 9.4 654 6.6 660 4.4 666 2.9 672 2.1 678 2.1 684 2.9 690 4.4 696 6.6 702 9.4 708 12.7 714 16.3 720 20 726 23.7 732 27.3 738 30.6 744 33.4 750 35.6 756 37.1 762 37.9 768 37.9 774 37.1 780 35.6 786 33.4 792 30.6 798 27.3 804 23.7 810 20 816 16.3 822 12.7 828 9.4 834 6.6 840 4.4 846 2.9 852 2.1 858 2.1 864 2.9 870 4.4 876 6.6 882 9.4 888 12.7 894 16.3 900 20 906 23.7 912 27.3 918 30.6 924 33.4 930 35.6 936 37.1 942 37.9 948 37.9 954 37.1 960 35.6 966 33.4 972 30.6 978 27.3 984 23.7 990 20 996 16.3 1002 12.7 1008 9.4 1014 6.6 1020 4.4 1026 2.9 1032 2.1 1038 2.1 1044 2.9 1050 4.4 1056 6.6 1062 9.4 1068 12.7 1074 16.3 1080 20 1086 23.7 1092 27.3 1098 30.6 1104 33.4 1110 35.6 1116 37.1 1122 37.9 1128 37.9 1134 37.1 1140 35.6 1146 33.4 1152 30.6 1158 27.3 1164 23.7 1170 20 1176 16.3 1182 12.7 1188 9.4 1194 6.6 1200 4.4 1206 2.9 1212 2.1 1218 2.1 1224 2.9 1230 4.4 1236 6.6 1242 9.4 1248 12.7 1254 16.3 1260 20 1266 23.7 1272 27.3 1278 30.6 1284 33.4 1290 35.6 1296 37.1 1302 37.9 1308 37.9 1314 37.1 1320 35.6 1326 33.4 1332 30.6 1338 27.3 1344 23.7 1350 20 1356 16.3 1362 12.7 1368 9.4 1374 6.6 1380 4.4" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/>
+<symbol id="rosette" viewBox="-200 -200 400 400"><use href="#gC"/><use href="#gC" transform="rotate(2)"/><use href="#gC" transform="rotate(4)"/><use href="#gA"/><use href="#gA" transform="rotate(1.9)"/><use href="#gA" transform="rotate(3.8)"/><use href="#gA" transform="rotate(5.6)"/><use href="#gA" transform="rotate(7.5)"/><use href="#gA" transform="rotate(9.4)"/><use href="#gA" transform="rotate(11.3)"/><use href="#gA" transform="rotate(13.1)"/><use href="#gB"/><use href="#gB" transform="rotate(6)"/><use href="#gB" transform="rotate(12)"/><use href="#gB" transform="rotate(18)"/><use href="#gB" transform="rotate(24)"/><use href="#gB" transform="rotate(30)"/><use href="#gD"/><use href="#gD" transform="rotate(10.3)"/><use href="#gD" transform="rotate(20.6)"/><use href="#gD" transform="rotate(30.9)"/><use href="#gD" transform="rotate(41.1)"/><circle r="196" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/><circle r="122" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/><circle r="12" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/></symbol>
+<symbol id="band" viewBox="0 0 1200 40" preserveAspectRatio="none"><use href="#wA"/><use href="#wA" transform="translate(4.5 0)"/><use href="#wA" transform="translate(9 0)"/><use href="#wA" transform="translate(13.5 0)"/><use href="#wA" transform="translate(18 0)"/><use href="#wA" transform="translate(22.5 0)"/><use href="#wA" transform="translate(27 0)"/><use href="#wA" transform="translate(31.5 0)"/><use href="#wB"/><use href="#wB" transform="translate(90 0)"/><path d="M0 1.5H1200M0 38.5H1200" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"/></symbol>
+<symbol id="wheel" viewBox="-74 -74 148 148"><g fill="none" stroke="currentColor" stroke-width="0.8" vector-effect="non-scaling-stroke"><circle r="71"/><circle r="64.5"/><circle r="60"/><circle r="56"/><path d="M5 -12L55.5 0M2.5 12.8L54.4 10.8M9.2 -9.2L51.3 21.2M-2.5 12.8L46.1 30.8M12 -5L39.2 39.2M-7.2 10.8L30.8 46.1M13 0L21.2 51.3M-10.8 7.2L10.8 54.4M12 5L0 55.5M-12.8 2.5L-10.8 54.4M9.2 9.2L-21.2 51.3M-12.8 -2.5L-30.8 46.1M5 12L-39.2 39.2M-10.8 -7.2L-46.1 30.8M0 13L-51.3 21.2M-7.2 -10.8L-54.4 10.8M-5 12L-55.5 0M-2.5 -12.8L-54.4 -10.8M-9.2 9.2L-51.3 -21.2M2.5 -12.8L-46.1 -30.8M-12 5L-39.2 -39.2M7.2 -10.8L-30.8 -46.1M-13 0L-21.2 -51.3M10.8 -7.2L-10.8 -54.4M-12 -5L0 -55.5M12.8 -2.5L10.8 -54.4M-9.2 -9.2L21.2 -51.3M12.8 2.5L30.8 -46.1M-5 -12L39.2 -39.2M10.8 7.2L46.1 -30.8M0 -13L51.3 -21.2M7.2 10.8L54.4 -10.8"/><circle r="17.5"/><circle r="13"/><circle r="5"/><path d="M0 -64.5V-71.5M-1.6 -71.5H1.6"/></g><g fill="currentColor"><circle cx="15.4" cy="1.5" r="0.9"/><circle cx="13.7" cy="7.3" r="0.9"/><circle cx="9.8" cy="12" r="0.9"/><circle cx="4.5" cy="14.8" r="0.9"/><circle cx="-1.5" cy="15.4" r="0.9"/><circle cx="-7.3" cy="13.7" r="0.9"/><circle cx="-12" cy="9.8" r="0.9"/><circle cx="-14.8" cy="4.5" r="0.9"/><circle cx="-15.4" cy="-1.5" r="0.9"/><circle cx="-13.7" cy="-7.3" r="0.9"/><circle cx="-9.8" cy="-12" r="0.9"/><circle cx="-4.5" cy="-14.8" r="0.9"/><circle cx="1.5" cy="-15.4" r="0.9"/><circle cx="7.3" cy="-13.7" r="0.9"/><circle cx="12" cy="-9.8" r="0.9"/><circle cx="14.8" cy="-4.5" r="0.9"/></g></symbol>
+<filter id="ink" x="-6%" y="-6%" width="112%" height="112%" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11" result="n"/>
+<feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 0 0 0 -1.7" result="speck"/>
+<feComposite in="SourceGraphic" in2="speck" operator="in" result="inked"/>
+<feDisplacementMap in="inked" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+</filter>
+</defs>
+</svg>
+<div class="page">
+
+<header class="mast">
+  <p><b>二号桥单车铺</b>田野笔记 · 按票据格式整理</p>
+  <p>正面为票面，背面为条款、票价与时刻 · <span class="sc">Bridge No.2 Cycle Works</span></p>
+</header>
+
+<main>
+
+<!-- 1 · card front (admit-one) -->
+<article class="tk front" aria-labelledby="t-title">
+  <div class="tk-body sec">
+    <svg class="gl gl-rose" aria-hidden="true"><use href="#rosette"/></svg>
+    <div class="grid fg">
+      <div class="c f-issuer">
+        <span class="lbl">签发 · Issued by</span>
+        <p class="issuer">二号桥单车铺 <span class="sc">— Bridge No.2 Cycle Works</span></p>
+      </div>
+      <div class="c f-serial">
+        <span class="lbl">编号 · Serial（按记录日期）</span>
+        <p class="serial"><span class="no">Nº</span>20261102</p>
+      </div>
+      <div class="c f-route">
+        <svg class="gl gl-band" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><use href="#band"/></svg>
+        <span class="lbl">自<br>From</span>
+        <span class="from">河西路</span>
+        <span class="arrow" aria-hidden="true"></span>
+      </div>
+      <div class="c f-title">
+        <span class="lbl">至 · To</span>
+        <h1 id="t-title">二号桥单车铺</h1>
+        <div class="title-row">
+          <p class="prod">Bridge No.2 Cycle Works</p>
+          <p class="note">修车 · 卖二手车 · 卖零件<br>发售条件见背面（See reverse）</p>
+        </div>
+      </div>
+      <div class="c f-band">
+        <span class="lbl">等级<br>Class</span>
+        <p class="cls">修车 · 二手车 · 零件</p>
+        <p class="cls-no">不卖新车</p>
+      </div>
+      <div class="c f-fare f1">
+        <span class="lbl">票价 Fare — 补胎</span>
+        <p class="note">单项收费</p>
+        <p class="price"><span class="cur">¥</span>15</p>
+      </div>
+      <div class="c f-fare f2">
+        <span class="lbl">换内胎</span>
+        <p class="note">价已含内胎</p>
+        <p class="price"><span class="cur">¥</span>35</p>
+      </div>
+      <div class="c f-fare f3">
+        <span class="lbl">全车保养（约 2 小时）</span>
+        <p class="note">清洗传动 · 调变速和刹车 · 紧固全车螺丝</p>
+        <p class="price"><span class="cur">¥</span>180</p>
+      </div>
+      <div class="c f-fare f4">
+        <span class="lbl">门口气泵（24 小时）</span>
+        <p class="note">门口 · 昼夜可用</p>
+        <p class="free">免费</p>
+      </div>
+    </div>
+  </div>
+  <div class="perf" aria-hidden="true"></div>
+  <div class="tk-stub sec">
+    <svg class="gl gl-rose" aria-hidden="true"><use href="#rosette"/></svg>
+    <div class="grid sg">
+      <div class="c s-admit">
+        <p class="admit">ADMIT ONE</p>
+        <span class="lbl">存根 · Counterfoil</span>
+      </div>
+      <div class="c s-days">
+        <span class="lbl">营业日 · Days</span>
+        <p class="days">周三至周日</p>
+      </div>
+      <div class="c s-time">
+        <div class="hours">
+          <p><span class="lbl">开<br>Open</span><span class="hh">10:00</span></p>
+          <p><span class="lbl">收<br>Close</span><span class="hh">20:00</span></p>
+        </div>
+      </div>
+      <div class="c s-band">
+        <span class="lbl">休<br>Closed</span>
+        <p class="off">周一、周二</p>
+      </div>
+      <div class="c s-serial">
+        <span class="lbl">存根编号 · Stub Nº</span>
+        <p class="serial">20261102</p>
+      </div>
+    </div>
+    <!-- 2 · dating press, overprinting the card's lower right corner -->
+    <div class="stamp" role="img" aria-label="日戳：二号桥，2026 年 11 月 2 日记"><span class="st-a">二号桥记</span><span class="st-b">2026·11·02</span></div>
+  </div>
+</article>
+
+<!-- reverse side -->
+<div class="rev">
+  <div class="col">
+
+    <!-- 3 · conditions of issue -->
+    <article class="tk tk--v tk-cond" aria-labelledby="t-cond">
+      <div class="tk-body sec">
+        <svg class="gl gl-band" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><use href="#band"/></svg>
+        <div class="grid">
+          <div class="c mh"><span class="lbl">背面 · 甲联</span><h2 id="t-cond">发售条件</h2><span class="mh-en">Conditions of issue</span></div>
+          <div class="c intro"><p>按现场所见逐条记下；括号内为补充，各联互见。</p></div>
+          <div class="c clauses">
+            <ol>
+              <li>本铺不卖新车；只修车、卖二手车和零件。</li>
+              <li>周一、周二休息。其余各日开门、收门时刻见丁联。</li>
+              <li>换内胎的价钱已含内胎（不另收）。</li>
+              <li>全车保养包括：清洗传动；调变速和刹车；紧固全车螺丝。</li>
+              <li>手工编轮组按工期交付（工期、起价见丙联）。</li>
+              <li>公路车 Fitting 须预约（方式见庚联）。</li>
+              <li>二手车每辆都换过链条和刹车皮，另附保修（见己联）。</li>
+              <li>门口气泵免费，昼夜可用（休息日照常）。</li>
+              <li>周四夜骑免费；参加者自带车灯（见戊联）。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="tk-stub sec">
+        <div class="grid g2">
+          <div class="c"><span class="lbl">业务 · Trade</span><p class="v">修车<br>二手车<br>零件</p></div>
+          <div class="c"><span class="lbl">新车 · New bikes</span><p class="no-new">不卖</p></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- issuing clerk -->
+    <article class="tk tk--v tk-clerk" aria-labelledby="t-clerk">
+      <div class="tk-body sec">
+        <div class="grid g2">
+          <div class="c mh span"><span class="lbl">乙联 · 签发人</span><h2 id="t-clerk">老陈</h2><span class="mh-en">Issuing clerk</span></div>
+          <div class="c"><span class="lbl">姓名 · Name</span><p class="v">陈立平</p></div>
+          <div class="c"><span class="lbl">称呼 · Known as</span><p class="v">老陈</p></div>
+          <div class="c span"><span class="lbl">此前 · Before</span><p class="v">在自行车厂做装配</p><p class="note">（“老陈”是大家对他的叫法）</p></div>
+        </div>
+      </div>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="tk-stub sec">
+        <svg class="gl gl-rose" aria-hidden="true"><use href="#rosette"/></svg>
+        <div class="grid">
+          <div class="c"><span class="lbl">修车 · Years at the stand</span><p class="num big">27<small>年</small></p></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- used-bike warranty -->
+    <article class="tk tk--v tk-warr" aria-labelledby="t-warr">
+      <div class="tk-body sec">
+        <div class="grid g2">
+          <div class="c mh span"><span class="lbl">己联 · 保修凭证</span><h2 id="t-warr">二手车</h2><span class="mh-en">Used bikes</span></div>
+          <div class="c"><span class="lbl">链条 · Chain</span><p class="v">已换</p></div>
+          <div class="c"><span class="lbl">刹车皮 · Pads</span><p class="v">已换</p></div>
+          <div class="c span"><span class="lbl">适用 · Applies to</span><p class="v">店里每一辆二手车</p><p class="note">（观察到：每辆都换过这两样）</p></div>
+        </div>
+      </div>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="tk-stub sec">
+        <svg class="gl gl-rose" aria-hidden="true"><use href="#rosette"/></svg>
+        <div class="grid">
+          <div class="c"><span class="lbl">保修 · Warranty</span><p class="num big">90<small>天</small></p></div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+  <div class="col">
+
+    <!-- 4 · fare table -->
+    <article class="tk tk-fare" aria-labelledby="t-fare">
+      <div class="tk-body sec">
+        <svg class="gl gl-band" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><use href="#band"/></svg>
+        <div class="grid">
+          <div class="c mh"><span class="lbl">丙联 · 票价表</span><h2 id="t-fare">票价</h2><span class="mh-en">Fare table · 单位：元</span></div>
+          <div class="c tbl">
+            <table class="fare">
+              <thead><tr><th scope="col"><span class="lbl">项目 · Item</span></th> <th scope="col"><span class="lbl">时长 / 里程</span></th> <th scope="col"><span class="lbl">票价 · Fare</span></th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><span class="ld">补胎</span></th> <td>—</td> <td class="p"><span class="cur">¥</span>15</td></tr>
+                <tr><th scope="row"><span class="ld">换内胎<small>含内胎</small></span></th> <td>—</td> <td class="p"><span class="cur">¥</span>35</td></tr>
+                <tr><th scope="row"><span class="ld">全车保养<small>明细见存根</small></span></th> <td>约 2 小时</td> <td class="p"><span class="cur">¥</span>180</td></tr>
+                <tr><th scope="row"><span class="ld">手工编轮组</span></th> <td>工期 5 天</td> <td class="p"><span class="cur">¥</span>260<small>起</small></td></tr>
+                <tr><th scope="row"><span class="ld">公路车 Fitting<small>需预约</small></span></th> <td>约 90 分钟</td> <td class="p"><span class="cur">¥</span>480</td></tr>
+                <tr><th scope="row"><span class="ld">门口气泵<small>昼夜</small></span></th> <td>24 小时</td> <td class="z">免费</td></tr>
+                <tr><th scope="row"><span class="ld">周四夜骑<small>自带车灯</small></span></th> <td>24 公里</td> <td class="z">免费</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="tk-stub sec">
+        <svg class="gl gl-rose" aria-hidden="true"><use href="#rosette"/></svg>
+        <div class="grid">
+          <div class="c"><span class="lbl">存根 · 全车保养</span><p class="price cell-num"><span class="cur">¥</span>180</p></div>
+          <div class="c"><span class="lbl">工时 · Time</span><p class="v">约 2 小时</p></div>
+          <div class="c"><span class="lbl">内容 · Includes</span><ol class="mini"><li>清洗传动</li><li>调变速和刹车</li><li>紧固全车螺丝</li></ol></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- timetable -->
+    <article class="tk tk-tt" aria-labelledby="t-tt">
+      <div class="tk-body sec">
+        <div class="grid">
+          <div class="c mh"><span class="lbl">丁联 · 时刻表</span><h2 id="t-tt">每周时刻</h2><span class="mh-en">Timetable</span></div>
+          <div class="c tbl">
+            <table class="tt">
+              <thead><tr><th scope="col"><span class="lbl">周 · Day</span></th> <th scope="col">周一</th> <th scope="col">周二</th> <th scope="col">周三</th> <th scope="col">周四</th> <th scope="col">周五</th> <th scope="col">周六</th> <th scope="col">周日</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><span class="lbl">开门 · Open</span></th> <td class="x" rowspan="2"><span>休</span></td> <td class="x" rowspan="2"><span>休</span></td> <td>10:00</td> <td>10:00</td> <td>10:00</td> <td>10:00</td> <td>10:00</td></tr>
+                <tr><th scope="row"><span class="lbl">收门 · Close</span></th> <td>20:00</td> <td>20:00</td> <td>20:00</td> <td>20:00</td> <td>20:00</td></tr>
+                <tr><th scope="row"><span class="lbl">夜骑 · Ride</span></th> <td class="dash">—</td> <td class="dash">—</td> <td class="dash">—</td> <td class="hit">19:30</td> <td class="dash">—</td> <td class="dash">—</td> <td class="dash">—</td></tr>
+                <tr><th scope="row"><span class="lbl">气泵 · Air</span></th> <td colspan="7" class="pump">昼夜可用 · 24 小时 · 免费</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="tk-stub sec">
+        <svg class="gl gl-rose" aria-hidden="true"><use href="#rosette"/></svg>
+        <div class="grid">
+          <div class="c"><span class="lbl">休息 · Closed</span><p class="off-big">周一<br>周二</p><p class="note">（门口气泵照常可用）</p></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- night ride -->
+    <article class="tk tk-ride" aria-labelledby="t-ride">
+      <div class="tk-body sec">
+        <svg class="gl gl-band" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><use href="#band"/></svg>
+        <div class="grid g3">
+          <div class="c mh span"><span class="lbl">戊联 · 夜骑票</span><h2 id="t-ride">周四夜骑</h2><span class="mh-en">Thursday night ride</span></div>
+          <div class="c span map-c">
+            <span class="lbl">路线 · Route（示意：自店门口出发，沿江一圈）</span>
+            <svg class="map" viewBox="0 0 480 150" role="img" aria-label="路线示意：自店门口出发，沿江一圈">
+<path class="water" d="M-10 115.5L-6 116.1 -2 117.3 2 118.7 6 119.9 10 120.5 14 120.4 18 119.6 22 118.4 26 117 30 115.9 34 115.4 38 115.7 42 116.6 46 118 50 119.4 54 120.3 58 120.6 62 120.1 66 119 70 117.6 74 116.4 78 115.6 82 115.5 86 116.1 90 117.3 94 118.7 98 119.9 102 120.5 106 120.4 110 119.6 114 118.4 118 117 122 115.9 126 115.4 130 115.7 134 116.6 138 118 142 119.4 146 120.3 150 120.6 154 120.1 158 119 162 117.6 166 116.4 170 115.6 174 115.5 178 116.1 182 117.3 186 118.7 190 119.9 194 120.5 198 120.4 202 119.6 206 118.4 210 117 214 115.9 218 115.4 222 115.7 226 116.6 230 118 234 119.4 238 120.3 242 120.6 246 120.1 250 119 254 117.6 258 116.4 262 115.6 266 115.5 270 116.1 274 117.3 278 118.7 282 119.9 286 120.5 290 120.4 294 119.6 298 118.4 302 117 306 115.9 310 115.4 314 115.7 318 116.6 322 118 326 119.4 330 120.3 334 120.6 338 120.1 342 119 346 117.6 350 116.4 354 115.6 358 115.5 362 116.1 366 117.3 370 118.7 374 119.9 378 120.5 382 120.4 386 119.6 390 118.4 394 117 398 115.9 402 115.4 406 115.7 410 116.6 414 118 418 119.4 422 120.3 426 120.6 430 120.1 434 119 438 117.6 442 116.4 446 115.6 450 115.5 454 116.1 458 117.3 462 118.7 466 119.9 470 120.5 474 120.4 478 119.6 482 118.4 486 117 490 115.9M-10 141.8L-6 143.2 -2 144.2 2 144.6 6 144.2 10 143.2 14 141.8 18 140.5 22 139.6 26 139.4 30 140 34 141.1 38 142.5 42 143.8 46 144.5 50 144.5 54 143.8 58 142.5 62 141.1 66 140 70 139.4 74 139.6 78 140.5 82 141.8 86 143.2 90 144.2 94 144.6 98 144.2 102 143.2 106 141.8 110 140.5 114 139.6 118 139.4 122 140 126 141.1 130 142.5 134 143.8 138 144.5 142 144.5 146 143.8 150 142.5 154 141.1 158 140 162 139.4 166 139.6 170 140.5 174 141.8 178 143.2 182 144.2 186 144.6 190 144.2 194 143.2 198 141.8 202 140.5 206 139.6 210 139.4 214 140 218 141.1 222 142.5 226 143.8 230 144.5 234 144.5 238 143.8 242 142.5 246 141.1 250 140 254 139.4 258 139.6 262 140.5 266 141.8 270 143.2 274 144.2 278 144.6 282 144.2 286 143.2 290 141.8 294 140.5 298 139.6 302 139.4 306 140 310 141.1 314 142.5 318 143.8 322 144.5 326 144.5 330 143.8 334 142.5 338 141.1 342 140 346 139.4 350 139.6 354 140.5 358 141.8 362 143.2 366 144.2 370 144.6 374 144.2 378 143.2 382 141.8 386 140.5 390 139.6 394 139.4 398 140 402 141.1 406 142.5 410 143.8 414 144.5 418 144.5 422 143.8 426 142.5 430 141.1 434 140 438 139.4 442 139.6 446 140.5 450 141.8 454 143.2 458 144.2 462 144.6 466 144.2 470 143.2 474 141.8 478 140.5 482 139.6 486 139.4 490 140"/>
+<path class="water w2" d="M8 133h10M47 126h10M60 133h10M99 126h10M112 133h10M151 126h10M164 133h10M203 126h10M216 133h10M255 126h10M268 133h10M307 126h10M320 133h10M359 126h10M372 133h10M411 126h10M424 133h10M463 126h10"/>
+<text class="m-river" x="452" y="137">江</text>
+<path class="loop-line" d="M84 96H400A32 32 0 0 0 400 32H84A32 32 0 0 0 84 96Z"/>
+<path class="loop-ticks" d="M84 96H400A32 32 0 0 0 400 32H84A32 32 0 0 0 84 96Z"/>
+<path class="chev" d="M262 90l12 6-12 6zM238 26l-12 6 12 6z"/>
+<rect class="stn" x="113" y="89" width="14" height="14"/>
+<text class="m-stn" x="120" y="80" text-anchor="middle">店门口</text>
+<text class="m-big" x="262" y="73" text-anchor="middle">沿江一圈</text>
+</svg>
+          </div>
+          <div class="c"><span class="lbl">出发 · Dep.</span><p class="cell-num">19:30</p></div>
+          <div class="c"><span class="lbl">里程 · Distance</span><p class="cell-num">24<small>公里</small></p></div>
+          <div class="c"><span class="lbl">票价 · Fare</span><p class="cell-z">免费</p></div>
+          <div class="c span"><span class="lbl">须知 · Bring</span><p class="v">自带车灯（夜骑本身免费）</p></div>
+        </div>
+      </div>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="tk-stub sec">
+        <svg class="gl gl-rose" aria-hidden="true"><use href="#rosette"/></svg>
+        <div class="grid">
+          <div class="c"><p class="admit">ADMIT ONE</p><span class="lbl">每周四 · Thursdays</span></div>
+          <div class="c"><span class="lbl">发车 · Dep.</span><p class="cell-num">19:30</p></div>
+          <div class="c"><span class="lbl">集合 · Meet</span><p class="cell-z">店门口</p></div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<!-- 5 · inspector's clip: last coupon, bitten -->
+<article class="tk clip-tk" aria-labelledby="t-clip">
+  <div class="tk-body sec">
+    <svg class="gl gl-band" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><use href="#band"/></svg>
+    <div class="grid">
+      <div class="c mh"><span class="lbl">庚联 · 末联</span><h2 id="t-clip">预约与到店</h2><span class="mh-en">Booking &amp; directions</span></div>
+      <div class="c tbl">
+        <table class="rows">
+          <tr><th scope="row"><span class="lbl">电话 · Tel</span></th> <td><a href="tel:0571-5555-0222">0571-5555-0222</a></td> <td class="aside">（预约用）</td></tr>
+          <tr><th scope="row"><span class="lbl">登记 · In person</span></th> <td>或到店登记</td> <td class="aside">（营业日：周三至周日）</td></tr>
+          <tr><th scope="row"><span class="lbl">须预约 · By appt.</span></th> <td>公路车 Fitting</td> <td class="aside">（约 90 分钟）</td></tr>
+          <tr><th scope="row"><span class="lbl">地址 · Address</span></th> <td>河西路二号桥桥洞下东侧</td> <td class="aside">（桥洞下，东侧）</td></tr>
+          <tr><th scope="row"><span class="lbl">认门 · Look for</span></th> <td>蓝色卷帘门；门口立着一个旧车轮</td> <td class="aside">（观察到的标志物）</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="perf" aria-hidden="true"></div>
+  <div class="tk-stub sec">
+    <div class="grid">
+      <div class="c clip-mark"><span class="lbl">检 · Clipped</span><span class="lbl">检票剪口</span></div>
+      <div class="c wheel-c"><svg class="wheel" aria-hidden="true"><use href="#wheel"/></svg><p class="note">门口立着的旧车轮（认门用）</p></div>
+      <div class="c"><span class="lbl">存根编号 · Stub Nº</span><p class="serial">20261102</p></div>
+    </div>
+  </div>
+  <svg class="bite" viewBox="0 0 60 26" aria-hidden="true"><path d="M0 0 C1.5 10 6 16.5 12 18.5 Q15.5 24.5 20 20.8 Q24.5 25.5 30 21.6 Q35.5 25.5 40 20.8 Q44.5 24.5 48 18.5 C54 16.5 58.5 10 60 0"/></svg>
+</article>
+
+</main>
+</div>
+</body>
+</html>

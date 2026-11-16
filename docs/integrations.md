@@ -1,5 +1,8 @@
 # Integrations / 跨环境调用
 
+v0.5 adds the [40-direction picker](https://xingchenyd.github.io/random-design/reference/) and [20 complete examples](https://xingchenyd.github.io/random-design/showcase/). MCP exposes 11 tools, including list_reference_styles, generate_reference_briefs, reproduce_reference_brief and critique_reference_page. Reference briefs require an agent to implement them; the 21 preset renderer and procedural export workflows are retained. See [migration notes](merge-v05.md).
+
+
 Last documentation check: 2026-11-03. Standard protocol tests are recorded in [validation/mcp.json](validation/mcp.json); they are not account-specific integration proof.
 
 The v0.3 tool surface adds `list_presets` and `get_preset`. A client can pick any of the [21 preset IDs](presets.md), then pass the returned `design` to `render_design`. `generate_directions` retains hash sampling and portable history. Browser-only clients can open the [preset catalogue](https://xingchenyd.github.io/random-design/presets/) and download the selected JSON or PPTX in the studio.

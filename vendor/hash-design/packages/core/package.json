@@ -1,0 +1,58 @@
+{
+  "name": "hash-design",
+  "version": "0.1.0",
+  "description": "Roll true-random hashes and map them, through a fixed decision tree, onto concrete design directions — so AI-built pages stop collapsing into the same template.",
+  "license": "MIT",
+  "author": "qybaihe",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qybaihe/hash-design.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/qybaihe/hash-design#readme",
+  "bugs": "https://github.com/qybaihe/hash-design/issues",
+  "keywords": [
+    "design",
+    "ai",
+    "llm",
+    "mcp",
+    "agent",
+    "skill",
+    "design-system",
+    "randomness",
+    "anti-ai-slop"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "hash-design": "./dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "!dist/.tsbuildinfo",
+    "skill",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "prepack": "node ../../scripts/prepack-core.mjs && tsc -b"
+  },
+  "dependencies": {
+    "node-html-parser": "^9.0.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

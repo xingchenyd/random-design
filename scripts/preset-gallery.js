@@ -36,7 +36,7 @@ function galleryHtml(language) {
   .preview iframe{position:absolute;inset:0;border:0;width:1200px;height:780px;transform-origin:top left;pointer-events:none}
   .links{font-size:13px}
   </style></head><body>
-  <header><nav><a href="../?lang=${language}">${zh ? '工作台' : 'Studio'}</a><a href="${zh ? 'en.html' : 'index.html'}">${zh ? 'English' : '简体中文'}</a><a href="${zh ? 'hash.html' : 'hash-en.html'}">${zh ? '随机哈希示例' : 'Hash example'}</a></nav>
+  <header><nav><a href="../showcase/${zh?'':'en.html'}">${zh?'20 个完整案例':'20 complete examples'}</a><a href="../reference/?lang=${language}">${zh?'40 套风格规则':'40 design directions'}</a><a href="../?lang=${language}">${zh ? '工作台' : 'Studio'}</a><a href="${zh ? 'en.html' : 'index.html'}">${zh ? 'English' : '简体中文'}</a><a href="${zh ? 'hash.html' : 'hash-en.html'}">${zh ? '随机哈希示例' : 'Hash example'}</a></nav>
   <h1>${zh ? '21 种固定风格' : '21 fixed styles'}</h1>
   <p>${zh ? '同一家示例咖啡店，21 套配色、排印和布局。点击任意预览查看完整网页。' : 'One fictional coffee shop, 21 palettes, typographic systems and layouts. Open any preview to see the full page.'}</p></header>
   <main>${cards}</main>

@@ -3,6 +3,10 @@
     {
       "transport": "stdio",
       "tools": [
+        "list_reference_styles",
+        "generate_reference_briefs",
+        "reproduce_reference_brief",
+        "critique_reference_page",
         "list_presets",
         "get_preset",
         "generate_directions",
@@ -19,6 +23,10 @@
     {
       "transport": "streamable-http",
       "tools": [
+        "list_reference_styles",
+        "generate_reference_briefs",
+        "reproduce_reference_brief",
+        "critique_reference_page",
         "list_presets",
         "get_preset",
         "generate_directions",

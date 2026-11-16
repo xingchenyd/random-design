@@ -1,0 +1,741 @@
+<!doctype html>
+<!-- hash-design #2 · bauhaus-primary · ref 4f1cc0f2c8334072b6f033983e1687912da5d7ba471cb7c6dc4187b421696503 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第四巷面包店 · 问答</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;900&family=Kumbh+Sans:wght@400;600&family=ZCOOL+QingKe+HuangYou&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+/* hash-design 4f1cc0f2 · bauhaus-primary · primaries-on-cream */
+:root {
+  --paper: #f1ece0;
+  --ink: #1b1b1b;
+  --muted: #55524a;
+  --accent: #d6261c;
+  --on-accent: #ffffff;
+  --accent2: #1f4fa3;
+  --on-accent2: #ffffff;
+  --rule: #1b1b1b;
+  --panel: #f2c21b;
+
+  --font-display: "League Spartan", "ZCOOL QingKe HuangYou", Futura, Arial, sans-serif;
+  --font-body: "Kumbh Sans", "Noto Sans SC", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.598rem; /* 9.6px */
+  --step-n1: 0.797rem; /* 12.8px */
+  --step-0: 1.063rem; /* 17px */
+  --step-1: 1.416rem; /* 22.7px */
+  --step-2: 1.888rem; /* 30.2px */
+  --step-3: 2.517rem; /* 40.3px */
+  --step-4: 3.355rem; /* 53.7px */
+  --step-5: 4.472rem; /* 71.5px */
+  --step-6: 5.961rem; /* 95.4px */
+  --step-7: 7.946rem; /* 127.1px */
+  --leading: 1.55;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  --section-gap: 112px;
+  --max-width: 1200px;
+
+  --motion-duration: 300ms;
+  --motion-easing: cubic-bezier(.5,0,.2,1);
+}
+
+html { font-size: 106.3%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ───────── page ───────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-size: 1rem;
+  font-synthesis: none;            /* ZCOOL 只有一档字重：不许假粗 */
+  text-spacing-trim: trim-start;
+  text-autospace: normal;
+  line-break: strict;
+  overflow-x: hidden;
+}
+h1, h2, h3, p, dl, dd, ol, ul, figure, blockquote { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+a { color: inherit; }
+a:focus-visible { outline: 3px solid var(--accent2); outline-offset: 3px; }
+::selection { background: var(--panel); color: var(--ink); }
+
+.wrap { max-width: calc(var(--max-width) + 80px); margin-inline: auto; padding-inline: 40px; }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+.bar { background: var(--rule); }
+.kicker {
+  font: 700 var(--step-n1)/1 var(--font-display);
+  letter-spacing: .08em;
+  font-variant-numeric: lining-nums;
+}
+.num { font-family: var(--font-display); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.01em; }
+
+/* 形：剪出来的色卡 */
+.cut { mix-blend-mode: multiply; }
+.turn { transition: transform var(--motion-duration) var(--motion-easing), background-color var(--motion-duration) linear; }
+.tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); transform-origin: 50% 66.667%; }
+.circ { border-radius: 50%; }
+.sq:hover, .turn-sq:hover { transform: rotate(90deg); }
+.tri.turn:hover { transform: rotate(120deg); }
+
+/* ───────── 1 · 封面 ───────── */
+.cover {
+  position: relative;
+  width: 100%;
+  max-width: 160svh;
+  aspect-ratio: 1440 / 900;
+  margin-inline: auto;
+  container-type: inline-size;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--paper);
+}
+.cover > * { position: absolute; margin: 0; }
+.c-meta {
+  left: 2.78cqw; top: 2.3cqw; width: 62.4cqw;
+  display: flex; justify-content: space-between; align-items: baseline;
+  font: 600 clamp(12px, 1.02cqw, 15px)/1.2 var(--font-body);
+  letter-spacing: .04em;
+}
+.c-meta .lc { font-family: var(--font-display); font-weight: 700; letter-spacing: .06em; }
+.c-bar1 { left: 2.78cqw; top: 6.11cqw; width: 62.4cqw; height: 1.667cqw; }
+.c-sub { left: 2.78cqw; top: 9.6cqw; width: 26cqw; z-index: 3; }
+.c-sub b {
+  display: block;
+  font: 400 2.1cqw/1 var(--font-display);
+  letter-spacing: .02em;
+  margin-bottom: .9cqw;
+}
+.c-sub span { display: block; font: 400 clamp(12px, 1.1cqw, 16px)/1.6 var(--font-body); color: var(--muted); max-width: 22em; }
+.c-num {
+  left: 2.3cqw; top: 16.2cqw;
+  font: 900 57.9cqw/1 var(--font-display);
+  letter-spacing: 0;
+  color: var(--ink);
+  user-select: none;
+}
+.c-tri { left: 35.49cqw; top: 13.89cqw; width: 45cqw; height: 38.97cqw; background: var(--panel); }
+.c-circ { left: 71.39cqw; top: 2.64cqw; width: 26cqw; height: 26cqw; background: var(--accent2); }
+.c-sq { left: 79.86cqw; top: 22.92cqw; width: 16cqw; height: 16cqw; background: var(--accent); }
+.c-bar2 { left: 18.8cqw; top: 29.86cqw; width: 81.2cqw; height: 1.111cqw; }
+.c-bar3 { left: 34.81cqw; top: 40.97cqw; width: 65.19cqw; height: 1.111cqw; }
+.c-title {
+  left: 34.81cqw; top: 32.35cqw;
+  font: 400 8.82cqw/1 var(--font-display);
+  letter-spacing: -.02em;
+  white-space: nowrap;
+  z-index: 3;
+  pointer-events: none;
+}
+.c-latin {
+  left: 34.81cqw; top: 43.4cqw;
+  font: 700 2.1cqw/1 var(--font-display);
+  letter-spacing: -.02em;
+  z-index: 3;
+  pointer-events: none;
+}
+.c-qa {
+  left: 82.85cqw; top: 44.4cqw; width: 14.6cqw;
+  font: 400 clamp(12px, 1.04cqw, 15px)/1.55 var(--font-body);
+  z-index: 3;
+}
+.c-qa dt { font-weight: 600; }
+.c-qa dt::before { content: "问："; color: var(--accent2); }
+.c-qa dt, .c-qa dd { padding-left: 2em; text-indent: -2em; }
+.c-qa dd { margin-top: .3em; }
+.c-qa dd::before { content: "答："; font-weight: 600; }
+.c-hours {
+  left: 82.85cqw; top: 52.2cqw; width: 14.6cqw;
+  padding-top: .7cqw;
+  border-top: 12px solid var(--rule);
+  font: 600 clamp(12px, 1.04cqw, 15px)/1.45 var(--font-body);
+}
+.c-cap {
+  left: 2.78cqw; top: 59.6cqw;
+  font: 600 clamp(12px, 1.02cqw, 15px)/1 var(--font-body);
+  letter-spacing: .04em;
+}
+
+/* ───────── 2 · 目录 ───────── */
+.toc { margin-top: var(--section-gap); }
+.toc > .bar { height: 24px; }
+.toc .grid { padding-top: 40px; align-items: start; }
+.toc-l { grid-column: 1 / span 5; }
+.toc-r { grid-column: 6 / span 7; padding-top: 6px; }
+.toc h2 {
+  font: 400 var(--step-7)/.9 var(--font-display);
+  letter-spacing: -.02em;
+  margin: 24px 0 40px;
+}
+.chapters li a {
+  display: grid;
+  grid-template-columns: 2.6em minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 12px;
+  padding: 10px 0 9px;
+  border-top: 2px solid var(--rule);
+  text-decoration: none;
+}
+.chapters li:last-child a { border-bottom: 2px solid var(--rule); }
+.chapters .n { font: 400 var(--step-1)/1 var(--font-display); }
+.chapters .t { font-weight: 700; font-size: var(--step-0); }
+.chapters .d { font-size: var(--step-n1); color: var(--muted); text-align: right; }
+.chapters a:hover .t { color: var(--accent2); }
+
+.prices-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 16px; }
+.prices-head h3 { font: 400 var(--step-3)/1 var(--font-display); letter-spacing: -.01em; }
+.prices-head p { font-size: var(--step-n1); color: var(--muted); text-align: right; }
+.prices li {
+  display: grid;
+  grid-template-columns: 22px minmax(8.5em, 1fr) minmax(0, 1.55fr) 4.2em;
+  column-gap: 16px;
+  align-items: center;
+  padding: 13px 0 12px;
+  border-top: 2px solid var(--rule);
+}
+.prices li:last-child { border-bottom: 2px solid var(--rule); }
+.mk { width: 16px; height: 16px; display: block; }
+.mk.sq { background: var(--accent); }
+.mk.circ { background: var(--accent2); }
+.mk.tri { background: var(--panel); width: 18px; }
+.prices .nm { font-weight: 700; line-height: 1.3; }
+.prices .nm small { display: block; font-weight: 400; font-size: var(--step-n1); color: var(--muted); margin-top: 2px; }
+.track { position: relative; height: 16px; }
+.track i {
+  position: absolute; left: 0; top: 0; height: 16px;
+  width: calc(var(--v) / 42 * 100%);
+  background: var(--ink);
+  transition: width var(--motion-duration) var(--motion-easing);
+}
+.track i.over { width: calc(100% + 6px); }
+.track i.over::before, .track i.over::after {
+  content: ""; position: absolute; top: -3px; bottom: -3px; width: 6px; background: var(--paper);
+}
+.track i.over::before { right: 46px; }
+.track i.over::after { right: 32px; }
+.prices .pr { font: 700 var(--step-1)/1 var(--font-display); text-align: right; font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.01em; }
+.prices .pr sub { font-size: var(--step-n1); vertical-align: baseline; font-family: var(--font-body); font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 16px; font-size: var(--step-n1); font-weight: 600; }
+.legend li { display: flex; align-items: center; gap: 8px; }
+.prices-note { margin-top: 8px; font-size: var(--step-n1); color: var(--muted); }
+
+/* ───────── 3 · 内页 ───────── */
+.spread { margin-top: var(--section-gap); }
+.run {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding-top: 10px;
+  border-top: 12px solid var(--rule);
+  font: 600 var(--step-n1)/1.2 var(--font-body);
+  letter-spacing: .04em;
+}
+.run .folio { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 400; font-size: var(--step-0); letter-spacing: .1em; }
+.run svg { width: 20px; height: 20px; display: block; }
+.cols { margin-top: 48px; row-gap: 72px; align-items: start; }
+.cols > .ch:nth-child(odd) { grid-column: 1 / span 6; padding-right: 24px; }
+.cols > .ch:nth-child(even) { grid-column: 7 / span 6; padding-left: 24px; }
+.ch > * + * { margin-top: 0; }
+
+.ch-head { position: relative; width: 152px; height: 152px; margin-bottom: 32px; --c: var(--accent); --on: var(--on-accent); --alt: var(--accent2); }
+.ch-head.blue { --c: var(--accent2); --on: var(--on-accent2); --alt: var(--accent); }
+.ch-head.yellow { --c: var(--panel); --on: var(--ink); --alt: var(--accent); }
+.ch-sq { position: absolute; inset: 0; background: var(--c); }
+.ch-head:hover .ch-sq { transform: rotate(90deg); }
+.ch-no { position: absolute; top: 14px; left: 16px; font: 700 var(--step-0)/1 var(--font-display); color: var(--on); letter-spacing: .02em; }
+.ch-head h3 {
+  position: absolute; left: 14px; bottom: 12px;
+  font: 400 var(--step-5)/.9 var(--font-display);
+  letter-spacing: -.02em;
+  color: var(--on);
+  white-space: nowrap;
+}
+.ch-lede { font-size: var(--step-n1); font-weight: 600; letter-spacing: .04em; color: var(--muted); margin: -16px 0 8px; }
+
+.qa { max-width: 34em; }
+.qa dt, .qa dd { padding-left: 2em; text-indent: -2em; }
+.qa dt { margin-top: 22px; font-weight: 700; }
+.qa dt:first-child { margin-top: 0; }
+.qa dt b { color: var(--accent2); }
+.qa dd { margin-top: 6px; }
+.qa dd b { font-weight: 700; }
+.laugh { color: var(--muted); }
+.zp { font-family: "Noto Sans SC"; }
+.nw { white-space: nowrap; }   /* 全角引号、破折号用中文字形 */
+.qa dd, .qa dt, figcaption, .c-sub span, .fine, .contact p { text-wrap: pretty; }
+
+figure.fig { margin-top: 40px; }
+figcaption { margin-top: 14px; font-size: var(--step-n1); color: var(--muted); line-height: 1.5; }
+figcaption b { color: var(--ink); font-weight: 700; margin-right: .5em; }
+
+/* 图 1 · 一天 */
+.day { position: relative; height: 150px; margin-inline: 4px; }
+.day .open { position: absolute; left: 0; right: 0; top: 64px; height: 16px; background: var(--ink); }
+.day .klass { position: absolute; top: 40px; height: 16px; left: 16.667%; width: 20.833%; background: var(--panel); }
+.day .lbl { position: absolute; font-size: var(--step-n1); line-height: 1.3; white-space: nowrap; }
+.day .lbl b { font-family: var(--font-display); font-weight: 700; font-size: var(--step-0); display: block; letter-spacing: -.01em; }
+.day .m { position: absolute; top: 92px; width: 18px; height: 18px; }
+.day .m.sq { background: var(--accent); left: -9px; }
+.day .m.circ { background: var(--accent2); left: calc(33.333% - 9px); }
+.day .m.tri { background: var(--panel); left: calc(83.333% - 9px); width: 20px; }
+.day .l1 { left: 0; top: 116px; }
+.day .l2 { left: 33.333%; top: 116px; transform: translateX(-50%); text-align: center; }
+.day .l3 { right: 16.667%; top: 116px; transform: translateX(50%); text-align: center; }
+.day .l4 { right: 0; top: 0; text-align: right; }
+.day .l5 { left: 16.667%; top: 0; }
+.day .tick { position: absolute; top: 60px; width: 4px; height: 24px; background: var(--ink); }
+.day .t0 { left: 0; } .day .t4 { right: 0; }
+
+/* 图 2 · 阿尔伯斯方块 */
+.albers { display: block; width: 100%; max-width: 340px; height: auto; }
+.al-y0 { fill: var(--panel); }
+.al-y1 { fill: color-mix(in srgb, var(--panel) 72%, var(--paper)); }
+.al-y2 { fill: color-mix(in srgb, var(--panel) 44%, var(--paper)); }
+.al-y3 { fill: var(--paper); }
+.al-k0 { fill: var(--ink); }
+.al-k1 { fill: var(--muted); }
+.al-k2 { fill: color-mix(in srgb, var(--muted) 45%, var(--paper)); }
+.al-k3 { fill: var(--paper); }
+.fig-zhou { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 24px; align-items: end; }
+.fig-zhou figcaption { margin-top: 0; }
+.fig-zhou .fig-no { display: block; margin-bottom: 4px; }
+
+/* 引语带 */
+.pull { margin-top: var(--section-gap); background: var(--panel); position: relative; }
+.pull .grid { padding-block: 80px 72px; align-items: end; }
+.pull-l { grid-column: 1 / span 5; align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
+.pull-l .kicker { display: block; }
+.pull-l p { font-size: var(--step-1); font-weight: 700; line-height: 1.3; max-width: 12em; }
+.pull-l p b { color: var(--accent2); }
+.pull blockquote { grid-column: 6 / span 7; font: 400 var(--step-6)/1.02 var(--font-display); letter-spacing: -.02em; }
+.pull blockquote p { hanging-punctuation: allow-end; }
+.pull cite { display: block; margin-top: 28px; font: 600 var(--step-0)/1.4 var(--font-body); font-style: normal; }
+.pull cite::before { content: ""; display: inline-block; width: 64px; height: 12px; background: var(--ink); margin-right: 12px; vertical-align: 2px; }
+.pull-sq { position: absolute; width: 96px; height: 96px; background: var(--accent); left: max(40px, calc((100% - var(--max-width)) / 2)); top: -48px; }
+
+/* 图 3 · 巷子 */
+.lane { position: relative; height: 172px; margin-inline: 4px; }
+.lane .road { position: absolute; left: 0; right: 0; top: 112px; height: 16px; background: var(--ink); }
+.lane .mouth { position: absolute; left: 0; top: 64px; width: 12px; height: 64px; background: var(--ink); }
+.lane .door { position: absolute; top: 40px; width: 44px; height: 72px; border: 2px solid var(--ink); border-bottom: 0; display: grid; place-items: end center; padding-bottom: 6px; font: 700 var(--step-n1)/1 var(--font-display); }
+.lane .d1 { left: 22%; }
+.lane .d2 { left: 44%; background: var(--ink); color: var(--paper); }
+.lane .mark { position: absolute; left: calc(44% + 4px); top: 0; width: 36px; height: 31px; background: var(--panel); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.lane .lbl { position: absolute; font-size: var(--step-n1); line-height: 1.3; white-space: nowrap; }
+.lane .lbl b { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--step-0); letter-spacing: -.01em; }
+.lane .lm { left: 0; top: 140px; }
+.lane .ld { left: calc(44% + 60px); top: 36px; }
+.lane .ln { right: 0; top: 140px; text-align: right; }
+
+/* ───────── 4 · 封底 / 版权页 ───────── */
+.back { margin-top: var(--section-gap); padding-bottom: 40px; }
+.back > .wrap > .bar { height: 24px; }
+.back .grid { padding-top: 48px; row-gap: 48px; }
+.back-l { grid-column: 1 / span 5; display: flex; flex-direction: column; gap: 32px; }
+.back-r { grid-column: 6 / span 7; }
+.back-forms { position: relative; width: 320px; height: 216px; margin-top: 16px; isolation: isolate; }
+.back-forms svg { position: absolute; left: 0; top: 0; width: 200px; height: 200px; }
+.back-forms .bf-c { position: absolute; left: 140px; top: -16px; width: 120px; height: 120px; background: var(--accent2); }
+.back-forms .bf-t { position: absolute; left: 210px; top: 120px; width: 92px; height: 79.7px; background: var(--panel); }
+.back-forms .bf-s { position: absolute; left: 252px; top: 64px; width: 64px; height: 64px; background: var(--accent); }
+.contact .kicker { display: block; margin-bottom: 10px; }
+.contact a.tel { display: inline-block; font: 700 var(--step-4)/1 var(--font-display); letter-spacing: -.02em; text-decoration: none; font-variant-numeric: lining-nums; }
+.contact a.tel:hover { color: var(--accent2); }
+.contact p { margin-top: 10px; font-size: var(--step-0); }
+.contact p + p { margin-top: 4px; }
+
+.cip { border: 2px solid var(--rule); padding: 16px 20px 18px; }
+.cip h2 { font: 700 var(--step-n1)/1.2 var(--font-body); letter-spacing: .12em; }
+.cip p { margin-top: 10px; font-size: var(--step-n1); line-height: 1.6; }
+.cip .roman { letter-spacing: .02em; }
+.colo {
+  margin-top: 24px;
+  columns: 2;
+  column-gap: 24px;
+  font-size: var(--step-n1);
+  line-height: 1.5;
+}
+.colo div { break-inside: avoid; display: grid; grid-template-columns: 3.4em minmax(0, 1fr); column-gap: 10px; padding: 5px 0 6px; border-top: 2px solid var(--rule); }
+.colo dt { font-weight: 700; letter-spacing: .06em; }
+.colo dd { margin: 0; }
+.colo .hex { font-family: var(--font-display); font-weight: 700; letter-spacing: .02em; }
+.colo .sw { display: inline-block; width: 10px; height: 10px; margin-right: 4px; vertical-align: -1px; }
+.colo .ref { word-break: break-all; font-family: var(--font-display); font-weight: 700; letter-spacing: .02em; }
+.fine { margin-top: 18px; padding-top: 10px; border-top: 12px solid var(--rule); font-size: var(--step-n1); line-height: 1.6; color: var(--ink); }
+.imprint { margin-top: 56px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; font: 600 var(--step-n1)/1.3 var(--font-body); letter-spacing: .04em; }
+.imprint .lc { font-family: var(--font-display); font-weight: 700; letter-spacing: .06em; }
+
+/* ───────── 动效：降级时只换色 ───────── */
+@media (prefers-reduced-motion: reduce) {
+  .sq:hover, .turn-sq:hover, .tri.turn:hover, .ch-head:hover .ch-sq { transform: none; }
+  .c-sq:hover { background: var(--accent2); }
+  .c-tri:hover { background: var(--accent); }
+  .ch-head:hover .ch-sq { background: var(--alt); }
+  .track i { transition: none; }
+}
+
+/* ───────── 中屏 ───────── */
+@media (max-width: 1100px) {
+  .c-qa { display: none; }
+  .c-hours { top: 46cqw; }
+}
+
+/* ───────── 手机：封面重新排 ───────── */
+@media (max-width: 760px) {
+  .wrap { padding-inline: 20px; }
+  .cover { aspect-ratio: 390 / 800; max-width: 49svh; min-width: min(100%, 360px); }
+  .c-meta { left: 5.13cqw; top: 4.1cqw; width: 89.74cqw; font-size: 3.1cqw; }
+  .c-bar1 { left: 5.13cqw; top: 10.26cqw; width: 76.92cqw; height: 4.1cqw; }
+  .c-sub { left: 5.13cqw; top: 17.4cqw; width: 52cqw; }
+  .c-sub b { font-size: 6.4cqw; margin-bottom: 1.6cqw; }
+  .c-sub span { font-size: 3.3cqw; }
+  .c-circ { left: 52.5cqw; top: 18.5cqw; width: 44cqw; height: 44cqw; }
+  .c-num { left: 3.2cqw; top: 31cqw; font-size: 100cqw; }
+  .c-sq { left: 63.5cqw; top: 57.5cqw; width: 30cqw; height: 30cqw; }
+  .c-tri { left: 19.87cqw; top: 92.3cqw; width: 76.92cqw; height: 66.6cqw; }
+  .c-bar2 { left: 10.26cqw; top: 107.7cqw; width: 89.74cqw; height: 4.1cqw; }
+  .c-title { left: 4.6cqw; top: 115cqw; font-size: 18.6cqw; }
+  .c-bar3 { left: 28.2cqw; top: 137.6cqw; width: 71.8cqw; height: 4.1cqw; }
+  .c-latin { left: 28.2cqw; top: 144.8cqw; font-size: 6.15cqw; }
+  .c-qa { display: block; left: 5.13cqw; top: 166cqw; width: 56cqw; font-size: 3.4cqw; }
+  .c-hours { left: 66cqw; top: 166cqw; width: 28.87cqw; font-size: 3.3cqw; border-top-width: 3.1cqw; padding-top: 1.8cqw; }
+  .c-cap { left: 5.13cqw; top: 196cqw; font-size: 3.1cqw; }
+
+  .toc .grid, .back .grid { display: block; }
+  .toc h2 { font-size: var(--step-6); margin: 16px 0 28px; }
+  .toc-r { margin-top: 56px; }
+  .prices-head { display: block; }
+  .prices-head p { text-align: left; margin-top: 6px; }
+  .prices li { grid-template-columns: 22px minmax(0, 1fr) auto; row-gap: 10px; }
+  .prices .track { grid-column: 2 / 4; grid-row: 2; }
+  .prices .pr { grid-column: 3; grid-row: 1; }
+  .track i.over { width: 100%; }
+
+  .cols { display: block; margin-top: 36px; }
+  .cols > .ch:nth-child(odd), .cols > .ch:nth-child(even) { padding: 0; }
+  .cols > .ch + .ch { margin-top: 64px; }
+  .ch-head { width: 128px; height: 128px; }
+  .ch-head h3 { font-size: var(--step-4); }
+  .fig-zhou { grid-template-columns: 1fr; }
+  .fig-zhou figcaption { margin-top: 8px; }
+  .day .l2 { transform: none; left: calc(33.333% - 9px); text-align: left; }
+  .day .l3 { transform: none; right: 0; text-align: right; }
+  .day .l3 { top: 116px; }
+  .day .l1 span, .day .l2 span { display: block; }
+
+  .pull .grid { display: block; padding-block: 72px 56px; }
+  .pull-l { gap: 14px; margin-bottom: 28px; }
+  .pull blockquote { font-size: var(--step-5); }
+  .pull-sq { left: auto; right: 20px; width: 72px; height: 72px; top: -36px; }
+
+  .lane .d1 { left: 18%; }
+  .lane .d2 { left: 38%; }
+  .lane .mark { left: calc(38% + 4px); }
+  .lane .ld { left: calc(38% + 56px); }
+
+  .back-l { gap: 28px; }
+  .back-r { margin-top: 48px; }
+  .contact a.tel { font-size: var(--step-3); }
+  .colo { columns: 1; }
+  .imprint { display: block; }
+  .imprint span { display: block; margin-top: 6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 1 · 封面：形的构成（黄三角最大，约 45vw；主轴落在 7/12） -->
+<header class="cover" aria-labelledby="title">
+  <p class="c-meta"><span>第四巷面包店 · 访谈本</span><span class="lc" lang="en">interview · 问答</span></p>
+  <div class="bar c-bar1 cut" aria-hidden="true"></div>
+  <p class="c-sub"><b>周岚　答</b><span>店主，前建筑师，2019 年开店。<br>一天两炉，卖完即止。</span></p>
+  <div class="c-circ circ cut" aria-hidden="true"></div>
+  <div class="c-tri tri cut turn" aria-hidden="true"></div>
+  <div class="c-sq cut turn turn-sq" aria-hidden="true"></div>
+  <span class="c-num cut" aria-hidden="true">4</span>
+  <div class="bar c-bar2 cut" aria-hidden="true"></div>
+  <h1 id="title" class="c-title">第四巷面包店</h1>
+  <div class="bar c-bar3 cut" aria-hidden="true"></div>
+  <p class="c-latin" lang="en">fourth lane bakery</p>
+  <dl class="c-qa">
+    <dt>几点来？</dt>
+    <dd>7:00 第一炉，<br>11:00 第二炉。<br>卖完就收。</dd>
+  </dl>
+  <p class="c-hours">周二至周日<br>7:00–19:00<br>周一休息</p>
+  <p class="c-cap">老城区第四巷 17 号</p>
+</header>
+
+<main>
+
+<!-- 2 · 目录：条长即价格 -->
+<section class="toc wrap" id="contents" aria-labelledby="toc-h">
+  <div class="bar" aria-hidden="true"></div>
+  <div class="grid">
+    <div class="toc-l">
+      <p class="kicker" lang="en">contents</p>
+      <h2 id="toc-h">目录</h2>
+      <ol class="chapters">
+        <li><a href="#ch1"><span class="n">一</span><span class="t">两炉</span><span class="d">7:00 · 11:00</span></a></li>
+        <li><a href="#ch2"><span class="n">二</span><span class="t">面包</span><span class="d">乡村 · 黑麦 · 可颂 · 肉桂卷</span></a></li>
+        <li><a href="#ch3"><span class="n">三</span><span class="t">老周</span><span class="d">酵种，9 年</span></a></li>
+        <li><a href="#ch4"><span class="n">四</span><span class="t">上课</span><span class="d">周六 9:00–11:30</span></a></li>
+        <li><a href="#ch5"><span class="n">五</span><span class="t">坐下</span><span class="d">6 个座位</span></a></li>
+        <li><a href="#ch6"><span class="n">六</span><span class="t">预订</span><span class="d">前一天 17:00 前</span></a></li>
+        <li><a href="#ch7"><span class="n">七</span><span class="t">找门</span><span class="d">第四巷 17 号</span></a></li>
+        <li><a href="#colophon"><span class="n">末</span><span class="t">版权页</span><span class="d">地址 · 电话 · 字体</span></a></li>
+      </ol>
+    </div>
+
+    <div class="toc-r">
+      <div class="prices-head">
+        <h3>价目</h3>
+        <p>黑条越长，价越高。满格 ＝ ¥42。</p>
+      </div>
+      <ol class="prices">
+        <li><span class="mk sq" aria-hidden="true"></span><span class="nm">乡村面包 · 整个<small>天然酵种，48 小时低温发酵</small></span><span class="track" aria-hidden="true"><i style="--v:38"></i></span><span class="pr">¥38</span></li>
+        <li><span class="mk sq" aria-hidden="true"></span><span class="nm">乡村面包 · 半个<small>同一只面包，切开卖</small></span><span class="track" aria-hidden="true"><i style="--v:20"></i></span><span class="pr">¥20</span></li>
+        <li><span class="mk sq" aria-hidden="true"></span><span class="nm">可颂<small>法国发酵黄油</small></span><span class="track" aria-hidden="true"><i style="--v:16"></i></span><span class="pr">¥16</span></li>
+        <li><span class="mk circ" aria-hidden="true"></span><span class="nm">肉桂卷<small>只在第二炉</small></span><span class="track" aria-hidden="true"><i style="--v:18"></i></span><span class="pr">¥18</span></li>
+        <li><span class="mk circ" aria-hidden="true"></span><span class="nm">黑麦面包<small>70% 黑麦 · 750 g · 每日限 12 个</small></span><span class="track" aria-hidden="true"><i style="--v:42"></i></span><span class="pr">¥42</span></li>
+        <li><span class="mk tri" aria-hidden="true"></span><span class="nm">手冲咖啡<small>店内 6 个座位</small></span><span class="track" aria-hidden="true"><i style="--v:22"></i></span><span class="pr">¥22</span></li>
+        <li><span class="mk tri" aria-hidden="true"></span><span class="nm">面包课 · 每人<small>周六 9:00–11:30，6 人小班</small></span><span class="track" aria-hidden="true"><i class="over" style="--v:42"></i></span><span class="pr">¥260</span></li>
+      </ol>
+      <ul class="legend">
+        <li><span class="mk sq" aria-hidden="true"></span>第一炉 7:00</li>
+        <li><span class="mk circ" aria-hidden="true"></span>第二炉 11:00</li>
+        <li><span class="mk tri" aria-hidden="true"></span>店内 · 周六</li>
+      </ul>
+      <p class="prices-note">面包课那一条按比例画不下，截断。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · 内页：两栏，章名压在色方块上 -->
+<section class="spread wrap" aria-label="第一、二章">
+  <div class="run">
+    <span>第四巷面包店 · 问答</span>
+    <span class="folio"><svg viewBox="0 0 10 10" aria-hidden="true"><rect class="al-k0" width="10" height="10"/><rect class="al-k1" x="1" y="1.5" width="8" height="8"/><rect class="al-k2" x="2" y="3" width="6" height="6"/><rect class="al-k3" x="3" y="4.5" width="4" height="4"/></svg>一 · 二</span>
+  </div>
+  <div class="grid cols">
+    <article class="ch" id="ch1" aria-labelledby="ch1-h">
+      <header class="ch-head"><span class="ch-sq turn" aria-hidden="true"></span><span class="ch-no">01</span><h3 id="ch1-h">两炉</h3></header>
+      <dl class="qa">
+        <dt><b>问：</b>几点来能赶上？</dt>
+        <dd><b>答：</b>一天两炉。早上 7:00 第一炉，乡村面包和可颂；11:00 第二炉，肉桂卷和黑麦面包。</dd>
+        <dt><b>问：</b>想吃肉桂卷，一早来行吗？</dt>
+        <dd><b>答：</b>早上没有。肉桂卷只在第二炉，得等 11:00 那一炉。</dd>
+        <dt><b>问：</b>傍晚来还有吗？</dt>
+        <dd><b>答：</b>看那天卖得快不快。卖完即止，当天不留货。</dd>
+      </dl>
+      <figure class="fig">
+        <div class="day" aria-hidden="true">
+          <span class="lbl l5"><b>9:00–11:30</b>周六 面包课</span>
+          <span class="lbl l4"><b>19:00</b>关门</span>
+          <span class="klass"></span>
+          <span class="open"></span>
+          <span class="tick t0"></span><span class="tick t4"></span>
+          <span class="m sq"></span><span class="m circ"></span><span class="m tri"></span>
+          <span class="lbl l1"><b>7:00</b><span>第一炉</span></span>
+          <span class="lbl l2"><b>11:00</b><span>第二炉</span></span>
+          <span class="lbl l3"><b>17:00</b>预订截止</span>
+        </div>
+        <figcaption><b>图 1</b>一天：黑条是营业时间（周二至周日 7:00–19:00）；红方第一炉，蓝圆第二炉，黄三角是次日预订的截止时间。</figcaption>
+      </figure>
+    </article>
+
+    <article class="ch" id="ch2" aria-labelledby="ch2-h">
+      <header class="ch-head blue"><span class="ch-sq turn" aria-hidden="true"></span><span class="ch-no">02</span><h3 id="ch2-h">面包</h3></header>
+      <dl class="qa">
+        <dt><b>问：</b>先说乡村面包。</dt>
+        <dd><b>答：</b>用天然酵种，低温发酵 48 小时。整个 ¥38，也可以买半个，¥20。</dd>
+        <dt><b>问：</b>黑麦面包呢？</dt>
+        <dd><b>答：</b>70% 是黑麦，一个 750 g。每天限 <span class="nw">12 个</span>，¥42。</dd>
+        <dt><b>问：</b>可颂用的什么黄油？</dt>
+        <dd><b>答：</b>法国发酵黄油。¥16。</dd>
+        <dt><b>问：</b>肉桂卷？</dt>
+        <dd><b>答：</b>¥18。还是那句话<span class="zp">——</span>只在第二炉。</dd>
+        <dt><b>问：</b>面粉从哪儿来？</dt>
+        <dd><b>答：</b>两种掺着用：本地石磨全麦粉，加<span class="nw">法国 T65</span>。</dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section class="spread wrap" aria-label="第三、四、五章">
+  <div class="run">
+    <span>第四巷面包店 · 问答</span>
+    <span class="folio"><svg viewBox="0 0 10 10" aria-hidden="true"><rect class="al-k0" width="10" height="10"/><rect class="al-k1" x="1" y="1.5" width="8" height="8"/><rect class="al-k2" x="2" y="3" width="6" height="6"/><rect class="al-k3" x="3" y="4.5" width="4" height="4"/></svg>三 · 四 · 五</span>
+  </div>
+  <div class="grid cols">
+    <article class="ch" id="ch3" aria-labelledby="ch3-h">
+      <header class="ch-head yellow"><span class="ch-sq turn" aria-hidden="true"></span><span class="ch-no">03</span><h3 id="ch3-h">老周</h3></header>
+      <dl class="qa">
+        <dt><b>问：</b>店里常说的<span class="zp">“</span>老周<span class="zp">”</span>，是谁？</dt>
+        <dd><b>答：</b>是酵种。<span class="laugh">（笑）</span>养了 9 年了，店里都叫它<span class="zp">“</span>老周<span class="zp">”</span>。</dd>
+        <dt><b>问：</b>您也姓周。</dt>
+        <dd><b>答：</b>我是周岚。开店以前是建筑师，2019 年开的这家店。</dd>
+      </dl>
+      <figure class="fig fig-zhou">
+        <svg class="albers" viewBox="0 0 10 10" role="img" aria-label="阿尔伯斯式套叠方块，代替老周的照片">
+          <rect class="al-y0" width="10" height="10"/>
+          <rect class="al-y1" x="1" y="1.5" width="8" height="8"/>
+          <rect class="al-y2" x="2" y="3" width="6" height="6"/>
+          <rect class="al-y3" x="3" y="4.5" width="4" height="4"/>
+        </svg>
+        <figcaption><b class="fig-no">图 2</b>老周：天然酵种，养了 9 年。<br>没有照片，用套叠方块代图：边长 10 : 8 : 6 : 4，里面的方块往下沉。</figcaption>
+      </figure>
+    </article>
+
+    <div class="ch">
+      <article id="ch4" aria-labelledby="ch4-h">
+        <header class="ch-head"><span class="ch-sq turn" aria-hidden="true"></span><span class="ch-no">04</span><h3 id="ch4-h">上课</h3></header>
+        <dl class="qa">
+          <dt><b>问：</b>周六上午店里在忙什么？</dt>
+          <dd><b>答：</b>面包课。9:00 到 11:30，6 人小班。</dd>
+          <dt><b>问：</b>学费呢？</dt>
+          <dd><b>答：</b>¥260 一位。自己烤的面包，自己带走。</dd>
+        </dl>
+      </article>
+      <article id="ch5" aria-labelledby="ch5-h" style="margin-top:72px">
+        <header class="ch-head blue"><span class="ch-sq turn" aria-hidden="true"></span><span class="ch-no">05</span><h3 id="ch5-h">坐下</h3></header>
+        <dl class="qa">
+          <dt><b>问：</b>能在店里坐一会儿吗？</dt>
+          <dd><b>答：</b>能，有 6 个座位。<span class="laugh">（停顿）</span>手冲咖啡，<span class="nw">¥22 一杯</span>。</dd>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<aside class="pull" aria-label="引语">
+  <span class="pull-sq cut sq turn" aria-hidden="true"></span>
+  <div class="wrap grid">
+    <div class="pull-l">
+      <span class="kicker" lang="en">quote</span>
+      <p><b>问：</b>傍晚来还有吗？</p>
+    </div>
+    <blockquote>
+      <p>卖完即止，<br>当天不留货。</p>
+      <cite>周岚 答</cite>
+    </blockquote>
+  </div>
+</aside>
+
+<section class="spread wrap" aria-label="第六、七章">
+  <div class="run">
+    <span>第四巷面包店 · 问答</span>
+    <span class="folio"><svg viewBox="0 0 10 10" aria-hidden="true"><rect class="al-k0" width="10" height="10"/><rect class="al-k1" x="1" y="1.5" width="8" height="8"/><rect class="al-k2" x="2" y="3" width="6" height="6"/><rect class="al-k3" x="3" y="4.5" width="4" height="4"/></svg>六 · 七</span>
+  </div>
+  <div class="grid cols">
+    <article class="ch" id="ch6" aria-labelledby="ch6-h">
+      <header class="ch-head yellow"><span class="ch-sq turn" aria-hidden="true"></span><span class="ch-no">06</span><h3 id="ch6-h">预订</h3></header>
+      <dl class="qa">
+        <dt><b>问：</b>怕卖完，能先订吗？</dt>
+        <dd><b>答：</b>能。提前一天，17:00 以前。打电话 <span class="nw">021-5555-0417</span>，或者来店里登记。</dd>
+        <dt><b>问：</b>哪天别白跑？</dt>
+        <dd><b>答：</b>周一。周一休息，周二到周日 7:00–19:00 开门。</dd>
+      </dl>
+    </article>
+
+    <article class="ch" id="ch7" aria-labelledby="ch7-h">
+      <header class="ch-head"><span class="ch-sq turn" aria-hidden="true"></span><span class="ch-no">07</span><h3 id="ch7-h">找门</h3></header>
+      <dl class="qa">
+        <dt><b>问：</b>最后，店怎么找？</dt>
+        <dd><b>答：</b>老城区，第四巷 17 号。从巷口数，第二个门，绿色木门。</dd>
+      </dl>
+      <figure class="fig">
+        <div class="lane" aria-hidden="true">
+          <span class="mark"></span>
+          <span class="lbl ld"><b>17 号</b>绿色木门</span>
+          <span class="door d1">1</span>
+          <span class="door d2">2</span>
+          <span class="mouth"></span>
+          <span class="road"></span>
+          <span class="lbl lm"><b>巷口</b>从这里数</span>
+          <span class="lbl ln"><b>第四巷</b>老城区</span>
+        </div>
+        <figcaption><b>图 3</b>从巷口数第二个门。门是绿色的木门，图里只用黑色标出。</figcaption>
+      </figure>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<!-- 4 · 封底：版权页式页脚（全页信息最密的一块） -->
+<footer class="back" id="colophon" aria-labelledby="colo-h">
+  <div class="wrap">
+    <div class="bar" aria-hidden="true"></div>
+    <div class="grid">
+      <div class="back-l">
+        <p class="kicker" lang="en">colophon · 版权页</p>
+        <div class="back-forms" aria-hidden="true">
+          <svg viewBox="0 0 10 10"><rect class="al-k0" width="10" height="10"/><rect class="al-k1" x="1" y="1.5" width="8" height="8"/><rect class="al-k2" x="2" y="3" width="6" height="6"/><rect class="al-k3" x="3" y="4.5" width="4" height="4"/></svg>
+          <span class="bf-c circ cut"></span>
+          <span class="bf-s cut turn turn-sq"></span>
+          <span class="bf-t tri cut turn"></span>
+        </div>
+        <div class="contact">
+          <span class="kicker">预订电话</span>
+          <a class="tel" href="tel:02155550417">021-5555-0417</a>
+          <p>提前一天 17:00 前；或店内登记。</p>
+          <p>老城区第四巷 17 号 · 巷口数第二个门，绿色木门</p>
+        </div>
+      </div>
+
+      <div class="back-r">
+        <div class="cip">
+          <h2 id="colo-h">本册在版编目数据</h2>
+          <p>第四巷面包店 · 问答 <span class="zp">／</span> 周岚答. <span class="zp">——</span> 老城区第四巷 17 号：第四巷面包店（Fourth Lane Bakery），2019 年开店.<br>
+          <span class="roman">Ⅰ. ①第… Ⅱ. ①周… Ⅲ. ①面包—酵种—问答 ②面包课</span></p>
+        </div>
+        <dl class="colo">
+          <div><dt>书名</dt><dd>第四巷面包店 · 问答</dd></div>
+          <div><dt>答者</dt><dd>周岚，店主，前建筑师</dd></div>
+          <div><dt>另一位</dt><dd>老周，天然酵种，养了 9 年</dd></div>
+          <div><dt>出品</dt><dd>第四巷面包店 Fourth Lane Bakery，2019 年开店</dd></div>
+          <div><dt>地址</dt><dd>老城区第四巷 17 号，巷口数第二个门，绿色木门</dd></div>
+          <div><dt>电话</dt><dd><span class="hex">021-5555-0417</span>；提前一天 17:00 前预订，或店内登记</dd></div>
+          <div><dt>营业</dt><dd>周二至周日 7:00–19:00；周一休息</dd></div>
+          <div><dt>炉次</dt><dd>7:00 第一炉：乡村面包、可颂；11:00 第二炉：肉桂卷、黑麦面包</dd></div>
+          <div><dt>存货</dt><dd>卖完即止，当天不留货</dd></div>
+          <div><dt>用料</dt><dd>天然酵种；本地石磨全麦粉 + 法国 T65；法国发酵黄油</dd></div>
+          <div><dt>规格</dt><dd>乡村面包 48 小时低温发酵；黑麦面包 70% 黑麦，750 g，每日限 12 个</dd></div>
+          <div><dt>定价</dt><dd>乡村面包 ¥38（半个 ¥20）· 黑麦面包 ¥42 · 可颂 ¥16 · 肉桂卷 ¥18 · 手冲咖啡 ¥22</dd></div>
+          <div><dt>课程</dt><dd>周六 9:00–11:30，6 人小班，¥260/人，带走自己烤的面包</dd></div>
+          <div><dt>座位</dt><dd>店内 6 个</dd></div>
+          <div><dt>字体</dt><dd>标题 League Spartan Black、站酷庆科黄油体；正文 Kumbh Sans、Noto Sans SC</dd></div>
+          <div><dt>纸</dt><dd>奶油色 <span class="sw" style="background:var(--paper);outline:2px solid var(--rule);outline-offset:-2px"></span><span class="hex">#f1ece0</span></dd></div>
+          <div><dt>墨与色</dt><dd><span class="nw"><span class="sw" style="background:var(--ink)"></span>黑 <span class="hex">#1b1b1b</span></span> · <span class="nw"><span class="sw" style="background:var(--accent)"></span>红 <span class="hex">#d6261c</span></span> · <span class="nw"><span class="sw" style="background:var(--accent2)"></span>蓝 <span class="hex">#1f4fa3</span></span> · <span class="nw"><span class="sw" style="background:var(--panel)"></span>黄 <span class="hex">#f2c21b</span></span></dd></div>
+          <div><dt>形</dt><dd>黄三角、红方、蓝圆；叠处正片叠底，像剪开的色卡</dd></div>
+          <div><dt>版式</dt><dd>包豪斯丛书式封面：黑条 + 一个大数字；内页两栏；主轴偏在 7/12</dd></div>
+          <div><dt>印次</dt><dd>hash-design #2 · bauhaus-primary</dd></div>
+          <div><dt>版号</dt><dd class="ref">4f1cc0f2c8334072b6f033983e1687912da5d7ba471cb7c6dc4187b421696503</dd></div>
+        </dl>
+        <p class="fine">访谈的答句都据店内事实整理，没有添一条新事实。面包卖完即止，当天不留货，恕不调换。</p>
+      </div>
+    </div>
+
+    <div class="imprint">
+      <span>第四巷面包店 · 问答 · 完</span>
+      <span class="lc" lang="en">fourth lane bakery · 4f1cc0f2</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

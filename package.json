@@ -1,6 +1,6 @@
 {
   "name": "@xingchenyd/random-design",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Procedural visual systems for websites and presentations. Diverse directions, reproducible rules, portable history.",
   "type": "module",
   "license": "MIT",
@@ -19,7 +19,8 @@
   "exports": {
     ".": "./src/core/index.js",
     "./render": "./src/render.js",
-    "./pptx": "./src/pptx.js"
+    "./pptx": "./src/pptx.js",
+    "./reference": "./src/reference.js"
   },
   "files": [
     "src",
@@ -29,7 +30,8 @@
     "LICENSE",
     "THIRD_PARTY_NOTICES.md",
     "README.md",
-    "README.en.md"
+    "README.en.md",
+    "vendor/hash-design/LICENSE"
   ],
   "scripts": {
     "build": "node scripts/build.js",
@@ -39,12 +41,14 @@
     "examples": "node scripts/examples.js",
     "benchmark": "node scripts/benchmark.js",
     "test:browser": "node scripts/browser-check.js",
-    "test:mcp": "node scripts/mcp-check.js"
+    "test:mcp": "node scripts/mcp-check.js",
+    "test:migration": "node scripts/migration-check.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",
     "@noble/hashes": "2.4.0",
     "culori": "4.0.2",
+    "node-html-parser": "^9.0.6",
     "pptxgenjs": "4.0.1",
     "proper-lockfile": "^4.1.2",
     "zod": "4.6.7"

@@ -1,0 +1,506 @@
+<!doctype html>
+<!-- hash-design #2 · couture-lookbook · ref 92818df99d3eaeee4ab934e524f41bb56abca6ae73320d8fd48b647aa658fca8+1 -->
+<!-- Twist "accent rationed": accent colours appear in exactly three places —
+     1) champagne: the cover numeral (masthead) · 2) deep red: the single ground behind LOOK 01 ·
+     3) champagne: the telephone number on the credits page. Everything else is ink / paper / rule.
+     (The palette note "champagne for look numbers" yields to the twist: look numbers are ink.) -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二号桥单车铺 · Bridge No.2 Cycle Works — 画册</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;700&display=swap">
+<style>
+/* hash-design 92818df9 · couture-lookbook · noir-champagne */
+:root {
+  --paper: #0d0c0b;
+  --ink: #f2eee6;
+  --muted: #a39d92;
+  --accent: #c8a46a;
+  --on-accent: #000000;
+  --accent2: #8e1a1f;
+  --on-accent2: #ffffff;
+  --rule: #f2eee6;
+  --panel: #1a1816;
+
+  --font-display: Italiana, "ZCOOL XiaoWei", Didot, serif;
+  --font-body: "Cormorant Garamond", "Noto Serif SC", Garamond, Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.43rem; /* 6.9px */
+  --step-n1: 0.695rem; /* 11.1px */
+  --step-0: 1.125rem; /* 18px */
+  --step-1: 1.82rem; /* 29.1px */
+  --step-2: 2.945rem; /* 47.1px */
+  --step-3: 4.765rem; /* 76.2px */
+  --step-4: 7.71rem; /* 123.4px */
+  --step-5: 12.475rem; /* 199.6px */
+  --step-6: 20.185rem; /* 323px */
+  --step-7: 32.659rem; /* 522.5px */
+  --leading: 1.65;
+
+  --space-1: 10px;
+  --space-2: 20px;
+  --space-3: 30px;
+  --space-4: 40px;
+  --space-5: 50px;
+  --space-6: 60px;
+  --space-7: 70px;
+  --space-8: 80px;
+  --section-gap: 168px;
+  --max-width: 1080px;
+
+  --motion-duration: 450ms;
+  --motion-easing: cubic-bezier(.16,1,.3,1);
+}
+
+html { font-size: 112.5%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- lookbook ---------- */
+:root {
+  --m: 8vw;                 /* outer margin */
+  --g: 40px;                /* gutter */
+  --hair: color-mix(in srgb, var(--rule) 40%, transparent);
+  --cjk-display: "Cormorant Garamond", "ZCOOL XiaoWei", Didot, serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; overflow-x: clip; }
+body {
+  font-weight: 400;
+  font-feature-settings: "kern", "liga";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  hanging-punctuation: first allow-end;
+  font-variant-numeric: lining-nums;
+}
+::selection { background: var(--ink); color: var(--paper); }
+p, h1, h2, dl, dd, figure { margin: 0; }
+b, strong { font-weight: 400; }
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .28em; }
+a:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+.nw { white-space: nowrap; }
+br.m { display: none; }
+@media (max-width: 760px) { br.m { display: inline; } br.d { display: none; } }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* a page = one look = one screen */
+.page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 0 var(--m);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--g);
+  overflow: hidden;
+}
+
+/* small caps lines: running heads, folios, season line */
+.caps {
+  font-size: var(--step-n1);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-variant-numeric: lining-nums;
+  line-height: 1.4;
+}
+.folio {
+  position: absolute; left: var(--m); right: var(--m); bottom: 30px;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 2em;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.folio .zh, .runhead .zh { letter-spacing: .32em; font-size: 12px; }
+.runhead {
+  position: absolute; left: var(--m); top: 30px;
+  display: flex; gap: 2.4em; align-items: baseline;
+  color: var(--muted);
+}
+
+/* ---------- p.01 cover · giant initial ---------- */
+.cover-row {
+  position: absolute; left: var(--m); right: var(--m); bottom: 9vh;
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--g);
+  align-items: last baseline;
+}
+.initial {
+  grid-column: 1 / 7;
+  display: flex; align-items: baseline;
+  font-weight: 400;
+}
+.collide { color: var(--ink); margin-right: .9em; white-space: nowrap; }
+.numeral {
+  font-family: var(--font-display);
+  font-size: min(140vh, 90vw);
+  line-height: .62;
+  letter-spacing: 0;
+  color: var(--accent);            /* accent · 1 of 3 */
+  margin-left: -.02em;
+  font-variant-numeric: lining-nums;
+}
+.cover-cap {
+  grid-column: 8 / 13;
+  display: flex; flex-direction: column;
+  font-size: 13px; line-height: 2;
+  color: var(--muted);
+}
+.cover-cap .name { color: var(--ink); font-size: 14px; letter-spacing: .42em; }
+
+/* ---------- p.02 title page · scale collision ---------- */
+.standfirst {
+  grid-column: 2 / 8;
+  align-self: start;
+  margin-top: 21vh;
+  font-size: var(--step-1);
+  font-style: italic; font-weight: 300;
+  font-synthesis: none;
+  line-height: 1.6;
+  letter-spacing: .02em;
+  max-width: 19em;
+}
+.standfirst i { font-style: italic; }
+.title-page { grid-template-rows: auto 1fr auto; }
+.mast-row {
+  grid-column: 1 / -1; grid-row: 3;
+  min-width: 0;
+  margin: 6vh 0 13vh;
+  display: flex; align-items: baseline; white-space: nowrap;
+}
+.season { color: var(--ink); margin-right: 18px; }
+.season .zh { letter-spacing: .3em; font-size: 12px; text-transform: none; }
+.mast {
+  font-family: var(--font-display);
+  font-size: 22vw;
+  line-height: .8;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* ---------- looks ---------- */
+.frame { position: relative; transition: transform var(--motion-duration) var(--motion-easing); transform-origin: 50% 60%; }
+.look:hover .frame, .look:focus-within .frame { transform: scale(1.015); }
+.draw { display: block; width: 100%; height: 100%; }
+.draw .hl { fill: none; stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.draw .hl * { vector-effect: non-scaling-stroke; }
+.draw .soft { stroke-opacity: .45; }
+.draw .spk { stroke-width: .6; stroke-opacity: .8; }
+.draw .nip { stroke-width: 2.2; }
+.draw .teeth { stroke-dasharray: 2 3; }
+.draw .chain { stroke-width: 2.4; stroke-dasharray: 3 2; }
+.draw .tubes { fill: none; stroke-linecap: butt; stroke-linejoin: round; }
+.draw .tb-o { stroke: var(--ink); }
+.draw .tb-i { stroke: var(--ground, var(--paper)); }
+
+.lookcap { align-self: end; position: relative; }
+.lookno {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 10vw;
+  line-height: .82;
+  letter-spacing: .02em;
+  color: var(--ink);
+  font-variant-numeric: lining-nums;
+}
+.cap-rule {
+  display: block; height: 1px; margin: 26px 0 14px;
+  background: var(--hair);
+  transform: scaleX(0); transform-origin: 0 50%;
+  transition: transform var(--motion-duration) var(--motion-easing);
+}
+.look:hover .cap-rule, .look:focus-within .cap-rule { transform: scaleX(1); }
+.lookcap p { display: flex; flex-direction: column; font-size: 13px; line-height: 1.9; color: var(--muted); }
+.lookcap .t { color: var(--ink); font-size: var(--step-n1); letter-spacing: .22em; text-transform: uppercase; }
+.lookcap .t .zh { font-size: 13px; letter-spacing: .3em; }
+
+/* LOOK 01 — image on 5 columns, right; deep red ground under a tissue */
+.look-01 { --ground: var(--accent2); }          /* accent2 · 2 of 3 (the only red) */
+.look-01 .frame {
+  grid-column: 7 / 12; grid-row: 1;
+  align-self: start;
+  margin-top: 11vh;
+  aspect-ratio: 2 / 3; max-height: 76vh; width: 100%;
+  background: var(--ground);
+}
+.look-01 .frame .draw { padding: 5% 7%; }
+.tissue { background: color-mix(in srgb, var(--paper) 82%, transparent); clip-path: polygon(0 0, 100% 0, 100% 97%, 80% 99%, 55% 97%, 30% 100%, 0 98%); }
+.look-01 .tissue { position: absolute; left: 0; right: 0; top: 0; height: 41%; pointer-events: none; }
+.look-01 .lookcap { grid-column: 1 / 5; grid-row: 1; margin-bottom: 13vh; }
+
+/* LOOK 02 — one sentence, nothing else */
+.look-02 .line {
+  grid-column: 3 / 12;
+  align-self: center;
+  margin-top: -4vh;
+  font-family: var(--cjk-display);
+  font-size: max(6vw, 64px);
+  font-style: italic; font-weight: 300;
+  font-synthesis: none;
+  line-height: 1.32;
+  letter-spacing: .04em;
+  text-wrap: balance;
+}
+.look-02 .line i { font-style: italic; letter-spacing: 0; font-size: 1.14em; line-height: 0; margin-right: .06em; }
+.look-02 .line .seg { display: inline; }
+
+/* LOOK 03 — two narrow images, 3 columns each, a hairline between */
+.look-03 .pair {
+  grid-column: 2 / 8; grid-row: 1;
+  align-self: center;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: var(--g);
+  position: relative;
+}
+.look-03 .pair::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
+  background: var(--hair);
+}
+.nar { grid-column: span 3; }
+.nar .frame { aspect-ratio: 1 / 2.05; max-height: 62vh; width: 100%; background: var(--panel); overflow: hidden; }
+.nar figcaption { margin-top: 16px; font-size: 13px; line-height: 1.85; color: var(--muted); }
+.nar figcaption .k { display: block; color: var(--ink); font-size: var(--step-n1); letter-spacing: .22em; margin-bottom: 2px; }
+.look-03 .lookcap { grid-column: 9 / 13; grid-row: 1; margin-bottom: 13vh; text-align: right; }
+.look-03 .cap-rule { transform-origin: 100% 50%; }
+
+/* ---------- p.06 credits ---------- */
+.credits { padding-top: 13vh; padding-bottom: 15vh; align-content: start; }
+.cr-title {
+  grid-column: 1 / 5;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.cr-sub { grid-column: 1 / 5; margin-top: 14px; color: var(--muted); }
+.cr-list {
+  grid-column: 1 / 13;
+  margin-top: 6vh;
+  align-items: first baseline;
+  position: relative;
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px;
+  font-size: 14px; line-height: 1.75;
+  font-variant-numeric: lining-nums proportional-nums;
+}
+.cr-list::before {
+  content: ""; position: absolute; top: -18px; bottom: -18px; left: 50%; width: 1px; background: var(--hair);
+}
+.cr-list dt { grid-column: 1; text-align: right; color: var(--muted); letter-spacing: .3em; padding: 4px 0; font-size: 13px; }
+.cr-list dd { grid-column: 2; color: var(--ink); letter-spacing: .05em; padding: 4px 0; max-width: 36em; }
+.cr-list .gap { margin-top: 22px; }
+.cr-list .lk { font-variant-caps: all-small-caps; font-size: 15px; letter-spacing: .2em; }
+.tel { color: var(--accent); text-decoration-color: var(--hair); font-size: 16px; font-variant-numeric: lining-nums tabular-nums; letter-spacing: .1em; } /* accent · 3 of 3 */
+
+/* ---------- touch & motion ---------- */
+@media (hover: none) { .cap-rule { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .look:hover .frame, .look:focus-within .frame { transform: none; }
+}
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 760px) {
+  :root { --g: 16px; }
+  .runhead { gap: 1.2em; }
+  .hide-m { display: none; }
+  .cover-row { top: 14vh; bottom: auto; align-items: start; row-gap: 0; }
+  .initial { grid-column: 1 / -1; align-items: last baseline; }
+  .collide { margin-right: 10px; letter-spacing: .2em; }
+  .numeral { font-size: min(80vh, 164vw); line-height: .62; }
+  .cover-cap { grid-column: 3 / 13; margin-top: 9vh; font-size: 12.5px; }
+
+  .standfirst { grid-column: 1 / 13; margin-top: 16vh; font-size: 25px; line-height: 1.7; }
+  .mast-row { flex-direction: column; align-items: flex-start; margin-bottom: 12vh; }
+  .season { margin: 0 0 12px; }
+  .mast { font-size: 27vw; }
+
+  .look-01 .frame { grid-column: 3 / 13; margin-top: 9vh; max-height: 62svh; }
+  .look-01 .lookcap { grid-column: 1 / 11; grid-row: 2; margin: 5vh 0 15vh; }
+  .lookno { font-size: 26vw; }
+
+  .look-02 .line { grid-column: 1 / 13; font-size: 64px; line-height: 1.24; letter-spacing: -.03em; }
+  .look-02 .line .seg { display: block; white-space: nowrap; }
+
+  .look-03 .pair { grid-column: 1 / 13; margin-top: 10vh; align-self: start; }
+  .nar .frame { max-height: 50svh; }
+  .nar figcaption { font-size: 12px; }
+  .look-03 .lookcap { grid-column: 3 / 13; grid-row: 2; margin: 6vh 0 15vh; }
+
+  .cr-title { grid-column: 1 / 13; font-size: 64px; letter-spacing: .07em; }
+  .cr-sub { grid-column: 1 / 13; }
+  .cr-list { grid-column: 1 / 13; grid-template-columns: 31% 1fr; column-gap: 28px; font-size: 13px; }
+  .cr-list dt { font-size: 12px; letter-spacing: .22em; }
+  .cr-list .lk { font-size: 13px; letter-spacing: .12em; }
+  .cr-list::before { left: calc(31% + 14px); }
+}
+</style>
+</head>
+<body>
+<main>
+
+<!-- p.01 · Cover — giant initial -->
+<section class="page cover" aria-labelledby="t-cover">
+  <p class="runhead caps"><span class="zh">二号桥单车铺</span><span>Field notes</span><span>p. 01</span></p>
+  <div class="cover-row">
+    <h1 class="initial" id="t-cover">
+      <span class="collide caps" aria-hidden="true">Bridge<br class="m"> No.</span><span class="numeral" aria-hidden="true">2</span>
+      <span class="sr">二号桥单车铺 Bridge No.2 Cycle Works</span>
+    </h1>
+    <p class="cover-cap">
+      <span class="name">二号桥单车铺</span>
+      <span>观察地点：河西路二号桥桥洞下东侧</span>
+      <span>蓝色卷帘门，门口立着一个旧车轮。</span>
+    </p>
+  </div>
+</section>
+
+<!-- p.02 · Title page — masthead running past the margin -->
+<section class="page title-page" aria-label="扉页">
+  <p class="standfirst">观察对象：一间只修车、卖二手车和零件的铺子（不卖新车）。店主陈立平，大家叫他老陈；修车 <i>27</i> 年，以前在自行车厂做装配。</p>
+  <div class="mast-row">
+    <p class="season caps"><span class="zh">周三至周日</span>&ensp;10:00—20:00</p>
+    <p class="mast" aria-hidden="true">Cycle Works</p>
+  </div>
+  <p class="folio caps"><span>Bridge No.2<span class="hide-m"> Cycle Works</span></span><span><span class="zh">扉页</span>&ensp;p. 02</span></p>
+</section>
+
+<!-- p.03 · LOOK 01 -->
+<section class="page look look-01" aria-labelledby="t-l1">
+  <figure class="frame">
+    <svg class="draw" viewBox="0 0 1200 1900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="线描：一辆二手车">
+<g class="hl"><path d="M740 0V152Q740 174 758 174Q776 174 776 156V146"/></g>
+<g transform="translate(140 1660) rotate(-90)">
+  <g class="hl">
+  <circle cx="200" cy="600" r="340"/><circle cx="200" cy="600" r="319"/>
+  <circle cx="200" cy="600" r="300" class="soft"/>
+  <circle cx="200" cy="600" r="24"/><circle cx="200" cy="600" r="9"/>
+  <path class="spk" d="M224 600L314 875.3M222.2 609.2L410.7 389.3M217 617L86 875.3M209.2 622.2L498 600M200 624L-75.3 714M190.8 622.2L410.7 810.7M183 617L-75.3 486M177.8 609.2L200 898M176 600L86 324.7M177.8 590.8L-10.7 810.7M183 583L314 324.7M190.8 577.8L-98 600M200 576L475.3 486M209.2 577.8L-10.7 389.3M217 583L475.3 714M222.2 590.8L200 302M223.5 604.7L258.1 892.3M220 613.3L447.8 434.4M213.3 620L34.4 847.8M204.7 623.5L492.3 658.1M195.3 623.5L-92.3 658.1M186.7 620L365.6 847.8M180 613.3L-47.8 434.4M176.5 604.7L141.9 892.3M176.5 595.3L141.9 307.7M180 586.7L-47.8 765.6M186.7 580L365.6 352.2M195.3 576.5L-92.3 541.9M204.7 576.5L492.3 541.9M213.3 580L34.4 352.2M220 586.7L447.8 765.6M223.5 595.3L258.1 307.7"/>
+</g>
+  <g class="hl">
+  <circle cx="1200" cy="600" r="340"/><circle cx="1200" cy="600" r="319"/>
+  <circle cx="1200" cy="600" r="300" class="soft"/>
+  <circle cx="1200" cy="600" r="24"/><circle cx="1200" cy="600" r="9"/>
+  <path class="spk" d="M1224 600L1314 875.3M1222.2 609.2L1410.7 389.3M1217 617L1086 875.3M1209.2 622.2L1498 600M1200 624L924.7 714M1190.8 622.2L1410.7 810.7M1183 617L924.7 486M1177.8 609.2L1200 898M1176 600L1086 324.7M1177.8 590.8L989.3 810.7M1183 583L1314 324.7M1190.8 577.8L902 600M1200 576L1475.3 486M1209.2 577.8L989.3 389.3M1217 583L1475.3 714M1222.2 590.8L1200 302M1223.5 604.7L1258.1 892.3M1220 613.3L1447.8 434.4M1213.3 620L1034.4 847.8M1204.7 623.5L1492.3 658.1M1195.3 623.5L907.7 658.1M1186.7 620L1365.6 847.8M1180 613.3L952.2 434.4M1176.5 604.7L1141.9 892.3M1176.5 595.3L1141.9 307.7M1180 586.7L952.2 765.6M1186.7 580L1365.6 352.2M1195.3 576.5L907.7 541.9M1204.7 576.5L1492.3 541.9M1213.3 580L1034.4 352.2M1220 586.7L1447.8 765.6M1223.5 595.3L1258.1 307.7"/>
+</g>
+  <g class="tubes"><path class="tb-o" stroke-width="22" d="M462 182L200 600"/><path class="tb-o" stroke-width="24" d="M605 670L200 600"/><path class="tb-o" stroke-width="34" d="M605 670L452 152"/><path class="tb-o" stroke-width="32" d="M455 168L1015 147"/><path class="tb-o" stroke-width="38" d="M605 670L1045 248"/><path class="tb-o" stroke-width="43" d="M1008 126L1052 269"/><path class="tb-o" stroke-width="23" d="M452 152L418 40"/><path class="tb-o" stroke-width="31" d="M1003 108L1098 82"/><path class="tb-o" stroke-width="27" d="M1052 269L1136 540Q1153 596 1200 600"/><path class="tb-o" stroke-width="23" d="M1098 82C1160 76 1184 100 1182 142C1180 188 1150 212 1110 210L1086 206"/><path class="tb-o" stroke-width="25" d="M605 670L754 756"/><path class="tb-i" stroke-width="15" d="M462 182L200 600"/><path class="tb-i" stroke-width="17" d="M605 670L200 600"/><path class="tb-i" stroke-width="27" d="M605 670L452 152"/><path class="tb-i" stroke-width="25" d="M455 168L1015 147"/><path class="tb-i" stroke-width="31" d="M605 670L1045 248"/><path class="tb-i" stroke-width="36" d="M1008 126L1052 269"/><path class="tb-i" stroke-width="16" d="M452 152L418 40"/><path class="tb-i" stroke-width="24" d="M1003 108L1098 82"/><path class="tb-i" stroke-width="20" d="M1052 269L1136 540Q1153 596 1200 600"/><path class="tb-i" stroke-width="16" d="M1098 82C1160 76 1184 100 1182 142C1180 188 1150 212 1110 210L1086 206"/><path class="tb-i" stroke-width="18" d="M605 670L754 756"/></g>
+  <g class="hl">
+  <circle cx="200" cy="600" r="24"/><circle cx="200" cy="600" r="30"/><circle cx="200" cy="600" r="36"/><circle cx="200" cy="600" r="42"/><circle cx="200" cy="600" r="48"/><circle cx="200" cy="600" r="54"/>
+  <circle cx="605" cy="670" r="106"/><circle cx="605" cy="670" r="97" class="teeth"/>
+  <circle cx="605" cy="670" r="22"/><path d="M627.8 677.4L686.8 696.6M605 694L605 756M582.2 677.4L523.2 696.6M590.9 650.6L554.5 600.4M619.1 650.6L655.5 600.4"/>
+  <path class="chain" d="M605 564L200 546"/>
+  <path class="chain" d="M605 776L236 741"/>
+  <path d="M206 612L224 655L234 728"/>
+  <circle cx="222" cy="655" r="12"/><circle cx="234" cy="728" r="12"/>
+  <path class="chain" d="M222 667L234 716"/>
+  <path d="M724 750h62v14h-62z"/>
+  <path class="soft" d="M605 670L470 590"/>
+  <path d="M330 22C362 8 424 4 472 10C502 13 522 18 537 25L529 31C470 27 402 31 346 35Q326 31 330 22Z"/>
+  <path d="M352 34L360 44L470 40L478 31"/>
+  <path d="M372 338q-22 26 4 50"/>
+  <path d="M1066 283q32 12 24 52"/>
+  <path d="M1150 80L1186 70Q1198 72 1194 86L1176 158"/>
+  <path class="soft" d="M1176 92C1110 120 1040 150 900 152"/>
+  <path class="soft" d="M1172 104C1090 170 1060 230 1040 280"/>
+  <path d="M1006 100L1000 82h14l-4 18"/>
+</g>
+</g>
+</svg>
+    <div class="tissue" aria-hidden="true"></div>
+  </figure>
+  <div class="lookcap">
+    <span class="lookno" aria-hidden="true">01</span>
+    <span class="cap-rule" aria-hidden="true"></span>
+    <p id="t-l1"><span class="t">Look 01&ensp;—&ensp;<span class="zh">二手车</span></span><span>观察到：每辆都换过链条和刹车皮<span class="nw">（保修 90 天）</span>。</span></p>
+  </div>
+  <p class="folio caps"><span>Bridge No.2<span class="hide-m"> Cycle Works</span></span><span>Look 01&ensp;·&ensp;p. 03</span></p>
+</section>
+
+<!-- p.04 · LOOK 02 — text only -->
+<section class="page look look-02" aria-label="LOOK 02 周四夜骑">
+  <p class="line"><span class="seg">每周四</span> <span class="seg"><i>19:30</i></span><br class="d"><span class="seg">店门口出发</span><br class="d"><span class="seg">沿江一圈</span> <span class="seg"><i>24</i>&#8239;公里</span></p>
+  <p class="folio caps"><span>Bridge No.2<span class="hide-m"> Cycle Works</span></span><span>Look 02&ensp;·&ensp;p. 04</span></p>
+</section>
+
+<!-- p.05 · LOOK 03 — two narrow images -->
+<section class="page look look-03" aria-labelledby="t-l3">
+  <div class="pair">
+    <figure class="nar">
+      <div class="frame"><svg class="draw" viewBox="0 0 600 1400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="线描：门口的落地气泵">
+<g class="hl">
+  <path class="soft" d="M40 1334H560"/>
+  <path d="M150 1334L172 1300H428L450 1334Z"/>
+  <path d="M262 1300V1236H338V1300"/>
+  <circle cx="300" cy="1170" r="72"/><circle cx="300" cy="1170" r="64" class="soft"/>
+  <path d="M264.6 1205.4L254.7 1215.3M254.7 1202.9L248.2 1207.6M250.1 1195.4L243 1199.1M246.7 1187.3L239.1 1189.8M244.7 1178.8L236.8 1180M250 1170L236 1170M244.7 1161.2L236.8 1160M246.7 1152.7L239.1 1150.2M250.1 1144.6L243 1140.9M254.7 1137.1L248.2 1132.4M264.6 1134.6L254.7 1124.7M267.1 1124.7L262.4 1118.2M274.6 1120.1L270.9 1113M282.7 1116.7L280.2 1109.1M291.2 1114.7L290 1106.8M300 1120L300 1106M308.8 1114.7L310 1106.8M317.3 1116.7L319.8 1109.1M325.4 1120.1L329.1 1113M332.9 1124.7L337.6 1118.2M335.4 1134.6L345.3 1124.7M345.3 1137.1L351.8 1132.4M349.9 1144.6L357 1140.9M353.3 1152.7L360.9 1150.2M355.3 1161.2L363.2 1160M350 1170L364 1170M355.3 1178.8L363.2 1180M353.3 1187.3L360.9 1189.8M349.9 1195.4L357 1199.1M345.3 1202.9L351.8 1207.6M335.4 1205.4L345.3 1215.3"/>
+  <path d="M300 1170L263 1203"/><circle cx="300" cy="1170" r="5"/>
+  <path d="M272 1098V384H328V1098"/>
+  <path class="soft" d="M284 1090V392"/>
+  <path d="M262 384V360H338V384M262 1098H338"/>
+  <path d="M294 360V240M306 360V240"/>
+  <path d="M130 200H470V240H130Z"/>
+  <path d="M232 200V240M368 200V240"/>
+  <path class="soft" d="M140 204V236M149 204V236M158 204V236M167 204V236M176 204V236M185 204V236M194 204V236M203 204V236M212 204V236M221 204V236M378 204V236M387 204V236M396 204V236M405 204V236M414 204V236M423 204V236M432 204V236M441 204V236M450 204V236M459 204V236"/>
+</g>
+<g class="tubes"><path class="tb-o" stroke-width="18" d="M318 1236C470 1250 528 1090 506 880C486 690 452 600 404 548"/><path class="tb-i" stroke-width="12" d="M318 1236C470 1250 528 1090 506 880C486 690 452 600 404 548"/></g>
+<g class="hl">
+  <path d="M380 528L420 510L438 548L398 566Z"/>
+  <path d="M420 510L452 470"/>
+  <path d="M328 520H352V580H328"/>
+</g>
+</svg></div>
+      <figcaption><span class="k">03 · A</span>门口气泵：<br>免费，24 小时可用。</figcaption>
+    </figure>
+    <figure class="nar">
+      <div class="frame"><svg class="draw" viewBox="0 0 600 1400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="线描：手工编的轮组，花鼓与交叉的辐条">
+<g class="hl">
+  <circle cx="300" cy="960" r="940"/><circle cx="300" cy="960" r="908"/>
+  <circle cx="300" cy="960" r="872"/>
+  <path class="spk" d="M346 960L633.7 1765.6M342.5 977.6L916.6 343.4M332.5 992.5L-33.7 1765.6M317.6 1002.5L1172 960M300 1006L-505.6 1293.7M282.4 1002.5L916.6 1576.6M267.5 992.5L-505.6 626.3M257.5 977.6L300 1832M254 960L-33.7 154.4M257.5 942.4L-316.6 1576.6M267.5 927.5L633.7 154.4M282.4 917.5L-572 960M300 914L1105.6 626.3M317.6 917.5L-316.6 343.4M332.5 927.5L1105.6 1293.7M342.5 942.4L300 88M345.1 969L470.1 1815.2M338.2 985.6L1025 475.5M325.6 998.2L-184.5 1685M309 1005.1L1155.2 1130.1M291 1005.1L-555.2 1130.1M274.4 998.2L784.5 1685M261.8 985.6L-425 475.5M254.9 969L129.9 1815.2M254.9 951L129.9 104.8M261.8 934.4L-425 1444.5M274.4 921.8L784.5 235M291 914.9L-555.2 789.9M309 914.9L1155.2 789.9M325.6 921.8L-184.5 235M338.2 934.4L1025 1444.5M345.1 951L470.1 104.8"/>
+  <path class="nip" d="M625 1741.1L633.7 1765.6M899.2 362.7L916.6 343.4M-22.6 1742.1L-33.7 1765.6M1146 961.3L1172 960M-481.1 1285L-505.6 1293.7M897.3 1559.2L916.6 1576.6M-482.1 637.4L-505.6 626.3M298.7 1806L300 1832M-25 178.9L-33.7 154.4M-299.2 1557.3L-316.6 1576.6M622.6 177.9L633.7 154.4M-546 958.7L-572 960M1081.1 635L1105.6 626.3M-297.3 360.8L-316.6 343.4M1082.1 1282.6L1105.6 1293.7M301.3 114L300 88M466.3 1789.5L470.1 1815.2M1004.1 491L1025 475.5M-169 1664.1L-184.5 1685M1129.5 1126.3L1155.2 1130.1M-529.5 1126.3L-555.2 1130.1M769 1664.1L784.5 1685M-404.1 491L-425 475.5M133.7 1789.5L129.9 1815.2M133.7 130.5L129.9 104.8M-404.1 1429L-425 1444.5M769 255.9L784.5 235M-529.5 793.7L-555.2 789.9M1129.5 793.7L1155.2 789.9M-169 255.9L-184.5 235M1004.1 1429L1025 1444.5M466.3 130.5L470.1 104.8"/>
+  <circle cx="300" cy="960" r="56"/>
+  <circle cx="346" cy="960" r="4"/><circle cx="342.5" cy="977.6" r="4"/><circle cx="332.5" cy="992.5" r="4"/><circle cx="317.6" cy="1002.5" r="4"/><circle cx="300" cy="1006" r="4"/><circle cx="282.4" cy="1002.5" r="4"/><circle cx="267.5" cy="992.5" r="4"/><circle cx="257.5" cy="977.6" r="4"/><circle cx="254" cy="960" r="4"/><circle cx="257.5" cy="942.4" r="4"/><circle cx="267.5" cy="927.5" r="4"/><circle cx="282.4" cy="917.5" r="4"/><circle cx="300" cy="914" r="4"/><circle cx="317.6" cy="917.5" r="4"/><circle cx="332.5" cy="927.5" r="4"/><circle cx="342.5" cy="942.4" r="4"/>
+  <circle cx="300" cy="960" r="30"/><circle cx="300" cy="960" r="12"/>
+</g>
+</svg></div>
+      <figcaption><span class="k">03 · B</span>手工编轮组：<br>¥260 起，工期 5 天。</figcaption>
+    </figure>
+  </div>
+  <div class="lookcap">
+    <span class="lookno" aria-hidden="true">03</span>
+    <span class="cap-rule" aria-hidden="true"></span>
+    <p id="t-l3"><span class="t">Look 03&ensp;—&ensp;<span class="zh">门口与轮组</span></span><span>（左）门口气泵；（右）手编轮组。</span></p>
+  </div>
+  <p class="folio caps"><span>Bridge No.2<span class="hide-m"> Cycle Works</span></span><span>Look 03&ensp;·&ensp;p. 05</span></p>
+</section>
+
+<!-- p.06 · Credits -->
+<section class="page credits" aria-labelledby="t-cr">
+  <h2 class="cr-title" id="t-cr">Credits</h2>
+  <p class="cr-sub caps"><span class="zh" style="letter-spacing:.32em;font-size:12px">本册所见 · 逐项记录</span></p>
+  <dl class="cr-list">
+    <dt class="lk">Look 01</dt><dd>二手车：链条、刹车皮均已更换；保修 90 天</dd>
+    <dt class="lk">Look 02</dt><dd>周四夜骑：19:30 店门口出发，沿江一圈 24 公里；免费，自带车灯</dd>
+    <dt class="lk">Look 03 · A</dt><dd>门口气泵：免费，24 小时可用</dd>
+    <dt class="lk">Look 03 · B</dt><dd>手工编轮组：¥260 起，工期 5 天</dd>
+
+    <dt class="gap">补胎</dt><dd class="gap">¥15</dd>
+    <dt>换内胎</dt><dd>¥35（含内胎）</dd>
+    <dt>全车保养</dt><dd>¥180，约 2 小时（清洗传动、调变速和刹车、紧固全车螺丝）</dd>
+    <dt>公路车 Fitting</dt><dd>¥480，约 90 分钟；需预约</dd>
+
+    <dt class="gap">店主</dt><dd class="gap">陈立平（大家叫他老陈）：修车 27 年，以前在自行车厂做装配</dd>
+    <dt>营业</dt><dd>周三至周日 10:00–20:00；周一、周二休息</dd>
+    <dt>地址</dt><dd>河西路二号桥桥洞下东侧，蓝色卷帘门，门口立着一个旧车轮</dd>
+    <dt>不售</dt><dd>新车（只修车、卖二手车和零件）</dd>
+    <dt>预约</dt><dd>电话 <a class="tel" href="tel:+8657155550222">0571-5555-0222</a>，或到店登记</dd>
+  </dl>
+  <p class="folio caps"><span>Bridge No.2<span class="hide-m"> Cycle Works</span></span><span>Credits&ensp;·&ensp;p. 06</span></p>
+</section>
+
+</main>
+</body>
+</html>

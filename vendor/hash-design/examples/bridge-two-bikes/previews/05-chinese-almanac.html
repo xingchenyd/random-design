@@ -1,0 +1,965 @@
+<!doctype html>
+<!-- hash-design #5 · chinese-almanac · ref 67d7ad9674f570e3e07cbb0c1f19b566c77b87bc276073a8351bf230f4054d01+1 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二号桥单车铺 · 宜忌通书</title>
+<!--
+  Notes on the brief:
+  · Header bands carry weekdays only (一 … 日, rest days in red). The facts give no Gregorian year or month,
+    so none is printed — inventing a date would be inventing a fact.
+  · Anchor (宜/忌 split) is the first sheet; the giant date-numeral + vertical-column format of the
+    tear-off sheet is used on every following sheet, each with its own date box.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Limelight&family=Cormorant+Garamond:wght@500;600&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;700&display=swap">
+<style>
+/* hash-design 67d7ad96 · chinese-almanac · celadon-poster */
+:root {
+  --paper: #e6eee5;
+  --ink: #1d2420;
+  --muted: #4a554e;
+  --accent: #2f7a5f;
+  --on-accent: #ffffff;
+  --accent2: #c95a45;
+  --on-accent2: #000000;
+  --rule: #8fa79a;
+  --panel: #f5efe2;
+
+  --font-display: Limelight, "ZCOOL XiaoWei", "Didot", Georgia, serif;
+  --font-body: "Cormorant Garamond", "Noto Serif SC", Garamond, Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.472rem; /* 7.6px */
+  --step-n1: 0.708rem; /* 11.3px */
+  --step-0: 1.063rem; /* 17px */
+  --step-1: 1.594rem; /* 25.5px */
+  --step-2: 2.391rem; /* 38.3px */
+  --step-3: 3.586rem; /* 57.4px */
+  --step-4: 5.379rem; /* 86.1px */
+  --step-5: 8.068rem; /* 129.1px */
+  --step-6: 12.103rem; /* 193.6px */
+  --step-7: 18.154rem; /* 290.5px */
+  --leading: 1.55;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  --section-gap: 112px;
+  --max-width: 1200px;
+
+  --motion-duration: 300ms;
+  --motion-easing: ease-out;
+}
+
+html { font-size: 106.3%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ───────── page ───────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--paper);
+  background-image:
+    repeating-linear-gradient(105deg, rgba(120,90,40,.035) 0 1px, transparent 1px 7px),
+    radial-gradient(rgba(120,90,40,.05) 1px, transparent 1.5px);
+  background-size: auto, 5px 5px;
+  font-variant-numeric: lining-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, p, ul, ol, figure { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+abbr { text-decoration: none; }
+a { color: inherit; text-decoration: none; }
+
+.zh, .menu, .steps, .strip, .heat {
+  font-family: "Noto Serif SC", var(--font-body);
+  text-autospace: normal;
+  hanging-punctuation: allow-end;
+  line-break: strict;
+}
+/* Latin figures inside Chinese lines: Cormorant, lifted to sit with the CJK body */
+.n {
+  font-family: "Cormorant Garamond", Garamond, Georgia, serif;
+  font-weight: 600;
+  font-size: 1.2em;
+  line-height: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: .01em;
+}
+.lat { font-family: Limelight, "Didot", Georgia, serif; text-transform: uppercase; letter-spacing: .06em; }
+
+.page { padding: 16px 24px 40px; }
+.pad { max-width: var(--max-width); margin: 0 auto; }
+
+/* rice-paper sheet */
+.sheet {
+  position: relative;
+  background-color: var(--panel);
+  background-image:
+    repeating-linear-gradient(105deg, rgba(120,90,40,.035) 0 1px, transparent 1px 7px),
+    radial-gradient(rgba(120,90,40,.05) 1px, transparent 1.5px);
+  background-size: auto, 5px 5px;
+  padding: 18px 18px 6px;
+}
+/* 版框: 4px outer + hairline 5px inside */
+.frame {
+  border: 4px solid var(--ink);
+  outline: 1px solid var(--ink);
+  outline-offset: -9px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+}
+/* perforation: punched holes show the wall through */
+.perf {
+  height: 22px;
+  margin: 0 -6px;
+  background: radial-gradient(circle, var(--paper) 0 2.8px, color-mix(in srgb, var(--rule) 70%, var(--panel)) 3.1px 3.7px, transparent 4.1px) 0 50% / 14px 22px round no-repeat;
+}
+
+/* oversized rule — 文武线: 10px + 2px */
+.rule {
+  height: 15px;
+  border-top: 10px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  margin: 0 -20px;
+  flex: none;
+}
+.rule.lite { height: 12px; border-top-width: 8px; }
+
+/* ───────── board (cardboard the pad hangs from) ───────── */
+.board {
+  background: var(--ink);
+  color: var(--panel);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 28px 13px;
+}
+.board .lat { font-size: var(--step-0); line-height: 1.15; }
+.board .lat span { display: block; font-size: var(--step-n1); letter-spacing: .32em; opacity: .8; }
+.board h1 {
+  font-family: "ZCOOL XiaoWei", serif;
+  font-weight: 400;
+  font-size: var(--step-2);
+  letter-spacing: .1em;
+  margin-right: -.1em;
+  line-height: 1.1;
+}
+.board .addr { justify-self: end; font-family: "Noto Serif SC", serif; font-size: 15px; letter-spacing: .12em; }
+
+/* ───────── header band ───────── */
+.band {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 14px;
+  flex: none;
+}
+.band-no { display: block; font-family: "Noto Serif SC", serif; font-size: 14px; letter-spacing: .24em; color: var(--muted); margin-bottom: 6px; }
+.band h2 {
+  white-space: nowrap;
+  font-family: "ZCOOL XiaoWei", serif;
+  font-weight: 400;
+  font-size: var(--step-2);
+  letter-spacing: .1em;
+  line-height: 1;
+  color: var(--accent);
+}
+.band h2 .lat { font-size: .78em; letter-spacing: .06em; }
+.band-meta { font-family: "Noto Serif SC", serif; font-size: 15px; letter-spacing: .12em; color: var(--muted); text-align: right; }
+.band-meta b { font-family: "ZCOOL XiaoWei", serif; font-weight: 400; font-size: var(--step-1); letter-spacing: .1em; color: var(--accent2); display: block; line-height: 1.1; }
+
+/* week strip */
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border: 1px solid var(--ink); flex: 0 1 470px; }
+.week li { display: grid; justify-items: center; padding: 5px 2px 7px; border-left: 1px solid var(--rule); }
+.week li:first-child { border-left: 0; }
+.week abbr { font-family: Limelight, Georgia, serif; font-size: var(--step-n1); letter-spacing: .06em; color: var(--muted); line-height: 1.4; }
+.week b { font-family: "ZCOOL XiaoWei", serif; font-weight: 400; font-size: var(--step-1); line-height: 1.15; }
+.week i { font-style: normal; font-family: "Noto Serif SC", serif; font-weight: 700; font-size: 19px; line-height: 1.2; }
+.week .rest b, .week .rest i { color: var(--accent2); }
+.week .rest i { outline: 1.5px solid var(--accent2); outline-offset: 1px; padding: 0 2px; }
+.hours { text-align: right; flex: none; }
+.hours .lbl { display: block; font-family: "Noto Serif SC", serif; font-size: 14px; letter-spacing: .24em; color: var(--muted); }
+.hours .lat { font-size: var(--step-1); letter-spacing: .04em; line-height: 1.1; }
+
+/* seals */
+.seal { display: block; width: 92px; height: 92px; flex: none; }
+.seal text { font-family: "Noto Serif SC", serif; font-weight: 700; }
+.seal-band { margin: -38px -10px 0 4px; transform: rotate(-3deg); }
+
+/* ───────── sheet 1 · 宜 / 忌 split ───────── */
+.today .frame { padding-bottom: 0; }
+.split {
+  display: grid;
+  grid-template-columns: 1fr 44px 1fr;
+  grid-template-areas: "ji spine yi";
+  margin: 0 -20px;
+}
+.yi { grid-area: yi; }
+.ji { grid-area: ji; }
+.spine { grid-area: spine; }
+.half { display: grid; gap: 18px; align-items: start; align-content: start; padding: 24px 20px 22px; }
+.yi { grid-template-columns: auto 1fr; grid-template-areas: "g list"; }
+.ji { grid-template-columns: 1fr auto; grid-template-areas: "list g"; }
+.half .glyph { grid-area: g; }
+.half .menu { grid-area: list; }
+
+.glyph {
+  font-family: "ZCOOL XiaoWei", serif;
+  font-weight: 400;
+  font-size: min(20vw, var(--step-7));
+  line-height: 1;
+  border: 2px solid var(--accent);
+  padding: 0 0 .02em;
+  text-align: center;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.yi .glyph { color: var(--accent2); }
+.glyph small { position: absolute; left: 0; right: 0; bottom: 14px; font-family: "Noto Serif SC", serif; font-size: 14px; font-weight: 400; letter-spacing: .5em; text-indent: .5em; line-height: 1; color: var(--muted); }
+.glyph small::before, .glyph small::after { content: ""; display: inline-block; width: 22px; border-top: 1px solid var(--rule); vertical-align: middle; margin: 0 .5em .2em 0; }
+.glyph small::after { margin: 0 0 .2em 0; }
+
+/* 版心 with 黑口 and fish-tails */
+.spine {
+  border-left: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mouth { width: 10px; background: var(--ink); flex: 0 0 64px; }
+.mouth.tail { flex: 1 1 24px; }
+.fish { width: 34px; height: 16px; flex: none; fill: var(--ink); display: block; }
+.spine-title {
+  writing-mode: vertical-rl;
+  font-family: "Noto Serif SC", serif;
+  font-size: 15px;
+  letter-spacing: .3em;
+  padding: 14px 0 10px;
+  line-height: 1;
+}
+
+/* ingredient list — quantities aligned */
+.menu { font-size: 1rem; line-height: 1.45; }
+.menu li { display: flex; align-items: baseline; gap: 6px; padding: 6px 0 5px; border-bottom: 1px solid color-mix(in srgb, var(--rule) 55%, transparent); }
+.menu li:first-child { border-top: 1px solid var(--ink); }
+.menu li:last-child { border-bottom: 1px solid var(--ink); }
+.menu .it { flex: 0 1 auto; min-width: 0; }
+.menu .it small { display: block; font-size: 13px; line-height: 1.35; color: var(--muted); letter-spacing: .02em; }
+.menu .ld { flex: 1 1 10px; min-width: 10px; border-bottom: 1px dotted var(--rule); transform: translateY(-.3em); }
+.menu .q {
+  flex: none;
+  font-family: "Cormorant Garamond", Garamond, Georgia, serif;
+  font-weight: 600;
+  font-size: 1.36em;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  text-align: right;
+}
+.menu .q.w { font-family: "Noto Serif SC", serif; font-weight: 700; font-size: .94em; letter-spacing: .04em; }
+.menu .q .n { font-size: 1.32em; }
+.ji .menu .q.w { color: var(--ink); }
+
+.strip {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  border-top: 1px solid var(--ink);
+  margin: 0 -20px;
+  padding: 10px 22px 12px;
+  font-size: 16px;
+  line-height: 1.8;
+  flex: none;
+}
+.tip { font-family: "ZCOOL XiaoWei", serif; font-size: var(--step-1); letter-spacing: .1em; line-height: 1; color: var(--accent2); }
+.today .strip { margin-top: 0; }
+
+/* ───────── following sheets ───────── */
+.rows { margin-top: var(--space-5); display: grid; gap: var(--space-4); }
+.row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 16px; align-items: start; }
+.row-a > .sheet { grid-column: 3 / span 6; }
+.row-a > .margin { grid-column: 9 / span 3; }
+.row-b > .sheet { grid-column: 5 / span 6; grid-row: 1; }
+.row-b > .margin { grid-column: 2 / span 3; grid-row: 1; text-align: right; }
+.row-pair > .sheet:first-of-type { grid-column: 1 / span 5; }
+.row-pair > .sheet:last-of-type { grid-column: 6 / span 7; }
+.row-wide > .sheet { grid-column: 2 / span 10; }
+
+.margin { padding-top: 132px; }
+.margin .lat { display: block; }
+.m-no { font-size: var(--step-3); line-height: 1; }
+.m-bar { display: block; height: 10px; width: 72px; background: var(--ink); margin: 14px 0 12px; }
+.row-b .m-bar { margin-left: auto; }
+.m-en { font-size: var(--step-0); line-height: 1.35; color: var(--muted); }
+.cap { grid-column: 1 / -1; display: flex; gap: 16px; align-items: baseline; margin-bottom: 12px; }
+.cap .lat { font-size: var(--step-0); color: var(--muted); }
+.cap .lat:first-child { font-size: var(--step-1); color: var(--ink); }
+
+.day .frame { min-height: 100%; }
+@media (min-width: 1000px) {
+  .row-a > .sheet, .row-b > .sheet { aspect-ratio: 3 / 4; display: flex; flex-direction: column; }
+  .row-a > .sheet .frame, .row-b > .sheet .frame { flex: 1 1 auto; }
+  .row-a .dayzone, .row-b .dayzone { flex: 1 1 auto; }
+}
+
+/* date box: numeral flanked by 18% vertical columns */
+.dayzone {
+  display: grid;
+  grid-template-columns: 18% minmax(0, 1fr) 18%;
+  grid-template-areas: "l n r";
+  margin: 0 -20px;
+  min-height: 300px;
+}
+.dayzone .r { grid-area: r; border-left: 1px solid var(--rule); }
+.dayzone .l { grid-area: l; border-right: 1px solid var(--rule); }
+.dayzone .num { grid-area: n; }
+.colwrap { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px 0; }
+.colwrap .fish { width: 28px; height: 13px; }
+.cols {
+  writing-mode: vertical-rl;
+  font-family: "Noto Serif SC", serif;
+  font-weight: 700;
+  font-size: var(--step-1);
+  letter-spacing: .14em;
+  line-height: 1;
+  border-right: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+}
+.cols p { padding-block: .25em; }
+.cols p + p { border-right: 1px solid var(--rule); }
+.cols .red { color: var(--accent2); }
+
+.num {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 0 14px;
+  text-align: center;
+}
+.digits {
+  font-family: Limelight, "Didot", Georgia, serif;
+  line-height: .86;
+  letter-spacing: -.02em;
+  font-variant-numeric: lining-nums;
+}
+.d1 { font-size: min(var(--step-7), 78cqi); }
+.d2 { font-size: min(var(--step-7), 54cqi); }
+.d3 { font-size: min(var(--step-6), 38cqi); }
+.num.red .digits { color: var(--accent2); }
+.unit { font-family: "ZCOOL XiaoWei", serif; font-size: var(--step-1); letter-spacing: .1em; line-height: 1; margin-top: 10px; }
+.unit .lat { font-size: .8em; }
+
+/* 配料 | 做法 halves */
+.halves { display: grid; grid-template-columns: 1fr 1fr; margin: 0 -20px; flex: none; }
+.halves > div { padding: 18px 22px 18px; }
+.halves > div + div { border-left: 1px solid var(--rule); }
+.tag {
+  display: inline-block;
+  font-family: "ZCOOL XiaoWei", serif;
+  font-weight: 400;
+  font-size: var(--step-1);
+  letter-spacing: .1em;
+  line-height: 1;
+  border: 2px solid var(--accent);
+  padding: .14em .2em .12em .3em;
+  margin-bottom: 12px;
+}
+.tag small { font-family: "Noto Serif SC", serif; font-size: 13px; letter-spacing: .1em; color: var(--muted); margin-left: .3em; }
+.halves .menu { font-size: 15.5px; }
+.steps {
+  list-style: circled;
+  padding-left: 1.7em;
+  font-size: 15.5px;
+  line-height: 1.75;
+}
+.steps li { padding: 2px 0 3px; }
+.steps li::marker { color: var(--accent2); font-weight: 700; font-size: 1.12em; }
+.heat { margin-top: 10px; padding-top: 8px; border-top: 1px dotted var(--rule); font-size: 15.5px; }
+.heat b { font-family: "ZCOOL XiaoWei", serif; font-weight: 400; font-size: 1.25em; letter-spacing: .08em; margin-right: .4em; }
+@counter-style circled { system: fixed; symbols: "①" "②" "③" "④" "⑤"; suffix: "\2002"; }
+
+.stack .halves { grid-template-columns: 1fr; }
+.stack .halves > div + div { border-left: 0; border-top: 1px solid var(--rule); }
+
+.night .band-meta { margin-left: auto; }
+.night .seal-band { width: 84px; height: 84px; margin: -34px -8px 0 0; transform: rotate(2deg); }
+
+/* wide sheet (老陈) */
+.wide-body { display: grid; grid-template-columns: 52% 18px 1fr; margin: 0 -20px; flex: 1 1 auto; }
+.wide-body .dayzone { margin: 0; min-height: 320px; }
+.vrule { border-left: 10px solid var(--ink); border-right: 2px solid var(--ink); margin: 0 3px; }
+.wide-text { padding: 20px 26px 18px; display: grid; gap: 18px; align-content: start; position: relative; }
+.wide-text .seal { position: absolute; right: 22px; bottom: 18px; width: 96px; height: 96px; }
+
+/* back board */
+.back {
+  margin-top: var(--space-5);
+  background: var(--ink);
+  color: var(--panel);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0 40px;
+  align-items: stretch;
+  padding: 30px 36px 28px;
+}
+.back h2 {
+  font-family: "ZCOOL XiaoWei", serif;
+  font-weight: 400;
+  font-size: var(--step-4);
+  letter-spacing: .1em;
+  line-height: 1;
+  writing-mode: vertical-rl;
+  border-left: 2px solid var(--panel);
+  padding-left: 18px;
+}
+.back ol { list-style: circled; padding-left: 1.6em; font-family: "Noto Serif SC", serif; font-size: 16px; line-height: 1.8; align-self: center; }
+.back ol li::marker { color: var(--accent2); font-weight: 700; }
+.back .tel { font-family: Limelight, Georgia, serif; font-size: var(--step-3); letter-spacing: .03em; line-height: 1.1; color: var(--accent2); display: inline-block; margin: 2px 0 4px; white-space: nowrap; }
+.back .tel:hover, .back .tel:focus-visible { color: var(--panel); outline: none; }
+.back-facts { align-self: end; text-align: right; font-family: "Noto Serif SC", serif; font-size: 14px; line-height: 1.9; letter-spacing: .06em; opacity: .86; }
+.back-facts .lat { display: block; font-size: var(--step-0); line-height: 1.3; opacity: 1; margin-top: 8px; letter-spacing: .06em; }
+.back-facts span.nb { white-space: nowrap; }
+
+/* ink soak — red prints first at 60% with a slight bleed, then settles */
+@keyframes soak { from { opacity: .6; filter: blur(.6px); } to { opacity: 1; filter: none; } }
+.soak { animation: soak var(--motion-duration) var(--motion-easing) both; }
+.soak.s1 { animation-delay: 120ms; }
+.soak.s2 { animation-delay: 260ms; }
+.soak.s3 { animation-delay: 420ms; }
+@supports (animation-timeline: view()) {
+  .soak-v { animation: soak linear both; animation-timeline: view(); animation-range: entry 10% entry 70%; }
+}
+
+/* ───────── responsive ───────── */
+@media (min-width: 1200px) {
+  .split .half { align-content: stretch; }
+  .split .menu { align-self: start; }
+  .split .menu .it small { white-space: nowrap; }
+}
+@media (max-width: 1199px) {
+  .glyph { font-size: 20vw; }
+  .half { padding: 22px 18px 20px; gap: 16px; }
+  .half, .yi, .ji { grid-template-columns: 1fr; grid-template-areas: "g" "list"; }
+  .yi .glyph { justify-self: start; }
+  .ji .glyph { justify-self: end; }
+  .glyph small { display: none; }
+}
+@media (max-width: 999px) {
+  .row { grid-template-columns: minmax(0, 1fr); max-width: 640px; margin: 0 auto; width: 100%; }
+  .row > .sheet, .row > .margin, .row-pair > .sheet:first-of-type, .row-pair > .sheet:last-of-type, .row-wide > .sheet { grid-column: 1; grid-row: auto; }
+  .row-pair { row-gap: var(--space-7); }
+  .margin { padding-top: 0; text-align: left !important; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 12px; order: -1; }
+  .row > .sheet { order: 0; }
+  .m-en br { display: none; }
+  .margin .m-bar { display: none; }
+  .m-no { font-size: var(--step-1); }
+  .cap { margin-bottom: 0; }
+  .row-pair .cap { display: none; }
+  .split { grid-template-columns: 1fr 40px 1fr; }
+  .wide-body { grid-template-columns: 1fr; }
+  .vrule { border-left: 0; border-right: 0; border-top: 10px solid var(--ink); border-bottom: 2px solid var(--ink); height: 15px; margin: 0; }
+  .band { flex-wrap: wrap; }
+  .back { grid-template-columns: auto 1fr; }
+  .back h2 { grid-row: 1 / span 2; }
+  .back-facts { grid-column: 2; text-align: left; margin-top: 16px; }
+  .today .band { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "t s" "h s" "w w"; gap: 10px 16px; align-items: end; }
+  .today .band > div:first-child { grid-area: t; }
+  .today .week { grid-area: w; margin-top: 4px; }
+  .today .hours { grid-area: h; text-align: left; display: flex; align-items: baseline; gap: 10px; }
+  .today .seal-band { grid-area: s; align-self: start; margin: -6px -4px 0 0; width: 84px; height: 84px; }
+  .band h2 { white-space: nowrap; }
+}
+@media (max-width: 640px) {
+  .page { padding: 12px 10px 48px; }
+  .sheet { padding: 10px 10px 4px; }
+  .frame { padding: 14px 14px; outline-offset: -8px; }
+  .rule, .split, .dayzone, .halves, .strip, .wide-body { margin-left: -14px; margin-right: -14px; }
+  .board { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 4px; padding: 12px 14px; }
+  .board .addr { justify-self: center; font-size: 13px; }
+  .board .lat { order: 2; font-size: 13px; }
+  .board .lat span { display: inline; font-size: 13px; letter-spacing: .06em; margin-left: .4em; opacity: .8; }
+  .band h2 { font-size: var(--step-1); }
+  .band-no { font-size: 12.5px; }
+  .band-meta { font-size: 13px; }
+  .week abbr { font-size: 9px; }
+  .week b { font-size: 20px; }
+  .week i { font-size: 18.7px; }
+  .hours .lat { font-size: 19px; }
+  .today .seal-band { width: 72px; height: 72px; }
+  .split { grid-template-columns: 1fr 22px 1fr; }
+  .spine .fish, .spine-title { display: none; }
+  .mouth { width: 8px; flex: 1 1 auto; }
+  .half { padding: 14px 8px 14px; gap: 12px; }
+  .glyph small { display: none; }
+  .menu { font-size: 14px; }
+  .menu li { flex-wrap: wrap; gap: 0 4px; padding: 6px 0; }
+  .menu .it { flex: 1 1 auto; }
+  .menu .ld { display: none; }
+  .menu .q { margin-left: auto; font-size: 1.28em; }
+  .menu .q.w { font-size: .95em; }
+  .menu .it small { font-size: 11.5px; }
+  .halves .menu li, .wide-text .menu li { flex-wrap: nowrap; }
+  .halves .menu .it, .wide-text .menu .it { flex: 0 1 auto; }
+  .halves .menu .ld, .wide-text .menu .ld { display: block; }
+  .halves .menu .q, .wide-text .menu .q { margin-left: 0; }
+  .strip { padding: 8px 14px 10px; font-size: 15px; }
+  .tip { font-size: 20px; }
+  .halves { grid-template-columns: 1fr; }
+  .halves > div { padding: 14px 14px; }
+  .halves > div + div { border-left: 0; border-top: 1px solid var(--rule); }
+  .dayzone, .wide-body .dayzone { min-height: 220px; }
+  .cols { font-size: 15px; }
+  .colwrap { padding: 12px 0; gap: 8px; }
+  .colwrap .fish { width: 20px; height: 9px; }
+  .unit { font-size: 20px; }
+  .night .seal-band { width: 66px; height: 66px; margin-top: -26px; }
+  .wide-text { padding: 16px 14px; }
+  .wide-text .seal { right: 14px; bottom: 14px; width: 72px; height: 72px; }
+  .back { grid-template-columns: auto 1fr; padding: 22px 18px; gap: 0 18px; }
+  .back h2 { font-size: var(--step-3); padding-left: 12px; grid-row: 1 / span 2; }
+  .back .tel { font-size: 25px; letter-spacing: 0; }
+  .back ol { font-size: 15px; }
+  .back-facts { grid-column: 2; text-align: left; margin-top: 14px; font-size: 13px; }
+  .back-facts .lat { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="rough" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="4" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="edge"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="19" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -12 0 0 0 8.3" result="speck"/>
+      <feComposite in="edge" in2="speck" operator="in"/>
+    </filter>
+    <symbol id="fish-up" viewBox="0 0 34 16"><path d="M0 0H34V16L17 7L0 16Z"/></symbol>
+    <symbol id="fish-dn" viewBox="0 0 34 16"><path d="M0 16H34V0L17 9L0 0Z"/></symbol>
+  </defs>
+</svg>
+
+<div class="page">
+<div class="pad">
+
+  <header class="board">
+    <p class="lat">Bridge No.2 <span>Cycle Works</span></p>
+    <h1>二号桥单车铺</h1>
+    <p class="addr">河西路二号桥桥洞下东侧</p>
+  </header>
+
+  <!-- ═════ 第一张 · 宜 / 忌 ═════ -->
+  <article class="sheet today" aria-labelledby="t1">
+    <div class="frame">
+      <div class="band">
+        <div>
+          <span class="band-no">第一张</span>
+          <h2 id="t1">本店宜忌</h2>
+        </div>
+        <ol class="week" aria-label="一周营业">
+          <li class="rest"><abbr class="lat">Mon</abbr><b class="soak s2">一</b><i class="soak s2">休</i></li>
+          <li class="rest"><abbr class="lat">Tue</abbr><b class="soak s2">二</b><i class="soak s2">休</i></li>
+          <li><abbr class="lat">Wed</abbr><b>三</b><i>开</i></li>
+          <li><abbr class="lat">Thu</abbr><b>四</b><i>开</i></li>
+          <li><abbr class="lat">Fri</abbr><b>五</b><i>开</i></li>
+          <li><abbr class="lat">Sat</abbr><b>六</b><i>开</i></li>
+          <li><abbr class="lat">Sun</abbr><b>日</b><i>开</i></li>
+        </ol>
+        <p class="hours"><span class="lbl">营业</span><span class="lat">10:00–20:00</span></p>
+        <svg class="seal seal-band soak s3" viewBox="0 0 100 100" role="img" aria-label="朱印：二号桥">
+          <g filter="url(#rough)">
+            <rect x="4" y="4" width="92" height="92" style="fill:var(--accent2)"/>
+            <g style="fill:var(--panel)" text-anchor="middle">
+              <text x="70" y="44" font-size="37">二</text>
+              <text x="70" y="85" font-size="37">号</text>
+              <text transform="translate(30 81) scale(1 1.95)" font-size="39">桥</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="rule" role="presentation"></div>
+
+      <div class="split">
+        <section class="half yi" aria-labelledby="yi">
+          <h3 class="glyph soak s1" id="yi">宜<small>凡八事</small></h3>
+          <ul class="menu">
+            <li><span class="it">补胎</span><span class="ld"></span><span class="q">¥15</span></li>
+            <li><span class="it">换内胎<small>含内胎</small></span><span class="ld"></span><span class="q">¥35</span></li>
+            <li><span class="it">全车保养<small>约 2 小时</small></span><span class="ld"></span><span class="q">¥180</span></li>
+            <li><span class="it">手工编轮组<small>工期 5 天</small></span><span class="ld"></span><span class="q">¥260<span class="w" style="font-family:'Noto Serif SC',serif;font-size:.62em;font-weight:700"> 起</span></span></li>
+            <li><span class="it">公路车 Fitting<small>约 90 分钟 · 需预约</small></span><span class="ld"></span><span class="q">¥480</span></li>
+            <li><span class="it">二手车<small>链条、刹车皮都换过</small></span><span class="ld"></span><span class="q w">保修 <span class="n">90</span> 天</span></li>
+            <li><span class="it">周四夜骑<small>19:30 店门口出发</small></span><span class="ld"></span><span class="q w">免费</span></li>
+            <li><span class="it">门口打气<small>24 小时</small></span><span class="ld"></span><span class="q w">免费</span></li>
+          </ul>
+        </section>
+
+        <div class="spine" aria-hidden="true">
+          <span class="mouth"></span>
+          <svg class="fish"><use href="#fish-up"/></svg>
+          <span class="spine-title">二号桥单车铺　一</span>
+          <svg class="fish"><use href="#fish-dn"/></svg>
+          <span class="mouth tail"></span>
+        </div>
+
+        <section class="half ji" aria-labelledby="ji">
+          <h3 class="glyph" id="ji">忌<small>凡八事</small></h3>
+          <ul class="menu">
+            <li><span class="it">周一、周二上门</span><span class="ld"></span><span class="q w">店休</span></li>
+            <li><span class="it"><span class="n">10:00</span> 以前到店</span><span class="ld"></span><span class="q w">未开门</span></li>
+            <li><span class="it"><span class="n">20:00</span> 以后到店</span><span class="ld"></span><span class="q w">已打烊</span></li>
+            <li><span class="it">进门问新车</span><span class="ld"></span><span class="q w">只卖二手</span></li>
+            <li><span class="it">Fitting 不预约</span><span class="ld"></span><span class="q w">需预约</span></li>
+            <li><span class="it">夜骑不带车灯</span><span class="ld"></span><span class="q w">车灯自带</span></li>
+            <li><span class="it">保养立等可取</span><span class="ld"></span><span class="q w">约 <span class="n">2</span> 小时</span></li>
+            <li><span class="it">当天取轮组</span><span class="ld"></span><span class="q w">工期 <span class="n">5</span> 天</span></li>
+          </ul>
+        </section>
+      </div>
+
+      <p class="strip"><span class="tip">预约</span><span>电话 <span class="n">0571-5555-0222</span>，或到店登记。</span></p>
+    </div>
+    <div class="perf" aria-hidden="true"></div>
+  </article>
+
+  <div class="rows">
+
+    <!-- ═════ 第二张 · 寻店 ═════ -->
+    <section class="row row-a" aria-labelledby="t2">
+      <article class="sheet day">
+        <div class="frame">
+          <div class="band">
+            <div><span class="band-no">第二张</span><h2 id="t2">寻店</h2></div>
+            <p class="band-meta">做法　四步</p>
+          </div>
+          <div class="rule" role="presentation"></div>
+          <div class="dayzone">
+            <div class="colwrap r"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>河西路</p><p>二号桥</p></div></div>
+            <div class="num red"><span class="digits d1 soak-v">2</span><span class="unit">号桥</span></div>
+            <div class="colwrap l"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>桥洞下</p><p>东侧</p></div></div>
+          </div>
+          <div class="rule lite" role="presentation"></div>
+          <div class="halves">
+            <div>
+              <h3 class="tag">配料</h3>
+              <ul class="menu">
+                <li><span class="it">二号桥</span><span class="ld"></span><span class="q w">桥洞下东侧</span></li>
+                <li><span class="it">卷帘门</span><span class="ld"></span><span class="q w">蓝色</span></li>
+                <li><span class="it">旧车轮</span><span class="ld"></span><span class="q w">一个，立门口</span></li>
+                <li><span class="it">气泵</span><span class="ld"></span><span class="q w">门口，免费</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="tag">做法</h3>
+              <ol class="steps">
+                <li>沿河西路，找到二号桥</li>
+                <li>下到桥洞，看东侧</li>
+                <li>认准蓝色卷帘门</li>
+                <li>门口立着旧车轮——就是这里</li>
+              </ol>
+            </div>
+          </div>
+          <p class="strip"><span class="tip">小贴士</span><span>门口气泵免费，<span class="n">24</span> 小时可用。</span></p>
+        </div>
+        <div class="perf" aria-hidden="true"></div>
+      </article>
+      <aside class="margin" aria-hidden="true"><span class="lat m-no">No. II</span><span class="m-bar"></span><span class="lat m-en">Finding <br>the shop</span></aside>
+    </section>
+
+    <!-- ═════ 第三张 · 修车 ═════ -->
+    <section class="row row-b" aria-labelledby="t3">
+      <aside class="margin" aria-hidden="true"><span class="lat m-no">No. III</span><span class="m-bar"></span><span class="lat m-en">Repairs &amp; <br>full service</span></aside>
+      <article class="sheet day">
+        <div class="frame">
+          <div class="band">
+            <div><span class="band-no">第三张</span><h2 id="t3">修车</h2></div>
+            <p class="band-meta">周三至周日</p>
+          </div>
+          <div class="rule" role="presentation"></div>
+          <div class="dayzone">
+            <div class="colwrap r"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>全车保养</p><p>约两小时</p></div></div>
+            <div class="num"><span class="digits d3">180</span><span class="unit">元</span></div>
+            <div class="colwrap l"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>补胎十五元</p><p>换内胎三十五元</p></div></div>
+          </div>
+          <div class="rule lite" role="presentation"></div>
+          <div class="halves">
+            <div>
+              <h3 class="tag">配料<small>价目</small></h3>
+              <ul class="menu">
+                <li><span class="it">补胎</span><span class="ld"></span><span class="q">¥15</span></li>
+                <li><span class="it">换内胎</span><span class="ld"></span><span class="q">¥35</span></li>
+                <li><span class="it">全车保养</span><span class="ld"></span><span class="q">¥180</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="tag">做法<small>全车保养</small></h3>
+              <ol class="steps">
+                <li>清洗传动</li>
+                <li>调变速，调刹车</li>
+                <li>紧固全车螺丝</li>
+              </ol>
+              <p class="heat"><b>火候</b>约 <span class="n">2</span> 小时</p>
+            </div>
+          </div>
+          <p class="strip"><span class="tip">小贴士</span><span>换内胎 <span class="n">¥35</span>，内胎已算在里面。</span></p>
+        </div>
+        <div class="perf" aria-hidden="true"></div>
+      </article>
+    </section>
+
+    <!-- ═════ 第四张 · 编轮 ／ 第五张 · Fitting ═════ -->
+    <section class="row row-pair" aria-label="编轮与 Fitting">
+      <p class="cap"><span class="lat">No. IV — V</span><span class="lat">Hand-built wheels · Road bike fitting</span></p>
+      <article class="sheet day stack" aria-labelledby="t4">
+        <div class="frame">
+          <div class="band">
+            <div><span class="band-no">第四张</span><h2 id="t4">编轮</h2></div>
+            <p class="band-meta">手工编</p>
+          </div>
+          <div class="rule" role="presentation"></div>
+          <div class="dayzone">
+            <div class="colwrap r"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>手工编轮组</p></div></div>
+            <div class="num"><span class="digits d1">5</span><span class="unit">天</span></div>
+            <div class="colwrap l"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>二百六十元起</p></div></div>
+          </div>
+          <div class="rule lite" role="presentation"></div>
+          <div class="halves">
+            <div>
+              <h3 class="tag">配料</h3>
+              <ul class="menu">
+                <li><span class="it">轮组</span><span class="ld"></span><span class="q w">手工编</span></li>
+                <li><span class="it">价钱</span><span class="ld"></span><span class="q">¥260<span style="font-family:'Noto Serif SC',serif;font-size:.62em;font-weight:700"> 起</span></span></li>
+              </ul>
+              <p class="heat"><b>火候</b>工期 <span class="n">5</span> 天</p>
+            </div>
+          </div>
+          <p class="strip"><span class="tip">小贴士</span><span>取轮组前，先算好日子。</span></p>
+        </div>
+        <div class="perf" aria-hidden="true"></div>
+      </article>
+
+      <article class="sheet day" aria-labelledby="t5">
+        <div class="frame">
+          <div class="band">
+            <div><span class="band-no">第五张</span><h2 id="t5">公路车 <span class="lat">Fitting</span></h2></div>
+            <p class="band-meta"><b>需预约</b></p>
+          </div>
+          <div class="rule" role="presentation"></div>
+          <div class="dayzone">
+            <div class="colwrap r"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>公路车</p><p class="red">需预约</p></div></div>
+            <div class="num"><span class="digits d3">480</span><span class="unit">元</span></div>
+            <div class="colwrap l"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>约九十分钟</p></div></div>
+          </div>
+          <div class="rule lite" role="presentation"></div>
+          <div class="halves">
+            <div>
+              <h3 class="tag">配料</h3>
+              <ul class="menu">
+                <li><span class="it">公路车</span><span class="ld"></span><span class="q w">一辆</span></li>
+                <li><span class="it">时长</span><span class="ld"></span><span class="q w">约 <span class="n">90</span> 分钟</span></li>
+                <li><span class="it">价钱</span><span class="ld"></span><span class="q">¥480</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="tag">做法</h3>
+              <ol class="steps">
+                <li>先预约：电话或到店登记</li>
+                <li>带上公路车，按约到店</li>
+                <li>约 <span class="n">90</span> 分钟，调完骑走</li>
+              </ol>
+            </div>
+          </div>
+          <p class="strip"><span class="tip">小贴士</span><span>电话 <span class="n">0571-5555-0222</span>，先约再来。</span></p>
+        </div>
+        <div class="perf" aria-hidden="true"></div>
+      </article>
+    </section>
+
+    <!-- ═════ 第六张 · 二手车 ═════ -->
+    <section class="row row-a" aria-labelledby="t6">
+      <article class="sheet day">
+        <div class="frame">
+          <div class="band">
+            <div><span class="band-no">第六张</span><h2 id="t6">二手车</h2></div>
+            <p class="band-meta">零件也卖</p>
+          </div>
+          <div class="rule" role="presentation"></div>
+          <div class="dayzone">
+            <div class="colwrap r"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>每辆都换过</p><p>链条和刹车皮</p></div></div>
+            <div class="num"><span class="digits d2">90</span><span class="unit">天保修</span></div>
+            <div class="colwrap l"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p class="red">不卖新车</p></div></div>
+          </div>
+          <div class="rule lite" role="presentation"></div>
+          <div class="halves">
+            <div>
+              <h3 class="tag">配料<small>每辆</small></h3>
+              <ul class="menu">
+                <li><span class="it">链条</span><span class="ld"></span><span class="q w">换过</span></li>
+                <li><span class="it">刹车皮</span><span class="ld"></span><span class="q w">换过</span></li>
+                <li><span class="it">保修</span><span class="ld"></span><span class="q w"><span class="n">90</span> 天</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="tag">做法</h3>
+              <ol class="steps">
+                <li>到店挑一辆二手车</li>
+                <li>链条、刹车皮已换好</li>
+                <li>骑走，保修 <span class="n">90</span> 天</li>
+              </ol>
+            </div>
+          </div>
+          <p class="strip"><span class="tip">小贴士</span><span>不卖新车——只修车、卖二手车和零件。</span></p>
+        </div>
+        <div class="perf" aria-hidden="true"></div>
+      </article>
+      <aside class="margin" aria-hidden="true"><span class="lat m-no">No. VI</span><span class="m-bar"></span><span class="lat m-en">Second-hand <br>bikes</span></aside>
+    </section>
+
+    <!-- ═════ 第七张 · 夜骑 ═════ -->
+    <section class="row row-b" aria-labelledby="t7">
+      <aside class="margin" aria-hidden="true"><span class="lat m-no">No. VII</span><span class="m-bar"></span><span class="lat m-en">Thursday <br>night ride</span></aside>
+      <article class="sheet day night">
+        <div class="frame">
+          <div class="band">
+            <div><span class="band-no">第七张</span><h2 id="t7">夜骑</h2></div>
+            <p class="band-meta"><b>星期四</b>每周</p>
+            <svg class="seal seal-band soak-v" viewBox="0 0 100 100" role="img" aria-label="朱印：周四夜骑">
+              <g filter="url(#rough)">
+                <rect x="4" y="4" width="92" height="92" style="fill:var(--accent2)"/>
+                <g style="fill:var(--panel)" text-anchor="middle">
+                  <text x="70" y="45" font-size="38">周</text>
+                  <text x="70" y="86" font-size="38">四</text>
+                  <text x="30" y="45" font-size="38">夜</text>
+                  <text x="30" y="86" font-size="38">骑</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="rule" role="presentation"></div>
+          <div class="dayzone">
+            <div class="colwrap r"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>每周四</p><p class="red">十九时三十分</p></div></div>
+            <div class="num red"><span class="digits d2 soak-v">24</span><span class="unit">公里</span></div>
+            <div class="colwrap l"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>店门口出发</p><p>沿江一圈</p></div></div>
+          </div>
+          <div class="rule lite" role="presentation"></div>
+          <div class="halves">
+            <div>
+              <h3 class="tag">配料</h3>
+              <ul class="menu">
+                <li><span class="it">车灯</span><span class="ld"></span><span class="q w">自带</span></li>
+                <li><span class="it">路线</span><span class="ld"></span><span class="q w">沿江一圈</span></li>
+                <li><span class="it">距离</span><span class="ld"></span><span class="q w"><span class="n">24</span> 公里</span></li>
+                <li><span class="it">费用</span><span class="ld"></span><span class="q w">免费</span></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="tag">做法</h3>
+              <ol class="steps">
+                <li>周四 <span class="n">19:30</span>，店门口集合</li>
+                <li>打开自带的车灯</li>
+                <li>出发，沿江骑一圈</li>
+                <li>全程 <span class="n">24</span> 公里</li>
+              </ol>
+            </div>
+          </div>
+          <p class="strip"><span class="tip">小贴士</span><span>免费。车灯自带，记得打开。</span></p>
+        </div>
+        <div class="perf" aria-hidden="true"></div>
+      </article>
+    </section>
+
+    <!-- ═════ 第八张 · 店主 ═════ -->
+    <section class="row row-wide" aria-labelledby="t8">
+      <article class="sheet day">
+        <div class="frame">
+          <div class="band">
+            <div><span class="band-no">第八张</span><h2 id="t8">店主</h2></div>
+            <p class="band-meta">以前在自行车厂做装配</p>
+          </div>
+          <div class="rule" role="presentation"></div>
+          <div class="wide-body">
+            <div class="dayzone">
+              <div class="colwrap r"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>陈立平</p></div></div>
+              <div class="num"><span class="digits d2">27</span><span class="unit">年</span></div>
+              <div class="colwrap l"><svg class="fish"><use href="#fish-up"/></svg><div class="cols"><p>大家叫他</p><p class="red">老陈</p></div></div>
+            </div>
+            <span class="vrule" role="presentation"></span>
+            <div class="wide-text">
+              <div>
+                <h3 class="tag">配料</h3>
+                <ul class="menu">
+                  <li><span class="it">修车</span><span class="ld"></span><span class="q w"><span class="n">27</span> 年</span></li>
+                  <li><span class="it">从前</span><span class="ld"></span><span class="q w">自行车厂装配</span></li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="tag">做法</h3>
+                <ol class="steps">
+                  <li>先在自行车厂做装配</li>
+                  <li>再修车，一修 <span class="n">27</span> 年</li>
+                </ol>
+              </div>
+              <svg class="seal soak-v" viewBox="0 0 100 100" role="img" aria-label="朱印：老陈">
+                <g filter="url(#rough)">
+                  <rect x="6" y="6" width="88" height="88" style="fill:none;stroke:var(--accent2);stroke-width:6"/>
+                  <g style="fill:var(--accent2)" text-anchor="middle">
+                    <text transform="translate(69 80) scale(1 1.9)" font-size="37">老</text>
+                    <text transform="translate(31 80) scale(1 1.9)" font-size="37">陈</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <p class="strip"><span class="tip">小贴士</span><span>店主陈立平——叫他老陈就行。</span></p>
+        </div>
+        <div class="perf" aria-hidden="true"></div>
+      </article>
+    </section>
+
+  </div>
+
+  <!-- ═════ 底板 · 预约 ═════ -->
+  <footer class="back" aria-labelledby="tb">
+    <h2 id="tb">预约</h2>
+    <ol>
+      <li>拨电话<br><a class="tel" href="tel:057155550222">0571-5555-0222</a></li>
+      <li>或到店登记</li>
+    </ol>
+    <p class="back-facts">
+      河西路二号桥桥洞下东侧<br>
+      蓝色卷帘门，门口立着一个旧车轮<br>
+      <span class="nb">周三至周日 10:00–20:00</span> · <span class="nb">周一、周二休息</span>
+      <span class="lat">Bridge No.2 Cycle Works</span>
+    </p>
+  </footer>
+
+</div>
+</div>
+</body>
+</html>

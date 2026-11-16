@@ -1,0 +1,984 @@
+<!doctype html>
+<!-- hash-design #3 · warm-handmade · ref ee7a4e447e6e69a008ec2e7dd9ce52e7dcffc7a789f6794848f1de5ccb2d2219+1 -->
+<!--
+  Twist note (giant glyph): the giant glyph is a hand-chalked "C" drawn as an SVG stroke, not typeset Caveat,
+  so the branch rule "Caveat only at 28-72px" still holds. It is the first-screen partner of the big stamp.
+  Layout note: the kraft bag is pinned to a chalkboard (palette: chalkboard), so paper items (tags, the label band,
+  the seal sticker) sit on a green-black board and chalk does the writing.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Causeway · a one-day music festival on Skerrow Island · Saturday 19 June 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<style>
+/* hash-design ee7a4e44 · warm-handmade · chalkboard */
+:root {
+  --paper: #2e3430;
+  --ink: #f1ede2;
+  --muted: #b9b9ae;
+  --accent: #f2c14e;
+  --on-accent: #000000;
+  --accent2: #e98a7d;
+  --on-accent2: #000000;
+  --rule: #c8c6bb;
+  --panel: #3a413c;
+
+  --font-display: Caveat, "Bradley Hand", "Segoe Print", cursive;
+  --font-body: "Alegreya Sans", "Gill Sans", Calibri, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.72rem; /* 11.5px */
+  --step-n1: 0.9rem; /* 14.4px */
+  --step-0: 1.125rem; /* 18px */
+  --step-1: 1.406rem; /* 22.5px */
+  --step-2: 1.758rem; /* 28.1px */
+  --step-3: 2.197rem; /* 35.2px */
+  --step-4: 2.747rem; /* 43.9px */
+  --step-5: 3.433rem; /* 54.9px */
+  --step-6: 4.292rem; /* 68.7px */
+  --step-7: 5.364rem; /* 85.8px */
+  --leading: 1.65;
+
+  --space-1: 10px;
+  --space-2: 20px;
+  --space-3: 30px;
+  --space-4: 40px;
+  --space-5: 50px;
+  --space-6: 60px;
+  --space-7: 70px;
+  --space-8: 80px;
+  --section-gap: 168px;
+  --max-width: 1080px;
+
+  --motion-duration: 600ms;
+  --motion-easing: cubic-bezier(.36,.07,.19,.97);
+}
+
+html { font-size: 112.5%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ───────────── page ───────────── */
+/* tokens.css sets html to 112.5% but writes its steps in 16px rems; divide back out so the
+   major-third scale lands on the brief's px values (18 · 22.5 · 28.1 · 35.2 · 43.9 · 54.9 · 68.7) */
+:root {
+  --t-n2: calc(var(--step-n2) / 1.125); --t-n1: calc(var(--step-n1) / 1.125);
+  --t-0: calc(var(--step-0) / 1.125);   --t-1: calc(var(--step-1) / 1.125);
+  --t-2: calc(var(--step-2) / 1.125);   --t-3: calc(var(--step-3) / 1.125);
+  --t-4: calc(var(--step-4) / 1.125);   --t-5: calc(var(--step-5) / 1.125);
+  --t-6: calc(var(--step-6) / 1.125);   --t-7: calc(var(--step-7) / 1.125);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  overflow-x: clip;
+  font-size: var(--t-0);
+  font-kerning: normal;
+  font-variant-numeric: lining-nums;
+  text-rendering: optimizeLegibility;
+  hanging-punctuation: first;
+  --lino: var(--ink);
+  --carve: var(--paper);
+  /* surface: chalk dust, smudged eraser marks */
+  background-image:
+    radial-gradient(ellipse at 30% 40%, rgba(255,255,255,.05), transparent 60%),
+    radial-gradient(ellipse at 75% 70%, rgba(255,255,255,.04), transparent 55%),
+    radial-gradient(ellipse 34% 7% at 62% 18%, color-mix(in srgb, var(--ink) 3.5%, transparent), transparent 70%),
+    radial-gradient(ellipse 28% 6% at 18% 82%, color-mix(in srgb, var(--ink) 3%, transparent), transparent 70%);
+  background-size: 100% 1500px;
+  background-repeat: repeat-y;
+}
+p, h1, h2, h3, ul, dl, dd { margin: 0; }
+p, li { text-wrap: pretty; }
+ul { padding: 0; list-style: none; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* linocut colour roles: solid = --lino, gouged lines = --carve */
+.i  { fill: var(--lino); }
+.is { fill: none; stroke: var(--lino); }
+.c  { fill: var(--carve); }
+.cs { fill: none; stroke: var(--carve); }
+
+.wrap { width: 100%; max-width: calc(var(--max-width) + 64px); margin: 0 auto; padding: 0 32px; }
+.g8 { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); column-gap: 24px; }
+.col-l { grid-column: 1 / span 4; }
+.col-r { grid-column: 5 / span 4; }
+
+.kicker {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--t-n1);
+  line-height: 1.3;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hand { font-family: var(--font-display); }
+.chalky { filter: url(#grain); }
+
+/* ───────────── 1 · front of the bag ───────────── */
+.front {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 0 32px;
+}
+.front-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 24px;
+  flex-wrap: wrap;
+  padding-top: 26px;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+}
+.front-top .kicker b { color: var(--ink); font-weight: 700; }
+.front-body {
+  display: grid;
+  grid-template-columns: 40vw minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(32px, 6vw, 110px);
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 18px 0 8px;
+}
+.stamp { margin: 0; width: 40vw; max-width: 620px; rotate: -2deg; }
+.stamp svg { display: block; width: 100%; height: auto; overflow: visible; }
+.st-top { font-family: var(--font-body); font-weight: 700; font-size: 66px; letter-spacing: 9px; fill: var(--ink); }
+.st-bot { font-family: var(--font-body); font-weight: 700; font-size: 25px; letter-spacing: 5px; fill: var(--ink); }
+
+.glyph {
+  position: relative;
+  height: min(70vh, 62vw, 680px);
+  aspect-ratio: 420 / 640;
+  justify-self: start;
+}
+.glyph-c { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.c-main { fill: none; stroke: var(--accent2); stroke-width: 58; stroke-linecap: round; filter: url(#chalk); }
+.c-pass { fill: none; stroke: var(--accent2); stroke-width: 20; stroke-linecap: round; opacity: .6; filter: url(#chalk2); }
+.c-spine { fill: var(--accent2); filter: url(#chalk); }
+.twine path { fill: none; stroke: var(--rule); stroke-width: 2.4; stroke-linecap: round; }
+
+.c-note {
+  position: absolute;
+  left: 96%;
+  bottom: 3%;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-2);
+  line-height: 1;
+  color: var(--muted);
+  white-space: nowrap;
+}
+@media (max-width: 1279px) { .c-note { display: none; } }
+.c-note svg { width: 54px; height: 40px; flex: none; }
+.c-note path { fill: none; stroke: var(--muted); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+.turn {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0 26px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-2);
+  line-height: 1.1;
+  color: var(--muted);
+}
+.turn svg { width: 34px; height: 54px; flex: none; }
+.turn path { fill: none; stroke: var(--muted); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ───────────── tags (paper, pink paper, slate) ───────────── */
+.hang { position: relative; filter: drop-shadow(1px 2px 0 rgba(60,40,20,.25)); }
+.tag {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  clip-path: polygon(12% 0, 88% 0, 100% 9%, 100% 100%, 0 100%, 0 9%);
+  transform-origin: 50% 30px;
+  padding: 50px 22px 22px;
+}
+.tag::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--muted) 55%, var(--ink));
+}
+.tag--paper { background: var(--ink); color: var(--paper); --lino: var(--paper); --carve: var(--ink); }
+.tag--pink  { background: var(--accent2); color: var(--on-accent2); }
+.tag--slate { background: var(--panel); color: var(--ink); --carve: var(--panel); }
+.tag--slate::before { box-shadow: 0 0 0 4px color-mix(in srgb, var(--rule) 45%, var(--panel)); }
+.tag-k {
+  font-weight: 700;
+  font-size: var(--t-n1);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+.tag-big {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  font-size: var(--t-3);
+  margin-top: 6px;
+  align-self: flex-start;
+}
+.tag-hand {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-2);
+  line-height: 1.02;
+  margin-top: 12px;
+}
+.tag-small { font-size: var(--t-n1); line-height: 1.4; margin-top: 12px; font-weight: 500; }
+.scribble { position: absolute; left: -2px; right: -2px; bottom: -7px; width: calc(100% + 4px); height: 10px; opacity: 0; overflow: visible; }
+.scribble path { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.loop { display: block; width: 24px; height: 34px; margin: 0 auto -16px; position: relative; z-index: 2; overflow: visible; }
+.loop path { fill: none; stroke: var(--rule); stroke-width: 2.2; stroke-linecap: round; }
+.loop circle { fill: var(--rule); }
+.outline { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.outline path { fill: none; stroke: color-mix(in srgb, var(--rule) 70%, transparent); stroke-width: 1.8; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+
+@keyframes swing {
+  0%   { rotate: 0deg; }
+  32%  { rotate: 4deg; }
+  68%  { rotate: -2deg; }
+  100% { rotate: 0deg; }
+}
+.hang:hover .tag { animation: swing var(--motion-duration) var(--motion-easing); }
+@media (prefers-reduced-motion: reduce) {
+  .hang:hover .scribble { opacity: 1; }
+}
+
+.hang--c {
+  position: absolute;
+  left: 85.7%;
+  top: 41.9%;
+  width: clamp(218px, 16.5vw, 240px);
+  translate: -50% -30px;
+}
+.hang--c .tag { rotate: 2deg; padding-left: 20px; padding-right: 20px; }
+.hang--c .tag-big { white-space: nowrap; }
+@keyframes swing-c {
+  0%   { rotate: 2deg; }
+  32%  { rotate: 6deg; }
+  68%  { rotate: 0deg; }
+  100% { rotate: 2deg; }
+}
+.hang--c:hover .tag { animation-name: swing-c; }
+
+/* ───────────── 2 · label band ───────────── */
+.band-wrap { margin: calc(var(--section-gap) * .55) 0 var(--section-gap); overflow-x: clip; padding: 40px 0; }
+.band {
+  position: relative;
+  width: 112vw;
+  margin-left: -6vw;
+  rotate: -2deg;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 30px 8vw 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px 40px;
+  clip-path: polygon(0 4px, 17% 0, 39% 3px, 63% 1px, 84% 5px, 100% 2px, 100% calc(100% - 3px), 78% 100%, 55% calc(100% - 4px), 31% calc(100% - 1px), 12% calc(100% - 5px), 0 100%);
+  filter: drop-shadow(1px 2px 0 rgba(60,40,20,.25));
+}
+.band::before, .band::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed color-mix(in srgb, var(--paper) 42%, transparent);
+}
+.band::before { top: 11px; }
+.band::after { bottom: 11px; }
+.band-line {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(var(--t-2), 3.4vw, var(--t-5));
+  line-height: 1.05;
+  text-align: center;
+  text-wrap: balance;
+}
+@media (min-width: 761px) and (max-width: 1199px) { .band-side { display: none; } }
+.band-side { flex: none; color: color-mix(in srgb, var(--paper) 78%, var(--ink)); letter-spacing: .18em; }
+
+/* ───────────── 3 · back panel ───────────── */
+.back-head { margin-bottom: 120px; }
+.back-head { align-items: end; }
+.back-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-6);
+  line-height: .95;
+  margin-top: 14px;
+}
+.back-head .lead { max-width: 17em; color: var(--muted); font-size: var(--t-1); line-height: 1.5; padding-bottom: 6px; }
+
+.row { margin-top: 136px; }
+.row-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; margin-bottom: 40px; }
+.row-head h3, .patch h3, .care h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-4);
+  line-height: 1;
+}
+
+/* contents patch */
+.patch {
+  position: relative;
+  background: var(--panel);
+  border-radius: 2px;
+  padding: 60px 64px 54px;
+  --carve: var(--panel);
+}
+.hb { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.hb rect {
+  x: 10px; y: 10px;
+  width: calc(100% - 20px); height: calc(100% - 20px);
+  fill: none;
+  stroke: color-mix(in srgb, var(--rule) 75%, transparent);
+  stroke-width: 2;
+  filter: url(#wobble);
+}
+.patch .row-head { margin-bottom: 54px; }
+.stage { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin-top: 22px; }
+.stage b { font-weight: 700; font-size: var(--t-n1); letter-spacing: .16em; text-transform: uppercase; }
+.stage span { font-size: var(--t-n1); color: var(--muted); letter-spacing: .04em; }
+.vig { display: block; width: 100%; max-width: 230px; height: auto; }
+.acts { margin-top: 20px; }
+.acts li {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-3);
+  line-height: 1.12;
+  padding: 7px 0;
+}
+.acts small {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--t-n1);
+  color: var(--muted);
+  letter-spacing: .04em;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+.acts--boathouse li { font-size: var(--t-2); }
+.patch-foot {
+  margin-top: 46px;
+  padding-top: 30px;
+  position: relative;
+  align-items: end;
+  row-gap: 22px;
+}
+.patch-foot::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  border-top: 2px solid color-mix(in srgb, var(--rule) 32%, transparent);
+}
+.net { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
+.net b { font-family: var(--font-display); font-weight: 700; font-size: var(--t-6); line-height: .9; color: var(--accent2); }
+.net span.hand { font-size: var(--t-2); font-weight: 500; }
+.also p { max-width: 30em; margin-top: 6px; }
+
+/* hours on a line of twine */
+.line { position: relative; height: 330px; margin-top: 10px; }
+.twine-line { position: absolute; left: -16px; right: -16px; top: 0; width: calc(100% + 32px); height: 96px; overflow: visible; }
+.twine-line path { fill: none; stroke: var(--rule); stroke-width: 2.2; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.twine-line path + path { stroke-width: 1.2; opacity: .6; }
+.hang--line { position: absolute; left: var(--x); top: var(--y); translate: -50% -4px; }
+.hang--line .loop { margin-bottom: -16px; }
+.t-over, .t-home { width: 270px; }
+.t-last { width: 232px; }
+.t-big { font-size: var(--t-4); }
+.hours-note { max-width: 34em; margin-top: 18px; }
+.hours-note b { color: var(--ink); font-weight: 700; }
+
+/* favourable / unfavourable */
+.care h3 { margin-bottom: 30px; }
+.care .unfav h3 { color: var(--accent2); }
+.omens li { padding: 18px 0 20px; max-width: 26em; }
+.omens li + li { border-top: 1px solid color-mix(in srgb, var(--rule) 22%, transparent); }
+.omen { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--t-2); line-height: 1.05; margin-bottom: 4px; }
+.omens p { color: var(--muted); }
+.boot { display: block; width: 168px; margin-top: 44px; }
+.price-in { font-family: var(--font-display); font-weight: 700; color: var(--accent); font-size: var(--t-2); line-height: 0; }
+.cur { font-size: .58em; vertical-align: .55em; margin-right: .04em; }
+
+/* tickets */
+.tickets .row-head { margin-bottom: 18px; }
+.onsale { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+.onsale-d { position: relative; font-family: var(--font-display); font-weight: 700; font-size: var(--t-4); line-height: 1.1; color: var(--ink); }
+.onsale-d svg { position: absolute; left: -4px; right: -4px; bottom: -8px; width: calc(100% + 8px); height: 12px; overflow: visible; }
+.onsale-d path { fill: none; stroke: var(--accent2); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.nails {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 40px 34px;
+  margin-top: 64px;
+}
+.hang--nail .tag { padding-top: 64px; }
+.hang--nail .tag::before { top: 30px; }
+.hang--nail .loop { margin-bottom: -40px; height: 46px; }
+.s-adult { width: 236px; }
+.s-adult .tag { min-height: 300px; }
+.s-teen { width: 200px; margin-top: 26px; }
+.s-teen .tag { min-height: 248px; }
+.s-kid { width: 178px; margin-top: 52px; }
+.s-kid .tag { min-height: 214px; }
+.s-cup { width: 236px; margin-left: auto; margin-top: 8px; }
+.s-cup .tag { min-height: 296px; }
+.s-kid .tag { rotate: -1.5deg; }
+@keyframes swing-k {
+  0%   { rotate: -1.5deg; }
+  32%  { rotate: 2.5deg; }
+  68%  { rotate: -3.5deg; }
+  100% { rotate: -1.5deg; }
+}
+.s-kid:hover .tag { animation-name: swing-k; }
+.price {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: var(--t-6);
+  line-height: 1;
+  margin-top: auto;
+}
+.s-teen .price, .s-kid .price { font-size: var(--t-5); }
+.price-word { font-size: var(--t-4) !important; }
+.tag-note { font-size: var(--t-n1); line-height: 1.35; color: var(--muted); margin-top: 8px; }
+.s-cup .tag-note { color: color-mix(in srgb, var(--paper) 80%, var(--ink)); }
+.s-cup .price { color: var(--paper); }
+.cup { width: 132px; margin: 0 0 12px -6px; }
+
+/* ───────────── 4 · seal sticker ───────────── */
+.seal { margin-top: var(--section-gap); align-items: center; }
+.sticker { grid-column: 1 / span 4; justify-self: center; width: min(360px, 100%); rotate: 3deg; filter: drop-shadow(1px 2px 0 rgba(60,40,20,.25)); --lino: var(--on-accent2); --carve: var(--accent2); }
+.sticker svg { display: block; width: 100%; height: auto; }
+.sk-disc { fill: var(--accent2); }
+.sk-ring { fill: none; stroke: var(--on-accent2); }
+.sk-top { font-family: var(--font-body); font-weight: 700; font-size: 21px; letter-spacing: 3px; fill: var(--on-accent2); }
+.sk-bot { font-family: var(--font-body); font-weight: 700; font-size: 16px; letter-spacing: 3px; fill: var(--on-accent2); }
+.sk-small { font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: 3px; fill: var(--on-accent2); }
+.sk-blank { font-family: var(--font-body); font-weight: 500; font-size: 14px; fill: var(--on-accent2); }
+.seal-text { grid-column: 5 / span 4; }
+.seal-text h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--t-5); line-height: 1; margin: 12px 0 24px; }
+.seal-text > p { max-width: 30em; }
+.ledger { margin-top: 34px; display: grid; gap: 0; }
+.ledger div { display: grid; grid-template-columns: 9.5em 1fr; align-items: baseline; padding: 12px 0; border-top: 1px solid color-mix(in srgb, var(--rule) 22%, transparent); }
+.ledger dt { font-weight: 700; font-size: var(--t-n1); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.ledger dd { font-family: var(--font-display); font-weight: 700; font-size: var(--t-2); line-height: 1.1; }
+
+/* ───────────── 5 · footer, stitched edge ───────────── */
+.foot { margin-top: var(--section-gap); position: relative; background: var(--panel); padding: 64px 0 0; }
+.foot::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 14px;
+  background: var(--paper);
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}
+.foot-in { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 14px 40px; padding-bottom: 54px; }
+.foot-mark { font-family: var(--font-display); font-weight: 700; font-size: var(--t-4); line-height: 1; }
+.foot-in p:not(.foot-mark) { color: var(--muted); }
+.foot-sign { font-family: var(--font-display); font-weight: 500; font-size: var(--t-2) !important; color: var(--ink) !important; line-height: 1.1; }
+.stitch { position: relative; height: 58px; border-top: 2px solid color-mix(in srgb, var(--paper) 55%, transparent); }
+.stitch::before, .stitch::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  border-top: 2px dashed color-mix(in srgb, var(--rule) 70%, transparent);
+}
+.stitch::before { top: 16px; }
+.stitch::after { top: 34px; border-top-style: dashed; border-top-color: color-mix(in srgb, var(--rule) 38%, transparent); }
+
+/* ───────────── narrow screens ───────────── */
+@media (max-width: 900px) {
+  .front-body { grid-template-columns: 1fr; justify-items: start; row-gap: 6px; padding-top: 22px; }
+  .stamp { width: min(78vw, 420px); }
+  .glyph { height: min(46vh, 112vw); margin-left: 6vw; }
+  .hang--c { width: 176px; }
+  .c-note { left: auto; right: 104%; bottom: -2%; }
+  .c-note { display: none; }
+}
+@media (max-width: 760px) {
+  .front { padding: 0 20px; }
+  .wrap { padding: 0 20px; }
+  .g8 { grid-template-columns: minmax(0, 1fr); }
+  .col-l, .col-r, .seal-text, .sticker { grid-column: 1 / -1; }
+  .front-top { padding-top: 18px; }
+  .front-top .kicker { font-size: var(--t-n2); }
+  .turn { font-size: var(--t-2); padding-bottom: 18px; }
+  .band { padding: 26px 9vw 28px; flex-direction: column; gap: 8px; }
+  .band-line { font-size: var(--t-3); }
+  .back-head { margin-bottom: 80px; }
+  .back-head h2 { font-size: var(--t-5); }
+  .row { margin-top: 104px; }
+  .patch { padding: 44px 26px 38px; }
+  .patch .col-r { margin-top: 50px; }
+  .line { height: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 34px; padding-top: 6px; }
+  .twine-line { display: none; }
+  .hang--line { position: relative; left: auto; top: auto; translate: none; }
+  .hang--line:nth-of-type(odd) { align-self: flex-end; }
+  .hang--line .loop circle { display: block; }
+  .care .col-r { margin-top: 70px; }
+  .boot { width: 120px; margin-top: 28px; }
+  .back-head .lead { margin-top: 24px; }
+  .front-top .fx { display: none; }
+  .hang--c { width: 184px; }
+  .hang--c .tag { padding: 46px 16px 16px; }
+  .hang--c .tag-big { font-size: var(--t-2); }
+  .hang--c .tag-hand { margin-top: 8px; }
+  .hang--c .tag-small { margin-top: 8px; }
+  .glyph { margin-bottom: 24px; }
+  .nails { gap: 30px 16px; margin-top: 44px; }
+  .s-adult { width: 176px; } .s-adult .tag { min-height: 236px; }
+  .s-teen { width: 150px; margin-top: 20px; } .s-teen .tag { min-height: 200px; }
+  .s-kid { width: 150px; margin-top: 0; } .s-kid .tag { min-height: 186px; }
+  .s-cup { width: 176px; margin-left: 0; margin-top: 0; } .s-cup .tag { min-height: 250px; }
+  .tag { padding: 46px 16px 18px; }
+  .hang--nail .tag { padding-top: 58px; }
+  .cup { width: 104px; }
+  .sticker { width: min(300px, 86vw); margin-bottom: 56px; }
+  .ledger div { grid-template-columns: 8em 1fr; }
+}
+@media (min-width: 761px) {
+  .hang--line .loop circle { display: none; }
+}
+</style>
+</head>
+<body>
+
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- rubber stamp: wobble + speckle + blotchy uneven ink -->
+    <filter id="inked" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="3" xChannelSelector="R" yChannelSelector="G" result="wob"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="9" result="speck"/>
+      <feColorMatrix in="speck" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 0 0 0 -1.55" result="speckA"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="21" result="blot"/>
+      <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3 0 0 0 -0.6" result="blotA"/>
+      <feComposite in="speckA" in2="blotA" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="mask"/>
+      <feComposite in="wob" in2="mask" operator="in"/>
+    </filter>
+    <!-- chalk: rough edge + grain -->
+    <filter id="chalk" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1 0.55" numOctaves="2" seed="5" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4.2 0 0 0 -1.25" result="ga"/>
+      <feComposite in="d" in2="ga" operator="in"/>
+    </filter>
+    <filter id="chalk2" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="13" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.9 1.3" numOctaves="2" seed="8" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4.6 0 0 0 -1.7" result="ga"/>
+      <feComposite in="d" in2="ga" operator="in"/>
+    </filter>
+    <!-- mild chalk grain for big handwritten headings -->
+    <filter id="grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="1.15" numOctaves="1" seed="2" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.8 0 0 0 -0.45" result="ga"/>
+      <feComposite in="SourceGraphic" in2="ga" operator="in"/>
+    </filter>
+    <!-- hand-drawn border wobble -->
+    <filter id="wobble" x="-2%" y="-2%" width="104%" height="104%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="6" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ═════════ 1 · FRONT: stamp logo + handwritten note on a small label ═════════ -->
+<header class="front">
+  <div class="front-top">
+    <p class="kicker"><b>Skerrow Island Trust</b><span class="fx"> · a volunteer charity</span></p>
+    <p class="kicker">Year the fourth · first held 2024</p>
+  </div>
+
+  <div class="front-body">
+    <h1 class="stamp">
+      <span class="vh">Causeway — a one-day music festival on Skerrow Island, Saturday 19 June 2027</span>
+      <svg viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="st-arc-top" d="M95 300 A205 205 0 0 1 505 300"/>
+          <path id="st-arc-bot" d="M50 300 A250 250 0 0 0 550 300"/>
+          <clipPath id="st-clip"><circle cx="300" cy="300" r="181"/></clipPath>
+        </defs>
+        <g filter="url(#inked)">
+          <circle class="is" cx="300" cy="300" r="283" stroke-width="10"/>
+          <circle class="is" cx="300" cy="300" r="265" stroke-width="2.5"/>
+          <circle class="is" cx="300" cy="300" r="189" stroke-width="3.5"/>
+          <text class="st-top"><textPath href="#st-arc-top" startOffset="50%" text-anchor="middle">CAUSEWAY</textPath></text>
+          <text class="st-bot"><textPath href="#st-arc-bot" startOffset="50%" text-anchor="middle">SKERROW ISLAND • 19 JUNE 2027</textPath></text>
+          <path class="i" d="M74 290 l3 7.5 7.5 2.5 -7.5 2.5 -3 7.5 -3 -7.5 -7.5 -2.5 7.5 -2.5z"/>
+          <path class="i" d="M526 290 l3 7.5 7.5 2.5 -7.5 2.5 -3 7.5 -3 -7.5 -7.5 -2.5 7.5 -2.5z"/>
+
+          <!-- linocut: the causeway crossing to Skerrow Island, boathouse on the rise -->
+          <g clip-path="url(#st-clip)">
+            <rect class="i" x="100" y="318" width="400" height="190"/>
+            <g class="cs" stroke-linecap="round">
+              <path d="M104 325 q3.5 -0.8 7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0 t7.0 0" stroke-width="1.30" stroke-dasharray="48 5 26 4 80 6" stroke-dashoffset="0"/>
+              <path d="M104 333 q4.6 -1.4 9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0 t9.2 0" stroke-width="1.75" stroke-dasharray="57 6 32 5 90 7" stroke-dashoffset="17"/>
+              <path d="M104 343 q5.7 -2.0 11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0 t11.4 0" stroke-width="2.20" stroke-dasharray="66 7 38 6 100 8" stroke-dashoffset="34"/>
+              <path d="M104 355 q6.8 -2.6 13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0 t13.6 0" stroke-width="2.65" stroke-dasharray="75 8 44 7 110 9" stroke-dashoffset="51"/>
+              <path d="M104 369 q7.9 -3.2 15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0 t15.8 0" stroke-width="3.10" stroke-dasharray="84 9 50 8 120 10" stroke-dashoffset="68"/>
+              <path d="M104 385 q9.0 -3.8 18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0 t18.0 0" stroke-width="3.55" stroke-dasharray="93 10 56 9 130 11" stroke-dashoffset="85"/>
+              <path d="M104 403 q10.1 -4.4 20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0 t20.2 0" stroke-width="4.00" stroke-dasharray="102 11 62 10 140 12" stroke-dashoffset="102"/>
+              <path d="M104 423 q11.2 -5.0 22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0 t22.4 0" stroke-width="4.45" stroke-dasharray="111 12 68 11 150 13" stroke-dashoffset="119"/>
+              <path d="M104 445 q12.3 -5.6 24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0 t24.6 0" stroke-width="4.90" stroke-dasharray="120 13 74 12 160 14" stroke-dashoffset="136"/>
+              <path d="M104 469 q13.4 -6.2 26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0 t26.8 0" stroke-width="5.35" stroke-dasharray="129 14 80 13 170 15" stroke-dashoffset="153"/>
+              <path d="M104 495 q14.5 -6.8 29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0 t29.0 0" stroke-width="5.80" stroke-dasharray="138 15 86 14 180 16" stroke-dashoffset="170"/>
+            </g>
+            <!-- the causeway, gouged out of the sea -->
+            <path class="c" d="M318 320 C304 362 256 424 200 500 L196 512 L380 512 L376 500 C352 430 336 362 330 320 Z"/>
+            <g class="i"><ellipse cx="318.7" cy="323.4" rx="1.4" ry="0.6" transform="rotate(-1 318.7 323.4)"/><ellipse cx="321.2" cy="328.7" rx="1.7" ry="0.9" transform="rotate(-12 321.2 328.7)"/><ellipse cx="317.0" cy="333.6" rx="1.7" ry="0.7" transform="rotate(2 317.0 333.6)"/><ellipse cx="319.4" cy="338.6" rx="2.1" ry="0.9" transform="rotate(13 319.4 338.6)"/><ellipse cx="313.6" cy="343.6" rx="2.2" ry="1.2" transform="rotate(1 313.6 343.6)"/><ellipse cx="315.6" cy="348.3" rx="3.4" ry="1.4" transform="rotate(-5 315.6 348.3)"/><ellipse cx="317.0" cy="352.6" rx="3.2" ry="1.5" transform="rotate(-5 317.0 352.6)"/><ellipse cx="319.0" cy="357.6" rx="4.0" ry="2.1" transform="rotate(3 319.0 357.6)"/><ellipse cx="308.0" cy="362.2" rx="4.4" ry="2.4" transform="rotate(12 308.0 362.2)"/><ellipse cx="304.3" cy="366.7" rx="4.1" ry="2.3" transform="rotate(5 304.3 366.7)"/><ellipse cx="306.5" cy="372.3" rx="4.9" ry="2.8" transform="rotate(-2 306.5 372.3)"/><ellipse cx="327.3" cy="376.7" rx="3.3" ry="1.6" transform="rotate(8 327.3 376.7)"/><ellipse cx="303.2" cy="381.6" rx="5.7" ry="2.6" transform="rotate(3 303.2 381.6)"/><ellipse cx="305.3" cy="386.7" rx="5.1" ry="2.5" transform="rotate(-11 305.3 386.7)"/><ellipse cx="312.9" cy="390.8" rx="3.8" ry="1.9" transform="rotate(-4 312.9 390.8)"/><ellipse cx="309.4" cy="395.8" rx="5.1" ry="2.2" transform="rotate(-5 309.4 395.8)"/><ellipse cx="283.6" cy="400.6" rx="5.4" ry="3.0" transform="rotate(-10 283.6 400.6)"/><ellipse cx="295.0" cy="405.4" rx="4.3" ry="2.4" transform="rotate(8 295.0 405.4)"/><ellipse cx="323.6" cy="412.4" rx="4.9" ry="2.7" transform="rotate(-11 323.6 412.4)"/><ellipse cx="308.8" cy="417.1" rx="5.9" ry="3.2" transform="rotate(-14 308.8 417.1)"/><ellipse cx="311.1" cy="421.3" rx="5.8" ry="2.6" transform="rotate(-1 311.1 421.3)"/><ellipse cx="310.0" cy="425.6" rx="8.3" ry="4.1" transform="rotate(-1 310.0 425.6)"/><ellipse cx="318.6" cy="431.9" rx="5.2" ry="2.9" transform="rotate(-11 318.6 431.9)"/><ellipse cx="296.0" cy="436.3" rx="5.7" ry="3.0" transform="rotate(8 296.0 436.3)"/><ellipse cx="312.5" cy="442.7" rx="5.6" ry="2.4" transform="rotate(8 312.5 442.7)"/><ellipse cx="307.2" cy="445.4" rx="9.4" ry="4.3" transform="rotate(-9 307.2 445.4)"/><ellipse cx="318.7" cy="452.9" rx="7.1" ry="3.8" transform="rotate(-9 318.7 452.9)"/><ellipse cx="273.9" cy="455.9" rx="6.9" ry="2.9" transform="rotate(1 273.9 455.9)"/><ellipse cx="259.1" cy="461.5" rx="6.4" ry="3.0" transform="rotate(0 259.1 461.5)"/><ellipse cx="331.1" cy="465.7" rx="7.8" ry="3.6" transform="rotate(-10 331.1 465.7)"/><ellipse cx="289.8" cy="472.9" rx="9.3" ry="5.0" transform="rotate(-7 289.8 472.9)"/><ellipse cx="265.9" cy="477.1" rx="10.7" ry="4.5" transform="rotate(-6 265.9 477.1)"/><ellipse cx="256.8" cy="482.8" rx="7.8" ry="4.3" transform="rotate(10 256.8 482.8)"/><ellipse cx="249.9" cy="486.4" rx="7.1" ry="3.5" transform="rotate(12 249.9 486.4)"/><ellipse cx="326.4" cy="493.1" rx="10.3" ry="5.4" transform="rotate(-13 326.4 493.1)"/><ellipse cx="300.4" cy="496.8" rx="11.9" ry="6.3" transform="rotate(-9 300.4 496.8)"/></g>
+            <path class="is" stroke-width="1.7" stroke-linecap="round" d="M334.8 348.1c-2.0 -1.4 -0.7 -3.7 -3.4 -4.4M298.8 359.9c2.4 -1.6 0.8 -4.4 4.0 -5.1M340.3 374.3c-2.7 -1.8 -0.9 -5.0 -4.5 -5.9M282.0 386.5c3.0 -2.0 1.0 -5.6 5.1 -6.6M347.2 403.2c-3.4 -2.3 -1.1 -6.2 -5.6 -7.3M261.7 415.9c3.7 -2.5 1.2 -6.8 6.2 -8.1M355.5 434.2c-4.1 -2.7 -1.4 -7.4 -6.8 -8.8M238.6 447.8c4.4 -2.9 1.5 -8.1 7.3 -9.5M365.1 466.7c-4.7 -3.2 -1.6 -8.7 -7.9 -10.2M213.3 482.0c5.1 -3.4 1.7 -9.3 8.4 -11.0"/>
+            <!-- the island, its sea wall and the boathouse -->
+            <g transform="translate(400 320) scale(1.28) translate(-400 -320)">
+            <path class="i" d="M318 320 C328 306 342 298 356 296 C366 286 380 280 396 279 C420 276 444 284 462 298 C472 305 480 312 488 320 Z"/>
+            <path class="i" d="M321 320 V306 L361 303 V320 Z"/>
+            <path class="cs" stroke-width="1.5" d="M321 307 L361 304 M321 313 H361 M331 306 V313 M343 305 V313 M354 304 V313 M337 313 V320 M349 313 V320"/>
+            <path class="i" d="M364 262 L392 233 L420 262 Z"/>
+            <rect class="i" x="370" y="260" width="44" height="34"/>
+            <path class="cs" stroke-width="1.7" d="M367 262.5 H417 M376 268 V292 M408 268 V292 M379 256 L392 242 L405 256"/>
+            <path class="c" d="M384 294 V279 Q384 270 392 270 Q400 270 400 279 V294 Z"/>
+            <circle class="c" cx="392" cy="251.5" r="3.2"/>
+            <path class="is" stroke-width="2" stroke-linecap="round" d="M430 283 l-2 -9 M434 282 l0 -11 M438 283 l3 -8 M448 288 l-2 -8 M452 287 l1 -10 M456 289 l3 -7"/>
+            </g>
+            <path class="cs" stroke-width="2.2" d="M100 320.5 H318 M330 320.5 H500"/>
+            <!-- sky -->
+            <path class="is" stroke-linecap="round" stroke-width="4" d="M152 226 H212 M330 186 H414"/>
+            <path class="is" stroke-linecap="round" stroke-width="2.6" d="M172 240 H252 M352 200 H452 M196 210 H232"/>
+          </g>
+        </g>
+      </svg>
+    </h1>
+
+    <div class="glyph">
+      <svg class="glyph-c" viewBox="0 0 420 640" aria-hidden="true" focusable="false">
+        <path class="c-main" d="M356 156 C344 104 292 64 226 66 C128 70 66 168 62 318 C58 470 128 574 232 580 C296 584 344 548 368 498"/>
+        <path class="c-spine" d="M184 94 C104 124 80 226 80 320 C80 422 108 504 186 554 C140 500 114 420 113 320 C112 228 136 140 184 94 Z"/>
+        <path class="c-pass" d="M344 166 C328 118 282 86 228 88 C144 94 92 182 88 318 C86 452 142 546 230 554 C286 558 328 528 350 490"/>
+        <g class="twine">
+          <path d="M318 150 C334 158 366 148 386 134"/>
+          <path d="M320 146 C336 153 364 144 384 130"/>
+          <path d="M366 145 C368 186 357 228 360 268"/>
+          <path d="M358 147 C352 190 364 230 360 268"/>
+          <path d="M364 146 l9 10 M361 147 l-3 12"/>
+        </g>
+      </svg>
+      <div class="hang hang--c">
+        <div class="tag tag--paper">
+          <span class="tag-k">Saturday</span>
+          <span class="tag-big">19 June 2027<svg class="scribble" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 6 C40 2 80 9 120 4 S180 8 198 3"/></svg></span>
+          <span class="tag-hand">one day,<br>one island,<br>one way over.</span>
+          <span class="tag-small">On foot · 1.2 km across the tidal causeway</span>
+        </div>
+      </div>
+      <p class="c-note" aria-hidden="true"><svg viewBox="0 0 54 40"><path d="M52 30 C38 34 20 28 8 12 M4 22 L7 10 L19 12"/></svg>C, for Causeway</p>
+    </div>
+  </div>
+
+  <p class="turn"><svg viewBox="0 0 34 54" aria-hidden="true"><path d="M10 3 C4 18 20 30 16 50 M7 40 L16 51 L26 41"/></svg>read the back before you cross</p>
+</header>
+
+<main>
+<!-- ═════════ 2 · LABEL BAND ═════════ -->
+<section class="band-wrap" aria-label="The rule of the day">
+  <div class="band">
+    <span class="band-side kicker">Skerrow Island</span>
+    <p class="band-line">Over by morning, home by night — the tide keeps the hours.</p>
+    <span class="band-side kicker">19 June 2027</span>
+  </div>
+</section>
+
+<!-- ═════════ 3 · BACK PANEL: contents + directions for use ═════════ -->
+<section class="back" aria-labelledby="back-h">
+  <header class="wrap back-head g8">
+    <div class="col-l">
+      <p class="kicker">The back of the bag</p>
+      <h2 id="back-h" class="chalky">Almanac for Saturday, 19&nbsp;June</h2>
+    </div>
+    <p class="lead col-r">What the day holds, and when the sand allows.</p>
+  </header>
+
+  <!-- contents -->
+  <div class="wrap">
+    <div class="patch">
+      <svg class="hb" aria-hidden="true"><rect/></svg>
+      <div class="row-head"><h3 class="chalky">Contents</h3><span class="kicker">two stages · one island</span></div>
+      <div class="g8">
+        <div class="col-l">
+          <svg class="vig" viewBox="0 0 220 140" aria-hidden="true" focusable="false">
+            <defs><clipPath id="far-hill"><path d="M0 96 C30 74 70 62 110 68 C150 74 180 62 220 58 V100 H0 Z"/></clipPath></defs>
+            <g clip-path="url(#far-hill)" class="is" stroke-width="1.6"><path d="M0 58 H220 M0 63 H220 M0 68 H220 M0 73 H220 M0 78 H220 M0 83 H220 M0 88 H220 M0 93 H220 M0 98 H220"/></g>
+            <path class="is" stroke-width="2.2" stroke-linecap="round" d="M0 96 C30 74 70 62 110 68 C150 74 180 62 220 58"/>
+            <path class="i" d="M0 100 C50 86 110 84 160 92 C185 96 205 94 220 90 V140 H0 Z"/>
+            <path class="cs" stroke-width="1.6" stroke-linecap="round" d="M6 106l-2.0 -6.8M15 106l-1.2 -6.5M25 106l-0.7 -6.5M36 106l0.2 -6.4M47 106l1.3 -5.5M56 106l0.8 -6.4M65 106l0.7 -5.9M76 106l1.2 -5.2M86 106l1.7 -6.4M97 106l0.3 -6.8M109 106l-0.5 -5.7M120 106l-0.7 -5.3M129 106l-0.3 -5.6M141 106l0.2 -6.5M152 106l-1.8 -5.5M163 106l0.0 -5.8M171 106l1.6 -5.1M181 106l-0.6 -6.3M192 106l0.1 -5.3M202 106l-0.9 -5.7M212 106l-0.7 -6.1M9 116l-1.1 -8.4M21 116l1.5 -7.9M33 116l0.1 -7.6M46 116l1.8 -7.4M59 116l-1.0 -7.8M70 116l-0.7 -7.4M84 116l1.5 -6.8M97 116l-1.7 -7.4M107 116l-1.7 -8.6M118 116l0.5 -6.9M130 116l0.4 -6.9M144 116l1.5 -8.4M157 116l1.6 -8.1M168 116l-2.0 -7.1M179 116l-2.0 -7.8M190 116l1.0 -7.6M202 116l-1.0 -8.4M213 116l-0.5 -8.4M12 127l-0.0 -8.2M28 127l0.5 -10.0M40 127l1.6 -8.6M56 127l0.3 -9.6M69 127l-1.1 -8.6M83 127l-1.8 -9.7M98 127l0.9 -9.2M110 127l-1.6 -10.0M122 127l0.8 -10.0M135 127l1.5 -9.9M151 127l1.8 -9.7M164 127l-1.0 -9.7M180 127l-0.4 -8.7M193 127l1.5 -9.3M207 127l0.5 -9.7M15 136l0.9 -10.6M30 136l-0.8 -11.8M48 136l0.5 -11.5M65 136l-1.2 -11.1M80 136l-0.0 -10.9M97 136l1.8 -10.8M112 136l-0.2 -10.1M128 136l0.1 -10.9M144 136l1.0 -10.5M162 136l-1.9 -10.4M178 136l-1.2 -11.2M193 136l-1.1 -11.1M209 136l-1.7 -11.3"/>
+            <path class="is" stroke-width="1.9" stroke-linecap="round" d="M7 99.5l-2.2 -6.0M10 99.0l0.3 -9.8M13 99.5l2.4 -5.9M20 96.6l-2.2 -8.6M23 96.1l0.3 -9.6M26 96.6l2.4 -6.6M39 93.2l-2.2 -7.4M42 92.7l0.3 -9.1M45 93.2l2.4 -5.7M59 90.6l-2.2 -6.4M62 90.1l0.3 -9.5M65 90.6l2.4 -6.8M82 89.2l-2.2 -7.1M85 88.7l0.3 -8.3M88 89.2l2.4 -5.7M103 88.8l-2.2 -7.8M106 88.3l0.3 -10.2M109 88.8l2.4 -6.4M118 89.2l-2.2 -6.9M121 88.7l0.3 -11.2M124 89.2l2.4 -5.0M133 90.3l-2.2 -7.7M136 89.8l0.3 -10.9M139 90.3l2.4 -5.0M151 92.2l-2.2 -8.7M154 91.7l0.3 -10.1M157 92.2l2.4 -5.3M170 94.8l-2.2 -8.9M173 94.3l0.3 -9.3M176 94.8l2.4 -7.7M184 95.7l-2.2 -8.2M187 95.2l0.3 -11.2M190 95.7l2.4 -7.8M200 95.1l-2.2 -6.5M203 94.6l0.3 -11.2M206 95.1l2.4 -7.8"/>
+            <path class="is" stroke-linecap="round" stroke-width="3" d="M24 28 H70 M142 20 H192"/>
+            <path class="is" stroke-linecap="round" stroke-width="2" d="M40 38 H98 M156 30 H210"/>
+          </svg>
+          <p class="stage"><b>The Field</b><span>outdoors</span></p>
+          <ul class="acts">
+            <li>The Lantern Choir</li>
+            <li>Mara Quist</li>
+            <li>Seven Herons</li>
+            <li>Low Orbit Brass</li>
+          </ul>
+        </div>
+        <div class="col-r">
+          <svg class="vig" viewBox="0 0 220 140" aria-hidden="true" focusable="false">
+            <rect class="i" x="0" y="112" width="220" height="28"/>
+            <g class="cs" stroke-linecap="round">
+              <path d="M0 120 q3.0 -1.0 6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0 t6.0 0" stroke-width="1.4" stroke-dasharray="30 5 18 4"/>
+              <path d="M0 127 q4.0 -1.6 8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0 t8.0 0" stroke-width="1.9" stroke-dasharray="38 5 22 4"/>
+              <path d="M0 135 q5.0 -2.2 10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0 t10.0 0" stroke-width="2.4" stroke-dasharray="46 5 26 4"/>
+            </g>
+            <path class="i" d="M40 64 L110 18 L180 64 Z"/>
+            <rect class="i" x="50" y="62" width="120" height="50"/>
+            <path class="cs" stroke-width="3" d="M46 64.5 H174"/>
+            <path class="cs" stroke-width="1.6" stroke-linecap="round" d="M66 55 H154 M80 46 H99 M121 46 H140 M95 37 H101 M119 37 H125 M104 29 H116"/>
+            <circle class="c" cx="110" cy="41" r="5.5"/>
+            <path class="cs" stroke-width="3" d="M84 112 V84 Q84 70 110 70 Q136 70 136 84 V112"/>
+            <path class="cs" stroke-width="1.6" d="M110 71 V112 M97 74 V112 M123 74 V112"/>
+            <path class="cs" stroke-width="1.4" d="M58 70 V108 M66 70 V108 M74 70 V108 M146 70 V108 M154 70 V108 M162 70 V108"/>
+            <path class="c" d="M88 112 H132 L146 140 H74 Z"/>
+            <path class="is" stroke-width="1.8" d="M84 120 H136 M80 128 H140 M77 135 H143"/>
+            <path class="cs" stroke-width="2.5" d="M0 112.5 H86 M134 112.5 H220"/>
+          </svg>
+          <p class="stage"><b>The Boathouse</b><span>indoors · 220 people</span></p>
+          <ul class="acts acts--boathouse">
+            <li>Ada Fenwick <small>solo cello</small></li>
+            <li>Tomasz &amp; the Weir</li>
+            <li>Kelp</li>
+            <li>Ruth Ono Trio</li>
+          </ul>
+        </div>
+      </div>
+      <div class="g8 patch-foot">
+        <div class="col-l">
+          <p class="kicker">Net contents</p>
+          <p class="net"><b>900</b><span class="hand">people, no more</span></p>
+        </div>
+        <div class="col-r also">
+          <p class="kicker">Also contains</p>
+          <p>Food from two island kitchens. Cash and card both taken.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- hours -->
+  <div class="wrap row hours">
+    <div class="row-head"><h3 class="chalky">Hours of the crossing</h3><span class="kicker">that day’s tide times</span></div>
+    <div class="line">
+      <svg class="twine-line" viewBox="0 0 1000 96" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 Q500 110 1000 14"/><path d="M0 17 Q500 112 1000 15"/></svg>
+      <div class="hang hang--line t-over" style="--x:16%; --y:40px">
+        <svg class="loop" viewBox="0 0 24 34" aria-hidden="true"><circle cx="12" cy="3" r="3.5"/><path d="M12 32 C3 20 6 6 12 0 C18 6 21 20 12 32"/></svg>
+        <div class="tag tag--paper">
+          <span class="tag-k">The way over</span>
+          <span class="tag-big t-big">09:40–13:10<svg class="scribble" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 5 C50 9 90 2 130 6 S180 3 198 6"/></svg></span>
+          <span class="tag-hand">arrivals, onto the island</span>
+        </div>
+      </div>
+      <div class="hang hang--line t-last" style="--x:51%; --y:62px">
+        <svg class="loop" viewBox="0 0 24 34" aria-hidden="true"><circle cx="12" cy="3" r="3.5"/><path d="M12 32 C3 20 6 6 12 0 C18 6 21 20 12 32"/></svg>
+        <div class="tag tag--pink">
+          <span class="tag-k">Last set ends</span>
+          <span class="tag-big t-big">21:45<svg class="scribble" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 6 C40 2 80 9 120 4 S180 8 198 3"/></svg></span>
+          <span class="tag-small">so that everyone reaches the causeway in time</span>
+        </div>
+      </div>
+      <div class="hang hang--line t-home" style="--x:84%; --y:40px">
+        <svg class="loop" viewBox="0 0 24 34" aria-hidden="true"><circle cx="12" cy="3" r="3.5"/><path d="M12 32 C3 20 6 6 12 0 C18 6 21 20 12 32"/></svg>
+        <div class="tag tag--paper">
+          <span class="tag-k">The way home</span>
+          <span class="tag-big t-big">22:15–01:30<svg class="scribble" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 4 C60 8 100 2 140 6 S186 4 198 5"/></svg></span>
+          <span class="tag-hand">departures, off the island</span>
+        </div>
+      </div>
+    </div>
+    <p class="hours-note"><b>Outside these windows nobody crosses.</b> The island is reached on foot over 1.2 km of tidal causeway, and the tide sets the times.</p>
+  </div>
+
+  <!-- favourable / unfavourable -->
+  <div class="wrap row care g8">
+    <div class="col-l fav">
+      <h3 class="chalky">Favourable</h3>
+      <div class="fav-wrap">
+        <ul class="omens">
+          <li><b class="omen">Boots.</b><p>Parts of the causeway are wet sand and seaweed.</p></li>
+          <li><b class="omen">A cup of your own.</b><p>Or buy an enamel one on the island.</p></li>
+          <li><b class="omen">An early start.</b><p>The way over opens at 09:40 and closes at 13:10.</p></li>
+        </ul>
+        <svg class="boot" viewBox="0 0 170 184" aria-hidden="true" focusable="false">
+          <path class="i" d="M40 10 H98 Q101 10 101 13 L102 90 C103 106 112 116 128 120 C146 125 156 136 156 150 V162 H100 C96 153 78 153 74 162 H34 V140 C34 120 36 96 38 60 L38 13 Q38 10 40 10 Z"/>
+          <path class="cs" stroke-width="3" d="M38 24 H101"/>
+          <path class="cs" stroke-width="2" stroke-linejoin="round" d="M76 34 H92 V46 H76 Z M38 40 H76"/>
+          <path class="cs" stroke-width="3.4" stroke-linecap="round" d="M50 36 V104"/>
+          <path class="cs" stroke-width="1.6" stroke-linecap="round" d="M58 54 V80 M92 58 V96"/>
+          <path class="cs" stroke-width="2" stroke-linecap="round" d="M112 118 C124 126 130 140 128 152"/>
+          <path class="cs" stroke-width="1.5" stroke-linecap="round" d="M136 128 C144 132 149 138 150 144"/>
+          <path class="cs" stroke-width="2.6" d="M34 151 H156"/>
+          <path class="cs" stroke-width="3.6" d="M42 162 v-4 M52 162 v-4 M62 162 v-4 M106 162 v-4 M117 162 v-4 M128 162 v-4 M139 162 v-4 M150 162 v-4"/>
+          <rect class="i" x="0" y="168" width="170" height="16"/>
+          <path class="cs" stroke-width="1.6" stroke-linecap="round" d="M6 175 h16 M32 178 h10 M54 174 h24 M90 178 h12 M114 175 h20 M146 178 h12"/>
+          <path class="is" stroke-width="2.6" stroke-linecap="round" d="M2 168 C10 161 20 158 31 160 M14 162 C16 157 21 154 26 154 M157 168 C161 163 166 161 170 161"/>
+          <g class="i"><ellipse cx="9" cy="163.5" rx="3.2" ry="2.2" transform="rotate(-30 9 163.5)"/><ellipse cx="22" cy="158.6" rx="3" ry="2" transform="rotate(-12 22 158.6)"/><ellipse cx="28" cy="153.8" rx="2.6" ry="1.8"/><ellipse cx="33" cy="160.4" rx="2.6" ry="1.8"/><ellipse cx="164" cy="162.6" rx="2.6" ry="1.8" transform="rotate(-20 164 162.6)"/></g>
+        </svg>
+      </div>
+    </div>
+    <div class="col-r unfav">
+      <h3 class="chalky">Unfavourable</h3>
+      <ul class="omens">
+        <li><b class="omen">Single-use plastic.</b><p>There is none on the island.</p></li>
+        <li><b class="omen">Crossing out of hours.</b><p>Nobody crosses outside the windows above.</p></li>
+        <li><b class="omen">Waiting on the boat.</b><p>The harbour boat is for emergencies only.</p></li>
+        <li><b class="omen">Your good shoes.</b><p>See: boots.</p></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- tickets -->
+  <div class="wrap row tickets">
+    <div class="row-head"><h3 class="chalky">Tickets</h3></div>
+    <p class="onsale"><span class="kicker">On sale from</span><span class="onsale-d">1 March 2027<svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 7 C40 3 70 10 110 6 S170 4 197 8"/></svg></span></p>
+    <div class="nails">
+      <div class="hang hang--nail s-adult">
+        <svg class="loop" viewBox="0 0 24 46" aria-hidden="true"><circle cx="12" cy="4" r="4"/><path d="M12 44 C3 30 6 12 12 4 C18 12 21 30 12 44"/></svg>
+        <div class="tag tag--slate">
+          <svg class="outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M14.6 4.2 L50 3.7 L85.4 4.3 L95.8 12.6 L96.1 55 L95.6 95.7 L50 96.2 L4.3 95.6 L3.9 52 L4.4 12.8 Z"/></svg>
+          <span class="tag-k">Adult</span>
+          <span class="price"><span class="cur">£</span>54</span>
+        </div>
+      </div>
+      <div class="hang hang--nail s-teen">
+        <svg class="loop" viewBox="0 0 24 46" aria-hidden="true"><circle cx="12" cy="4" r="4"/><path d="M12 44 C3 30 6 12 12 4 C18 12 21 30 12 44"/></svg>
+        <div class="tag tag--slate">
+          <svg class="outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M14.4 4.4 L50 3.9 L85.6 4.2 L95.7 12.9 L95.9 50 L95.5 95.6 L50 96.1 L4.4 95.8 L4.1 50 L4.3 12.7 Z"/></svg>
+          <span class="tag-k">Ages 12–17</span>
+          <span class="price"><span class="cur">£</span>27</span>
+        </div>
+      </div>
+      <div class="hang hang--nail s-kid">
+        <svg class="loop" viewBox="0 0 24 46" aria-hidden="true"><circle cx="12" cy="4" r="4"/><path d="M12 44 C3 30 6 12 12 4 C18 12 21 30 12 44"/></svg>
+        <div class="tag tag--slate">
+          <svg class="outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M14.7 4.1 L50 4.4 L85.2 3.9 L95.9 12.7 L95.6 52 L95.9 95.8 L50 95.5 L4.2 96 L4.4 50 L4.1 12.9 Z"/></svg>
+          <span class="tag-k">Under 12</span>
+          <span class="price price-word">free</span>
+        </div>
+      </div>
+      <div class="hang hang--nail s-cup">
+        <svg class="loop" viewBox="0 0 24 46" aria-hidden="true"><circle cx="12" cy="4" r="4"/><path d="M12 44 C3 30 6 12 12 4 C18 12 21 30 12 44"/></svg>
+        <div class="tag tag--paper">
+          <svg class="cup" viewBox="0 0 170 140" aria-hidden="true" focusable="false">
+            <path class="is" stroke-width="13" stroke-linecap="round" d="M120 48 C152 46 156 100 116 104"/>
+            <path class="i" d="M28 30 H122 L116 120 C115 128 109 132 102 132 H48 C41 132 35 128 34 120 Z"/>
+            <ellipse class="i" cx="75" cy="30" rx="48" ry="9.5"/>
+            <ellipse class="c" cx="75" cy="30" rx="41" ry="5.5"/>
+            <path class="cs" stroke-width="2.6" d="M30 43 C60 49 92 49 121 43"/>
+            <path class="c" d="M96 56 c4 -2 9 0 8 4 c-1 4 -7 4 -9 1 z"/>
+            <path class="cs" stroke-width="3.6" stroke-linecap="round" d="M44 56 V118"/>
+            <path class="cs" stroke-width="1.6" stroke-linecap="round" d="M53 62 V98 M108 66 V112"/>
+            <path class="is" stroke-width="2" stroke-linecap="round" d="M30 137 H130"/>
+          </svg>
+          <span class="tag-k">Enamel cup</span>
+          <span class="price"><span class="cur">£</span>6</span>
+          <span class="tag-note">or bring your own</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 4 · SEAL STICKER ═════════ -->
+<section class="wrap g8 seal" aria-labelledby="seal-h">
+  <div class="sticker">
+    <svg viewBox="0 0 340 340" role="img" aria-labelledby="sk-title">
+      <title id="sk-title">Seal of the Skerrow Island Trust, a volunteer charity. Contact details: to be added.</title>
+      <defs>
+        <path id="sk-arc-top" d="M44 170 A126 126 0 0 1 296 170"/>
+        <path id="sk-arc-bot" d="M24 170 A146 146 0 0 0 316 170"/>
+      </defs>
+      <circle class="sk-disc" cx="170" cy="170" r="168"/>
+      <circle class="sk-ring" cx="170" cy="170" r="158" stroke-width="2.2"/>
+      <circle class="sk-ring" cx="170" cy="170" r="106" stroke-width="1.6"/>
+      <text class="sk-top"><textPath href="#sk-arc-top" startOffset="50%" text-anchor="middle">SKERROW ISLAND TRUST</textPath></text>
+      <text class="sk-bot"><textPath href="#sk-arc-bot" startOffset="50%" text-anchor="middle">A VOLUNTEER CHARITY</textPath></text>
+      <path class="i" d="M34 163 l2.4 5 5 2 -5 2 -2.4 5 -2.4 -5 -5 -2 5 -2z"/>
+      <path class="i" d="M306 163 l2.4 5 5 2 -5 2 -2.4 5 -2.4 -5 -5 -2 5 -2z"/>
+      <!-- linocut: the sea wall the profits repair -->
+      <g transform="translate(110 92) scale(.6)" filter="url(#wobble)">
+        <rect class="i" x="62" y="38" width="138" height="82"/>
+        <rect class="i" x="56" y="29" width="150" height="11"/>
+        <path class="cs" stroke-width="3.2" d="M56 41 H206 M62 60 H200 M62 80 H200 M62 100 H200 M90 41 V60 M126 41 V60 M162 41 V60 M76 60 V80 M110 60 V80 M146 60 V80 M182 60 V80 M94 80 V100 M130 80 V100 M166 80 V100 M78 100 V120 M114 100 V120 M150 100 V120 M188 100 V120"/>
+        <path class="i" d="M0 120 V100 C8 82 24 70 42 72 C56 74 64 86 58 94 C54 100 45 98 45 91 C40 99 48 110 64 106 L64 120 Z"/>
+        <path class="cs" stroke-width="2.6" stroke-linecap="round" d="M6 112 C14 98 26 88 40 86 M12 119 C20 108 32 101 46 101"/>
+        <g class="i"><circle cx="40" cy="58" r="3.2"/><circle cx="52" cy="49" r="2.6"/><circle cx="27" cy="63" r="2.2"/><circle cx="61" cy="41" r="2"/></g>
+        <path class="is" stroke-width="3" d="M-6 124 H210"/>
+      </g>
+      <text class="sk-small" x="170" y="200" text-anchor="middle">CONTACT</text>
+      <path class="is" stroke-width="1.6" stroke-dasharray="4 4" d="M122 220 H218"/>
+      <text class="sk-blank" x="170" y="240" text-anchor="middle">to be added</text>
+    </svg>
+  </div>
+  <div class="seal-text">
+    <p class="kicker">Sealed by</p>
+    <h2 id="seal-h" class="chalky">The Skerrow Island Trust</h2>
+    <p>A volunteer charity organises the day. The profits go to repairing the sea&nbsp;wall.</p>
+    <dl class="ledger">
+      <div><dt>First held</dt><dd>2024</dd></div>
+      <div><dt>This year</dt><dd>the fourth</dd></div>
+      <div><dt>Capacity</dt><dd>900 people</dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<!-- ═════════ 5 · FOOTER, stitched bottom edge ═════════ -->
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p class="foot-mark">Causeway</p>
+    <p>Saturday 19 June 2027 · Skerrow Island · fourth year, first held 2024</p>
+    <p class="foot-sign">Boots on. Mind the hours.</p>
+  </div>
+  <div class="stitch" aria-hidden="true"></div>
+</footer>
+
+</body>
+</html>

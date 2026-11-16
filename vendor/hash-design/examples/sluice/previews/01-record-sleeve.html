@@ -1,0 +1,627 @@
+<!doctype html>
+<!-- hash-design #1 · record-sleeve · ref 2519cd97b1cb7a53fa192b21d16d98d41c08c45046f0969f12665848f49d9f97 -->
+<!--
+  Twist (one-element-breaks-grid): the disc is the only element allowed off the grid. It slides out of the
+  sleeve's open edge and runs past the 1080px column into the page margin and off the viewport edge
+  (on phones it slides out of the top edge and bleeds off the right). Everything else sits on the
+  12x12 cover grid or the 3-column back-cover grid.
+  Note: the anchor (only 60-70% of the name visible, cut by the square) needs the cropped name at
+  0.82 x the square, which is larger than the type rule's "up to 30vw"; the anchor wins.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sluice — a self-hosted inbox for webhooks · SLUICE 0.9.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Libre+Franklin:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap">
+<style>
+/* hash-design 2519cd97 · record-sleeve · factory-black */
+:root {
+  --paper: #0e0e0e;
+  --ink: #f0eee9;
+  --muted: #a7a49d;
+  --accent: #e8452c;
+  --on-accent: #000000;
+  --accent2: #f2c230;
+  --on-accent2: #000000;
+  --rule: #3a3a3a;
+  --panel: #1c1c1c;
+
+  --font-display: "League Gothic", Impact, "Arial Narrow", sans-serif;
+  --font-body: "Libre Franklin", "Franklin Gothic Medium", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.5rem; /* 8px */
+  --step-n1: 0.75rem; /* 12px */
+  --step-0: 1.125rem; /* 18px */
+  --step-1: 1.688rem; /* 27px */
+  --step-2: 2.531rem; /* 40.5px */
+  --step-3: 3.797rem; /* 60.8px */
+  --step-4: 5.695rem; /* 91.1px */
+  --step-5: 8.543rem; /* 136.7px */
+  --step-6: 12.814rem; /* 205px */
+  --step-7: 19.222rem; /* 307.5px */
+  --leading: 1.65;
+
+  --space-1: 10px;
+  --space-2: 20px;
+  --space-3: 30px;
+  --space-4: 40px;
+  --space-5: 50px;
+  --space-6: 60px;
+  --space-7: 70px;
+  --space-8: 80px;
+  --section-gap: 168px;
+  --max-width: 1080px;
+
+  --motion-duration: 0ms;
+  --motion-easing: linear;
+}
+
+html { font-size: 112.5%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- page ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, p, ol, ul, dl, dd, table, figure { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  overflow-x: clip;
+  font-size: var(--step-0);
+  font-kerning: normal;
+  font-variant-numeric: lining-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+:root {
+  --s: min(92vw, 88vh);          /* the sleeve: a 1:1 square */
+  --m: calc(var(--s) / 12);      /* one module of the 12x12 cover grid */
+  --gut: clamp(15px, 4vw, 40px);
+}
+.wrap { width: min(var(--max-width), 100% - 2 * var(--gut)); margin-inline: auto; }
+.label {
+  font: 700 var(--step-n1)/1.2 var(--font-body);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- 1 · front: the sleeve ---------- */
+.front {
+  position: relative;
+  overflow-x: clip;
+  padding-top: max(var(--gut), (100vh - var(--s)) / 2);
+}
+.stage { position: relative; width: var(--s); height: var(--s); }
+
+.sleeve {
+  position: relative;
+  z-index: 2;
+  width: var(--s);
+  height: var(--s);
+  background: var(--panel);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  overflow: hidden;
+}
+/* rows 1–8: the crop */
+.crop {
+  grid-area: 1 / 1 / 9 / 13;
+  position: relative;
+  overflow: hidden;
+}
+.crop span {
+  position: absolute;
+  left: calc(var(--s) * -0.139);
+  top: calc(var(--s) * -0.003);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: calc(var(--s) * 0.82);
+  line-height: .82;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+}
+/* catalogue label, top right, Blue Note 1577-style */
+.catlabel {
+  grid-area: 1 / 9 / 2 / 13;
+  position: relative;
+  z-index: 1;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: calc(var(--m) * .3);
+}
+.catlabel b {
+  font: 900 calc(var(--m) * .24)/1 var(--font-body);
+  letter-spacing: .2em;
+}
+.catlabel span {
+  font: 400 calc(var(--m) * .66)/1 var(--font-display);
+  letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+}
+/* rows 9–12: the colour band */
+.band {
+  grid-area: 9 / 1 / 13 / 13;
+  background: var(--ink);
+  color: var(--paper);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  position: relative;
+}
+.band h1 {
+  grid-column: 1 / 9;
+  align-self: end;
+  padding-left: calc(var(--m) * .5);
+  margin-bottom: calc(var(--m) * .5 - var(--s) * .311 * .0475);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: calc(var(--s) * .311);
+  line-height: .82;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.band h1 .t { display: block; }
+.band p {
+  grid-column: 9 / 13;
+  align-self: end;
+  padding-right: calc(var(--m) * .5);
+  padding-bottom: calc(var(--m) * .5);
+  font: 900 calc(var(--s) * .034)/1.04 var(--font-body);
+  letter-spacing: -.012em;
+}
+.band p small {
+  display: block;
+  margin-bottom: calc(var(--m) * .36);
+  font: 700 calc(var(--s) * .0135)/1.2 var(--font-body);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+/* the disc — the one element that leaves the grid */
+.disc {
+  position: absolute;
+  z-index: 1;
+  width: calc(var(--s) * .96);
+  height: calc(var(--s) * .96);
+  top: calc(var(--s) * .02);
+  left: calc(var(--s) * .68);
+  pointer-events: none;
+}
+.disc svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.disc .base { fill: var(--paper); }
+.disc .rim { fill: none; stroke: var(--rule); stroke-width: 2.2; }
+.disc .lip { fill: none; stroke: var(--panel); stroke-width: 5; }
+.disc .g, .disc .g0, .disc .g2 { fill: none; }
+.disc .g  { stroke: var(--panel); stroke-width: 1.25; }
+.disc .g0 { stroke: var(--panel); stroke-width: .6; }
+.disc .g2 { stroke: var(--rule); stroke-width: .9; }
+.disc .s1 { fill: var(--ink); opacity: .03; }
+.disc .s2 { fill: var(--ink); opacity: .04; }
+.disc .s3 { fill: var(--ink); opacity: .05; }
+.disc .leadout { fill: none; stroke: var(--rule); stroke-width: .8; }
+.disc .etch { fill: var(--muted); opacity: .62; font: 700 11px var(--font-body); letter-spacing: 3.8px; }
+.disc .lab { fill: var(--accent2); }
+.disc .lab-ring { fill: none; stroke: var(--on-accent2); stroke-width: .7; opacity: .55; }
+.disc .lt { fill: var(--on-accent2); }
+.disc .ld { font-family: var(--font-display); }
+.disc .lb { font-family: var(--font-body); font-weight: 700; }
+.disc .lk { font-family: var(--font-body); font-weight: 900; letter-spacing: 2.4px; }
+.disc .lr { font-family: var(--font-body); font-weight: 400; }
+.disc .hole { fill: var(--paper); }
+
+/* 4 · under the sleeve: session details */
+.session {
+  width: var(--s);
+  margin-top: var(--space-6);
+  border-collapse: collapse;
+  text-align: left;
+}
+.session caption {
+  caption-side: top;
+  text-align: left;
+  padding-bottom: var(--space-2);
+}
+.session caption span { display: flex; justify-content: space-between; gap: var(--space-2); }
+.session th, .session td {
+  border-top: 1px solid var(--rule);
+  padding: 18px 0 19px;
+  vertical-align: baseline;
+}
+.session tr:last-child th, .session tr:last-child td { border-bottom: 1px solid var(--rule); }
+.session th {
+  width: 25%;
+  font: 700 var(--step-n1)/1.2 var(--font-body);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-right: var(--space-2);
+}
+.session td { font-size: var(--step-0); line-height: 1.5; max-width: 62ch; }
+.session td b { font-weight: 700; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+
+/* ---------- back cover ---------- */
+.back {
+  position: relative;
+  isolation: isolate;
+  width: min(var(--max-width), 100% - 2 * var(--gut));
+  margin: var(--section-gap) auto var(--section-gap);
+  aspect-ratio: 1 / 1;
+  background: var(--panel);
+  padding: var(--space-6) var(--space-6) var(--space-5) calc(6px + var(--space-6));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    "head  head  cat"
+    "sidea sideb slip"
+    "notes notes play"
+    "fine  fine  fine";
+  column-gap: 12px;
+  overflow: clip;
+}
+.back::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--rule); }
+.ringwear {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  width: 84%;
+  aspect-ratio: 1;
+  transform: translate(-48.6%, -50%);
+  pointer-events: none;
+}
+.ringwear circle { fill: none; stroke: var(--ink); }
+
+.back-head { grid-area: head; padding-bottom: var(--space-3); }
+.back-head h2 {
+  font: 400 var(--step-5)/.82 var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin-left: -.02em;
+}
+.back-head p {
+  margin-top: 14px;
+  font: 900 var(--step-1)/1.1 var(--font-body);
+  letter-spacing: -.01em;
+}
+.cat { grid-area: cat; text-align: right; padding-bottom: var(--space-3); }
+.cat .code { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: var(--space-2); }
+.cat .code i { display: block; width: 18px; height: 18px; }
+.cat .code i:nth-child(1) { background: var(--accent); }
+.cat .code i:nth-child(2) { background: var(--accent2); }
+.cat .code i:nth-child(3) { background: var(--ink); }
+.cat strong {
+  display: block;
+  font: 900 var(--step-1)/1 var(--font-body);
+  letter-spacing: .06em;
+}
+.cat strong .num { font-weight: 900; }
+.cat .fmt { margin-top: var(--space-1); line-height: 1.7; }
+
+/* SIDE A / SIDE B */
+.side { border-top: 1px solid var(--ink); padding-top: var(--space-2); padding-bottom: var(--space-3); }
+.side-a { grid-area: sidea; }
+.side-b { grid-area: sideb; }
+.side h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font: 400 var(--step-2)/.9 var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  margin-bottom: var(--space-2);
+}
+.track {
+  display: grid;
+  grid-template-columns: 2.1em minmax(0, 1fr) auto;
+  column-gap: 8px;
+  align-items: baseline;
+  padding: 10px 0 11px;
+  border-top: 1px solid var(--rule);
+  cursor: default;
+}
+.track .no { font: 900 var(--step-n1)/1 var(--font-body); letter-spacing: .06em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.track .t { font: 700 var(--step-0)/1.3 var(--font-body); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+.track .d {
+  font: 700 var(--step-0)/1.3 var(--font-body);
+  font-variant-numeric: tabular-nums lining-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+.track .x {
+  grid-column: 2 / 4;
+  margin-top: 3px;
+  font: italic 400 13px/1.5 var(--font-body);
+  color: var(--muted);
+  max-width: 34ch;
+}
+@media (min-width: 1001px) { .track .x { min-height: 3em; } } /* A and B sides share one row rhythm */
+.track:hover .t { text-decoration-line: underline; }
+.track:hover .d { color: var(--accent); }
+
+/* catalogue entry / order slip */
+.slip { grid-area: slip; border-top: 1px solid var(--ink); padding-top: var(--space-2); padding-bottom: var(--space-3); }
+.slip h3 { margin-bottom: 14px; }
+.slip .entry {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  align-items: baseline;
+  padding-bottom: 12px;
+}
+.slip .entry .no { font: 900 var(--step-0)/1.2 var(--font-body); letter-spacing: .02em; }
+.slip .entry .nm { font: 700 var(--step-0)/1.2 var(--font-body); }
+.slip dl { font-size: 13px; line-height: 1.5; }
+.slip dl div {
+  display: grid;
+  grid-template-columns: 7.6em minmax(0, 1fr);
+  column-gap: 8px;
+  padding: 6px 0 7px;
+  border-top: 1px solid var(--rule);
+}
+.slip dt { color: var(--muted); }
+.slip dd { text-align: right; font-variant-numeric: tabular-nums; }
+.slip .price {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1px solid var(--ink);
+  padding-top: 8px;
+  margin-top: 2px;
+}
+.slip .price b { font: 400 var(--step-3)/.86 var(--font-display); letter-spacing: .01em; }
+.slip .batch { margin-top: 12px; font: italic 400 13px/1.5 var(--font-body); color: var(--muted); }
+
+/* liner notes */
+.notes { grid-area: notes; border-top: 1px solid var(--rule); padding-top: var(--space-2); padding-right: var(--space-6); }
+.notes h3 { margin-bottom: var(--space-2); }
+.notes p { max-width: 62ch; hanging-punctuation: first last; text-wrap: pretty; }
+.notes p + p { margin-top: 1em; }
+.notes .lede { font-weight: 700; }
+
+/* playing instructions */
+.play { grid-area: play; border-top: 1px solid var(--rule); padding-top: var(--space-2); }
+.play h3 { margin-bottom: var(--space-2); }
+.play li {
+  display: grid;
+  grid-template-columns: 2.1em minmax(0, 1fr);
+  column-gap: 8px;
+  padding: 8px 0 10px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.play li:first-child { border-top: 0; padding-top: 0; }
+.play .no { font: 900 var(--step-n1)/1.6 var(--font-body); color: var(--muted); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.play .what { display: block; color: var(--muted); }
+.play code {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.play code span { white-space: nowrap; }
+.play code .ln { display: block; }
+
+.fine {
+  grid-area: fine;
+  align-self: end;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  margin-top: 20px;
+  font-size: 11px;
+}
+.fine span { letter-spacing: .16em; }
+.fine .nw { white-space: nowrap; }
+
+/* ---------- landscape: disc slides out of the right edge ---------- */
+@media (min-aspect-ratio: 13/10) {
+  .disc { left: calc(var(--s) * .745); }
+}
+
+/* ---------- portrait and phones: disc slides out of the top edge ---------- */
+@media (max-aspect-ratio: 13/10) {
+  :root { --s: min(92vw, 88vh, (100vh - 2 * var(--gut)) / 1.66); }
+  .front { padding-top: calc(var(--s) * .66 + var(--gut)); }
+  .disc { left: calc(var(--s) * .36); top: calc(var(--s) * -.65); }
+  .wrap { width: max(var(--s), min(var(--max-width), 100% - 2 * var(--gut))); }
+}
+
+/* back cover: narrower screens */
+@media (max-width: 1000px) {
+  .back {
+    aspect-ratio: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-template-areas:
+      "head  cat"
+      "sidea sideb"
+      "slip  play"
+      "notes notes"
+      "fine  fine";
+  }
+}
+@media (max-width: 640px) {
+  .session th { width: 31%; font-size: 11px; letter-spacing: .14em; }
+  .session td { font-size: 16px; }
+  .back {
+    padding: var(--space-4) 22px var(--space-4) calc(6px + 22px);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "head" "cat" "sidea" "sideb" "slip" "notes" "play" "fine";
+    margin-top: 120px;
+  }
+  .back-head { padding-bottom: var(--space-3); }
+  .back-head h2 { font-size: var(--step-4); }
+  .back-head p { font-size: 22px; }
+  .cat { text-align: left; padding-bottom: var(--space-4); }
+  .cat .code { justify-content: flex-start; }
+  .notes { padding-right: 0; padding-bottom: var(--space-4); }
+  .slip { padding-bottom: var(--space-5); }
+  .play { padding-bottom: 0; }
+  .ringwear { top: 0; width: 120%; transform: translate(-50%, 4%); }
+  .fine { flex-direction: column; gap: 6px; }
+}
+</style>
+</head>
+<body>
+
+<main>
+  <!-- 1–3 · the front of the sleeve -->
+  <section class="front" aria-label="Front cover">
+    <div class="wrap">
+      <div class="stage">
+        <div class="disc" aria-hidden="true">
+          <svg viewBox="-500 -500 1000 1000" focusable="false">
+            <defs>
+              <path id="runout" d="M0 -179A179 179 0 1 1 0 179A179 179 0 1 1 0 -179"/>
+            </defs>
+            <circle class="base" r="500"/>
+            <circle class="rim" r="498.9"/>
+            <circle class="lip" r="493"/>
+            <g><circle r="487.0" class="g"/><circle r="484.6" class="g"/><circle r="482.3" class="g"/><circle r="479.9" class="g"/><circle r="477.6" class="g2"/><circle r="475.2" class="g"/><circle r="472.9" class="g2"/><circle r="470.5" class="g"/><circle r="468.2" class="g"/><circle r="465.8" class="g"/><circle r="463.5" class="g"/><circle r="461.1" class="g2"/><circle r="458.8" class="g"/><circle r="456.4" class="g"/><circle r="454.1" class="g"/><circle r="451.7" class="g"/><circle r="449.4" class="g"/><circle r="447.0" class="g"/><circle r="444.7" class="g"/><circle r="442.3" class="g"/><circle r="440.0" class="g"/><circle r="437.6" class="g"/><circle r="435.3" class="g"/><circle r="432.9" class="g0"/><circle r="430.6" class="g"/><circle r="428.2" class="g"/><circle r="425.9" class="g"/><circle r="416.5" class="g"/><circle r="414.1" class="g"/><circle r="411.8" class="g"/><circle r="409.4" class="g"/><circle r="407.1" class="g"/><circle r="404.7" class="g2"/><circle r="402.4" class="g"/><circle r="400.0" class="g"/><circle r="397.7" class="g"/><circle r="395.3" class="g"/><circle r="393.0" class="g"/><circle r="390.6" class="g"/><circle r="388.3" class="g0"/><circle r="385.9" class="g"/><circle r="383.6" class="g"/><circle r="381.2" class="g"/><circle r="378.9" class="g2"/><circle r="376.5" class="g2"/><circle r="374.2" class="g"/><circle r="371.8" class="g"/><circle r="369.5" class="g"/><circle r="367.1" class="g"/><circle r="364.8" class="g"/><circle r="362.4" class="g2"/><circle r="360.1" class="g"/><circle r="357.7" class="g"/><circle r="355.4" class="g"/><circle r="353.0" class="g"/><circle r="350.7" class="g2"/><circle r="341.3" class="g"/><circle r="338.9" class="g0"/><circle r="336.6" class="g"/><circle r="334.2" class="g"/><circle r="331.9" class="g"/><circle r="329.5" class="g"/><circle r="327.2" class="g0"/><circle r="324.8" class="g"/><circle r="322.5" class="g2"/><circle r="320.1" class="g2"/><circle r="317.8" class="g2"/><circle r="315.4" class="g2"/><circle r="313.1" class="g0"/><circle r="310.7" class="g"/><circle r="308.4" class="g"/><circle r="306.0" class="g"/><circle r="303.7" class="g2"/><circle r="301.3" class="g"/><circle r="299.0" class="g"/><circle r="296.6" class="g"/><circle r="294.3" class="g0"/><circle r="291.9" class="g2"/><circle r="289.6" class="g"/><circle r="287.2" class="g"/><circle r="284.9" class="g2"/><circle r="282.5" class="g0"/><circle r="280.2" class="g"/><circle r="277.8" class="g0"/><circle r="268.4" class="g"/><circle r="266.1" class="g"/><circle r="263.7" class="g"/><circle r="261.4" class="g"/><circle r="259.0" class="g0"/><circle r="256.7" class="g2"/><circle r="254.3" class="g"/><circle r="252.0" class="g"/><circle r="249.6" class="g"/><circle r="247.3" class="g"/><circle r="244.9" class="g"/><circle r="242.6" class="g"/><circle r="240.2" class="g"/><circle r="237.9" class="g"/><circle r="235.5" class="g0"/><circle r="233.2" class="g"/><circle r="230.8" class="g"/><circle r="228.5" class="g"/><circle r="226.1" class="g"/><circle r="223.8" class="g"/><circle r="221.4" class="g2"/><circle r="219.1" class="g"/><circle r="216.7" class="g"/><circle r="214.4" class="g2"/><circle r="212.0" class="g"/><circle r="209.7" class="g"/><circle r="207.3" class="g"/><circle r="205.0" class="g"/><circle r="202.6" class="g0"/><circle r="200.3" class="g0"/></g>
+            <path class="s1" d="M134.5 -469.1A488 488 0 0 1 452.5 -182.8L182.7 -73.8A197 197 0 0 0 54.3 -189.4Z"/>
+            <path class="s2" d="M244.0 -422.6A488 488 0 0 1 384.5 -300.4L155.2 -121.3A197 197 0 0 0 98.5 -170.6Z"/>
+            <path class="s1" d="M-134.5 469.1A488 488 0 0 1 -452.5 182.8L-182.7 73.8A197 197 0 0 0 -54.3 189.4Z"/>
+            <path class="s2" d="M-244.0 422.6A488 488 0 0 1 -384.5 300.4L-155.2 121.3A197 197 0 0 0 -98.5 170.6Z"/>
+            <path class="s3" d="M293.7 -389.7A488 488 0 0 1 345.1 -345.1L139.3 -139.3A197 197 0 0 0 118.6 -157.3Z"/>
+            <path class="s3" d="M-293.7 389.7A488 488 0 0 1 -345.1 345.1L-139.3 139.3A197 197 0 0 0 -118.6 157.3Z"/>
+            <circle class="leadout" r="193"/>
+            <text class="etch"><textPath href="#runout" textLength="1108" lengthAdjust="spacing">SLUICE 0.9.2 · SIDE A · A SELF-HOSTED INBOX FOR WEBHOOKS · NO HOSTED SERVICE · NO ACCOUNT · NO TELEMETRY · MIT ·</textPath></text>
+            <g transform="rotate(-14)">
+              <circle class="lab" r="165"/>
+              <circle class="lab-ring" r="155"/>
+              <text class="lt ld" x="0" y="-58" text-anchor="middle" font-size="74">SLUICE</text>
+              <text class="lt lb" x="0" y="-36" text-anchor="middle" font-size="11.5">A self-hosted inbox for webhooks</text>
+              <text class="lt lk" x="-80" y="-6" text-anchor="middle" font-size="9.5">SIDE</text>
+              <text class="lt ld" x="-80" y="38" text-anchor="middle" font-size="46">A</text>
+              <text class="lt lk" x="80" y="-6" text-anchor="middle" font-size="9.5">SLUICE</text>
+              <text class="lt ld" x="80" y="30" text-anchor="middle" font-size="34">0.9.2</text>
+              <text class="lt lr" x="0" y="64" text-anchor="middle" font-size="10">A1 Binary · A2 Storage</text>
+              <text class="lt lr" x="0" y="78" text-anchor="middle" font-size="10">A3 Signatures · A4 Forward</text>
+              <text class="lt lk" x="0" y="112" text-anchor="middle" font-size="8">MIT · WRITTEN IN GO</text>
+              <circle class="hole" r="11.5"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="sleeve">
+          <div class="crop" aria-hidden="true"><span>Sluice</span></div>
+          <p class="catlabel"><b>SLUICE</b><span>0.9.2</span><span class="vh"> — catalogue number</span></p>
+          <div class="band">
+            <h1><span class="t">Sluice</span></h1>
+            <p><small>Ines Okafor</small>A self-hosted inbox for webhooks</p>
+          </div>
+        </div>
+      </div>
+
+      <table class="session">
+        <caption><span class="label"><span>Session details</span><span class="num">No. 0.9.2</span></span></caption>
+        <tbody>
+          <tr><th scope="row">Date</th><td>Begun <span class="num">2023</span>. Version <span class="num">0.9.2</span> released <span class="num">14</span> October <span class="num">2026</span>.</td></tr>
+          <tr><th scope="row">Place</th><td>Wherever you run it — Linux, macOS or Windows; amd64 or arm64. No hosted service.</td></tr>
+          <tr><th scope="row">People</th><td><b>Ines Okafor</b>, maintainer. <span class="num">41</span> contributors.</td></tr>
+          <tr><th scope="row">Written in</th><td>Go. MIT licence.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- the back of the sleeve -->
+  <section class="back" aria-labelledby="back-title">
+    <svg class="ringwear" viewBox="-100 -100 200 200" aria-hidden="true" focusable="false">
+      <circle r="96" stroke-width=".55" opacity=".09" stroke-dasharray="38 3 17 6 61 2 24 9 44 4 12 7"/>
+      <circle r="94.6" stroke-width=".3" opacity=".06" stroke-dasharray="22 8 50 3 9 14 33 5"/>
+      <circle r="34" stroke-width=".35" opacity=".05" stroke-dasharray="15 6 28 4 9 11"/>
+    </svg>
+
+    <header class="back-head">
+      <h2 id="back-title">Sluice</h2>
+      <p>A self-hosted inbox for webhooks</p>
+    </header>
+
+    <div class="cat">
+      <div class="code" aria-hidden="true"><i></i><i></i><i></i></div>
+      <strong>SLUICE <span class="num">0.9.2</span></strong>
+      <p class="label fmt">Linux · macOS · Windows<br>amd64 · arm64</p>
+    </div>
+
+    <section class="side side-a" aria-labelledby="side-a">
+      <h3 id="side-a">Side A</h3>
+      <ol>
+        <li class="track"><span class="no">A1</span><span class="t">Binary</span><span class="d">c.&thinsp;11&nbsp;MB</span><span class="x">(one static binary — Linux, macOS, Windows; amd64, arm64)</span></li>
+        <li class="track"><span class="no">A2</span><span class="t">Storage</span><span class="d">1&nbsp;file</span><span class="x">(a single SQLite file — no Redis, no Postgres, no queue to run)</span></li>
+        <li class="track"><span class="no">A3</span><span class="t">Signatures</span><span class="d">5:00</span><span class="x">(HMAC-SHA256 verified; deliveries older than 5 minutes rejected)</span></li>
+        <li class="track"><span class="no">A4</span><span class="t">Forward</span><span class="d">:3000</span><span class="x">(to your local or internal service)</span></li>
+      </ol>
+    </section>
+
+    <section class="side side-b" aria-labelledby="side-b">
+      <h3 id="side-b">Side B</h3>
+      <ol>
+        <li class="track"><span class="no">B1</span><span class="t">Retry</span><span class="d">72:00:00</span><span class="x">(failed forwards, exponential backoff, for up to 72 hours)</span></li>
+        <li class="track"><span class="no">B2</span><span class="t">Replay</span><span class="d">30&nbsp;days</span><span class="x">(any stored delivery; kept 30 days by default, change it with --retain)</span></li>
+        <li class="track"><span class="no">B3</span><span class="t">Search</span><span class="d">:8081</span><span class="x">(web UI — by path, header or body text)</span></li>
+        <li class="track"><span class="no">B4</span><span class="t">Throughput</span><span class="d">1,800/s</span><span class="x">(deliveries per second on a 2-vCPU VM, in the project’s own benchmark)</span></li>
+      </ol>
+    </section>
+
+    <aside class="slip" aria-labelledby="slip-title">
+      <h3 class="label" id="slip-title">Catalogue entry</h3>
+      <p class="entry"><span class="no num">No.&nbsp;0.9.2</span><span class="nm">Sluice</span></p>
+      <dl>
+        <div><dt>Format</dt><dd>static binary, c.&thinsp;11&nbsp;MB</dd></div>
+        <div><dt>Platforms</dt><dd>Linux · macOS · Windows</dd></div>
+        <div><dt>Architectures</dt><dd>amd64 · arm64</dd></div>
+        <div><dt>Storage</dt><dd>one SQLite file</dd></div>
+        <div><dt>Not required</dt><dd>Redis · Postgres · a queue</dd></div>
+      </dl>
+      <p class="price"><span class="label">Licence</span><b>MIT</b></p>
+      <p class="batch">Batch of 14 October 2026. Not included: hosted service, account, telemetry.</p>
+    </aside>
+
+    <div class="notes">
+      <h3 class="label">Notes on this pressing</h3>
+      <p class="lede">Sluice gives you a public URL for webhooks, stores every delivery, and forwards it to your local or internal service.</p>
+      <p>Started in 2023 by Ines Okafor, after losing a weekend of payment webhooks.</p>
+    </div>
+
+    <div class="play">
+      <h3 class="label">To play</h3>
+      <ol>
+        <li><span class="no">01</span><span><span class="what">Install</span><code><span class="ln">curl -fsSL</span> <span>https://sluice.example/install.sh | sh</span></code></span></li>
+        <li><span class="no">02</span><span><span class="what">Start</span><code><span>sluice serve --forward</span> <span>http://localhost:3000</span></code></span></li>
+        <li><span class="no">03</span><span><span class="what">Replay</span><code>sluice replay &lt;delivery-id&gt;</code></span></li>
+      </ol>
+    </div>
+
+    <footer class="fine label">
+      <span><span class="nw">No hosted service ·</span> <span class="nw">No account ·</span> <span class="nw">No telemetry</span></span>
+      <span>Written in Go · MIT licence</span>
+      <span>SLUICE 0.9.2</span>
+    </footer>
+  </section>
+</main>
+
+</body>
+</html>

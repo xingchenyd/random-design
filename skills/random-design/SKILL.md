@@ -1,6 +1,6 @@
 ---
 name: random-design
-description: Choose a fixed visual style or generate comparable hash-based directions for a website or PowerPoint. Use when the user names one of the 21 random-design presets, asks for visual alternatives, or requests reuse of a saved random-design specification.
+description: Choose among 40 reference design directions, 21 fixed styles or comparable hash-based variations for a website or PowerPoint. Use when the user names one of the 21 random-design presets, asks for visual alternatives, or requests reuse of a saved random-design specification.
 ---
 
 # Random Design
@@ -8,6 +8,9 @@ description: Choose a fixed visual style or generate comparable hash-based direc
 Preserve the supplied content, facts, prices and intended voice. Use the visual specification to decide typography, palette, layout, material and the role of illustrations.
 
 ## Choose the entry point
+
+- **Content-led complete design:** first inspect the actual examples at https://xingchenyd.github.io/random-design/showcase/. Use MCP list_reference_styles and generate_reference_briefs, or the browser picker https://xingchenyd.github.io/random-design/reference/. The returned brief is an implementation specification, NOT a finished page. Read [reference workflow](references/reference-library.md) before executing it.
+
 
 - **Named style:** use MCP `list_presets` to resolve the ID and `get_preset` to obtain the fixed design. In a checkout, run `node src/cli.js list-presets` or `node src/cli.js preset --style new-chinese --out <new-directory>`. A named preset can be reused without advancing random history.
 - **Explore variations:** call MCP `generate_directions` or run `node src/cli.js generate --out <new-directory>`. Pass the same content to each preview. Use a supplied seed if the user requests repeatability and carry over the caller's random history when available. Use `direction` to constrain variations to a named style.
@@ -17,7 +20,7 @@ Preserve the supplied content, facts, prices and intended voice. Use the visual 
 
 Use `render_design` for a preview, CSS, SVG and a brief. The CLI and studio also generate a six-slide PowerPoint specimen. Adapt the layout and illustration to the user's subject. For example, keep the New Chinese Style's vertical short title and circular composition while replacing the sample coffee illustration if it has no role in the new content.
 
-For these 21 styles, use the [material and reference guide](references/materials.md) to retain the lighting, surfaces and layout that make each style recognizable.
+Do not turn every request into three generic cards or reuse a coffee illustration for unrelated subjects. Establish a type hierarchy and content grid first. Decoration needs a role: navigation, grouping, data encoding, branding or relevant illustration.\n\nFor these 21 styles, use the [material and reference guide](references/materials.md) to retain the lighting, surfaces and layout that make each style recognizable.
 
 Check the actual page at its intended viewport or render the final slides. Review the title hierarchy, focal point, content fit and readability. Preserve native text and data when editing PPTX. Its complex illustration is an SVG image and some website effects have a PowerPoint-specific treatment.
 

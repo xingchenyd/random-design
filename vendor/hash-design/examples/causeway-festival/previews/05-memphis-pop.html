@@ -1,0 +1,836 @@
+<!doctype html>
+<!-- hash-design #5 · memphis-pop · ref 0a75884fd35836645ab3e444b59e9e403c816f24910e4207377f7dc8ef93b8f4+2 -->
+<!--
+  Note on a brief conflict: the layout asks for "facts as tilted label panels (rotated ±4°)", while the
+  memphis-pop branch grid says coloured blocks may rotate but text inside a block stays straight. The branch
+  wins: each label's coloured, pattern-filled backing block is rotated ±4°, and the white text panel pinned on
+  top of it stays square.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Causeway — a one-day music festival on Skerrow Island · Saturday 19 June 2027</title>
+<meta name="description" content="Causeway, a one-day music festival on Skerrow Island, Saturday 19 June 2027. Questions and answers with the Skerrow Island Trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chango&family=Questrial&display=swap">
+<style>
+/* hash-design 0a75884f · memphis-pop · laminate-yellow */
+:root {
+  --paper: #ffd84a;
+  --ink: #141414;
+  --muted: #4a3d00;
+  --accent: #e8412c;
+  --on-accent: #000000;
+  --accent2: #1b8a6b;
+  --on-accent2: #000000;
+  --rule: #141414;
+  --panel: #ffffff;
+
+  --font-display: Chango, "Arial Black", sans-serif;
+  --font-body: Questrial, Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.472rem; /* 7.6px */
+  --step-n1: 0.708rem; /* 11.3px */
+  --step-0: 1.063rem; /* 17px */
+  --step-1: 1.594rem; /* 25.5px */
+  --step-2: 2.391rem; /* 38.3px */
+  --step-3: 3.586rem; /* 57.4px */
+  --step-4: 5.379rem; /* 86.1px */
+  --step-5: 8.068rem; /* 129.1px */
+  --step-6: 12.103rem; /* 193.6px */
+  --step-7: 18.154rem; /* 290.5px */
+  --leading: 1.55;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  --section-gap: 112px;
+  --max-width: 1200px;
+
+  --motion-duration: 300ms;
+  --motion-easing: steps(3, end);
+}
+
+html { font-size: 106.3%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- page-level derivations (all from the tokens above) ---------- */
+:root {
+  --pink: color-mix(in srgb, var(--accent) 30%, var(--panel));   /* pastel, mixed from the laminate red */
+  --mint: color-mix(in srgb, var(--accent2) 30%, var(--panel));  /* pastel, mixed from the laminate green */
+  --line: 3px;
+  --hard: 8px 8px 0 var(--ink);
+  --margin: clamp(16px, 4.4vw, 32px);
+  --gutter: 16px;
+  --overlap: 16px;
+  --caption: 0.765rem; /* 13px */
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-x: clip; }
+body { margin: 0; font-size: var(--step-0); font-kerning: normal; -webkit-font-smoothing: antialiased; }
+p { margin: 0; hanging-punctuation: first allow-end last; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.05; margin: 0; letter-spacing: 0; }
+.wrap { width: 100%; max-width: calc(var(--max-width) + 2 * var(--margin)); margin-inline: auto; padding-inline: var(--margin); }
+.cap { font-size: var(--caption); text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* svg paint classes: every fill comes from a token */
+.f-ink { fill: var(--ink); } .f-paper { fill: var(--paper); } .f-panel { fill: var(--panel); }
+.f-red { fill: var(--accent); } .f-green { fill: var(--accent2); } .f-pink { fill: var(--pink); } .f-mint { fill: var(--mint); }
+.s-ink { stroke: var(--ink); } .s-red { stroke: var(--accent); } .s-green { stroke: var(--accent2); } .s-panel { stroke: var(--panel); }
+
+/* ---------- patchwork (6 × n, 0 gap, patterns meet along 3px ink lines) ---------- */
+.patchwork {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+  border-top: var(--line) solid var(--rule);
+  border-left: var(--line) solid var(--rule);
+  box-shadow: var(--hard);
+}
+.patch {
+  position: relative;
+  overflow: hidden;
+  border-right: var(--line) solid var(--rule);
+  border-bottom: var(--line) solid var(--rule);
+  min-width: 0;
+}
+/* pattern shuffle: a strip of four stacked fills; hover steps it through the next three */
+.strip {
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 400%;
+  display: block;
+  transition: transform var(--motion-duration) var(--motion-easing);
+}
+.patch:hover .strip { transform: translateY(-75%); }
+.solid-red { background: var(--accent); }
+.solid-green { background: var(--accent2); }
+.laminate-grid { /* surface: grid laminate */
+  background-color: var(--paper); background-image: linear-gradient(var(--ink) 2px, transparent 2px), linear-gradient(90deg, var(--ink) 2px, transparent 2px); background-size: 14px 14px;
+}
+
+/* content panels pinned on the patchwork, overlapping patch borders by 16px */
+.pin {
+  position: relative;
+  z-index: 2;
+  margin: calc(-1 * var(--overlap));
+  background: var(--panel);
+  border: var(--line) solid var(--rule);
+  box-shadow: var(--hard);
+  min-width: 0;
+}
+
+/* scattered squiggle motif */
+.squig { position: absolute; z-index: 4; pointer-events: none; overflow: visible; }
+.squig path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.sq-1 { width: 190px; right: 13%; top: 112px; transform: rotate(-24deg); }
+.sq-2 { width: 150px; right: 3%; bottom: 44px; transform: rotate(28deg); }
+.sq-3 { width: 200px; right: 2%; top: -6px; transform: rotate(-30deg); }
+
+/* ---------- Q & A ---------- */
+.mk {
+  flex: none;
+  display: inline-grid; place-items: center;
+  width: 34px; height: 34px;
+  border: var(--line) solid var(--rule); border-radius: 50%;
+  font-family: var(--font-body); font-size: 18px; line-height: 1; letter-spacing: 0;
+  padding-top: 1px;
+}
+.mk-q { background: var(--accent); color: var(--on-accent); }
+.mk-a { background: var(--accent2); color: var(--on-accent2); }
+.q { display: flex; gap: 12px; align-items: flex-start; font-size: var(--step-1); line-height: 1.18; margin-bottom: 14px; text-wrap: balance; }
+.q .mk { margin-top: -2px; }
+.a { display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 12px; row-gap: 10px; }
+.a > :not(.mk) { grid-column: 2; }
+.a > .mk { grid-row: 1; grid-column: 1; align-self: start; }
+.a p { max-width: 58ch; text-wrap: pretty; }
+.sd { font-size: var(--caption); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); white-space: nowrap; }
+
+/* ---------- 1 · hero ---------- */
+.topbar { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-top: 28px; padding-bottom: 22px; }
+.topbar .cap:last-child { text-align: right; }
+.hero { grid-template-rows: repeat(4, minmax(156px, auto)); }
+.h-a { grid-area: 1 / 1 / 2 / 3; }
+.h-b { grid-area: 1 / 3 / 2 / 4; }
+.h-c { grid-area: 1 / 4 / 2 / 7; }
+.h-d { grid-area: 2 / 1 / 5 / 2; }
+.h-e { grid-area: 2 / 2 / 4 / 4; }
+.h-f { grid-area: 2 / 4 / 4 / 5; }
+.h-g { grid-area: 2 / 5 / 5 / 7; }
+.h-h { grid-area: 4 / 2 / 5 / 5; }
+.title-pin { grid-area: 2 / 2 / 4 / 6; padding: 34px 44px 38px; display: flex; flex-direction: column; justify-content: flex-start; gap: 30px; }
+.ticket-pin { grid-area: 4 / 3 / 5 / 5; align-self: center; z-index: 3; padding: 14px 20px 16px; display: flex; align-items: center; gap: 16px; }
+
+/* twist: the date runs vertically down the green laminate strip */
+.h-d { display: flex; justify-content: center; align-items: flex-start; padding-block: 26px; }
+.vdate {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3.2vw, 2.85rem);
+  line-height: 1.04;
+  color: var(--on-accent2);
+  margin: 0;
+}
+.vdate span { display: block; }
+.vdate span + span { margin-right: 0.12em; }
+
+.lockup { display: inline-block; align-self: flex-start; max-width: 100%; }
+.title { position: relative; isolation: isolate; display: inline-block; font-size: clamp(2.47rem, 6.67vw, 5.647rem); white-space: nowrap; padding-top: 0.08em; }
+.title .disc {
+  position: absolute; z-index: -1;
+  width: 0.62em; height: 0.62em; left: -0.27em; top: -0.1em;
+  border-radius: 50%; background: var(--accent2); border: var(--line) solid var(--rule);
+}
+.title .tri { position: absolute; z-index: -1; width: 0.66em; height: 0.58em; right: -0.46em; bottom: 0.1em; overflow: visible; }
+.underline { display: block; width: 100%; height: 28px; margin-top: 4px; overflow: visible; }
+.underline path { fill: none; stroke: var(--accent); stroke-width: 12px; stroke-linecap: round; stroke-linejoin: round; }
+
+.title-foot { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 32px; align-items: start; }
+.sub { font-size: var(--step-1); line-height: 1.22; text-wrap: balance; }
+.mini .q { font-size: var(--step-0); line-height: 1.4; margin-bottom: 8px; }
+.mini .q .mk, .mini .a .mk { width: 28px; height: 28px; font-size: 15px; margin-top: -3px; }
+.mini .a { grid-template-columns: 28px minmax(0, 1fr); }
+
+.ticket-pin .price { font-family: var(--font-display); font-size: 2.353rem; line-height: 1; }
+.ticket-pin p:last-child { font-size: var(--step-0); line-height: 1.3; }
+
+/* ---------- 2 · facts as tilted labels ---------- */
+section { margin-top: var(--section-gap); }
+.sec-head { display: flex; align-items: flex-end; gap: 28px; margin-bottom: 64px; position: relative; }
+.sec-head h2 { font-size: clamp(2.353rem, 4.2vw, var(--step-3)); text-wrap: balance; }
+.sec-head .no {
+  flex: none;
+  display: grid; place-items: center;
+  width: 86px; height: 86px;
+  background: var(--panel); border: var(--line) solid var(--rule); box-shadow: var(--hard);
+  font-family: var(--font-display); font-size: var(--step-2); line-height: 1;
+}
+.sec-head .cap { color: var(--muted); margin-bottom: 8px; }
+
+.labels { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 72px; align-items: start; position: relative; }
+.label { position: relative; }
+.label > .back {
+  position: absolute; inset: 0; z-index: 0;
+  border: var(--line) solid var(--rule);
+  transform: translate(var(--dx, 14px), var(--dy, 14px)) rotate(var(--rot, -4deg));
+  overflow: hidden;
+}
+.label > .back svg { display: block; width: 100%; height: 100%; }
+.card { position: relative; z-index: 1; background: var(--panel); border: var(--line) solid var(--rule); padding: 26px 28px 28px; }
+.card .tag { color: var(--muted); margin-bottom: 18px; display: block; }
+
+.l1 { grid-column: 1 / 8; --rot: -4deg; }
+.l2 { grid-column: 8 / 13; --rot: 4deg; --dx: -14px; margin-top: 56px; }
+.l3 { grid-column: 1 / 5; --rot: 4deg; }
+.l4 { grid-column: 5 / 8; --rot: -4deg; margin-top: 44px; }
+.l5 { grid-column: 8 / 13; --rot: 4deg; --dx: -12px; }
+.l6 { grid-column: 2 / 7; --rot: -4deg; }
+.l7 { grid-column: 7 / 10; --rot: 4deg; margin-top: 36px; }
+.l8 { grid-column: 10 / 13; --rot: -4deg; --dx: -12px; margin-top: -12px; }
+
+.times { display: grid; gap: 12px; margin-top: 4px; }
+.time {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  border: var(--line) solid var(--rule); padding: 12px 18px 12px 16px;
+}
+.time.in { background: var(--accent2); color: var(--on-accent2); }
+.time.out { background: var(--mint); color: var(--ink); }
+.time .cap { color: inherit; }
+.time b { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.594rem, 2.7vw, var(--step-2)); line-height: 1; white-space: nowrap; }
+.foot-note { color: var(--muted); }
+
+.prices { margin: 4px 0 0; padding: 0; list-style: none; border-top: var(--line) solid var(--rule); }
+.prices li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 12px 0 10px; border-bottom: var(--line) solid var(--rule); }
+.prices b { font-family: var(--font-display); font-weight: 400; font-size: var(--step-2); line-height: 1; }
+.prices span { font-size: var(--step-0); }
+.hole { position: absolute; top: 18px; right: 18px; width: 22px; height: 22px; border-radius: 50%; border: var(--line) solid var(--rule); background: var(--paper); }
+
+.big { font-family: var(--font-display); font-size: var(--step-4); line-height: 0.95; display: block; margin: 2px 0 12px; }
+.big.mid { font-size: var(--step-3); }
+.l5 .card { display: grid; grid-template-columns: minmax(0, 1fr) 104px; column-gap: 18px; }
+.l5 .boot { width: 104px; height: auto; align-self: end; }
+.l6 .card { display: grid; grid-template-columns: 120px minmax(0, 1fr); column-gap: 22px; align-items: center; }
+.l6 .cup { width: 120px; height: auto; }
+
+/* ---------- 3 · line-up on a black-and-white grid ground ---------- */
+.ground {
+  position: relative;
+  border: var(--line) solid var(--rule);
+  box-shadow: var(--hard);
+  background-color: var(--panel);
+  background-image: linear-gradient(var(--ink) 2px, transparent 2px), linear-gradient(90deg, var(--ink) 2px, transparent 2px);
+  background-size: 14px 14px;
+  padding: 56px 48px 64px;
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 40px;
+}
+.g-head {
+  grid-column: 1 / 7; grid-row: 1; align-self: start;
+  background: var(--accent); color: var(--on-accent);
+  border: var(--line) solid var(--rule); box-shadow: var(--hard);
+  padding: 22px 28px 26px;
+}
+.g-head .cap { margin-bottom: 10px; }
+.g-head h2 { font-size: clamp(2.353rem, 4.2vw, var(--step-3)); text-wrap: balance; }
+.g-intro { grid-column: 6 / 13; grid-row: 1; margin-top: 128px; padding: 26px 28px 28px; background: var(--panel); border: var(--line) solid var(--rule); position: relative; z-index: 1; }
+.g-table { grid-column: 1 / 13; background: var(--panel); border: var(--line) solid var(--rule); box-shadow: var(--hard); padding: 0; overflow: hidden; }
+.lineup { width: 100%; border-collapse: collapse; }
+.lineup th, .lineup td { border: var(--line) solid var(--rule); padding: 16px 20px; text-align: left; vertical-align: top; }
+.lineup tr > :first-child { border-left: 0; }
+.lineup tr > :last-child { border-right: 0; }
+.lineup thead th { border-top: 0; font-weight: 400; background: var(--panel); padding-block: 12px; }
+.lineup tfoot td { border-bottom: 0; }
+.lineup tbody th { font-family: var(--font-display); font-weight: 400; font-size: 2.353rem; line-height: 1.05; width: 30%; }
+.lineup tbody tr.field th { background: var(--accent); color: var(--on-accent); }
+.lineup tbody tr.boat th { background: var(--accent2); color: var(--on-accent2); }
+.lineup td { font-size: var(--step-0); }
+.acts { list-style: none; margin: 0; padding: 0; }
+.acts li { font-size: 1.3rem; line-height: 1.3; padding: 3px 0; }
+.acts small { font-size: var(--caption); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); white-space: nowrap; }
+.gap { color: var(--muted); }
+.lineup tfoot td { background: var(--paper); }
+.lineup tfoot b { font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); }
+
+.g-tide { grid-column: 3 / 13; background: var(--panel); border: var(--line) solid var(--rule); padding: 26px 28px 30px; position: relative; z-index: 1; }
+.tide { margin-top: 34px; }
+.tide-bar { display: grid; grid-template-columns: 210fr 545fr 195fr; height: 64px; border: var(--line) solid var(--rule); position: relative; }
+.tide-bar > div { position: relative; }
+.tide-bar .open { background: var(--accent2); }
+.tide-bar .open + div { border-left: var(--line) solid var(--rule); border-right: var(--line) solid var(--rule); overflow: hidden; }
+.tide-bar .shut svg { display: block; width: 100%; height: 100%; }
+.mark { position: absolute; left: 94.5%; top: -14px; bottom: -14px; width: 0; border-left: 6px solid var(--accent); transform: translateX(-3px); }
+.mark::after { content: ""; position: absolute; left: -12px; top: -14px; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: var(--line) solid var(--rule); transform: translateX(-3px); }
+.tide-labels { display: grid; grid-template-columns: 210fr 545fr 195fr; margin-top: 12px; }
+.tide-labels > div { display: flex; justify-content: space-between; gap: 8px; padding-inline: 2px; }
+.tide-labels b { font-weight: 400; font-size: var(--step-0); font-variant-numeric: tabular-nums; }
+.tide-key { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 18px; }
+.tide-key span { display: inline-flex; align-items: center; gap: 10px; }
+.tide-key i { display: inline-block; width: 26px; height: 18px; border: var(--line) solid var(--rule); }
+.tide-key .k-open { background: var(--accent2); }
+.tide-key .k-shut { background: var(--mint); }
+.tide-key .k-last { background: var(--accent); border-radius: 50%; width: 18px; }
+.tide-top { display: grid; grid-template-columns: 210fr 545fr 195fr; margin-bottom: 18px; }
+.tide-top div:nth-child(2) { position: relative; }
+.tide-top .lastset { position: absolute; right: 5.5%; bottom: 0; transform: translateX(50%); white-space: nowrap; text-align: center; }
+.tide-top .lastset b { display: block; font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); line-height: 1; margin-bottom: 4px; }
+
+/* ---------- 4 · footer patches ---------- */
+.foot { grid-template-rows: repeat(2, minmax(132px, auto)); margin-bottom: 28px; }
+.f-1 { grid-area: 1 / 1 / 2 / 3; }
+.f-2 { grid-area: 1 / 3 / 2 / 4; }
+.f-3 { grid-area: 1 / 4 / 2 / 7; }
+.f-4 { grid-area: 2 / 1 / 3 / 2; }
+.f-5 { grid-area: 2 / 2 / 3 / 5; }
+.f-6 { grid-area: 2 / 5 / 3 / 7; }
+.contact-pin { grid-area: 1 / 2 / 3 / 6; padding: 30px 36px 32px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 36px; }
+.contact-pin h2 { grid-column: 1 / -1; font-size: 2.353rem; }
+.blank { display: block; height: 30px; border-bottom: var(--line) dashed var(--rule); margin-top: 6px; }
+.colophon { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-top: 40px; padding-bottom: 44px; color: var(--muted); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1040px) {
+  .l1, .l3, .l5, .l7 { grid-column: 1 / 7; }
+  .l2, .l4, .l6, .l8 { grid-column: 7 / 13; }
+  .l2, .l4, .l7 { margin-top: 0; } .l8 { margin-top: 0; }
+  .l5 .card, .l6 .card { grid-template-columns: minmax(0, 1fr); }
+  .l5 .boot, .l6 .cup { display: none; }
+  .title-foot { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .title-pin { padding: 28px 30px 30px; }
+  .g-head { grid-column: 1 / 9; }
+  .g-intro { grid-column: 4 / 13; grid-row: 2; margin-top: -20px; }
+  .g-tide { grid-column: 1 / 13; }
+  .contact-pin { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
+@media (max-width: 960px) {
+  .lineup thead { display: none; }
+  .lineup, .lineup tbody, .lineup tfoot, .lineup tr, .lineup th, .lineup td { display: block; width: 100%; }
+  .lineup tbody th, .lineup td { border-left: 0; border-right: 0; border-top: 0; }
+  .lineup tbody th { width: auto; font-size: 2.353rem; padding: 14px 16px; }
+  .lineup td { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; padding: 12px 16px; }
+  .lineup td::before { content: attr(data-label); font-size: var(--caption); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding-top: 3px; }
+  .lineup tfoot td { display: block; }
+  .lineup tfoot td::before { content: none; }
+  .lineup tbody tr { display: grid; grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .lineup td { grid-template-columns: 92px minmax(0, 1fr); }
+  :root { --overlap: 8px; --hard: 6px 6px 0 var(--ink); --section-gap: 88px; }
+  .topbar { flex-direction: column; gap: 4px; padding-top: 20px; padding-bottom: 18px; }
+  .topbar .cap:last-child { text-align: left; }
+  .hero { grid-template-rows: repeat(8, minmax(52px, auto)); }
+  .h-a { grid-area: 1 / 1 / 3 / 4; }
+  .h-b { grid-area: 1 / 4 / 3 / 5; }
+  .h-c { grid-area: 1 / 5 / 3 / 7; }
+  .h-d { grid-area: 3 / 6 / 9 / 7; padding-block: 18px; }
+  .h-e { grid-area: 3 / 1 / 6 / 3; }
+  .h-f { grid-area: 3 / 3 / 6 / 6; }
+  .h-g { grid-area: 6 / 1 / 9 / 3; }
+  .h-h { grid-area: 6 / 3 / 9 / 6; }
+  .title-pin { grid-area: 3 / 1 / 7 / 6; padding: 22px 16px 22px 18px; gap: 18px; }
+  .ticket-pin { grid-area: 7 / 2 / 9 / 6; align-self: end; margin-bottom: 18px; padding: 10px 14px 12px; gap: 12px; }
+  .ticket-pin .price { font-size: 1.594rem; }
+  .ticket-pin p:last-child { font-size: 0.9rem; }
+  .vdate { font-size: 1.41rem; }
+  .vdate span { display: inline; }
+  .vdate span + span { margin-right: 0; margin-top: 0.3em; }
+  .underline { height: 18px; margin-top: 2px; }
+  .underline path { stroke-width: 9px; }
+  .sub { font-size: 1.15rem; }
+  .sec-head { flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 44px; }
+  .sec-head .no { width: 64px; height: 64px; font-size: var(--step-1); }
+  .labels { row-gap: 44px; }
+  .label { grid-column: 1 / -1 !important; margin-top: 0 !important; margin-right: 8px; --dx: 6px !important; --dy: 8px !important; }
+  .card { padding: 20px 18px 22px; }
+  .q { font-size: 1.25rem; gap: 10px; }
+  .a { grid-template-columns: 28px minmax(0, 1fr); column-gap: 10px; }
+  .q .mk, .a .mk { width: 28px; height: 28px; font-size: 15px; }
+  .big { font-size: var(--step-3); }
+  .time { padding: 10px 12px; }
+  .ground { padding: 28px 14px 32px; row-gap: 28px; }
+  .g-head, .g-intro, .g-table, .g-tide { grid-column: 1 / -1; grid-row: auto; margin-top: 0; }
+  .g-head { padding: 18px 18px 20px; }
+  .g-intro, .g-tide { padding: 20px 16px 22px; }
+  .tide-labels b { font-size: 0.82rem; }
+  .tide-bar { height: 48px; }
+  .tide-top .lastset b { font-size: 1.15rem; }
+  .foot { grid-template-rows: repeat(5, minmax(48px, auto)); }
+  .f-1 { grid-area: 1 / 1 / 2 / 4; }
+  .f-2 { grid-area: 1 / 4 / 2 / 5; }
+  .f-3 { grid-area: 1 / 5 / 2 / 7; }
+  .f-4 { grid-area: 2 / 1 / 6 / 2; }
+  .f-5 { grid-area: 2 / 2 / 6 / 5; }
+  .f-6 { grid-area: 2 / 5 / 6 / 7; }
+  .contact-pin { grid-area: 2 / 2 / 6 / 7; margin-left: 8px; grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 22px 16px 24px; }
+  .contact-pin h2 { font-size: 2.353rem; }
+  .squig.hide-sm { display: none; }
+  .sq-1 { width: 124px; left: 28px; right: auto; top: 30px; transform: rotate(-20deg); }
+  .sq-3 { width: 150px; right: 6%; top: 8px; transform: rotate(-24deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- pattern library: every paint is a token class -->
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="pt-grid" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="14" height="14" class="f-paper"/><rect width="14" height="2" class="f-ink"/><rect width="2" height="14" class="f-ink"/>
+    </pattern>
+    <pattern id="pt-gridw" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="14" height="14" class="f-panel"/><rect width="14" height="2" class="f-ink"/><rect width="2" height="14" class="f-ink"/>
+    </pattern>
+    <pattern id="pt-bacterio" width="56" height="56" patternUnits="userSpaceOnUse">
+      <rect width="56" height="56" class="f-panel"/>
+      <g class="s-ink" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 9c3-3 6 1 9-1s4-5 8-3"/>
+        <path d="M33 5c1 4 6 3 6 7s-4 5-2 9"/>
+        <path d="M7 31c4-1 4 4 8 4 3 0 3-3 6-2"/>
+        <path d="M28 30c3 3 7-1 10 2"/>
+        <path d="M47 38c-3 3 1 6-2 9"/>
+        <path d="M13 48c2-3 6-2 7 1"/>
+        <path d="M46 20c2 0 3 2 6 1"/>
+        <path d="M30 46c1 2 4 2 4 5"/>
+      </g>
+    </pattern>
+    <pattern id="pt-terrazzo" width="84" height="84" patternUnits="userSpaceOnUse">
+      <rect width="84" height="84" class="f-pink"/>
+      <polygon points="8,6 18,4 16,13 9,14" class="f-ink"/>
+      <polygon points="40,9 49,14 41,19" class="f-green"/>
+      <polygon points="63,4 74,8 71,16 64,13" class="f-red"/>
+      <polygon points="23,29 31,26 34,34 26,37" class="f-panel"/>
+      <polygon points="53,34 62,31 60,41" class="f-ink"/>
+      <polygon points="5,53 12,48 16,57 9,61" class="f-green"/>
+      <polygon points="34,59 45,56 47,64 38,68" class="f-ink"/>
+      <polygon points="67,56 76,61 69,68" class="f-red"/>
+      <polygon points="19,72 27,70 25,78" class="f-red"/>
+      <polygon points="72,30 79,33 75,38" class="f-panel"/>
+      <circle cx="58" cy="76" r="2.4" class="f-ink"/><circle cx="30" cy="16" r="2" class="f-ink"/>
+      <circle cx="45" cy="44" r="2" class="f-green"/><circle cx="12" cy="34" r="1.8" class="f-red"/>
+      <circle cx="79" cy="74" r="1.8" class="f-ink"/>
+    </pattern>
+    <pattern id="pt-confetti" width="52" height="52" patternUnits="userSpaceOnUse">
+      <rect width="52" height="52" class="f-panel"/>
+      <rect x="5" y="8" width="13" height="4.5" rx="2.25" class="f-red" transform="rotate(-30 11.5 10.25)"/>
+      <rect x="29" y="5" width="13" height="4.5" rx="2.25" class="f-green" transform="rotate(40 35.5 7.25)"/>
+      <rect x="15" y="27" width="13" height="4.5" rx="2.25" class="f-ink" transform="rotate(14 21.5 29.25)"/>
+      <rect x="35" y="37" width="13" height="4.5" rx="2.25" class="f-red" transform="rotate(-62 41.5 39.25)"/>
+      <circle cx="42" cy="23" r="2.8" class="f-ink"/><circle cx="8" cy="42" r="2.8" class="f-green"/>
+      <polygon points="22,44 28,40 29,47" class="f-ink"/>
+    </pattern>
+    <pattern id="pt-dots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <rect width="18" height="18" class="f-red"/><circle cx="4.5" cy="4.5" r="3.2" class="f-ink"/><circle cx="13.5" cy="13.5" r="3.2" class="f-ink"/>
+    </pattern>
+    <pattern id="pt-stripes" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="12" height="12" class="f-mint"/><rect width="3.5" height="12" class="f-ink"/>
+    </pattern>
+    <pattern id="pt-checker" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" class="f-panel"/><rect width="12" height="12" class="f-ink"/><rect x="12" y="12" width="12" height="12" class="f-ink"/>
+    </pattern>
+    <pattern id="pt-waves" width="28" height="16" patternUnits="userSpaceOnUse">
+      <rect width="28" height="16" class="f-mint"/>
+      <path d="M0 8 Q7 1.5 14 8 T28 8" fill="none" class="s-ink" stroke-width="2.6"/>
+    </pattern>
+    <pattern id="pt-zig" width="20" height="16" patternUnits="userSpaceOnUse">
+      <rect width="20" height="16" class="f-green"/>
+      <polyline points="0,11 5,5 10,11 15,5 20,11" fill="none" class="s-ink" stroke-width="2.6"/>
+    </pattern>
+    <pattern id="pt-tri" width="32" height="32" patternUnits="userSpaceOnUse">
+      <rect width="32" height="32" class="f-paper"/>
+      <polygon points="4,14 10,3 16,14" class="f-ink"/><polygon points="20,30 26,19 32,30" class="f-ink"/>
+    </pattern>
+    <pattern id="pt-squig" width="44" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <rect width="44" height="24" class="f-red"/>
+      <path d="M0 12 q5.5-8 11 0 t11 0 t11 0 t11 0" fill="none" class="s-ink" stroke-width="3" stroke-linecap="round"/>
+    </pattern>
+  </defs>
+</svg>
+
+<header class="wrap">
+  <div class="topbar">
+    <p class="cap">The Skerrow Island Trust answers your questions</p>
+    <p class="cap">Year four · first held in 2024</p>
+  </div>
+
+  <!-- 1 · patchwork hero, squiggle-title anchor -->
+  <div class="patchwork hero">
+    <div class="patch h-a laminate-grid">
+      <svg class="strip" aria-hidden="true"><rect y="25%" width="100%" height="25%" fill="url(#pt-stripes)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-confetti)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-dots)"/></svg>
+    </div>
+    <div class="patch h-b solid-red">
+      <svg class="strip" aria-hidden="true"><rect y="25%" width="100%" height="25%" fill="url(#pt-checker)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-terrazzo)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-waves)"/></svg>
+    </div>
+    <div class="patch h-c">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-bacterio)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-zig)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-grid)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-terrazzo)"/></svg>
+    </div>
+    <div class="patch h-d solid-green">
+      <p class="vdate"><span>Saturday</span><span>19 June 2027</span></p>
+    </div>
+    <div class="patch h-e">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-terrazzo)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-bacterio)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-dots)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-stripes)"/></svg>
+    </div>
+    <div class="patch h-f">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-checker)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-waves)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-squig)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-confetti)"/></svg>
+    </div>
+    <div class="patch h-g">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-waves)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-tri)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-checker)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-bacterio)"/></svg>
+    </div>
+    <div class="patch h-h">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-dots)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-confetti)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-zig)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-gridw)"/></svg>
+    </div>
+
+    <div class="pin title-pin">
+      <div class="lockup">
+        <h1 class="title"><span class="disc" aria-hidden="true"></span>Causeway<svg class="tri" viewBox="0 0 70 60" aria-hidden="true"><polygon points="2,58 35,2 68,58" class="f-red s-ink" stroke-width="4" stroke-linejoin="miter"/></svg></h1>
+        <svg class="underline" viewBox="0 0 588 28" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M6 14q18-16 36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0t36 0"/></svg>
+      </div>
+      <div class="title-foot">
+        <p class="sub">A one-day music festival on Skerrow Island</p>
+        <div class="mini">
+          <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>How do I get there?</p>
+          <div class="a"><span class="mk mk-a" aria-label="Answer">A</span><p>On foot. It’s 1.2&nbsp;km over a tidal causeway&nbsp;— wear boots.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pin ticket-pin">
+      <span class="price">£54</span>
+      <p>Adult ticket.<br>On sale 1&nbsp;March&nbsp;2027.</p>
+    </div>
+
+    <svg class="squig sq-1" viewBox="0 0 190 40" aria-hidden="true"><path class="s-red" stroke-width="9" d="M10 20q14-18 28 0t28 0t28 0t28 0t28 0t28 0"/></svg>
+    <svg class="squig sq-2 hide-sm" viewBox="0 0 150 40" aria-hidden="true"><path class="s-red" stroke-width="8" d="M10 20q13-17 26 0t26 0t26 0t26 0t26 0"/></svg>
+  </div>
+</header>
+
+<main>
+  <!-- 2 · facts as tilted label panels -->
+  <section class="wrap" aria-labelledby="s2">
+    <div class="sec-head">
+      <span class="no" aria-hidden="true">Q</span>
+      <div>
+        <p class="cap">Part two · getting there, getting back</p>
+        <h2 id="s2">So how does the day work?</h2>
+      </div>
+      <svg class="squig sq-3" viewBox="0 0 200 40" aria-hidden="true"><path class="s-ink" stroke-width="8" d="M10 20q15-18 30 0t30 0t30 0t30 0t30 0t30 0"/></svg>
+    </div>
+
+    <div class="labels">
+      <article class="label l1">
+        <span class="back solid-red" aria-hidden="true"></span>
+        <div class="card">
+          <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>How do I get onto the island?</p>
+          <div class="a">
+            <span class="mk mk-a" aria-label="Answer">A</span>
+            <p>You walk. It’s a 1.2&nbsp;km tidal causeway, so it’s only open when the tide allows. On Saturday 19&nbsp;June that means two windows:</p>
+            <div class="times">
+              <div class="time in"><span class="cap">Arrivals</span><b>09:40–13:10</b></div>
+              <div class="time out"><span class="cap">Departures</span><b>22:15–01:30</b></div>
+            </div>
+            <p class="cap foot-note">Those are that day’s tide times.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="label l2">
+        <span class="back" aria-hidden="true"><svg aria-hidden="true"><rect width="100%" height="100%" fill="url(#pt-bacterio)"/></svg></span>
+        <div class="card">
+          <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>And if I miss the window?</p>
+          <div class="a">
+            <span class="mk mk-a" aria-label="Answer">A</span>
+            <p>Then you don’t cross. Nobody crosses outside those windows. <span class="sd">[pause]</span></p>
+            <p>The harbour boat is for emergencies only.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="label l3">
+        <span class="back solid-green" aria-hidden="true"></span>
+        <div class="card">
+          <span class="hole" aria-hidden="true"></span>
+          <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>What does a ticket cost?</p>
+          <div class="a">
+            <span class="mk mk-a" aria-label="Answer">A</span>
+            <ul class="prices">
+              <li><span>Adult</span><b>£54</b></li>
+              <li><span>Ages 12–17</span><b>£27</b></li>
+              <li><span>Under 12</span><b>Free</b></li>
+            </ul>
+            <p>On sale 1&nbsp;March 2027.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="label l4">
+        <span class="back" aria-hidden="true"><svg aria-hidden="true"><rect width="100%" height="100%" fill="url(#pt-grid)"/></svg></span>
+        <div class="card">
+          <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>How many of us?</p>
+          <div class="a">
+            <span class="mk mk-a" aria-label="Answer">A</span>
+            <span class="big mid">900</span>
+            <p>That’s capacity. Nine hundred people, one island.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="label l5">
+        <span class="back" aria-hidden="true"><svg aria-hidden="true"><rect width="100%" height="100%" fill="url(#pt-terrazzo)"/></svg></span>
+        <div class="card">
+          <div>
+            <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>What should I wear?</p>
+            <div class="a">
+              <span class="mk mk-a" aria-label="Answer">A</span>
+              <span class="big mid">Boots.</span>
+              <p><span class="sd">[laughs]</span> We mean it. Parts of the causeway are wet sand and seaweed.</p>
+            </div>
+          </div>
+          <svg class="boot" viewBox="0 0 104 132" aria-hidden="true">
+            <path d="M30 6h38v74l24 11c7 3 10 8 10 15v8H24V60c0-8 3-12 6-16z" class="f-green s-ink" stroke-width="4" stroke-linejoin="round"/>
+            <rect x="22" y="112" width="82" height="14" class="f-ink"/>
+            <rect x="28" y="4" width="42" height="12" class="f-red s-ink" stroke-width="4"/>
+            <path d="M6 128q6-8 0-16t0-16" fill="none" class="s-ink" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </article>
+
+      <article class="label l6">
+        <span class="back" aria-hidden="true"><svg aria-hidden="true"><rect width="100%" height="100%" fill="url(#pt-stripes)"/></svg></span>
+        <div class="card">
+          <svg class="cup" viewBox="0 0 120 112" aria-hidden="true">
+            <path d="M86 38h8a17 17 0 0 1 0 34h-8" fill="none" class="s-ink" stroke-width="13"/>
+            <path d="M86 38h8a17 17 0 0 1 0 34h-8" fill="none" class="s-panel" stroke-width="5"/>
+            <path d="M16 24h72v66a8 8 0 0 1-8 8H24a8 8 0 0 1-8-8z" class="f-panel s-ink" stroke-width="4"/>
+            <rect x="12" y="18" width="80" height="10" class="f-ink"/>
+            <circle cx="36" cy="52" r="8" class="f-red s-ink" stroke-width="4"/>
+            <polygon points="58,80 68,62 78,80" class="f-green s-ink" stroke-width="4" stroke-linejoin="miter"/>
+            <path d="M28 80q5-7 10 0t10 0" fill="none" class="s-ink" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>Plastic cups at the bar?</p>
+            <div class="a">
+              <span class="mk mk-a" aria-label="Answer">A</span>
+              <p>No single-use plastic on the island. Bring a cup, or buy an enamel one for £6.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="label l7">
+        <span class="back" aria-hidden="true"><svg aria-hidden="true"><rect width="100%" height="100%" fill="url(#pt-dots)"/></svg></span>
+        <div class="card">
+          <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>Is there food?</p>
+          <div class="a">
+            <span class="mk mk-a" aria-label="Answer">A</span>
+            <p>From two island kitchens. Cash and card.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="label l8">
+        <span class="back" aria-hidden="true"><svg aria-hidden="true"><rect width="100%" height="100%" fill="url(#pt-checker)"/></svg></span>
+        <div class="card">
+          <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>Is this new?</p>
+          <div class="a">
+            <span class="mk mk-a" aria-label="Answer">A</span>
+            <span class="big mid">4th</span>
+            <p>Our fourth year. We first held it in 2024.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3 · line-up and tide table on a black-and-white grid ground -->
+  <section class="wrap" aria-labelledby="s3">
+    <div class="ground">
+      <div class="g-head">
+        <p class="cap">Part three · stages, acts, tides</p>
+        <h2 id="s3">Who’s playing where?</h2>
+      </div>
+      <div class="g-intro">
+        <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>Two stages, then?</p>
+        <div class="a">
+          <span class="mk mk-a" aria-label="Answer">A</span>
+          <p>Two. The Boathouse is indoors and holds 220 people. The Field is outdoors. Four acts on each.</p>
+        </div>
+      </div>
+
+      <div class="g-table">
+        <table class="lineup">
+          <caption class="vh">Causeway line-up by stage, Saturday 19 June 2027</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="cap">Stage</th>
+              <th scope="col" class="cap">Where</th>
+              <th scope="col" class="cap">Holds</th>
+              <th scope="col" class="cap">Line-up</th>
+              <th scope="col" class="cap">Set times</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="field">
+              <th scope="row">The Field</th>
+              <td data-label="Where">Outdoors</td>
+              <td data-label="Holds"><span class="gap">—</span></td>
+              <td data-label="Line-up">
+                <ul class="acts">
+                  <li>The Lantern Choir</li>
+                  <li>Mara Quist</li>
+                  <li>Seven Herons</li>
+                  <li>Low Orbit Brass</li>
+                </ul>
+              </td>
+              <td data-label="Set times"><span class="gap">To be added</span></td>
+            </tr>
+            <tr class="boat">
+              <th scope="row">The Boathouse</th>
+              <td data-label="Where">Indoors</td>
+              <td data-label="Holds">220 people</td>
+              <td data-label="Line-up">
+                <ul class="acts">
+                  <li>Ada Fenwick <small>solo cello</small></li>
+                  <li>Tomasz &amp; the Weir</li>
+                  <li>Kelp</li>
+                  <li>Ruth Ono Trio</li>
+                </ul>
+              </td>
+              <td data-label="Set times"><span class="gap">To be added</span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="5">Last set ends <b>21:45</b></td></tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="g-tide">
+        <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>Why stop at 21:45?</p>
+        <div class="a">
+          <span class="mk mk-a" aria-label="Answer">A</span>
+          <p>So everyone reaches the causeway in time. The tide sets the day, not us.</p>
+        </div>
+        <div class="tide" role="img" aria-label="Causeway open for arrivals 09:40 to 13:10; no crossing until 22:15; last set ends 21:45; causeway open for departures 22:15 to 01:30.">
+          <div class="tide-top" aria-hidden="true"><div></div><div><span class="cap lastset"><b>21:45</b>Last set</span></div><div></div></div>
+          <div class="tide-bar" aria-hidden="true">
+            <div class="open"></div>
+            <div class="shut"><svg aria-hidden="true"><rect width="100%" height="100%" fill="url(#pt-waves)"/></svg><span class="mark"></span></div>
+            <div class="open"></div>
+          </div>
+          <div class="tide-labels" aria-hidden="true">
+            <div><b>09:40</b><span class="vh">–</span><b>13:10</b></div>
+            <div></div>
+            <div><b>22:15</b><span class="vh">–</span><b>01:30</b></div>
+          </div>
+          <div class="tide-key cap" aria-hidden="true">
+            <span><i class="k-open"></i>Causeway open</span>
+            <span><i class="k-shut"></i>Nobody crosses</span>
+            <span><i class="k-last"></i>Last set ends</span>
+          </div>
+        </div>
+      </div>
+      <svg class="squig hide-sm" style="width:170px; right:-34px; top:-30px; transform:rotate(30deg)" viewBox="0 0 170 40" aria-hidden="true"><path class="s-red" stroke-width="9" d="M10 20q15-18 30 0t30 0t30 0t30 0t30 0"/></svg>
+    </div>
+  </section>
+</main>
+
+<!-- 4 · footer row of patches with contact -->
+<footer class="wrap" style="margin-top: var(--section-gap);">
+  <div class="patchwork foot">
+    <div class="patch f-1">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-confetti)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-squig)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-grid)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-waves)"/></svg>
+    </div>
+    <div class="patch f-2 solid-green">
+      <svg class="strip" aria-hidden="true"><rect y="25%" width="100%" height="25%" fill="url(#pt-tri)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-dots)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-bacterio)"/></svg>
+    </div>
+    <div class="patch f-3 laminate-grid">
+      <svg class="strip" aria-hidden="true"><rect y="25%" width="100%" height="25%" fill="url(#pt-terrazzo)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-checker)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-zig)"/></svg>
+    </div>
+    <div class="patch f-4">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-squig)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-stripes)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-confetti)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-checker)"/></svg>
+    </div>
+    <div class="patch f-5">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-terrazzo)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-waves)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-bacterio)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-dots)"/></svg>
+    </div>
+    <div class="patch f-6">
+      <svg class="strip" aria-hidden="true"><rect width="100%" height="25%" fill="url(#pt-stripes)"/><rect y="25%" width="100%" height="25%" fill="url(#pt-gridw)"/><rect y="50%" width="100%" height="25%" fill="url(#pt-terrazzo)"/><rect y="75%" width="100%" height="25%" fill="url(#pt-tri)"/></svg>
+    </div>
+
+    <div class="pin contact-pin">
+      <h2>Who’s behind it?</h2>
+      <div>
+        <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>Who organises Causeway?</p>
+        <div class="a">
+          <span class="mk mk-a" aria-label="Answer">A</span>
+          <p>We do: the Skerrow Island Trust, a volunteer charity. The profits go to repairing the sea wall.</p>
+        </div>
+      </div>
+      <div>
+        <p class="q"><span class="mk mk-q" aria-label="Question">Q</span>How do I get in touch?</p>
+        <div class="a">
+          <span class="mk mk-a" aria-label="Answer">A</span>
+          <p class="cap">Contact details: to be added</p>
+          <span class="blank" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+    <svg class="squig hide-sm" style="width:150px; right:4%; bottom:-34px; transform:rotate(-24deg)" viewBox="0 0 150 40" aria-hidden="true"><path class="s-red" stroke-width="8" d="M10 20q13-17 26 0t26 0t26 0t26 0t26 0"/></svg>
+  </div>
+  <div class="colophon">
+    <p class="cap">Causeway · a one-day music festival on Skerrow Island</p>
+    <p class="cap">Saturday 19 June 2027 · walk in 09:40–13:10 · walk out 22:15–01:30</p>
+  </div>
+</footer>
+
+</body>
+</html>

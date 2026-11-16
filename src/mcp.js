@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import {BRANCHES,referenceRoll,referenceFromRef} from './reference.js';
+import {critiquePage} from './generated/reference-critique.js';
 import http from 'node:http';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -11,7 +13,11 @@ import { graphicSvg } from './core/graphics.js';
 
 const result = data => ({ content: [{ type: 'text', text: JSON.stringify(data) }], structuredContent: data });
 export function createServer({ localHistory = false } = {}) {
-  const server = new McpServer({ name: 'random-design', version: '0.3.0' }, { instructions: 'Use get_preset for a named fixed style and generate_directions for hash-based variants. Present comparable previews, preserve supplied copy and facts, and retain the selected visual JSON. History applies to generated variants.' });
+  const server = new McpServer({ name: 'random-design', version: '0.5.0' }, { instructions: 'Use generate_reference_briefs for content-led design specifications from the 40-direction imported library; implement and inspect them rather than claiming a brief is a finished page. Use get_preset for a named fixed style and generate_directions for hash-based variants. Present comparable previews, preserve supplied copy and facts, and retain the selected visual JSON. History applies to generated variants.' });
+  server.registerTool('list_reference_styles',{description:'List 40 MIT-licensed hash-design directions. Different from the 21 ready-to-render presets; some styles overlap.',inputSchema:{},annotations:{readOnlyHint:true}},async()=>result({styles:BRANCHES.map(({id,name,concept})=>({id,name,concept}))}));
+  server.registerTool('generate_reference_briefs',{description:'Sample imported design specifications; does NOT render finished pages. Preserve supplied copy. Use the brief to build content-aware pages or slides. Pass exclude IDs to avoid recent directions.',inputSchema:{subject:z.string().max(1000),facts:z.array(z.string().max(4000)).max(100).default([]),count:z.number().int().min(1).max(12).default(5),language:z.enum(['zh','en']).default('zh'),seed:z.string().optional(),include:z.array(z.string()).default([]),exclude:z.array(z.string()).default([])},annotations:{readOnlyHint:true}},async args=>result(referenceRoll(args)));
+  server.registerTool('reproduce_reference_brief',{description:'Reproduce a saved hash-design reference with the original constraints and supplied content.',inputSchema:{ref:z.string(),constraints:z.record(z.string(),z.any()).optional(),content:z.record(z.string(),z.any()).optional()},annotations:{readOnlyHint:true}},async({ref,...options})=>result(referenceFromRef(ref,options)));
+  server.registerTool('critique_reference_page',{description:'Imported heuristic checker ONLY for reference-library pages. Scores are rule checks, NOT aesthetics. Do not use its bans against fixed styles such as glassmorphism.',inputSchema:{html:z.string().max(2000000),css:z.string().max(1000000).optional(),facts:z.array(z.string()).optional()},annotations:{readOnlyHint:true}},async args=>result({...critiquePage(args),scope:'reference-library-only',aestheticJudgment:false}));
   server.registerTool('list_presets', {
     description: 'List the 21 selectable fixed visual styles and their IDs.',
     inputSchema: {},
@@ -42,7 +48,7 @@ export function createServer({ localHistory = false } = {}) {
     if (![a, b].every(d => validateDesign(d).valid)) throw new Error('Invalid design');
     return result({ distance: distance(signature(a), signature(b)), method: 'weighted visual attributes' });
   });
-  server.registerTool('get_capabilities', { description: 'Describe procedural operators, constraints, rule fingerprint and integration limits.', inputSchema: {}, annotations: { readOnlyHint: true, openWorldHint: false } }, async () => result({ library: LIBRARY, rules: RULES, studio: 'https://xingchenyd.github.io/random-design/', fontsEmbedded: false, webAndPptx: true, remoteHistory: 'client-supplied; no cloud account or synchronization', aestheticGuarantee: false }));
+  server.registerTool('get_capabilities', { description: 'Describe procedural operators, constraints, rule fingerprint and integration limits.', inputSchema: {}, annotations: { readOnlyHint: true, openWorldHint: false } }, async () => result({ library: LIBRARY, rules: RULES, referenceBranches: 40, fixedStyles: 21, referenceOutput: 'implementation briefs, not finished pages', referenceSource: 'qybaihe/hash-design (MIT)', referenceStudio: 'https://xingchenyd.github.io/random-design/reference/', studio: 'https://xingchenyd.github.io/random-design/', fontsEmbedded: false, webAndPptx: true, remoteHistory: 'client-supplied; no cloud account or synchronization', aestheticGuarantee: false }));
   return server;
 }
 

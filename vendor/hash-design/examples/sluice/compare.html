@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sluice — self-hosted webhook inbox — hash-design compare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+  :root {
+    --table: #d8d5ce; --ink: #151412; --muted: #55524b; --line: #151412; --mark: #e2401c; --card: #f3f1ec;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --sans: "IBM Plex Sans Condensed", "Noto Sans SC", "Arial Narrow", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--table); color: var(--ink); font: 14px/1.45 var(--sans); }
+  .bar { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-items: end; padding: 20px 24px 16px; border-bottom: 2px solid var(--line); }
+  .bar h1 { margin: 0; font: 600 28px/1.1 var(--sans); letter-spacing: -0.01em; }
+  .bar p { margin: 4px 0 0; font: 12px/1.4 var(--mono); color: var(--muted); }
+  .controls { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .controls button { font: 600 12px var(--mono); padding: 6px 10px; border: 1.5px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+  .controls button[aria-pressed="true"] { background: var(--ink); color: var(--table); }
+  .strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 16px; padding: 16px 24px 24px; overflow-x: auto; scroll-snap-type: x mandatory; }
+  body.cols-2 .strip { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); }
+  body.focus .strip { grid-auto-flow: row; grid-template-columns: 1fr; }
+  body.focus .frame:not(.on) { display: none; }
+  .frame { scroll-snap-align: start; background: var(--card); border: 2px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
+  .frame.on { outline: 4px solid var(--mark); outline-offset: 2px; }
+  .frame-head { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border-bottom: 2px solid var(--line); }
+  .num { font: 600 30px/1 var(--mono); }
+  .who { display: flex; flex-direction: column; min-width: 0; }
+  .who strong { font-size: 16px; }
+  .who span { font: 11px var(--mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hash { font: 11px var(--mono); background: var(--ink); color: var(--card); padding: 2px 6px; }
+  .screen { position: relative; overflow: hidden; background: #fff; border-bottom: 2px solid var(--line); }
+  .screen iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; background: #fff; }
+  .spec { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; padding: 10px; font-size: 12.5px; }
+  .spec dt { font: 600 11px/1.6 var(--mono); color: var(--muted); }
+  .spec dd { margin: 0; min-width: 0; }
+  .sw { display: inline-flex; vertical-align: -2px; margin-right: 4px; border: 1px solid var(--line); }
+  .sw i { width: 12px; height: 12px; display: block; }
+  .frame-foot { margin-top: auto; display: flex; gap: 12px; align-items: center; padding: 8px 10px; border-top: 1px dashed var(--line); font: 12px var(--mono); }
+  .frame-foot a { color: var(--ink); }
+  .focus-btn { margin-left: auto; font: 600 12px var(--mono); border: 1.5px solid var(--line); background: transparent; padding: 4px 8px; cursor: pointer; }
+  .pick { margin: 0 24px 32px; padding: 14px 16px; border: 2px dashed var(--line); font-size: 15px; }
+  .pick b { font-family: var(--mono); }
+  @media (max-width: 720px) { .bar { grid-template-columns: 1fr; } .controls { justify-content: flex-start; } body.cols-2 .strip { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <div>
+      <h1>Sluice — self-hosted webhook inbox</h1>
+      <p>5 directions · seed:sluice · hash-design/v1 · library c7b166fe6ec0 · 2026-11-02</p>
+    </div>
+    <div class="controls" role="toolbar" aria-label="View">
+      <button type="button" data-view="strip" aria-pressed="true">Strip</button>
+      <button type="button" data-view="cols-2" aria-pressed="false">2 columns</button>
+      <button type="button" data-view="focus" aria-pressed="false">Single</button>
+      <button type="button" data-device="desktop" aria-pressed="true">Desktop 1440</button>
+      <button type="button" data-device="mobile" aria-pressed="false">Mobile 390</button>
+    </div>
+  </header>
+  <main class="strip">
+
+    <article class="frame" id="d1" data-n="1">
+      <header class="frame-head">
+        <span class="num">01</span>
+        <div class="who">
+          <strong>Record sleeve</strong>
+          <span lang="zh-CN">唱片封套</span>
+        </div>
+        <code class="hash" title="2519cd97b1cb7a53fa192b21d16d98d41c08c45046f0969f12665848f49d9f97">2519cd97</code>
+      </header>
+      <div class="screen" data-src="previews/01-record-sleeve.html">
+        <iframe src="previews/01-record-sleeve.html" title="#1 Record sleeve" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Blue Note crop</dd>
+        <dt>Type</dt><dd>League Gothic / Libre Franklin</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#0e0e0e" title="paper #0e0e0e"></i><i style="background:#f0eee9" title="ink #f0eee9"></i><i style="background:#e8452c" title="accent #e8452c"></i><i style="background:#f2c230" title="accent2 #f2c230"></i><i style="background:#1c1c1c" title="panel #1c1c1c"></i><i style="background:#a7a49d" title="muted #a7a49d"></i><i style="background:#3a3a3a" title="rule #3a3a3a"></i></span> Factory black</dd>
+        <dt>Density</dt><dd>airy</dd>
+        <dt>Voice</dt><dd>Catalogue entry</dd>
+        <dt>Twist</dt><dd>One element breaks the grid</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/01-record-sleeve.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/01-record-sleeve.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="1">Zoom · 1</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d2" data-n="2">
+      <header class="frame-head">
+        <span class="num">02</span>
+        <div class="who">
+          <strong>Gallery catalogue</strong>
+          <span lang="zh-CN">美术馆图录</span>
+        </div>
+        <code class="hash" title="169a48c29375c592d4dead9d02f92a5a2036e89e793758bff47dd47b0acd0691+1">169a48c2</code>
+      </header>
+      <div class="screen" data-src="previews/02-gallery-catalogue.html">
+        <iframe src="previews/02-gallery-catalogue.html" title="#2 Gallery catalogue" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Archive checklist</dd>
+        <dt>Type</dt><dd>Cormorant / EB Garamond</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#fafaf7" title="paper #fafaf7"></i><i style="background:#161616" title="ink #161616"></i><i style="background:#c8332b" title="accent #c8332b"></i><i style="background:#7d7a72" title="accent2 #7d7a72"></i><i style="background:#efeee9" title="panel #efeee9"></i><i style="background:#5e5e5a" title="muted #5e5e5a"></i><i style="background:#d8d6cf" title="rule #d8d6cf"></i></span> White cube</dd>
+        <dt>Density</dt><dd>regular</dd>
+        <dt>Voice</dt><dd>Technical manual</dd>
+        <dt>Twist</dt><dd>Navigation not on top</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/02-gallery-catalogue.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/02-gallery-catalogue.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="2">Zoom · 2</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d3" data-n="3">
+      <header class="frame-head">
+        <span class="num">03</span>
+        <div class="who">
+          <strong>Terminal phosphor</strong>
+          <span lang="zh-CN">终端荧光</span>
+        </div>
+        <code class="hash" title="16333b219df7a0a92644b8fb7726cd03bd7f1e76a8813242ad514385cb25a357">16333b21</code>
+      </header>
+      <div class="screen" data-src="previews/03-terminal-phosphor.html">
+        <iframe src="previews/03-terminal-phosphor.html" title="#3 Terminal phosphor" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Man page</dd>
+        <dt>Type</dt><dd>IBM Plex Mono / Fira Code</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#120b02" title="paper #120b02"></i><i style="background:#ffb84a" title="ink #ffb84a"></i><i style="background:#ffe2a8" title="accent #ffe2a8"></i><i style="background:#ff7a1a" title="accent2 #ff7a1a"></i><i style="background:#1e1305" title="panel #1e1305"></i><i style="background:#c4842a" title="muted #c4842a"></i><i style="background:#5a3a0c" title="rule #5a3a0c"></i></span> P3 amber phosphor</dd>
+        <dt>Density</dt><dd>compact</dd>
+        <dt>Voice</dt><dd>Personal letter</dd>
+        <dt>Twist</dt><dd>Numbered sections</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/03-terminal-phosphor.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/03-terminal-phosphor.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="3">Zoom · 3</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d4" data-n="4">
+      <header class="frame-head">
+        <span class="num">04</span>
+        <div class="who">
+          <strong>Academic paper</strong>
+          <span lang="zh-CN">学术论文</span>
+        </div>
+        <code class="hash" title="8fcd60e5d98790da96425ffc1d4521251f6a91724c110d23559e8a91b3e9596e+2">8fcd60e5</code>
+      </header>
+      <div class="screen" data-src="previews/04-academic-paper.html">
+        <iframe src="previews/04-academic-paper.html" title="#4 Academic paper" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Tufte handout</dd>
+        <dt>Type</dt><dd>Crimson Pro / Crimson Pro</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#fdfdfb" title="paper #fdfdfb"></i><i style="background:#111111" title="ink #111111"></i><i style="background:#8c1515" title="accent #8c1515"></i><i style="background:#1d5e3a" title="accent2 #1d5e3a"></i><i style="background:#f2f1ec" title="panel #f2f1ec"></i><i style="background:#4a4a4a" title="muted #4a4a4a"></i><i style="background:#222222" title="rule #222222"></i></span> Preprint white</dd>
+        <dt>Density</dt><dd>regular</dd>
+        <dt>Voice</dt><dd>Logbook</dd>
+        <dt>Twist</dt><dd>Time as structure</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/04-academic-paper.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/04-academic-paper.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="4">Zoom · 4</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d5" data-n="5">
+      <header class="frame-head">
+        <span class="num">05</span>
+        <div class="who">
+          <strong>Lab notebook</strong>
+          <span lang="zh-CN">方格实验本</span>
+        </div>
+        <code class="hash" title="58912b84bd8a2d3337b9da9ba7c435c9a5ac2b75dcd08a1c7b474a72b0c36302+5">58912b84</code>
+      </header>
+      <div class="screen" data-src="previews/05-lab-notebook.html">
+        <iframe src="previews/05-lab-notebook.html" title="#5 Lab notebook" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Dated entries</dd>
+        <dt>Type</dt><dd>Caveat / IBM Plex Mono</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#eaf2df" title="paper #eaf2df"></i><i style="background:#1a2419" title="ink #1a2419"></i><i style="background:#c2412d" title="accent #c2412d"></i><i style="background:#2b5d8a" title="accent2 #2b5d8a"></i><i style="background:#dce9cf" title="panel #dce9cf"></i><i style="background:#435343" title="muted #435343"></i><i style="background:#a9c9a4" title="rule #a9c9a4"></i></span> Green computation pad</dd>
+        <dt>Density</dt><dd>regular</dd>
+        <dt>Voice</dt><dd>Field notes</dd>
+        <dt>Twist</dt><dd>Numbered sections</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/05-lab-notebook.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/05-lab-notebook.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="5">Zoom · 5</button>
+      </footer>
+    </article>
+  </main>
+  <p class="pick">When you have looked, <b>reply with a number (1–5)</b> to choose a direction, and the agent builds the final page from that brief. A brief is used whole; to mix, say exactly what to take: “X from #a + Y from #b”. Keys: <b>1–5</b> zoom · <b>←/→</b> previous/next · <b>D/M</b> desktop/mobile · <b>Esc</b> back to the strip.</p>
+<script>
+(() => {
+  const devices = { desktop: [1440, 900], mobile: [390, 844] };
+  let device = 'desktop';
+  const body = document.body;
+  const frames = [...document.querySelectorAll('.frame')];
+  function fit() {
+    const [w, h] = devices[device];
+    for (const screen of document.querySelectorAll('.screen')) {
+      const iframe = screen.querySelector('iframe');
+      const avail = screen.clientWidth;
+      const scale = Math.min(1, avail / w);
+      iframe.style.width = w + 'px';
+      iframe.style.height = h + 'px';
+      iframe.style.transform = 'scale(' + scale + ')';
+      screen.style.height = Math.round(h * scale) + 'px';
+      if (device === 'mobile') { iframe.style.left = Math.max(0, (avail - w * scale) / 2) + 'px'; } else { iframe.style.left = '0'; }
+    }
+  }
+  function setView(view) {
+    body.classList.remove('cols-2', 'focus');
+    if (view !== 'strip') body.classList.add(view);
+    for (const b of document.querySelectorAll('[data-view]')) b.setAttribute('aria-pressed', String(b.dataset.view === view));
+    if (view !== 'focus') frames.forEach((f) => f.classList.remove('on'));
+    requestAnimationFrame(fit);
+  }
+  function focus(n) {
+    const target = frames.find((f) => f.dataset.n === String(n));
+    if (!target) return;
+    frames.forEach((f) => f.classList.toggle('on', f === target));
+    setView('focus');
+    target.scrollIntoView({ block: 'start' });
+  }
+  function setDevice(d) {
+    device = d;
+    for (const b of document.querySelectorAll('[data-device]')) b.setAttribute('aria-pressed', String(b.dataset.device === d));
+    fit();
+  }
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('button');
+    if (!t) return;
+    if (t.dataset.view) setView(t.dataset.view);
+    if (t.dataset.device) setDevice(t.dataset.device);
+    if (t.classList.contains('focus-btn')) focus(t.dataset.n);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, textarea')) return;
+    const n = Number(e.key);
+    if (n >= 1 && n <= frames.length) focus(n);
+    const cur = frames.findIndex((f) => f.classList.contains('on'));
+    if (e.key === 'ArrowRight' && cur >= 0) focus(((cur + 1) % frames.length) + 1);
+    if (e.key === 'ArrowLeft' && cur >= 0) focus(((cur - 1 + frames.length) % frames.length) + 1);
+    if (e.key === 'Escape') setView('strip');
+    if (e.key === 'd' || e.key === 'D') setDevice('desktop');
+    if (e.key === 'm' || e.key === 'M') setDevice('mobile');
+  });
+  const params = new URLSearchParams(location.search);
+  if (params.get('device') === 'mobile') setDevice('mobile');
+  if (params.get('view')) setView(params.get('view'));
+  if (params.get('focus')) focus(params.get('focus'));
+  addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>

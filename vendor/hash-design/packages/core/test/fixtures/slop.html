@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<title>Acme — Supercharge your workflow</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+  :root { --brand: #6366f1; --brand-2: #8b5cf6; --bg: #0f172a; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #f8fafc; margin: 0; }
+  .hero { text-align: center; padding: 120px 24px; background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%); }
+  .hero h1 { font-size: 64px; background: linear-gradient(90deg, #a855f7, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .badge { display: inline-block; border-radius: 9999px; padding: 4px 12px; background: rgba(255,255,255,.1); }
+  .btn { padding: 14px 28px; border-radius: 12px; }
+  .btn-primary { background: #fff; color: #4f46e5; }
+  .btn-ghost { border: 1px solid #fff; color: #fff; }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 80px; }
+  .card { background: rgba(255,255,255,.08); backdrop-filter: blur(12px); border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: 32px; }
+  .testimonial { border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,.2); }
+  .cta { border-radius: 20px; box-shadow: 0 12px 32px rgba(99,102,241,.4); }
+</style>
+</head>
+<body>
+  <section class="hero">
+    <span class="badge">✨ New: AI-powered insights</span>
+    <h1>Supercharge your workflow</h1>
+    <p>Unlock seamless collaboration and elevate your team with our all-in-one platform.</p>
+    <a class="btn btn-primary" href="#">Get started free</a>
+    <a class="btn btn-ghost" href="#">Watch demo</a>
+    <p>Trusted by 10K+ teams worldwide · 99.9% uptime</p>
+  </section>
+  <h2>Features</h2>
+  <section class="features">
+    <div class="card" data-aos="fade-up"><span class="icon">🚀</span><h3>Lightning fast</h3><p>Lorem ipsum dolor sit amet, effortless speed.</p></div>
+    <div class="card" data-aos="fade-up"><span class="icon">🔒</span><h3>Secure by default</h3><p>Enterprise-grade, robust security.</p></div>
+    <div class="card" data-aos="fade-up"><span class="icon">⚡</span><h3>Seamless sync</h3><p>Everything in one place, revolutionize your day.</p></div>
+  </section>
+  <h2>What our customers say</h2>
+  <blockquote class="testimonial"><img src="https://randomuser.me/api/portraits/women/1.jpg"><p>★★★★★ Game-changer!</p></blockquote>
+  <blockquote class="testimonial"><img src="https://randomuser.me/api/portraits/men/2.jpg"><p>Best-in-class.</p></blockquote>
+  <h2>Pricing</h2>
+  <h2>FAQ</h2>
+  <div class="cta"><button>Start now</button></div>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script><script>AOS.init();</script>
+</body>
+</html>

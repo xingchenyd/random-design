@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Causeway — a music festival on Skerrow Island — hash-design compare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;600&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+  :root {
+    --table: #d8d5ce; --ink: #151412; --muted: #55524b; --line: #151412; --mark: #e2401c; --card: #f3f1ec;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --sans: "IBM Plex Sans Condensed", "Noto Sans SC", "Arial Narrow", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--table); color: var(--ink); font: 14px/1.45 var(--sans); }
+  .bar { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-items: end; padding: 20px 24px 16px; border-bottom: 2px solid var(--line); }
+  .bar h1 { margin: 0; font: 600 28px/1.1 var(--sans); letter-spacing: -0.01em; }
+  .bar p { margin: 4px 0 0; font: 12px/1.4 var(--mono); color: var(--muted); }
+  .controls { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .controls button { font: 600 12px var(--mono); padding: 6px 10px; border: 1.5px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+  .controls button[aria-pressed="true"] { background: var(--ink); color: var(--table); }
+  .strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); gap: 16px; padding: 16px 24px 24px; overflow-x: auto; scroll-snap-type: x mandatory; }
+  body.cols-2 .strip { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); }
+  body.focus .strip { grid-auto-flow: row; grid-template-columns: 1fr; }
+  body.focus .frame:not(.on) { display: none; }
+  .frame { scroll-snap-align: start; background: var(--card); border: 2px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
+  .frame.on { outline: 4px solid var(--mark); outline-offset: 2px; }
+  .frame-head { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border-bottom: 2px solid var(--line); }
+  .num { font: 600 30px/1 var(--mono); }
+  .who { display: flex; flex-direction: column; min-width: 0; }
+  .who strong { font-size: 16px; }
+  .who span { font: 11px var(--mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hash { font: 11px var(--mono); background: var(--ink); color: var(--card); padding: 2px 6px; }
+  .screen { position: relative; overflow: hidden; background: #fff; border-bottom: 2px solid var(--line); }
+  .screen iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; background: #fff; }
+  .spec { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; padding: 10px; font-size: 12.5px; }
+  .spec dt { font: 600 11px/1.6 var(--mono); color: var(--muted); }
+  .spec dd { margin: 0; min-width: 0; }
+  .sw { display: inline-flex; vertical-align: -2px; margin-right: 4px; border: 1px solid var(--line); }
+  .sw i { width: 12px; height: 12px; display: block; }
+  .frame-foot { margin-top: auto; display: flex; gap: 12px; align-items: center; padding: 8px 10px; border-top: 1px dashed var(--line); font: 12px var(--mono); }
+  .frame-foot a { color: var(--ink); }
+  .focus-btn { margin-left: auto; font: 600 12px var(--mono); border: 1.5px solid var(--line); background: transparent; padding: 4px 8px; cursor: pointer; }
+  .pick { margin: 0 24px 32px; padding: 14px 16px; border: 2px dashed var(--line); font-size: 15px; }
+  .pick b { font-family: var(--mono); }
+  @media (max-width: 720px) { .bar { grid-template-columns: 1fr; } .controls { justify-content: flex-start; } body.cols-2 .strip { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <div>
+      <h1>Causeway — a music festival on Skerrow Island</h1>
+      <p>5 directions · seed:causeway-festival-6 · hash-design/v1 · library c7b166fe6ec0 · 2026-11-02</p>
+    </div>
+    <div class="controls" role="toolbar" aria-label="View">
+      <button type="button" data-view="strip" aria-pressed="true">Strip</button>
+      <button type="button" data-view="cols-2" aria-pressed="false">2 columns</button>
+      <button type="button" data-view="focus" aria-pressed="false">Single</button>
+      <button type="button" data-device="desktop" aria-pressed="true">Desktop 1440</button>
+      <button type="button" data-device="mobile" aria-pressed="false">Mobile 390</button>
+    </div>
+  </header>
+  <main class="strip">
+
+    <article class="frame" id="d1" data-n="1">
+      <header class="frame-head">
+        <span class="num">01</span>
+        <div class="who">
+          <strong>Engineering plate</strong>
+          <span lang="zh-CN">工程图版</span>
+        </div>
+        <code class="hash" title="c7893950bed02a108955f7a9b57281677dfa09f3093e2a6ba899e9dd96390784">c7893950</code>
+      </header>
+      <div class="screen" data-src="previews/01-engineering-plate.html">
+        <iframe src="previews/01-engineering-plate.html" title="#1 Engineering plate" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Exploded assembly</dd>
+        <dt>Type</dt><dd>Architects Daughter / IBM Plex Sans Condensed</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#eef0ea" title="paper #eef0ea"></i><i style="background:#1c2024" title="ink #1c2024"></i><i style="background:#b3261e" title="accent #b3261e"></i><i style="background:#2e6e8e" title="accent2 #2e6e8e"></i><i style="background:#e1e5de" title="panel #e1e5de"></i><i style="background:#4b535a" title="muted #4b535a"></i><i style="background:#9aa5ab" title="rule #9aa5ab"></i></span> Drafting vellum</dd>
+        <dt>Density</dt><dd>compact</dd>
+        <dt>Voice</dt><dd>Field notes</dd>
+        <dt>Twist</dt><dd>Vertical text once</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/01-engineering-plate.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/01-engineering-plate.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="1">Zoom · 1</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d2" data-n="2">
+      <header class="frame-head">
+        <span class="num">02</span>
+        <div class="who">
+          <strong>Topographic map</strong>
+          <span lang="zh-CN">地形图</span>
+        </div>
+        <code class="hash" title="ffc2f9c17e02b46cf5b743c8146922b6e19691925ba0fc9b476cda0d9b947212">ffc2f9c1</code>
+      </header>
+      <div class="screen" data-src="previews/02-topographic-map.html">
+        <iframe src="previews/02-topographic-map.html" title="#2 Topographic map" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Legend-led</dd>
+        <dt>Type</dt><dd>Barlow Condensed / Barlow</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#16457a" title="paper #16457a"></i><i style="background:#f2f5f7" title="ink #f2f5f7"></i><i style="background:#ffffff" title="accent #ffffff"></i><i style="background:#f0c75e" title="accent2 #f0c75e"></i><i style="background:#1d5590" title="panel #1d5590"></i><i style="background:#b9cde0" title="muted #b9cde0"></i><i style="background:#5d82ab" title="rule #5d82ab"></i></span> Cyanotype field copy</dd>
+        <dt>Density</dt><dd>compact</dd>
+        <dt>Voice</dt><dd>Dictionary entry</dd>
+        <dt>Twist</dt><dd>Accent rationed</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/02-topographic-map.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/02-topographic-map.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="2">Zoom · 2</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d3" data-n="3">
+      <header class="frame-head">
+        <span class="num">03</span>
+        <div class="who">
+          <strong>Warm handmade</strong>
+          <span lang="zh-CN">手作温度</span>
+        </div>
+        <code class="hash" title="ee7a4e447e6e69a008ec2e7dd9ce52e7dcffc7a789f6794848f1de5ccb2d2219+1">ee7a4e44</code>
+      </header>
+      <div class="screen" data-src="previews/03-warm-handmade.html">
+        <iframe src="previews/03-warm-handmade.html" title="#3 Warm handmade" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Kraft bag</dd>
+        <dt>Type</dt><dd>Caveat / Alegreya Sans</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#2e3430" title="paper #2e3430"></i><i style="background:#f1ede2" title="ink #f1ede2"></i><i style="background:#f2c14e" title="accent #f2c14e"></i><i style="background:#e98a7d" title="accent2 #e98a7d"></i><i style="background:#3a413c" title="panel #3a413c"></i><i style="background:#b9b9ae" title="muted #b9b9ae"></i><i style="background:#c8c6bb" title="rule #c8c6bb"></i></span> Chalkboard</dd>
+        <dt>Density</dt><dd>airy</dd>
+        <dt>Voice</dt><dd>Almanac</dd>
+        <dt>Twist</dt><dd>Giant glyph</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/03-warm-handmade.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/03-warm-handmade.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="3">Zoom · 3</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d4" data-n="4">
+      <header class="frame-head">
+        <span class="num">04</span>
+        <div class="who">
+          <strong>Editorial magazine</strong>
+          <span lang="zh-CN">杂志编辑</span>
+        </div>
+        <code class="hash" title="90fa12c08e8706c9a86c6a123a6420d8f83eb3093909e8b5e332a8ddc16583ad+1">90fa12c0</code>
+      </header>
+      <div class="screen" data-src="previews/04-editorial-magazine.html">
+        <iframe src="previews/04-editorial-magazine.html" title="#4 Editorial magazine" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Opening spread</dd>
+        <dt>Type</dt><dd>Bodoni Moda / Libre Baskerville</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#fdfcf8" title="paper #fdfcf8"></i><i style="background:#111111" title="ink #111111"></i><i style="background:#a6192e" title="accent #a6192e"></i><i style="background:#1d3f6e" title="accent2 #1d3f6e"></i><i style="background:#f1eee6" title="panel #f1eee6"></i><i style="background:#505050" title="muted #505050"></i><i style="background:#1a1a1a" title="rule #1a1a1a"></i></span> Weekly white</dd>
+        <dt>Density</dt><dd>regular</dd>
+        <dt>Voice</dt><dd>Museum label</dd>
+        <dt>Twist</dt><dd>Zero shadows</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/04-editorial-magazine.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/04-editorial-magazine.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="4">Zoom · 4</button>
+      </footer>
+    </article>
+
+    <article class="frame" id="d5" data-n="5">
+      <header class="frame-head">
+        <span class="num">05</span>
+        <div class="who">
+          <strong>Memphis pop</strong>
+          <span lang="zh-CN">孟菲斯</span>
+        </div>
+        <code class="hash" title="0a75884fd35836645ab3e444b59e9e403c816f24910e4207377f7dc8ef93b8f4+2">0a75884f</code>
+      </header>
+      <div class="screen" data-src="previews/05-memphis-pop.html">
+        <iframe src="previews/05-memphis-pop.html" title="#5 Memphis pop" loading="lazy"></iframe>
+      </div>
+      <dl class="spec">
+        <dt>Layout</dt><dd>Pattern patchwork</dd>
+        <dt>Type</dt><dd>Chango / Questrial</dd>
+        <dt>Colour</dt><dd><span class="sw"><i style="background:#ffd84a" title="paper #ffd84a"></i><i style="background:#141414" title="ink #141414"></i><i style="background:#e8412c" title="accent #e8412c"></i><i style="background:#1b8a6b" title="accent2 #1b8a6b"></i><i style="background:#ffffff" title="panel #ffffff"></i><i style="background:#4a3d00" title="muted #4a3d00"></i><i style="background:#141414" title="rule #141414"></i></span> Laminate yellow</dd>
+        <dt>Density</dt><dd>regular</dd>
+        <dt>Voice</dt><dd>Interview Q&amp;A</dd>
+        <dt>Twist</dt><dd>Vertical text once</dd>
+      </dl>
+      <footer class="frame-foot">
+        <a href="previews/05-memphis-pop.html" target="_blank" rel="noopener">Open page ↗</a>
+        <a href="briefs/05-memphis-pop.md" target="_blank" rel="noopener">brief.md</a>
+        <button type="button" class="focus-btn" data-n="5">Zoom · 5</button>
+      </footer>
+    </article>
+  </main>
+  <p class="pick">When you have looked, <b>reply with a number (1–5)</b> to choose a direction, and the agent builds the final page from that brief. A brief is used whole; to mix, say exactly what to take: “X from #a + Y from #b”. Keys: <b>1–5</b> zoom · <b>←/→</b> previous/next · <b>D/M</b> desktop/mobile · <b>Esc</b> back to the strip.</p>
+<script>
+(() => {
+  const devices = { desktop: [1440, 900], mobile: [390, 844] };
+  let device = 'desktop';
+  const body = document.body;
+  const frames = [...document.querySelectorAll('.frame')];
+  function fit() {
+    const [w, h] = devices[device];
+    for (const screen of document.querySelectorAll('.screen')) {
+      const iframe = screen.querySelector('iframe');
+      const avail = screen.clientWidth;
+      const scale = Math.min(1, avail / w);
+      iframe.style.width = w + 'px';
+      iframe.style.height = h + 'px';
+      iframe.style.transform = 'scale(' + scale + ')';
+      screen.style.height = Math.round(h * scale) + 'px';
+      if (device === 'mobile') { iframe.style.left = Math.max(0, (avail - w * scale) / 2) + 'px'; } else { iframe.style.left = '0'; }
+    }
+  }
+  function setView(view) {
+    body.classList.remove('cols-2', 'focus');
+    if (view !== 'strip') body.classList.add(view);
+    for (const b of document.querySelectorAll('[data-view]')) b.setAttribute('aria-pressed', String(b.dataset.view === view));
+    if (view !== 'focus') frames.forEach((f) => f.classList.remove('on'));
+    requestAnimationFrame(fit);
+  }
+  function focus(n) {
+    const target = frames.find((f) => f.dataset.n === String(n));
+    if (!target) return;
+    frames.forEach((f) => f.classList.toggle('on', f === target));
+    setView('focus');
+    target.scrollIntoView({ block: 'start' });
+  }
+  function setDevice(d) {
+    device = d;
+    for (const b of document.querySelectorAll('[data-device]')) b.setAttribute('aria-pressed', String(b.dataset.device === d));
+    fit();
+  }
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('button');
+    if (!t) return;
+    if (t.dataset.view) setView(t.dataset.view);
+    if (t.dataset.device) setDevice(t.dataset.device);
+    if (t.classList.contains('focus-btn')) focus(t.dataset.n);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, textarea')) return;
+    const n = Number(e.key);
+    if (n >= 1 && n <= frames.length) focus(n);
+    const cur = frames.findIndex((f) => f.classList.contains('on'));
+    if (e.key === 'ArrowRight' && cur >= 0) focus(((cur + 1) % frames.length) + 1);
+    if (e.key === 'ArrowLeft' && cur >= 0) focus(((cur - 1 + frames.length) % frames.length) + 1);
+    if (e.key === 'Escape') setView('strip');
+    if (e.key === 'd' || e.key === 'D') setDevice('desktop');
+    if (e.key === 'm' || e.key === 'M') setDevice('mobile');
+  });
+  const params = new URLSearchParams(location.search);
+  if (params.get('device') === 'mobile') setDevice('mobile');
+  if (params.get('view')) setView(params.get('view'));
+  if (params.get('focus')) focus(params.get('focus'));
+  addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>

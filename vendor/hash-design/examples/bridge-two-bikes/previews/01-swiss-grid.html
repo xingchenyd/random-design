@@ -1,0 +1,550 @@
+<!doctype html>
+<!-- hash-design #1 · swiss-grid · ref 0377a498f0119f4f640840bd7c48820d0f2eac30756f28efeba4029b5ab4d846 -->
+<!-- Grid: the branch grid token wins over the layout default — 12 columns grouped into 6 fields, 24px gutter,
+     48px outer margin (24px / 4 columns on mobile). Numerals hang in fields 1–2, content runs in fields 3–6. -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二号桥单车铺 · Bridge No.2 Cycle Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+/* hash-design 0377a498 · swiss-grid · tonhalle-night */
+:root {
+  --paper: #121212;
+  --ink: #f1eee6;
+  --muted: #a3a097;
+  --accent: #ff5a1f;
+  --on-accent: #000000;
+  --accent2: #4a8fd1;
+  --on-accent2: #000000;
+  --rule: #f1eee6;
+  --panel: #232323;
+
+  --font-display: Archivo, "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  --font-body: Archivo, "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.633rem; /* 10.1px */
+  --step-n1: 0.844rem; /* 13.5px */
+  --step-0: 1.125rem; /* 18px */
+  --step-1: 1.5rem; /* 24px */
+  --step-2: 1.999rem; /* 32px */
+  --step-3: 2.665rem; /* 42.6px */
+  --step-4: 3.552rem; /* 56.8px */
+  --step-5: 4.735rem; /* 75.8px */
+  --step-6: 6.312rem; /* 101px */
+  --step-7: 8.413rem; /* 134.6px */
+  --leading: 1.65;
+
+  --space-1: 10px;
+  --space-2: 20px;
+  --space-3: 30px;
+  --space-4: 40px;
+  --space-5: 50px;
+  --space-6: 60px;
+  --space-7: 70px;
+  --space-8: 80px;
+  --section-gap: 168px;
+  --max-width: 1080px;
+
+  --motion-duration: 420ms;
+  --motion-easing: cubic-bezier(.65,0,.35,1);
+}
+
+html { font-size: 112.5%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ───────────── page system ───────────── */
+:root {
+  --m: 48px;                                  /* outer margin */
+  --g: 24px;                                  /* gutter */
+  --cols: 12;
+  --row: 64px;                                /* one field row = 8 baselines */
+  /* the scale tokens assume a 16px root; html is 18px, so divide back to the 18px-based scale */
+  --hl: min(calc(var(--step-5) / 1.125), 8.5vw);   /* headline · 75.8px */
+  --num: min(14vw, 202px);                          /* section numerals */
+  --cap: 12px;                                      /* caption */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-autospace: normal;
+  line-break: strict;
+  text-spacing-trim: trim-start;
+  hanging-punctuation: first allow-end;
+  overflow-x: clip;
+}
+::selection { background: var(--accent); color: var(--on-accent); }
+h1, h2, h3, p, ol, ul, dl, dd, figure, table { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+a { color: inherit; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: .24em; }
+a:hover { color: var(--accent); }
+a:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+
+.grid, .hero {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--g);
+  padding-inline: var(--m);
+  max-width: 1440px;
+  margin-inline: auto;
+}
+.cap { font-size: var(--cap); line-height: 1.5; font-weight: 500; color: var(--muted); letter-spacing: .01em; }
+.cap b { font-weight: 700; color: var(--ink); }
+.nw { white-space: nowrap; }
+[lang="en"] { letter-spacing: .02em; }
+
+/* ───────────── first screen: geometric field ───────────── */
+.hero {
+  position: relative;
+  grid-template-rows: auto auto minmax(200px, 1fr) auto auto;
+  min-height: 100svh;
+  padding-block: 48px;
+}
+.mast { grid-column: 1 / 3; grid-row: 1; position: relative; z-index: 1; }
+.bar {
+  height: 6px;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: draw var(--motion-duration) var(--motion-easing) both;
+}
+.mast h1 { margin-top: 18px; font-size: 1rem; line-height: 30px; font-weight: 700; letter-spacing: 0; }
+.mast .cap { display: block; white-space: nowrap; }
+.hours { grid-column: 3 / 5; grid-row: 1; padding-top: 24px; position: relative; z-index: 1; }
+.hours span { display: block; }
+.rule-top {
+  grid-column: 1 / 5; grid-row: 2;
+  height: 1px; margin-top: 22px;
+  background: var(--rule);
+  transform-origin: left center;
+  animation: draw var(--motion-duration) var(--motion-easing) 90ms both;
+}
+.figwrap {
+  grid-column: 1 / -1; grid-row: 1 / 4;
+  position: relative;
+  overflow: hidden;            /* the figure is cut by the grid, not by the page */
+  container-type: size;
+  pointer-events: none;
+}
+.fig {
+  --F: calc((100cqw + var(--g)) / 6);        /* one field + its gutter */
+  --R: min(3 * var(--F), 100cqh - 8px);      /* radius of the outer arc */
+  position: absolute;
+  bottom: 0;
+  left: calc(4 * var(--F) - var(--R));       /* centre sits on the line of field 5 */
+  width: calc(2 * var(--R));
+  height: var(--R);
+  overflow: visible;
+}
+.fig .arcs path { fill: none; stroke: var(--rule); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.fig .band { fill: var(--accent); }
+.fig .disc { fill: var(--accent2); }
+.deck {
+  grid-column: 1 / -1; grid-row: 4;
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left center;
+  animation: draw var(--motion-duration) var(--motion-easing) 180ms both;
+}
+.meta { grid-column: 1 / 3; grid-row: 5; margin-top: 24px; }
+.meta span { display: block; }
+.intro { grid-column: 3 / 7; grid-row: 5; margin-top: 21px; }
+.intro .q { font-weight: 700; }
+.intro .a { color: var(--ink); }
+.idx { grid-column: 9 / -1; grid-row: 5; margin-top: 24px; display: grid; grid-template-columns: subgrid; }
+.idx ul { display: contents; }
+.idx li:nth-child(-n+2) { grid-column: 1 / 3; }
+.idx li:nth-child(n+3) { grid-column: 3 / 5; }
+.idx li:nth-child(1), .idx li:nth-child(3) { grid-row: 1; }
+.idx li:nth-child(2), .idx li:nth-child(4) { grid-row: 2; }
+.idx a { text-decoration: none; color: var(--ink); }
+.idx a span { color: var(--muted); margin-right: .7em; }
+.idx a:hover, .idx a:hover span { color: var(--accent); }
+
+@keyframes draw { from { transform: scaleX(0); } }
+
+/* ───────────── numbered sections ───────────── */
+.sec { margin-top: var(--section-gap); scroll-margin-top: 0; }
+.sec > .sec-rule { grid-column: 1 / -1; grid-row: 1; height: 1px; background: var(--rule); }
+.sec-head {
+  grid-column: 1 / 5; grid-row: 2;
+  align-self: start;
+  position: sticky; top: 0;
+  padding-top: 40px;
+}
+.num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--num);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  margin-left: -0.035em;                 /* optical: the 0 sits on the column line, not its side-bearing */
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  text-box: trim-both cap alphabetic;
+}
+.sec-label { display: block; margin-top: 32px; font-size: 1rem; line-height: 30px; font-weight: 700; }
+.sec-body {
+  grid-column: 5 / -1; grid-row: 2;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-content: start;
+  padding-top: 40px;
+  padding-bottom: 8px;
+}
+.hl {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--hl);
+  line-height: .95;
+  letter-spacing: -0.02em;
+  text-box: trim-both cap alphabetic;
+  padding-top: .1em;                     /* CJK ink rises above Latin cap height; settle it onto the numeral's top */
+}
+.hl .lat { letter-spacing: -0.03em; }
+
+/* interview Q&A — labels hang in their own column */
+.qa { grid-column: 1 / 7; display: grid; grid-template-columns: subgrid; margin-top: 88px; }
+.qa p { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; }
+.qa .lb { grid-column: 1; }
+.qa .tx { grid-column: 2 / -1; max-width: 34em; }
+.qa .q { font-weight: 700; margin-top: 32px; }
+.qa .q:first-child { margin-top: 0; }
+.qa .a .lb { color: var(--muted); font-weight: 500; }
+.qa .note { color: var(--muted); }
+.qa .end { margin-top: 32px; color: var(--muted); }
+
+/* 01 — statement + key facts */
+.s01 .hl { grid-column: 1 / 5; }
+.facts { grid-column: 5 / 9; display: grid; grid-template-columns: subgrid; align-content: start; }
+.facts div { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; padding: 9px 0; border-top: 1px solid color-mix(in srgb, var(--rule) 32%, transparent); }
+.facts div:first-child { border-top-color: var(--rule); }
+.facts div:last-child { border-bottom: 1px solid color-mix(in srgb, var(--rule) 32%, transparent); }
+.facts dt { grid-column: 1 / 3; color: var(--muted); }
+.facts dd { grid-column: 3 / 5; font-weight: 500; }
+
+/* 02 — ruled table */
+.s02 .hl { grid-column: 1 / 7; }
+.tbl { grid-column: 1 / -1; margin-top: 88px; width: 100%; border-collapse: collapse; }
+.tbl col.c1, .tbl col.c2 { width: calc(25% + 6px); }
+.tbl th, .tbl td { text-align: left; vertical-align: top; padding: 17px var(--g) 17px 0; font-weight: 400; }
+.tbl thead th { color: var(--muted); font-weight: 500; padding-top: 0; border-bottom: 1px solid var(--rule); }
+.tbl tbody th { font-weight: 700; }
+.tbl tbody td:nth-child(2) { font-weight: 500; }
+.tbl tbody tr { border-bottom: 1px solid color-mix(in srgb, var(--rule) 32%, transparent); }
+.tbl tbody tr:last-child { border-bottom-color: var(--rule); }
+.tbl .dim { color: var(--muted); }
+.tbl .lat { letter-spacing: 0; }
+
+/* 03 — solid colour field cropped to the grid */
+.s03 .hl { grid-column: 1 / 7; }
+.field {
+  grid-column: 1 / -1;
+  margin-top: 88px;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: auto 1fr auto;
+  min-height: calc(var(--row) * 7);
+  padding-block: 40px;
+}
+.field ::selection { background: var(--on-accent); color: var(--accent); }
+.f-k { grid-column: 2 / 5; grid-row: 1; font-weight: 700; }
+.f-when { grid-column: 5 / -1; grid-row: 1; }
+.f-big {
+  grid-column: 2 / 5; grid-row: 3;
+  align-self: end;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--num);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  margin-left: -0.05em;
+  text-box: trim-both cap alphabetic;
+}
+.f-unit { grid-column: 5 / -1; grid-row: 3; align-self: end; margin-bottom: -7px; }
+.f-unit span, .f-when span { display: block; }
+.f-unit b { font-weight: 700; }
+
+/* 04 — contact as plain numbered lines */
+.s04 .hl { grid-column: 1 / 7; }
+.lines { grid-column: 1 / -1; margin-top: 88px; display: grid; grid-template-columns: subgrid; border-top: 1px solid var(--rule); padding-top: 24px; }
+.lines li { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; padding-bottom: 24px; }
+.lines .n { grid-column: 1; color: var(--muted); font-weight: 500; }
+.lines .k { grid-column: 2; font-weight: 700; }
+.lines .v { grid-column: 3 / -1; }
+.lines .v > span { display: block; }
+.lines .tel { font-weight: 500; }
+
+/* colophon */
+.foot { margin-top: var(--section-gap); padding-bottom: 48px; }
+.foot .sec-rule { grid-column: 1 / -1; height: 1px; background: var(--rule); margin-bottom: 18px; }
+.foot .c1 { grid-column: 1 / 5; }
+.foot .c2 { grid-column: 5 / 9; }
+.foot .c3 { grid-column: 9 / -1; }
+
+/* ───────────── narrower desktops / tablets ───────────── */
+@media (max-width: 1099px) {
+  .s01 .hl { grid-column: 1 / -1; }
+  .facts { grid-column: 1 / -1; margin-top: 64px; }
+  .facts dt { grid-column: 1 / 3; }
+  .facts dd { grid-column: 3 / -1; }
+  .qa { grid-column: 1 / -1; }
+  .intro { grid-column: 3 / 9; }
+  .hours { grid-column: 5 / 9; }
+  .rule-top { grid-column: 1 / 7; }
+  .idx { grid-column: 9 / -1; }
+}
+
+/* ───────────── phones: 4 columns, 2 fields ───────────── */
+@media (max-width: 720px) {
+  :root {
+    --m: 24px;
+    --g: 16px;
+    --cols: 4;
+    --hl: min(calc(var(--step-4) / 1.125), 14.5vw);  /* 56.8px */
+    --num: 108px;                                      /* 6 × body */
+  }
+  .hero { padding-block: 24px; grid-template-rows: auto auto minmax(260px, 1fr) auto auto auto; }
+  .mast { grid-column: 1 / 3; }
+  .hours { grid-column: 1 / 3; grid-row: 2; padding-top: 6px; }
+  .rule-top { grid-column: 1 / 3; grid-row: 3; align-self: start; margin-top: 18px; }
+  .figwrap { grid-row: 1 / 4; }
+  .fig {
+    --R: min(1.6 * 100cqw, 100cqh - 8px);
+    left: calc(100cqw - var(--R));       /* centre on the right grid edge: a quarter of the arch, cut twice */
+  }
+  .deck { grid-row: 4; }
+  .meta { grid-column: 1 / 3; grid-row: 5; margin-top: 20px; }
+  .intro { grid-column: 3 / 5; grid-row: 5; margin-top: 17px; }
+  .idx { grid-column: 1 / -1; grid-row: 6; margin-top: 20px; display: block; }
+  .idx ul { display: flex; flex-wrap: wrap; column-gap: 20px; }
+  .idx a span { margin-right: .45em; }
+
+  .sec { margin-top: 128px; }
+  .sec-head {
+    grid-column: 1 / -1;
+    position: static;
+    padding-top: 28px;
+    display: grid; grid-template-columns: subgrid;
+    align-items: end;
+  }
+  .sec-head .num { grid-column: 1 / 3; }
+  .sec-label { grid-column: 3 / -1; margin: 0 0 -8px; }
+  .sec-body { grid-column: 1 / -1; grid-row: 3; padding-top: 48px; }
+  .s01 .hl, .s02 .hl, .s03 .hl, .s04 .hl { grid-column: 1 / -1; }
+
+  .qa { grid-column: 1 / -1; margin-top: 64px; display: block; }
+  .qa p { display: grid; grid-template-columns: 2em minmax(0, 1fr); column-gap: 0; }
+  .qa .tx { grid-column: 2; }
+  .qa .q { margin-top: 28px; }
+
+  .facts { margin-top: 48px; }
+
+  .tbl { margin-top: 64px; display: block; }
+  .tbl colgroup { display: none; }
+  .tbl thead { display: none; }
+  .tbl tbody { display: block; border-top: 1px solid var(--rule); }
+  .tbl tbody tr { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--g); padding: 14px 0 15px; }
+  .tbl th, .tbl td { padding: 0; }
+  .tbl tbody td:nth-child(3) { grid-column: 1 / -1; color: var(--muted); }
+  .tbl tbody td:nth-child(3).empty { display: none; }
+
+  .field {
+    margin-top: 64px;
+    margin-inline: calc(-1 * var(--m));
+    padding: 28px var(--m) 32px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--g);
+    min-height: 0;
+    row-gap: 40px;
+  }
+  .f-k { grid-column: 1 / 3; }
+  .f-when { grid-column: 3 / -1; }
+  .f-big { grid-column: 1 / 3; }
+  .f-unit { grid-column: 3 / -1; margin-bottom: -6px; }
+
+  .lines { margin-top: 64px; }
+  .lines li { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--g); row-gap: 0; }
+  .lines .n { grid-column: 1; }
+  .lines .k { grid-column: 2 / -1; }
+  .lines .v { grid-column: 2 / -1; }
+
+  .foot { margin-top: 128px; padding-bottom: 32px; row-gap: 6px; }
+  .foot .c1, .foot .c2, .foot .c3 { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="mast">
+    <div class="bar" aria-hidden="true"></div>
+    <h1>二号桥单车铺</h1>
+    <span class="cap" lang="en">Bridge No.2 Cycle Works</span>
+  </div>
+  <p class="cap hours"><span>周三至周日 10:00–20:00</span><span>周一、周二休息</span></p>
+  <div class="rule-top" aria-hidden="true"></div>
+
+  <div class="figwrap" aria-hidden="true">
+    <svg class="fig" viewBox="0 0 500 250" preserveAspectRatio="xMinYMax meet" focusable="false">
+      <g class="arcs">
+        <path d="M225 250A25 25 0 0 1 275 250"/>
+        <path d="M200 250A50 50 0 0 1 300 250"/>
+        <path d="M175 250A75 75 0 0 1 325 250"/>
+        <path d="M150 250A100 100 0 0 1 350 250"/>
+        <path d="M125 250A125 125 0 0 1 375 250"/>
+        <path d="M100 250A150 150 0 0 1 400 250"/>
+        <path d="M75 250A175 175 0 0 1 425 250"/>
+        <path d="M50 250A200 200 0 0 1 450 250"/>
+        <path d="M25 250A225 225 0 0 1 475 250"/>
+        <path d="M0 250A250 250 0 0 1 500 250"/>
+      </g>
+      <path class="band" d="M50 250A200 200 0 0 1 250 50V100A150 150 0 0 0 100 250Z"/>
+      <circle class="disc" cx="362.5" cy="212.5" r="37.5"/>
+      <g class="arcs"><path d="M250 -2000V250"/></g>
+    </svg>
+  </div>
+
+  <div class="deck" aria-hidden="true"></div>
+  <p class="cap meta"><span><b>访谈</b></span><span>陈立平（老陈）</span><span>店主 · 修车 27 年</span></p>
+  <div class="intro">
+    <p class="q"><span class="nw">问：桥洞底下</span><span class="nw">修车的，是这家吧？</span></p>
+    <p class="a">答：对，就这儿。</p>
+  </div>
+  <nav class="cap idx" aria-label="目录">
+    <ul>
+      <li><a href="#s01"><span>01</span>店</a></li>
+      <li><a href="#s02"><span>02</span>价目</a></li>
+      <li><a href="#s03"><span>03</span>门口</a></li>
+      <li><a href="#s04"><span>04</span>联系</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section class="sec grid s01" id="s01" aria-labelledby="s01-h">
+    <div class="sec-rule" aria-hidden="true"></div>
+    <h2 class="sec-head" id="s01-h"><span class="num">01</span><span class="sec-label">店</span></h2>
+    <div class="sec-body">
+      <h3 class="hl">不卖新车，<br>只修车、<br>卖二手车<br>和零件。</h3>
+      <dl class="facts">
+        <div><dt>店主</dt><dd>陈立平</dd></div>
+        <div><dt>称呼</dt><dd>老陈</dd></div>
+        <div><dt>修车</dt><dd>27 年</dd></div>
+        <div><dt>以前</dt><dd>自行车厂装配</dd></div>
+        <div><dt>新车</dt><dd>不卖</dd></div>
+      </dl>
+      <div class="qa">
+        <p class="q"><span class="lb">问</span><span class="tx">怎么称呼您？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">陈立平。大家都叫我老陈。</span></p>
+        <p class="q"><span class="lb">问</span><span class="tx">修车多少年了？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">27 年。以前在自行车厂做装配。</span></p>
+        <p class="q"><span class="lb">问</span><span class="tx">店里卖新车吗？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">不卖。修车，卖二手车，卖零件，<span class="nw">就这些。</span></span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec grid s02" id="s02" aria-labelledby="s02-h">
+    <div class="sec-rule" aria-hidden="true"></div>
+    <h2 class="sec-head" id="s02-h"><span class="num">02</span><span class="sec-label">价目</span></h2>
+    <div class="sec-body">
+      <h3 class="hl">补胎 <span class="lat">¥15</span>，<br>保养 <span class="lat">¥180</span>，<br>编轮组<br><span class="lat">¥260</span> 起。</h3>
+      <table class="tbl">
+        <colgroup><col class="c1"><col class="c2"><col></colgroup>
+        <thead><tr><th scope="col">项目</th><th scope="col">价钱</th><th scope="col">备注</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">补胎</th><td>¥15</td><td class="dim empty">—</td></tr>
+          <tr><th scope="row">换内胎</th><td>¥35</td><td>含内胎</td></tr>
+          <tr><th scope="row">全车保养</th><td>¥180</td><td>清洗传动、调变速和刹车、紧固全车螺丝；约 2 小时</td></tr>
+          <tr><th scope="row">手工编轮组</th><td>¥260 起</td><td>工期 5 天</td></tr>
+          <tr><th scope="row">公路车 <span class="lat">Fitting</span></th><td>¥480</td><td>约 90 分钟；需预约，<a href="#s04">见 04</a></td></tr>
+          <tr><th scope="row">二手车</th><td class="dim">—</td><td>每辆都换过链条和刹车皮；保修 90 天</td></tr>
+          <tr><th scope="row">零件</th><td class="dim">—</td><td>有卖</td></tr>
+          <tr><th scope="row">门口气泵</th><td>免费</td><td>24 小时可用</td></tr>
+          <tr><th scope="row">新车</th><td>不卖</td><td class="dim empty">—</td></tr>
+        </tbody>
+      </table>
+      <div class="qa">
+        <p class="q"><span class="lb">问</span><span class="tx">保养都做些什么？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">清洗传动，调变速，调刹车，全车螺丝紧一遍。<span class="nw">差不多 2 个小时。</span></span></p>
+        <p class="q"><span class="lb">问</span><span class="tx">二手车靠得住吗？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">每辆都换过链条和刹车皮，<span class="nw">保修 90 天。</span></span></p>
+        <p class="q"><span class="lb">问</span><span class="tx">编一副轮组要等几天？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">5 天。260 块起。</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec grid s03" id="s03" aria-labelledby="s03-h">
+    <div class="sec-rule" aria-hidden="true"></div>
+    <h2 class="sec-head" id="s03-h"><span class="num">03</span><span class="sec-label">门口</span></h2>
+    <div class="sec-body">
+      <h3 class="hl">门口的气泵，<br><span class="lat">24</span> 小时，<br>不要钱。</h3>
+      <div class="field">
+        <p class="f-k">周四夜骑</p>
+        <p class="f-when"><span>每周四 19:30</span><span>店门口出发</span></p>
+        <p class="f-big" aria-label="24 公里">24</p>
+        <p class="f-unit"><span><b>公里</b>，沿江一圈</span><span>免费</span><span>自带车灯</span></p>
+      </div>
+      <div class="qa">
+        <p class="q"><span class="lb">问</span><span class="tx">夜骑收钱吗？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">不收。<span class="note">（笑）</span>车灯自己带。</span></p>
+        <p class="q"><span class="lb">问</span><span class="tx">骑多远？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">沿江一圈，24 公里。<span class="nw">周四晚上七点半，</span>从店门口走。</span></p>
+        <p class="q"><span class="lb">问</span><span class="tx">半夜路过，胎瘪了怎么办？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">门口那个气泵，<span class="nw">24 小时都能用，</span><span class="nw">免费。</span></span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec grid s04" id="s04" aria-labelledby="s04-h">
+    <div class="sec-rule" aria-hidden="true"></div>
+    <h2 class="sec-head" id="s04-h"><span class="num">04</span><span class="sec-label">联系</span></h2>
+    <div class="sec-body">
+      <h3 class="hl">打个电话，<br>或者<br>到店登记。</h3>
+      <ol class="lines">
+        <li><span class="n">04.1</span><span class="k">电话</span><span class="v"><a class="tel" href="tel:0571-5555-0222">0571-5555-0222</a></span></li>
+        <li><span class="n">04.2</span><span class="k">地址</span><span class="v"><span>河西路二号桥桥洞下东侧</span><span>蓝色卷帘门，<span class="nw">门口立着一个旧车轮</span></span></span></li>
+        <li><span class="n">04.3</span><span class="k">营业</span><span class="v"><span>周三至周日 10:00–20:00</span><span>周一、周二休息</span></span></li>
+        <li><span class="n">04.4</span><span class="k">预约</span><span class="v"><span>电话，或到店登记</span><span>公路车 Fitting 需预约</span></span></li>
+        <li><span class="n">04.5</span><span class="k">夜骑</span><span class="v">每周四 19:30，店门口出发</span></li>
+      </ol>
+      <div class="qa">
+        <p class="q"><span class="lb">问</span><span class="tx">怎么找？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">河西路，二号桥桥洞底下，东边。蓝色卷帘门，<span class="nw">门口立着个旧车轮。</span></span></p>
+        <p class="q"><span class="lb">问</span><span class="tx">周一来行吗？</span></p>
+        <p class="a"><span class="lb">答</span><span class="tx">周一、周二歇着。周三到周日，<span class="nw">早上十点到晚上八点。</span></span></p>
+        <p class="end"><span class="lb"></span><span class="tx">（访谈完）</span></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="grid foot">
+  <div class="sec-rule" aria-hidden="true"></div>
+  <p class="cap c1"><b>二号桥单车铺</b> · <span lang="en">Bridge No.2 Cycle Works</span></p>
+  <p class="cap c2">不卖新车，只修车、卖二手车和零件。</p>
+  <p class="cap c3"><a href="#top">回到顶部</a></p>
+</footer>
+
+</body>
+</html>

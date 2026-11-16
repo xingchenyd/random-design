@@ -12,7 +12,16 @@ async function exercise(transport, name) {
   const client = new Client({ name: 'random-design-test', version: '1.0.0' });
   await client.connect(transport);
   try {
-    const list = await client.listTools(); assert.equal(list.tools.length, 7);
+    const list = await client.listTools(); assert.equal(list.tools.length, 11);
+    const references = await client.callTool({name:'list_reference_styles',arguments:{}});
+    assert.equal(references.structuredContent.styles.length,40);
+    const rb=await client.callTool({name:'generate_reference_briefs',arguments:{subject:'Coffee',facts:['Latte 18'],count:2,seed:'mcp-reference'}});
+    assert(!rb.isError);assert.equal(rb.structuredContent.briefs.length,2);assert.equal(rb.structuredContent.finishedPagesGenerated,false);
+    const saved=rb.structuredContent.roll;
+    const reproduced=await client.callTool({name:'reproduce_reference_brief',arguments:{ref:saved.designs[0].ref,constraints:saved.constraints,content:saved.content}});
+    assert(!reproduced.isError);assert.equal(reproduced.structuredContent.markdown,rb.structuredContent.briefs[0].markdown);
+    const critique=await client.callTool({name:'critique_reference_page',arguments:{html:'<h1>Coffee</h1>'}});
+    assert(!critique.isError);assert.equal(critique.structuredContent.aestheticJudgment,false);
     const catalogue = await client.callTool({ name: 'list_presets', arguments: {} });
     assert.equal(catalogue.structuredContent.presets.length, 21);
     const fixed = await client.callTool({ name: 'get_preset', arguments: { id: 'new-chinese' } });

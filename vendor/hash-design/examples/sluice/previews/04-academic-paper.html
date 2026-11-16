@@ -1,0 +1,728 @@
+<!doctype html>
+<!-- hash-design #4 · academic-paper · ref 8fcd60e5d98790da96425ffc1d4521251f6a91724c110d23559e8a91b3e9596e+2 -->
+<!--
+  Notes on the brief:
+  · Surface says main { max-width: 816px }. At the brief's 19px body that sheet cannot hold the Tufte grid
+    (text 1–7 ≈ 34em plus a sidenote column 9–12). The layout wins: each PDF page uses --max-width (1200px),
+    keeping the surface's grey reader, 32px page gap, 96/72px page padding and 1px hairline edge.
+  · Layout asks for an epigraph instead of an abstract; the anchor asks for title + set-off abstract.
+    Both kept: the abstract is the first screen, the epigraph opens §1.
+  · Twist "time as structure": every section is a point or interval on one time axis relative to T, the moment a
+    delivery arrives; the margin carries a running clock of logbook entries.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sluice: a self-hosted inbox for webhooks — technical note, version 0.9.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap">
+<style>
+/* hash-design 8fcd60e5 · academic-paper · preprint-white */
+:root {
+  --paper: #fdfdfb;
+  --ink: #111111;
+  --muted: #4a4a4a;
+  --accent: #8c1515;
+  --on-accent: #ffffff;
+  --accent2: #1d5e3a;
+  --on-accent2: #ffffff;
+  --rule: #222222;
+  --panel: #f2f1ec;
+
+  --font-display: "Crimson Pro", Palatino, "Book Antiqua", serif;
+  --font-body: "Crimson Pro", Palatino, "Book Antiqua", serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.68rem; /* 10.9px */
+  --step-n1: 0.85rem; /* 13.6px */
+  --step-0: 1.063rem; /* 17px */
+  --step-1: 1.328rem; /* 21.3px */
+  --step-2: 1.66rem; /* 26.6px */
+  --step-3: 2.075rem; /* 33.2px */
+  --step-4: 2.594rem; /* 41.5px */
+  --step-5: 3.242rem; /* 51.9px */
+  --step-6: 4.053rem; /* 64.8px */
+  --step-7: 5.066rem; /* 81.1px */
+  --leading: 1.55;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  --section-gap: 112px;
+  --max-width: 1200px;
+
+  --motion-duration: 0ms;
+  --motion-easing: linear;
+}
+
+html { font-size: 106.3%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ------------------------------------------------------------------ page: a PDF at 100% on a grey reader */
+:root {
+  --body: 19px;          /* setting rule: body 400 at 19px / 1.5 */
+  --note: 14.25px;       /* sidenotes at 0.75× */
+  --text-w: 57.4%;       /* columns 1–7 of 12 */
+  --side-w: 31.8%;       /* columns 9–12 of 12 */
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--panel);
+  margin: 0;
+  font-size: var(--body);
+  line-height: 1.5;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  hanging-punctuation: first allow-end;
+}
+.reader { max-width: calc(var(--max-width) + 2 * var(--space-4)); margin: 0 auto; padding: var(--space-4) var(--space-4) var(--space-2); }
+.page {
+  position: relative;
+  background: var(--paper);
+  outline: 1px solid var(--rule);
+  padding: 96px 72px;
+  margin: 0 0 var(--space-4);
+  aspect-ratio: 8.5 / 11;
+}
+.page::after { content: ""; display: block; clear: both; }
+
+/* running heads, folio, side stamp */
+.rh {
+  position: absolute; top: 44px; left: 72px; right: 72px;
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 15px; color: var(--muted);
+  font-variant-caps: all-small-caps; letter-spacing: .09em;
+  font-variant-numeric: lining-nums;
+}
+.rh .folio { font-variant-caps: normal; letter-spacing: 0; font-size: var(--step-0); color: var(--ink); }
+.folio-foot {
+  position: absolute; bottom: 44px; left: 0; right: 0; text-align: center;
+  font-size: var(--step-0); font-variant-numeric: lining-nums;
+}
+.stamp {
+  position: absolute; left: 22px; top: 300px;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  margin: 0; font-size: 20px; letter-spacing: .04em; color: var(--muted);
+  font-variant-numeric: lining-nums; white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ title block (anchor) */
+.titleblock { text-align: center; margin: 0 auto var(--space-6); max-width: 46em; }
+.titleblock h1 {
+  font-family: var(--font-display);
+  font-weight: 400; font-style: italic;
+  font-size: calc(var(--body) * 2.4);
+  line-height: 1.1; letter-spacing: -.004em;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+.subtitle {
+  text-wrap: balance; font-style: italic; font-size: var(--step-1); line-height: 1.3; margin: 0 0 var(--space-4); color: var(--ink);
+}
+.author {
+  margin: 0; font-size: var(--body);
+  font-variant-caps: all-small-caps; letter-spacing: .12em;
+}
+.affil { margin: 2px 0 0; font-size: var(--step-0); font-style: italic; color: var(--muted); }
+.dateline {
+  text-wrap: balance; margin: 14px 0 0; font-size: var(--step-n1); color: var(--muted);
+  font-variant-caps: all-small-caps; letter-spacing: .1em; font-variant-numeric: lining-nums;
+}
+
+.front { display: flex; justify-content: space-between; align-items: flex-start; }
+.abstract {
+  flex: 0 0 var(--text-w);
+  background: var(--panel);
+  border: 1px solid var(--ink);
+  padding: 20px 26px 18px;
+  font-size: var(--step-0);
+  line-height: 1.5;
+}
+.abstract p { margin: 0; }
+.abstract p + p { margin-top: 10px; }
+.abstract .label { font-variant-caps: all-small-caps; letter-spacing: .1em; font-weight: 600; }
+.abstract .kw { font-size: var(--step-n1); color: var(--muted); }
+.abstract .kw i { color: var(--ink); }
+
+.conditions { flex: 0 0 var(--side-w); font-size: var(--note); line-height: 1.45; padding-top: 2px; }
+.conditions h2 {
+  font-size: var(--note); font-style: normal; font-weight: 400; margin: 0 0 6px;
+  font-variant-caps: all-small-caps; letter-spacing: .14em; color: var(--muted);
+}
+.conditions dl { margin: 0; display: grid; grid-template-columns: auto 1fr; column-gap: 14px; row-gap: 1px; }
+.conditions dt { font-style: italic; color: var(--muted); }
+.conditions dd { margin: 0; font-variant-numeric: lining-nums; }
+.conditions .sig { margin: 8px 0 0; font-variant-caps: all-small-caps; letter-spacing: .08em; }
+
+/* ------------------------------------------------------------------ Tufte body: text 1–7, margin 9–12 */
+section { clear: both; padding-top: var(--space-7); }
+section.first { padding-top: var(--space-6); }
+section > *, .sub > * { width: var(--text-w); }
+section > .full { width: 100%; clear: both; }
+.sub { width: 100%; padding-top: var(--space-2); }
+
+h2, h3 { font-family: var(--font-display); font-weight: 400; font-style: italic; margin: 0; }
+h2 { font-size: calc(var(--body) * 1.4); line-height: 1.2; margin-bottom: var(--space-2); text-wrap: balance; }
+h3 { font-size: var(--step-1); line-height: 1.3; margin-bottom: 6px; }
+h2 .n, h3 .n { font-style: normal; display: inline-block; min-width: 1.7em; font-variant-numeric: lining-nums; }
+h3 .n { min-width: 2.3em; }
+
+p { margin: 0; hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 8 4 4; }
+.abstract p, .side p, .refs { hyphens: manual; -webkit-hyphens: manual; }
+section p ~ p { text-indent: 1.4em; }
+.side p ~ p, .abstract p ~ p { text-indent: 0; }
+.open { font-variant-caps: all-small-caps; letter-spacing: .05em; }
+i.m, .m { font-style: italic; }
+.nb { white-space: nowrap; }
+
+code, pre { font-family: var(--font-mono); }
+code { font-size: .78em; letter-spacing: -.01em; font-variant-numeric: normal; white-space: nowrap; }
+pre code { font-size: inherit; white-space: pre; letter-spacing: 0; }
+
+/* cross-references: accent; citations: accent2; still — hover adds a 1px underline */
+a { color: inherit; text-decoration: none; }
+a.x { color: var(--accent); }
+a.c { color: var(--accent2); white-space: nowrap; }
+a.x:hover, a.c:hover, a.x:focus-visible, a.c:focus-visible {
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px;
+}
+a:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
+sup.sn { font-size: .62em; line-height: 0; vertical-align: .62em; margin-left: .06em; font-variant-numeric: lining-nums; }
+
+/* margin material */
+.side {
+  float: right; clear: right;
+  width: var(--side-w);
+  margin: 0 0 var(--space-3);
+  font-size: var(--note); line-height: 1.42;
+}
+.side p + p { text-indent: 0; margin-top: 6px; }
+.side .sn-n { font-variant-numeric: lining-nums; margin-right: .35em; }
+.side .sig, .clock .sig { font-variant-caps: all-small-caps; letter-spacing: .08em; white-space: nowrap; }
+
+.clock { margin-bottom: var(--space-3); }
+.clock .t {
+  display: block; font-style: italic; font-size: var(--step-2); line-height: 1.05;
+  letter-spacing: -.005em; margin-bottom: 4px;
+}
+.clock .code {
+  display: block; font-size: var(--step-n1); color: var(--muted);
+  font-variant-caps: all-small-caps; letter-spacing: .16em; margin-bottom: 4px;
+}
+
+/* epigraph */
+.epigraph { margin: 0 0 var(--space-3); padding: 0 0 0 1.4em; }
+.epigraph p { font-style: italic; font-size: var(--body); line-height: 1.45; }
+.epigraph footer {
+  margin-top: 4px; text-align: right; font-size: var(--step-0);
+  font-variant-caps: all-small-caps; letter-spacing: .1em; font-variant-numeric: lining-nums;
+}
+
+/* display equations */
+.eq {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  margin: 14px 0 16px; padding-left: 1.4em;
+  font-size: var(--body);
+}
+.eq .math { flex: 1; text-align: center; }
+.eq .no { font-variant-numeric: lining-nums; }
+.eq .op { padding: 0 .3em; }
+.eq sub { font-size: .66em; line-height: 0; font-style: italic; }
+.eq .sc { font-variant-caps: all-small-caps; letter-spacing: .06em; font-style: normal; }
+
+/* floats: numbered captions with run-in bold labels */
+figure { margin: 0; }
+figcaption, caption { font-size: var(--note); line-height: 1.42; text-align: left; }
+figcaption b, caption b { font-weight: 600; margin-right: .3em; }
+.listing { margin: 14px 0 18px; }
+.listing pre {
+  margin: 0 0 8px; padding: 8px 0 9px;
+  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+  font-size: 14px; line-height: 1.7; overflow-x: auto; color: var(--ink);
+}
+.listing .ln { display: inline-block; width: 2.2em; padding-right: .9em; text-align: right; color: var(--muted); user-select: none; -webkit-user-select: none; }
+.listing .arg { color: var(--muted); }
+
+/* booktabs */
+table { border-collapse: collapse; font-variant-numeric: lining-nums tabular-nums; }
+thead tr:first-child th { border-top: 1.5px solid var(--ink); }
+thead th { border-bottom: 1px solid var(--ink); font-weight: 400; font-style: italic; text-align: left; padding: 5px 10px 4px; }
+tbody tr:last-child td { border-bottom: 1.5px solid var(--ink); }
+td { padding: 4px 10px; vertical-align: baseline; }
+th:first-child, td:first-child { padding-left: 0; }
+th:last-child, td:last-child { padding-right: 0; }
+caption { caption-side: top; padding-bottom: 8px; }
+
+.side table { width: 100%; font-size: var(--note); }
+.side td.y, .side th.y { text-align: center; }
+
+.tab2 { margin: var(--space-3) 0 0; }
+.tab2 table { width: 100%; font-size: 16px; line-height: 1.38; }
+.tab2 td.time { white-space: nowrap; font-style: italic; }
+.tab2 td.code { font-variant-caps: all-small-caps; letter-spacing: .12em; white-space: nowrap; }
+.tab2 td.ref { text-align: right; white-space: nowrap; }
+.tab2 tbody tr.gap td { padding-top: 9px; }
+.scroll { overflow-x: auto; }
+
+/* figure 3: full width */
+.fig3 { margin: var(--space-4) 0 var(--space-4); }
+.fig3 svg { display: block; width: 100%; height: auto; margin-bottom: 10px; }
+.fig3 figcaption { width: var(--text-w); }
+
+/* SVG ink */
+svg text { font-family: var(--font-body); fill: var(--ink); font-size: 13px; font-variant-numeric: oldstyle-nums; }
+svg .i { font-style: italic; }
+svg .mu { fill: var(--muted); }
+svg .sc { font-variant-caps: all-small-caps; letter-spacing: .12em; font-size: 16px; }
+svg .rd { fill: var(--accent); }
+svg .ax { stroke: var(--ink); stroke-width: 1; fill: none; }
+svg .tk { stroke: var(--ink); stroke-width: 1; }
+svg .gr { stroke: var(--muted); stroke-opacity: .28; stroke-width: .75; }
+svg .gT { stroke: var(--ink); stroke-width: .75; stroke-dasharray: 2 3; }
+svg .gR { stroke: var(--accent); stroke-width: .9; stroke-dasharray: 2 3; }
+svg .bar { fill: var(--ink); }
+svg .band { fill: var(--panel); stroke: var(--ink); stroke-width: 1; }
+svg .hl { stroke: var(--ink); stroke-width: 1; }
+svg .hatch { stroke: var(--ink); stroke-width: 1; }
+svg .halo { paint-order: stroke; stroke: var(--paper); stroke-width: 6px; stroke-linejoin: round; }
+svg .lim { stroke: var(--accent); stroke-width: 2; }
+svg .dot { fill: var(--ink); }
+svg .ring { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
+svg .arc { fill: none; stroke: var(--muted); stroke-width: .9; }
+svg .lin { fill: var(--panel); }
+svg .rdF { fill: var(--accent); }
+
+/* references */
+.refs { list-style: none; margin: 0; padding: 0; font-size: var(--step-0); line-height: 1.45; }
+.refs li { display: grid; grid-template-columns: 2.4em 1fr; margin-bottom: 6px; }
+.refs .k { color: var(--accent2); font-variant-numeric: lining-nums; }
+.refs code { white-space: normal; word-break: break-all; }
+.ack { font-size: var(--step-0); margin-top: 14px; }
+p.ack { text-indent: 0; }
+.sc-codes { font-variant-caps: all-small-caps; letter-spacing: .1em; }
+.closing {
+  margin-top: var(--space-6); text-align: center; width: 100%;
+  font-variant-caps: all-small-caps; letter-spacing: .14em; font-size: var(--step-0); color: var(--muted);
+}
+
+/* blank left visibly empty */
+.blank { display: inline-block; width: 6.5em; border-bottom: 1px solid var(--ink); transform: translateY(-3px); }
+
+/* ------------------------------------------------------------------ narrow sheets */
+@media (max-width: 1060px) {
+  .page { padding: 88px 48px; }
+  .rh { left: 48px; right: 48px; }
+  .stamp { display: none; }
+}
+@media (max-width: 860px) {
+  :root { --body: 18px; --note: 14.5px; }
+  .reader { padding: 10px 10px 2px; }
+  .page { --pad: max(22px, calc((100vw - 20px - 640px) / 2)); padding: 64px var(--pad) 72px; aspect-ratio: auto; margin-bottom: 10px; }
+  .rh { top: 26px; left: var(--pad); right: var(--pad); }
+  .folio-foot { bottom: 28px; }
+  .titleblock h1 { font-size: 36px; }
+  .subtitle { font-size: 19px; margin-bottom: var(--space-3); }
+  .front { display: block; }
+  .dateline .brk { display: block; height: 0; overflow: hidden; }
+  .conditions { margin-top: var(--space-3); }
+  .abstract { padding: 16px 16px 14px; }
+  section > *, .sub > *, .fig3 figcaption { width: auto; }
+  .side { float: none; width: auto; margin: 2px 0 18px 1.4em; }
+  .clock { margin: 0 0 6px; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; }
+  .clock .t { display: inline; font-size: var(--step-1); }
+  .clock .code { display: inline; }
+  .clock .entry { flex-basis: 100%; }
+  .side.mfig { margin-left: 0; }
+  .epigraph { padding-left: 1em; }
+  .eq { padding-left: 0; font-size: 17px; flex-wrap: wrap; }
+  .eq .math { text-align: left; }
+  .fig3 .scroll svg { width: 820px; max-width: none; }
+  .tab2 table { min-width: 540px; }
+  .listing pre { font-size: 12.5px; }
+}
+</style>
+</head>
+<body>
+<main class="reader">
+
+<!-- ================================================================== PAGE 1 -->
+<article class="page" aria-label="Page 1">
+  <div class="rh" aria-hidden="true"><span>Technical note</span><span>Sluice 0.9.2 · 14 October 2026</span></div>
+  <p class="stamp" aria-hidden="true">sluice 0.9.2 · Go · MIT licence · 14 Oct 2026</p>
+
+  <header class="titleblock">
+    <h1>Sluice: a self-hosted inbox for webhooks</h1>
+    <p class="subtitle">One delivery, logged from <span class="nb">T&#8201;&minus;&#8201;5 min</span> to <span class="nb">T&#8201;+&#8201;30 d</span></p>
+    <p class="author">Ines Okafor</p>
+    <p class="affil">maintainer, with 41 contributors</p>
+    <p class="dateline"><span class="nb">Version 0.9.2</span> &nbsp;·&nbsp; <span class="nb">released 14 October 2026</span><span class="brk"> &nbsp;·&nbsp; </span><span class="nb">Go &nbsp;·&nbsp; MIT licence</span></p>
+  </header>
+
+  <div class="front">
+    <div class="abstract" role="region" aria-label="Abstract">
+      <p><span class="label">Abstract.</span> Sluice gives you a public URL for webhooks, stores every delivery, and forwards it to your local or internal service. It is one static binary of about 11&nbsp;MB (<a class="x" href="#s2-1">§2.1</a>) and keeps its state in a single SQLite file (<a class="x" href="#s2-2">§2.2</a>). We follow one delivery along one time axis, <i class="m">T</i> being the moment it arrives. At the door its <span class="nb">HMAC-SHA256</span> signature is verified, and anything older than 5&nbsp;minutes is turned away (<a class="x" href="#s3">§3</a>). At <i class="m">T</i> it is stored and forwarded (<a class="x" href="#s4">§4</a>). A failed forward is retried with exponential backoff for up to 72&nbsp;hours (<a class="x" href="#s5">§5</a>). For 30&nbsp;days by default it can be searched and replayed (<a class="x" href="#s6">§6</a>). The project’s own benchmark records 1,800 deliveries per second on a <span class="nb">2-vCPU</span> VM <a class="c" href="#ref2">[2]</a>. No hosted service, no account, no telemetry.</p>
+      <p class="kw"><i>Keywords:</i> webhooks · SQLite · <span class="nb">HMAC-SHA256</span> · exponential backoff · Go</p>
+    </div>
+
+    <aside class="conditions" aria-label="Conditions at release">
+      <h2>Conditions at release</h2>
+      <dl>
+        <dt>Version</dt><dd>0.9.2</dd>
+        <dt>Released</dt><dd>14 October 2026</dd>
+        <dt>Log opened</dt><dd>2023</dd>
+        <dt>Language</dt><dd>Go</dd>
+        <dt>Licence</dt><dd>MIT</dd>
+        <dt>Crew</dt><dd>41 contributors</dd>
+        <dt>Hosted service</dt><dd>none</dd>
+        <dt>Account</dt><dd>none</dd>
+        <dt>Telemetry</dt><dd>none</dd>
+      </dl>
+      <p class="sig">Signed — I.&#8201;O.</p>
+    </aside>
+  </div>
+
+  <!-- 1 -->
+  <section id="s1" class="first">
+    <aside class="side clock"><span class="t">2023</span><span class="code">log · opened</span><span class="entry">Weekend lost. Inbox begun. <span class="sig">— I.&#8201;O.</span></span></aside>
+    <h2><span class="n">1</span>Introduction: 2023 to 14 October 2026</h2>
+
+    <blockquote class="epigraph">
+      <p>A weekend of payment webhooks: lost.<br>A self-hosted inbox for webhooks: started.</p>
+      <footer>— I.&#8201;O., 2023</footer>
+    </blockquote>
+
+    <aside class="side"><p><span class="sn-n">1</span>Ines Okafor, maintainer <a class="c" href="#ref4">[4]</a>.</p></aside>
+    <p><span class="open">In 2023</span> Ines Okafor lost a weekend of payment webhooks and started Sluice<sup class="sn">1</sup>. The current version, 0.9.2, was released<sup class="sn">2</sup> on 14&nbsp;October 2026; 41 contributors have worked on it, in Go, under the MIT licence <a class="c" href="#ref1">[1]</a>.</p>
+    <aside class="side"><p><span class="sn-n">2</span>Release record: Sluice 0.9.2, 14&nbsp;October 2026 <a class="c" href="#ref1">[1]</a>.</p></aside>
+    <p><span class="open">The job description</span> is three clauses long. Sluice gives you a public URL for webhooks; it stores every delivery; it forwards each one to your local or internal service. Nothing is hosted for you, there is no account to open and there is no telemetry to switch off (<a class="x" href="#s8">§8</a>).</p>
+
+    <div class="sub" id="s1-1">
+      <h3><span class="n">1.1</span>Notation and plan</h3>
+      <p><span class="open">We write <i>T</i></span> for the moment a delivery reaches its public URL and put every event on one axis relative to it: minutes before, hours after, days after. <a class="x" href="#fig3">Figure&nbsp;3</a> draws that axis end to end; <a class="x" href="#tab2">Table&nbsp;2</a> keeps it as a log, one event code per line. <a class="x" href="#s2">Section&nbsp;2</a> covers the time before <i class="m">T</i>, when Sluice is installed and started; <a class="x" href="#s3">§3</a> the signature check at the door; <a class="x" href="#s4">§4</a> the moment of arrival; <a class="x" href="#s5">§5</a> retries; <a class="x" href="#s6">§6</a> search, replay and retention; <a class="x" href="#s7">§7</a> the whole watch at once; <a class="x" href="#s8">§8</a> availability.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <aside class="side clock"><span class="t">T&#8201;&lt;&#8201;0</span><span class="code">ins · install</span><span class="entry">Two commands. Then wait for the first knock. <span class="sig">— I.&#8201;O.</span></span></aside>
+    <h2><span class="n">2</span>Before <i>T</i>: installing and starting</h2>
+    <p><span class="open">Before the first delivery</span> there are two commands to run, both in <a class="x" href="#lst1">Listing&nbsp;1</a>. The first fetches the installer and runs it <a class="c" href="#ref3">[3]</a>; the second starts Sluice and names the service that deliveries are forwarded to.</p>
+
+    <figure class="listing" id="lst1">
+      <pre><code><span class="ln" aria-hidden="true">1</span>curl -fsSL https://sluice.example/install.sh | sh
+<span class="ln" aria-hidden="true">2</span>sluice serve --forward http://localhost:3000</code></pre>
+      <figcaption><b>Listing 1.</b> Install, then start. Line&nbsp;2 forwards every delivery to a service at <code>http://localhost:3000</code>.</figcaption>
+    </figure>
+
+    <div class="sub" id="s2-1">
+      <aside class="side mfig" id="tab1">
+        <table>
+          <caption><b>Table 1.</b> Builds of the one static binary <a class="c" href="#ref1">[1]</a>.</caption>
+          <thead><tr><th></th> <th class="y">amd64</th> <th class="y">arm64</th></tr></thead>
+          <tbody>
+            <tr><td>Linux</td> <td class="y">•</td> <td class="y">•</td></tr>
+            <tr><td>macOS</td> <td class="y">•</td> <td class="y">•</td></tr>
+            <tr><td>Windows</td> <td class="y">•</td> <td class="y">•</td></tr>
+          </tbody>
+        </table>
+      </aside>
+      <h3><span class="n">2.1</span>One binary</h3>
+      <p><span class="open">What arrives</span> is one static binary of about 11&nbsp;MB<sup class="sn">3</sup>. It is built for Linux, macOS and Windows, each on amd64 and arm64 (<a class="x" href="#tab1">Table&nbsp;1</a>).</p>
+      <aside class="side"><p><span class="sn-n">3</span>Static: it brings what it needs with it. About 11&nbsp;MB on every platform listed.</p></aside>
+    </div>
+
+    <div class="sub" id="s2-2">
+      <h3><span class="n">2.2</span>One file</h3>
+      <aside class="side"><p><span class="sn-n">4</span>Inventory of moving parts: one binary, one SQLite file. End of inventory.</p></aside>
+      <p><span class="open">Storage is</span> a single SQLite file. There is no Redis, no Postgres and no queue to run, so the list of things to keep alive before <i class="m">T</i> has exactly one line on it<sup class="sn">4</sup>.</p>
+    </div>
+  </section>
+
+  <div class="folio-foot">1</div>
+</article>
+
+<!-- ================================================================== PAGE 2 -->
+<article class="page" aria-label="Page 2">
+  <div class="rh" aria-hidden="true"><span class="folio">2</span><span>Ines Okafor</span><span></span></div>
+
+  <!-- 3 -->
+  <section id="s3" class="first">
+    <aside class="side clock"><span class="t">T&#8201;&minus;&#8201;5 min</span><span class="code">ver · verify</span><span class="entry">Signatures checked at the door. Stale ones sent away. <span class="sig">— I.&#8201;O.</span></span></aside>
+    <h2><span class="n">3</span><i>T</i>&#8201;&minus;&#8201;5 min to <i>T</i>: the door</h2>
+    <p><span class="open">A delivery gets in</span> only if both halves of <a class="x" href="#eq1">Eq.&nbsp;(1)</a> hold: its <span class="nb">HMAC-SHA256</span> signature verifies, and it is no more than 5&nbsp;minutes old when it reaches the URL.</p>
+    <div class="eq" id="eq1" role="math" aria-label="accept d if and only if the HMAC-SHA256 signature of d verifies and T minus t-sent of d is at most 5 minutes">
+      <span class="math"><i>accept</i>(<i>d</i>)<span class="op">⟺</span><span class="sc">hmac-sha256</span>(<i>d</i>) verifies <span class="op">and</span> <i>T</i> &minus; <i>t</i><sub>sent</sub>(<i>d</i>) ≤ 5&nbsp;min</span>
+      <span class="no">(1)</span>
+    </div>
+    <aside class="side mfig" id="fig1">
+      <figure>
+        <svg viewBox="0 0 336 124" role="img" aria-labelledby="fig1t">
+          <title id="fig1t">Age of a delivery on arrival: up to 5 minutes accepted, older rejected.</title>
+          <defs>
+            <pattern id="hatch1" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="5" class="hl"/>
+            </pattern>
+          </defs>
+          <text x="92" y="28" text-anchor="middle" class="i">accepted</text>
+          <text x="244" y="28" text-anchor="middle" class="i">rejected</text>
+          <rect x="16" y="38" width="152" height="14" class="bar"/>
+          <rect x="168.5" y="38.5" width="151" height="13" class="hatch" style="fill:url(#hatch1)"/>
+          <line x1="168" y1="30" x2="168" y2="72" class="lim"/>
+          <line x1="16" y1="72" x2="320" y2="72" class="ax"/>
+          <g>
+            <line x1="16" y1="72" x2="16" y2="78" class="tk"/>
+            <line x1="46.4" y1="72" x2="46.4" y2="75" class="tk"/>
+            <line x1="76.8" y1="72" x2="76.8" y2="75" class="tk"/>
+            <line x1="107.2" y1="72" x2="107.2" y2="75" class="tk"/>
+            <line x1="137.6" y1="72" x2="137.6" y2="75" class="tk"/>
+            <line x1="168" y1="72" x2="168" y2="78" class="tk"/>
+            <line x1="198.4" y1="72" x2="198.4" y2="75" class="tk"/>
+            <line x1="228.8" y1="72" x2="228.8" y2="75" class="tk"/>
+            <line x1="259.2" y1="72" x2="259.2" y2="75" class="tk"/>
+            <line x1="289.6" y1="72" x2="289.6" y2="75" class="tk"/>
+          </g>
+          <text x="16" y="93" text-anchor="middle">0</text>
+          <text x="168" y="93" text-anchor="middle" class="rd">5 min</text>
+          <text x="320" y="93" text-anchor="end" class="i mu">older →</text>
+          <text x="168" y="116" text-anchor="middle" class="i mu">age of the delivery when it reaches T</text>
+        </svg>
+        <figcaption><b>Figure 1.</b> The freshness window of <a class="x" href="#eq1">Eq.&nbsp;(1)</a>. A delivery older than 5&nbsp;minutes on arrival is rejected even if its signature verifies.</figcaption>
+      </figure>
+    </aside>
+    <p><span class="open">Anything older</span> is rejected, whatever its signature says (<a class="x" href="#fig1">Fig.&nbsp;1</a>). Of the whole axis in <a class="x" href="#fig3">Fig.&nbsp;3</a>, this is the only interval that lies before <i class="m">T</i>; everything after it happens to a delivery that has already been let in.</p>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <aside class="side clock"><span class="t">T</span><span class="code">rcv · fwd</span><span class="entry">Delivery in. Written down. Sent on. <span class="sig">— I.&#8201;O.</span></span></aside>
+    <h2><span class="n">4</span>At <i>T</i>: stored, then forwarded</h2>
+    <p><span class="open">At <i>T</i></span> the delivery is stored — every delivery is, whether or not the forward succeeds — and it is forwarded to the address given with <code>--forward</code>. In <a class="x" href="#lst1">Listing&nbsp;1</a> that is <code>http://localhost:3000</code>; it may be any local or internal service.</p>
+    <aside class="side"><p><span class="sn-n">5</span>Source: the project’s own benchmark, <span class="nb">2-vCPU</span> VM <a class="c" href="#ref2">[2]</a>. Independent measurement: <span class="blank" aria-label="blank"></span></p></aside>
+    <p><span class="open">How many per second?</span> The project’s own benchmark records 1,800 deliveries per second on a <span class="nb">2-vCPU</span> VM <a class="c" href="#ref2">[2]</a>. It is quoted here as reported, and the line for an independent figure is left blank<sup class="sn">5</sup>.</p>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <aside class="side clock"><span class="t">T&#8201;+&#8201;72 h</span><span class="code">rty · retry</span><span class="entry">Still knocking? Not after this. <span class="sig">— I.&#8201;O.</span></span></aside>
+    <h2><span class="n">5</span><i>T</i> to <i>T</i>&#8201;+&#8201;72 h: retries</h2>
+    <p><span class="open">If the forward fails,</span> Sluice tries again, with exponential backoff, for up to 72&nbsp;hours. Each wait is longer than the one before it, and the last retry falls no later than the bound in <a class="x" href="#eq2">Eq.&nbsp;(2)</a>.</p>
+    <div class="eq" id="eq2" role="math" aria-label="t k is at most T plus 72 hours for every retry k">
+      <span class="math"><i>t</i><sub>k</sub> ≤ <i>T</i> + 72&nbsp;h <span class="op">for every retry</span> <i>k</i></span>
+      <span class="no">(2)</span>
+    </div>
+    <aside class="side mfig" id="fig2">
+      <figure>
+        <svg viewBox="0 0 336 120" role="img" aria-labelledby="fig2t">
+          <title id="fig2t">Retries under exponential backoff, schematic: gaps grow, none after T plus 72 hours.</title>
+          <text x="16" y="20" class="i mu">schematic, not to scale</text>
+          <text x="300" y="20" text-anchor="middle" class="rd">72 h</text>
+          <line x1="300" y1="28" x2="300" y2="92" class="lim"/>
+          <path class="arc" d="M16 82 Q19.2 78.2 22.3 82"/>
+          <path class="arc" d="M22.3 82 Q26.5 77 30.6 82"/>
+          <path class="arc" d="M30.6 82 Q39 72 47.3 82"/>
+          <path class="arc" d="M47.3 82 Q64 62 80.7 82"/>
+          <path class="arc" d="M80.7 82 Q114.1 42 147.5 82"/>
+          <path class="arc" d="M147.5 82 Q214.4 4 281.2 82"/>
+          <line x1="16" y1="86" x2="312" y2="86" class="ax"/>
+          <circle cx="16" cy="86" r="3" class="dot"/>
+          <circle cx="22.3" cy="86" r="2.2" class="ring"/>
+          <circle cx="30.6" cy="86" r="2.2" class="ring"/>
+          <circle cx="47.3" cy="86" r="2.2" class="ring"/>
+          <circle cx="80.7" cy="86" r="2.2" class="ring"/>
+          <circle cx="147.5" cy="86" r="2.2" class="ring"/>
+          <circle cx="281.2" cy="86" r="2.2" class="ring"/>
+          <text x="16" y="106" text-anchor="middle" class="i">T</text>
+          <text x="300" y="106" text-anchor="middle" class="i">T + 72 h</text>
+        </svg>
+        <figcaption><b>Figure 2.</b> Retries under exponential backoff, after <a class="x" href="#eq2">Eq.&nbsp;(2)</a>. Filled: the forward at <i>T</i>; open: retries. Each gap is longer than the last; none falls after <i>T</i>&#8201;+&#8201;72&nbsp;h.</figcaption>
+      </figure>
+    </aside>
+    <p><span class="open">The ceiling</span> is the fact on record; the individual intervals are not stated, so <a class="x" href="#fig2">Fig.&nbsp;2</a> draws them schematically rather than to scale. After the last retry the delivery is still stored, and <a class="x" href="#s6-2">§6.2</a> applies.</p>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <aside class="side clock"><span class="t">T&#8201;+&#8201;30 d</span><span class="code">qry · rpl · del</span><span class="entry">Kept thirty days, searchable the whole time. Then let go. <span class="sig">— I.&#8201;O.</span></span></aside>
+    <h2><span class="n">6</span><i>T</i> to <i>T</i>&#8201;+&#8201;30 d: search, replay, retention</h2>
+
+    <div class="sub" id="s6-1">
+      <h3><span class="n">6.1</span>Search</h3>
+      <p><span class="open">The web UI</span> runs on port 8081. Deliveries can be searched by path, by header or by body text, for as long as they are kept (<a class="x" href="#s6-3">§6.3</a>).</p>
+    </div>
+
+    <div class="sub" id="s6-2">
+      <h3><span class="n">6.2</span>Replay</h3>
+      <p><span class="open">Any stored delivery</span> can be sent again with the command in <a class="x" href="#lst2">Listing&nbsp;2</a>.</p>
+      <figure class="listing" id="lst2">
+        <pre><code><span class="ln" aria-hidden="true">1</span>sluice replay <span class="arg">&lt;delivery-id&gt;</span></code></pre>
+        <figcaption><b>Listing 2.</b> Replay one stored delivery by its id.</figcaption>
+      </figure>
+      <aside class="side"><p><span class="sn-n">6</span>Replay is for <em>stored</em> deliveries, so its window closes when the delivery is removed: <a class="x" href="#eq3">Eq.&nbsp;(3)</a>.</p></aside>
+      <p><span class="open">Because replay</span> works on whatever is stored, its window is the retention period<sup class="sn">6</sup> of <a class="x" href="#s6-3">§6.3</a>.</p>
+    </div>
+
+    <div class="sub" id="s6-3">
+      <h3><span class="n">6.3</span>Retention</h3>
+      <p><span class="open">Deliveries are kept</span> for 30&nbsp;days by default, <a class="x" href="#eq3">Eq.&nbsp;(3)</a>. The <code>--retain</code> flag changes that number, and the right-hand end of the axis in <a class="x" href="#fig3">Fig.&nbsp;3</a> moves with it.</p>
+      <div class="eq" id="eq3" role="math" aria-label="t delete equals T plus r, with r equal to 30 days unless set with --retain">
+        <span class="math"><i>t</i><sub>del</sub> = <i>T</i> + <i>r</i>, <span class="op"></span> <i>r</i> = 30&nbsp;d unless set with <code>--retain</code></span>
+        <span class="no">(3)</span>
+      </div>
+    </div>
+  </section>
+</article>
+
+<!-- ================================================================== PAGE 3 -->
+<article class="page" aria-label="Page 3">
+  <div class="rh" aria-hidden="true"><span></span><span>Sluice: a self-hosted inbox for webhooks</span><span class="folio">3</span></div>
+
+  <!-- 7 -->
+  <section id="s7" class="first">
+    <aside class="side clock"><span class="t">T&#8201;&minus;&#8201;5 min → T&#8201;+&#8201;30 d</span><span class="code">sum · summary</span><span class="entry">The whole watch on one line. <span class="sig">— I.&#8201;O.</span></span></aside>
+    <h2><span class="n">7</span>The whole watch</h2>
+    <p><span class="open">Laid end to end,</span> the events of <a class="x" href="#s3">§§3–6</a> fit on one axis (<a class="x" href="#fig3">Fig.&nbsp;3</a>). Minutes and days do not share a linear scale, so the axis is logarithmic away from <i class="m">T</i> and linear within a minute of it. <a class="x" href="#tab2">Table&nbsp;2</a> gives the same watch as a log.</p>
+
+    <figure class="full fig3" id="fig3">
+      <div class="scroll">
+      <svg viewBox="0 0 1056 346" role="img" aria-labelledby="fig3t">
+        <title id="fig3t">The life of one delivery on a symmetric-log time axis from T minus 5 minutes to T plus 30 days.</title>
+        <defs>
+          <pattern id="hatch3" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="5" class="hl"/>
+          </pattern>
+        </defs>
+
+        <!-- grid at ticks -->
+        <line x1="277.3" y1="24" x2="277.3" y2="300" class="gr"/>
+        <line x1="498.2" y1="24" x2="498.2" y2="300" class="gr"/>
+        <line x1="694.6" y1="24" x2="694.6" y2="300" class="gr"/>
+        <line x1="847" y1="24" x2="847" y2="300" class="gr"/>
+        <!-- guides -->
+        <line x1="200" y1="42" x2="200" y2="300" class="gR"/>
+        <line x1="387.7" y1="20" x2="387.7" y2="300" class="gT"/>
+        <line x1="899.7" y1="150" x2="899.7" y2="300" class="gR"/>
+        <line x1="1010.1" y1="210" x2="1010.1" y2="300" class="gR"/>
+
+        <!-- lane labels -->
+        <text x="0" y="50" class="sc">ver</text>
+        <text x="0" y="66" class="i mu">signature and age</text>
+        <text x="0" y="102" class="sc">rcv · fwd</text>
+        <text x="0" y="118" class="i mu">stored, forwarded</text>
+        <text x="0" y="154" class="sc">rty</text>
+        <text x="0" y="170" class="i mu">retries</text>
+        <text x="0" y="206" class="sc">qry · rpl</text>
+        <text x="0" y="222" class="i mu">search and replay</text>
+        <text x="0" y="258" class="sc">del</text>
+        <text x="0" y="274" class="i mu">removal</text>
+
+        <!-- VER -->
+        <text x="294" y="38" text-anchor="middle" class="i halo">age ≤ 5 min, signature valid · Eq. (1)</text>
+        <rect x="178.5" y="47.5" width="21" height="10" class="hatch" style="fill:url(#hatch3)"/>
+        <rect x="200" y="47" width="187.7" height="11" class="bar"/>
+        <!-- RCV / FWD -->
+        <circle cx="387.7" cy="104" r="5.5" class="dot"/>
+        <text class="halo" x="401" y="108.5">stored in the SQLite file and forwarded to the --forward address · §4</text>
+        <!-- RTY -->
+        <text x="643" y="142" text-anchor="middle" class="i halo">retries, exponential backoff (schematic) · Eq. (2)</text>
+        <line x1="387.7" y1="156" x2="899.7" y2="156" class="ax"/>
+        <circle cx="387.7" cy="156" r="4" class="dot"/>
+        <circle cx="436" cy="156" r="4" class="ring"/>
+        <circle cx="496" cy="156" r="4" class="ring"/>
+        <circle cx="556" cy="156" r="4" class="ring"/>
+        <circle cx="616" cy="156" r="4" class="ring"/>
+        <circle cx="676" cy="156" r="4" class="ring"/>
+        <circle cx="736" cy="156" r="4" class="ring"/>
+        <circle cx="796" cy="156" r="4" class="ring"/>
+        <circle cx="856" cy="156" r="4" class="ring"/>
+        <line x1="899.7" y1="144" x2="899.7" y2="168" class="lim"/>
+        <text x="908" y="160.5" class="rd halo">ceiling</text>
+        <!-- QRY / RPL -->
+        <text x="699" y="196" text-anchor="middle" class="i halo">searchable in the web UI on port 8081, replayable with sluice replay · §6</text>
+        <rect x="387.7" y="202.5" width="622.4" height="12" class="band"/>
+        <!-- DEL -->
+        <line x1="1010.1" y1="246" x2="1010.1" y2="274" class="lim"/>
+        <path d="M993 260 l7 -4.5 v9 z" class="rdF"/>
+        <path d="M1027 260 l-7 -4.5 v9 z" class="rdF"/>
+        <text class="halo" x="984" y="264.5" text-anchor="end">removed at T + 30 d by default; --retain moves this mark · Eq. (3)</text>
+
+        <!-- axis -->
+        <rect x="277.3" y="297" width="220.9" height="6" class="lin"/>
+        <line x1="200" y1="300" x2="1010.1" y2="300" class="ax"/>
+        <line x1="200" y1="300" x2="200" y2="307" class="tk"/>
+        <line x1="277.3" y1="300" x2="277.3" y2="306" class="tk"/>
+        <line x1="387.7" y1="300" x2="387.7" y2="308" class="tk"/>
+        <line x1="498.2" y1="300" x2="498.2" y2="306" class="tk"/>
+        <line x1="694.6" y1="300" x2="694.6" y2="306" class="tk"/>
+        <line x1="847" y1="300" x2="847" y2="306" class="tk"/>
+        <line x1="899.7" y1="300" x2="899.7" y2="307" class="tk"/>
+        <line x1="1010.1" y1="300" x2="1010.1" y2="307" class="tk"/>
+        <text x="200" y="324" text-anchor="middle" class="i rd">T − 5 min</text>
+        <text x="277.3" y="324" text-anchor="middle" class="i mu">−1 min</text>
+        <text x="387.7" y="325" text-anchor="middle" class="i" style="font-size:15px">T</text>
+        <text x="498.2" y="324" text-anchor="middle" class="i mu">+1 min</text>
+        <text x="694.6" y="324" text-anchor="middle" class="i mu">+1 h</text>
+        <text x="847" y="324" text-anchor="middle" class="i mu">+1 d</text>
+        <text x="899.7" y="324" text-anchor="middle" class="i rd">+72 h</text>
+        <text x="1010.1" y="324" text-anchor="middle" class="i rd">+30 d</text>
+        <text x="387.7" y="342" text-anchor="middle" class="mu" style="font-size:12px">linear within ±1 min · logarithmic beyond</text>
+      </svg>
+      </div>
+      <figcaption><b>Figure 3.</b> The life of one delivery, from <i>T</i>&#8201;&minus;&#8201;5&nbsp;min to <i>T</i>&#8201;+&#8201;30&nbsp;d, on a symmetric-log axis. Black: the freshness window of <a class="x" href="#eq1">Eq.&nbsp;(1)</a>, hatched where a delivery is too old; dot: arrival at <i>T</i> (<a class="x" href="#s4">§4</a>); open circles: retries, schematic, capped by <a class="x" href="#eq2">Eq.&nbsp;(2)</a>; grey band: the stored delivery, searchable and replayable (<a class="x" href="#s6">§6</a>) until <a class="x" href="#eq3">Eq.&nbsp;(3)</a> removes it. Red marks the three limits.</figcaption>
+    </figure>
+
+    <aside class="side"><p><i>Codes.</i> <span class="sc-codes">ver</span> verify · <span class="sc-codes">rcv</span> receive · <span class="sc-codes">fwd</span> forward · <span class="sc-codes">rty</span> retry · <span class="sc-codes">qry</span> query · <span class="sc-codes">rpl</span> replay · <span class="sc-codes">del</span> delete. One code per log line, as in the margin of every section.</p></aside>
+    <div class="tab2 scroll" id="tab2">
+      <table>
+        <caption><b>Table 2.</b> The watch kept on one delivery. Times are relative to arrival, <i>T</i>.</caption>
+        <thead><tr><th>Time</th> <th>Code</th> <th>Entry</th> <th class="ref">§</th></tr></thead>
+        <tbody>
+          <tr><td class="time">T − 5 min</td> <td class="code">ver</td> <td>Oldest accepted; <span class="nb">HMAC-SHA256</span> signature checked</td> <td class="ref"><a class="x" href="#s3">3</a></td></tr>
+          <tr class="gap"><td class="time">T</td> <td class="code">rcv</td> <td>Arrives at the public URL; written to the SQLite file</td> <td class="ref"><a class="x" href="#s4">4</a></td></tr>
+          <tr><td class="time">T</td> <td class="code">fwd</td> <td>Forwarded to the <code>--forward</code> address</td> <td class="ref"><a class="x" href="#s4">4</a></td></tr>
+          <tr class="gap"><td class="time">T → T + 72 h</td> <td class="code">rty</td> <td>Failed forward retried, exponential backoff</td> <td class="ref"><a class="x" href="#s5">5</a></td></tr>
+          <tr class="gap"><td class="time">T → T + 30 d</td> <td class="code">qry</td> <td>Searchable by path, header or body text; UI on 8081</td> <td class="ref"><a class="x" href="#s6-1">6.1</a></td></tr>
+          <tr><td class="time">T → T + 30 d</td> <td class="code">rpl</td> <td><code>sluice replay &lt;delivery-id&gt;</code></td> <td class="ref"><a class="x" href="#s6-2">6.2</a></td></tr>
+          <tr class="gap"><td class="time">T + 30 d</td> <td class="code">del</td> <td>Removed, unless <code>--retain</code> says otherwise</td> <td class="ref"><a class="x" href="#s6-3">6.3</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="s8">
+    <aside class="side clock"><span class="t">14 Oct 2026</span><span class="code">rel · release</span><span class="entry">0.9.2 out. No account to sign up for. <span class="sig">— I.&#8201;O.</span></span></aside>
+    <h2><span class="n">8</span>Availability</h2>
+    <p><span class="open">Sluice is written</span> in Go and released under the MIT licence; version 0.9.2 is current <a class="c" href="#ref1">[1]</a>. It installs with line&nbsp;1 of <a class="x" href="#lst1">Listing&nbsp;1</a> <a class="c" href="#ref3">[3]</a> and is self-hosted throughout: there is no hosted service, no account and no telemetry.</p>
+    <p class="ack"><span class="open">Acknowledgements.</span> Crew on the books at 0.9.2: 41 contributors.</p>
+  </section>
+
+  <section id="refs">
+    <aside class="side"><p><i>Sources.</i> Every claim above is tied to one of these four records; nothing here is drawn from outside them.</p></aside>
+    <h2>References</h2>
+    <ol class="refs">
+      <li id="ref1"><span class="k">[1]</span><span>Sluice, version 0.9.2. Released 14 October 2026. Written in Go; MIT licence; 41 contributors.</span></li>
+      <li id="ref2"><span class="k">[2]</span><span>Sluice project. Own benchmark: 1,800 deliveries per second on a <span class="nb">2-vCPU</span> VM.</span></li>
+      <li id="ref3"><span class="k">[3]</span><span>Sluice installer. <code>https://sluice.example/install.sh</code></span></li>
+      <li id="ref4"><span class="k">[4]</span><span>I. Okafor, maintainer. Started Sluice in 2023 after losing a weekend of payment webhooks.</span></li>
+    </ol>
+    <p class="closing">Log closed &nbsp;·&nbsp; — I.&#8201;O.</p>
+  </section>
+</article>
+
+</main>
+</body>
+</html>

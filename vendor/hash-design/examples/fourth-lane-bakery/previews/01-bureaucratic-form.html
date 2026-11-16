@@ -1,0 +1,999 @@
+<!doctype html>
+<!-- hash-design #1 · bureaucratic-form · ref 51a76d0076661e6657b185c58f6120d8bf340c21062111c8651c52cf9f3a324b -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form IV-17 · 第四巷面包店 事项登记表</title>
+<meta name="description" content="第四巷面包店（Fourth Lane Bakery）事项登记表：老城区第四巷 17 号，周二至周日 7:00–19:00。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono&family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+/* hash-design 51a76d00 · bureaucratic-form · dropout-green */
+:root {
+  --paper: #fafcf6;
+  --ink: #121a14;
+  --muted: #445247;
+  --accent: #2d7a4b;
+  --on-accent: #ffffff;
+  --accent2: #b23a2e;
+  --on-accent2: #ffffff;
+  --rule: #8fc0a0;
+  --panel: #e6f1e8;
+
+  --font-display: "IBM Plex Sans Condensed", "Noto Serif SC", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", "Noto Sans SC", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+
+  --step-n2: 0.651rem; /* 10.4px */
+  --step-n1: 0.781rem; /* 12.5px */
+  --step-0: 0.938rem; /* 15px */
+  --step-1: 1.125rem; /* 18px */
+  --step-2: 1.35rem; /* 21.6px */
+  --step-3: 1.62rem; /* 25.9px */
+  --step-4: 1.944rem; /* 31.1px */
+  --step-5: 2.333rem; /* 37.3px */
+  --step-6: 2.799rem; /* 44.8px */
+  --step-7: 3.359rem; /* 53.7px */
+  --leading: 1.45;
+
+  --space-1: 6px;
+  --space-2: 12px;
+  --space-3: 18px;
+  --space-4: 24px;
+  --space-5: 30px;
+  --space-6: 36px;
+  --space-7: 42px;
+  --space-8: 48px;
+  --section-gap: 64px;
+  --max-width: 1320px;
+
+  --motion-duration: 160ms;
+  --motion-easing: cubic-bezier(.55,0,1,.45);
+}
+
+html { font-size: 93.8%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ================================================================
+   Page-level additions. Every colour below is a palette token
+   (or rgba / color-mix of one). Extra type steps continue the same
+   minor-third ratio (15 × 1.2ⁿ) for the giant form number only.
+   ================================================================ */
+:root {
+  --step-8: 4.3rem;    /* 64.5px */
+  --step-10: 6.19rem;  /* 92.9px */
+  --line: 1px solid var(--accent);
+  --type: "IBM Plex Mono", "Noto Sans SC", "Courier New", monospace;
+  --ofc: 120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  padding: var(--space-8) calc(var(--space-4) + 32px) calc(var(--section-gap) + 32px) var(--space-4);
+  background-image: radial-gradient(rgba(0,0,0,.07) 1px, transparent 1.2px);
+  background-size: 5px 5px;
+  font-size: var(--step-0);
+  font-variant-numeric: lining-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---------- the sheet and its carbon copies ---------- */
+.stack { position: relative; max-width: calc(960px + var(--ofc) + 78px); margin: 0 auto; }
+.copy { position: absolute; inset: 0; border: 1px solid var(--rule); }
+.copy--2 { z-index: 1; transform: translate(16px, 16px); background: var(--panel); }
+.copy--3 { z-index: 0; transform: translate(32px, 32px); background: color-mix(in srgb, var(--accent2) 9%, var(--paper)); }
+.copy__tag {
+  position: absolute; right: 28px; bottom: 1px;
+  font: 600 10px/14px var(--font-display); letter-spacing: .28em; color: var(--muted);
+}
+
+.sheet {
+  position: relative; z-index: 2;
+  background-color: var(--paper);
+  background-image:
+    /* toner streak left by a scratched drum */
+    linear-gradient(90deg, transparent 0 calc(68% - 1px), color-mix(in srgb, var(--ink) 6%, transparent) calc(68% - 1px) 68%, transparent 68%),
+    /* copier-lid shadow along the top and left edge */
+    linear-gradient(180deg, color-mix(in srgb, var(--ink) 7%, transparent), transparent 16px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ink) 5%, transparent), transparent 10px),
+    radial-gradient(rgba(0,0,0,.07) 1px, transparent 1.2px);
+  background-size: auto, auto, auto, 5px 5px;
+  border: 1px solid var(--rule);
+  padding: 30px 42px 22px 36px;
+  filter: contrast(1.05);
+  text-shadow: 0 0 .35px currentColor; /* rules and type thickened by repeated copying */
+}
+.reg { position: absolute; width: 10px; height: 10px; background: var(--ink); }
+.reg--tl { top: 10px; left: 10px; } .reg--tr { top: 10px; right: 10px; }
+.reg--bl { bottom: 10px; left: 10px; } .reg--br { bottom: 10px; right: 10px; }
+.ply {
+  position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+  writing-mode: vertical-rl; font: 400 var(--step-n2)/1 var(--font-body);
+  letter-spacing: .6em; color: var(--accent);
+}
+
+/* ---------- 1 · masthead ---------- */
+.mast { display: grid; grid-template-columns: minmax(0, 1fr) var(--ofc); border-bottom: 3px solid var(--accent); }
+.mast__main { display: grid; grid-template-columns: 4fr 5fr 3fr; }
+.mast__form {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; align-content: center; column-gap: 8px;
+  padding: 2px 18px 12px 0; border-right: var(--line);
+}
+.mast__word {
+  grid-row: 1; writing-mode: vertical-rl; transform: rotate(180deg);
+  font: 600 var(--step-1)/1 var(--font-display); letter-spacing: .06em; color: var(--accent);
+  align-self: end; padding-top: 4px; margin-bottom: 6px;
+}
+.mast__no {
+  grid-row: 1; align-self: end;
+  font: 700 var(--step-10)/.8 var(--font-display); letter-spacing: -.025em; color: var(--accent);
+  white-space: nowrap;
+}
+.mast__gloss {
+  grid-column: 1 / -1; margin-top: 12px;
+  font: 400 var(--step-n2)/1.35 var(--font-body); letter-spacing: .06em; color: var(--muted);
+}
+.mast__gloss b { font: 700 11px/1 var(--font-display); color: var(--accent); letter-spacing: .04em; }
+
+.mast__issuer {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  padding: 8px 18px 14px; border-right: var(--line); text-align: center;
+}
+.mast__body {
+  font: 700 var(--step-6)/1.08 "Noto Serif SC", serif; letter-spacing: .16em; margin-right: -.16em;
+  color: var(--accent);
+}
+.mast__pron { font: 400 var(--step-n1)/1.3 var(--font-mono); color: var(--muted); letter-spacing: .02em; }
+.mast__pron span { font-family: "Noto Serif SC", serif; color: var(--accent); }
+.mast__en {
+  margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--rule); align-self: stretch;
+  font: 600 var(--step-0)/1.2 var(--font-display); letter-spacing: .32em; margin-right: -.32em; color: var(--accent);
+}
+.mast__title { font: 700 var(--step-3)/1.15 var(--font-display); color: var(--accent); letter-spacing: .04em; }
+.mast__title small {
+  display: block; font: 600 var(--step-n1)/1.3 var(--font-display); letter-spacing: .24em; text-transform: uppercase;
+}
+
+.mast__ref { display: grid; grid-template-rows: auto 1fr; }
+.mast__cell { padding: 4px 0 8px 12px; border-bottom: var(--line); }
+.mast__cell:last-child { border-bottom: 0; display: flex; flex-direction: column; justify-content: flex-end; }
+.k {
+  display: block; font: 400 var(--step-n2)/1.2 var(--font-body); letter-spacing: .07em; text-transform: uppercase;
+  color: var(--accent);
+}
+.k b { font: 700 11px/1 var(--font-display); letter-spacing: .03em; margin-right: 4px; }
+.serial {
+  display: block; margin-top: 3px;
+  font: 400 var(--step-3)/1 var(--font-mono); letter-spacing: .08em; color: var(--accent2);
+}
+.serial--s { font-size: var(--step-1); }
+.docno { display: block; margin-top: 5px; font: 400 var(--step-n1)/1.2 "Noto Serif SC", serif; color: var(--accent); letter-spacing: .04em; }
+.year { font: 700 var(--step-7)/.86 var(--font-display); letter-spacing: .01em; color: var(--accent); }
+.year__o { color: transparent; -webkit-text-stroke: 1.4px var(--accent); }
+
+/* official-use column — shared look */
+.ofc { background: var(--panel); border-right: var(--line); border-bottom: var(--line); display: flex; flex-direction: column; min-width: 0; }
+.ofc__c {
+  position: relative; min-height: 40px; padding: 4px 7px 6px; border-bottom: 1px solid var(--rule);
+  font: 400 var(--step-n2)/1.25 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
+}
+.ofc__c:last-child { border-bottom: 0; flex: 1; }
+.ofc__c .cb { display: flex; margin-top: 6px; }
+.ofc--mast { border-left: var(--line); border-bottom: 0; align-items: center; justify-content: space-between; padding: 6px 6px 8px; }
+.ofc--mast .ofc__h {
+  font: 400 var(--step-n2)/1.3 var(--font-body); letter-spacing: .07em; text-transform: uppercase; color: var(--accent); text-align: center;
+}
+.stamp-official { width: 104px; height: auto; transform: rotate(-7deg); margin: 4px 0; }
+
+/* ---------- 2 · instruction line ---------- */
+.instr { display: grid; grid-template-columns: minmax(0, 1fr) auto var(--ofc); }
+.instr__line {
+  display: grid; align-content: center; gap: 2px; padding: 7px 12px 6px 0;
+  font: 500 var(--step-n2)/1.35 var(--font-body); letter-spacing: .09em; text-transform: uppercase; color: var(--accent);
+}
+.instr__line strong { font-weight: 500; color: var(--ink); }
+.instr__go {
+  display: grid; align-content: center; gap: 1px; padding: 6px 14px 6px 12px; border-left: var(--line);
+  text-decoration: none; color: var(--accent);
+  font: 500 var(--step-n2)/1.3 var(--font-body); letter-spacing: .09em; text-transform: uppercase;
+}
+.instr__go b { font: 700 var(--step-1)/1.1 var(--font-display); letter-spacing: .06em; color: var(--ink); }
+.instr__go:hover b { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.instr__ofc { background: var(--panel); border-left: var(--line); border-right: var(--line); }
+
+/* ---------- twist · oversized rules replace whitespace ---------- */
+.bigrule { height: 18px; border-top: 12px solid var(--accent); border-bottom: 2px solid var(--accent); margin: 0 0 6px; }
+
+/* ---------- part bars (reversed) ---------- */
+.partbar {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px;
+  min-height: 44px; padding: 5px 14px 5px 5px; background: var(--accent); color: var(--on-accent);
+}
+.partbar__no {
+  background: var(--paper); color: var(--accent); padding: 5px 11px 4px;
+  font: 700 var(--step-3)/1 var(--font-display); letter-spacing: .07em; white-space: nowrap;
+}
+.partbar__t { font: 700 var(--step-3)/1.1 var(--font-display); letter-spacing: .03em; }
+.partbar__t span { font-weight: 600; letter-spacing: .05em; margin-left: .35em; }
+.partbar__note { margin-left: auto; font: 500 var(--step-n2)/1.3 var(--font-body); letter-spacing: .1em; text-transform: uppercase; }
+
+/* ---------- field grid ---------- */
+.part__body { display: grid; grid-template-columns: minmax(0, 1fr) var(--ofc); border-left: var(--line); border-top: var(--line); }
+.cells { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(40px, auto); min-width: 0; }
+.f {
+  grid-column: span 12; min-width: 0; min-height: 40px;
+  padding: 3px 9px 4px; border-right: var(--line); border-bottom: var(--line);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 2px;
+}
+.s3 { grid-column: span 3; } .s4 { grid-column: span 4; } .s6 { grid-column: span 6; } .s12 { grid-column: span 12; }
+.h2 { min-height: 80px; }
+.h4 { min-height: 160px; grid-row: span 2; }
+.f__k {
+  display: flex; align-items: baseline; gap: 5px; min-width: 0;
+  font: 400 var(--step-n2)/1.15 var(--font-body); color: var(--accent);
+  white-space: nowrap; overflow: hidden;
+}
+.f__k b { font: 700 11px/1 var(--font-display); letter-spacing: .03em; min-width: 1.4em; }
+.f__k em { font-style: normal; text-transform: uppercase; letter-spacing: .07em; }
+.f__v {
+  font-family: var(--type); font-size: var(--step-0); line-height: 1.3; color: var(--ink);
+  font-variant-numeric: tabular-nums; letter-spacing: .01em;
+}
+.f__v--l { font-size: var(--step-2); line-height: 1.2; letter-spacing: .04em; }
+.f__v--m { font-size: var(--step-1); }
+.f__v small { font-size: var(--step-n1); color: var(--muted); letter-spacing: .04em; }
+.f__row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 18px; }
+
+/* comb boxes */
+.comb { display: inline-flex; vertical-align: bottom; }
+.comb i {
+  font-style: normal; width: 1.5em; height: 1.75em;
+  display: inline-flex; align-items: flex-end; justify-content: center; padding-bottom: .14em;
+  border-bottom: var(--line);
+  background: linear-gradient(var(--accent), var(--accent)) left bottom / 1px 50% no-repeat;
+}
+.comb i:last-child {
+  background:
+    linear-gradient(var(--accent), var(--accent)) left bottom / 1px 50% no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / 1px 50% no-repeat;
+}
+.comb-sep { display: inline-block; width: .9em; text-align: center; vertical-align: bottom; padding-bottom: .14em; }
+.comb-cap { display: inline-flex; gap: 0; }
+.comb-grp { display: inline-flex; flex-direction: column; align-items: flex-start; }
+.comb-grp .k { margin-top: 2px; letter-spacing: .12em; }
+.tel { text-decoration: none; }
+.tel:hover .comb i { background-color: var(--panel); }
+
+/* checkboxes: 14px squares, typed X */
+.cb {
+  display: inline-grid; place-items: center; flex: none; width: 14px; height: 14px;
+  border: var(--line); background: var(--paper); vertical-align: -2px;
+  font: 400 15px/1 var(--font-mono); color: var(--ink);
+}
+.cb.is-x::after { content: "X"; transform: translate(.5px, -.5px); }
+.opt { display: inline-flex; align-items: center; gap: 7px; }
+.days {
+  display: grid; grid-template-columns: repeat(7, 26px); row-gap: 3px; justify-items: center;
+  font: 400 var(--step-n2)/1.2 var(--font-body); color: var(--accent);
+}
+
+/* sketch of location */
+.sketch { display: block; width: 100%; height: auto; max-height: 132px; margin-top: 2px; }
+.sk-wall { fill: url(#hatch); stroke: var(--ink); stroke-width: 1.1; }
+.sk-hatch { stroke: var(--ink); stroke-width: .7; }
+.sk-thin { stroke: var(--ink); stroke-width: .8; fill: none; }
+.sk-dash { stroke-dasharray: 3 3; }
+.sk-leaf { stroke: var(--ink); stroke-width: 2.2; }
+.sk-path { stroke: var(--ink); stroke-width: 1.1; fill: none; stroke-dasharray: 4 3; }
+.sk-fill { fill: var(--ink); }
+.sk-t { fill: var(--ink); font: 400 10px "IBM Plex Mono", "Noto Sans SC", monospace; }
+.sk-t--b { font: 700 13px "IBM Plex Mono", "Noto Sans SC", monospace; }
+.sk-t--s { font: 400 9px "Noto Sans SC", sans-serif; letter-spacing: .3em; }
+.sk-t--c { font: 400 9.5px "Noto Sans SC", sans-serif; letter-spacing: .08em; }
+.sk-t--k { font-weight: 700; }
+
+/* notes — dictionary entries, pre-printed in dropout green */
+.notes {
+  grid-column: 1 / -1; border-right: var(--line); border-bottom: var(--line);
+  padding: 5px 12px 10px; background: color-mix(in srgb, var(--panel) 45%, transparent);
+}
+.notes__list { columns: 2; column-gap: 36px; column-rule: 1px solid var(--rule); margin-top: 8px; }
+.entry {
+  break-inside: avoid; margin: 0 0 10px; padding-left: 34px; position: relative;
+  font: 400 var(--step-0)/1.6 var(--font-body); color: var(--accent);
+  text-align: justify; text-justify: inter-character;
+  hanging-punctuation: allow-end; text-spacing-trim: trim-start; text-autospace: normal;
+}
+.entry:last-child { margin-bottom: 0; }
+.entry__n { position: absolute; left: 0; top: .38em; font: 700 11px/1 var(--font-display); letter-spacing: .03em; }
+.hw { font: 700 var(--step-1)/1 "Noto Serif SC", serif; color: var(--ink); letter-spacing: .04em; margin-right: .35em; }
+.py { font: 400 var(--step-n1) var(--font-body); color: var(--muted); letter-spacing: .02em; margin-right: .25em; }
+.pos { font-size: var(--step-n1); color: var(--muted); margin-right: .2em; }
+.ex::before { content: "例 "; font-weight: 700; }
+.see { white-space: nowrap; }
+.see a { text-decoration: none; border-bottom: 1px solid var(--rule); font-family: var(--font-mono); font-size: var(--step-n1); }
+.see a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* bake & price matrix */
+.f--table { padding: 3px 0 0; gap: 4px; }
+.f--table .f__k { padding: 0 9px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: var(--step-0); }
+.tbl th, .tbl td { border: var(--line); height: 40px; padding: 3px 9px; text-align: left; vertical-align: middle; }
+.tbl tr > :first-child { border-left: 0; }
+.tbl tr > :last-child { border-right: 0; }
+.tbl tbody tr:last-child > * { border-bottom: 0; }
+.tbl thead th {
+  height: auto; padding: 4px 9px 5px; vertical-align: bottom;
+  font: 400 var(--step-n2)/1.3 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
+}
+.tbl thead th b { display: block; font: 700 11px/1.2 var(--font-display); letter-spacing: .03em; text-transform: none; }
+.tbl tbody th { width: 46px; font: 700 11px/1 var(--font-display); letter-spacing: .03em; color: var(--accent); }
+.tbl td { font-family: var(--type); color: var(--ink); font-variant-numeric: tabular-nums; }
+.tbl .c { text-align: center; }
+.tbl .num { text-align: right; }
+.tbl td.num { font-size: var(--step-1); letter-spacing: .04em; }
+.tbl .item { font-size: var(--step-1); letter-spacing: .06em; }
+.tbl .na {
+  background: repeating-linear-gradient(135deg, transparent 0 5px, color-mix(in srgb, var(--accent) 30%, transparent) 5px 6px), var(--panel);
+}
+.tbl col.w-item { width: 15%; } .tbl col.w-b, .tbl col.w-c { width: 12%; } .tbl col.w-e { width: 11%; } .tbl col.w-f { width: 10%; }
+
+/* declaration, signature, stamp */
+.decl { font: 400 var(--step-0)/1.55 var(--font-body); color: var(--accent); }
+.decl em { display: block; font-style: normal; font-size: var(--step-n2); letter-spacing: .09em; text-transform: uppercase; }
+.sig { display: block; width: 210px; max-width: 100%; height: auto; }
+.sig path { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.stampzone { position: relative; flex: 1; display: grid; place-items: center; min-height: 128px; }
+.stampzone__ph {
+  width: min(262px, 92%); height: 112px; border: 1px dashed var(--rule);
+  display: grid; place-items: center; text-align: center;
+  font: 400 var(--step-n2)/1.5 var(--font-body); letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+}
+.stampzone.is-stamped .stampzone__ph span { visibility: hidden; }
+.received {
+  position: absolute; left: 50%; top: 50%; width: min(250px, 88%); height: auto;
+  transform: translate(-50%, -50%) rotate(-8deg); visibility: hidden; pointer-events: none;
+}
+.received.is-down { visibility: visible; animation: stamp-down var(--motion-duration) var(--motion-easing) both; }
+@keyframes stamp-down {
+  from { transform: translate(-50%, -50%) scale(1.3) rotate(-1deg); opacity: .15; }
+  to   { transform: translate(-50%, -50%) scale(1) rotate(-8deg); opacity: 1; }
+}
+.st-line { fill: none; stroke: var(--accent2); }
+.st-text { fill: var(--accent2); }
+.st-cond { font-family: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif; font-weight: 700; }
+.st-serif { font-family: "Noto Serif SC", serif; font-weight: 700; }
+.st-mono { font-family: "IBM Plex Mono", "Courier New", monospace; }
+
+.steps { list-style: none; padding: 0; margin: 6px 0 10px; display: grid; gap: 4px; }
+.steps li { display: grid; grid-template-columns: 7em 1fr; gap: 8px; align-items: baseline; }
+.steps .k { white-space: nowrap; }
+.steps .k { display: inline; }
+.steps span:last-child { font-family: var(--type); color: var(--ink); }
+.btn {
+  appearance: none; border: 0; border-radius: 0; cursor: pointer; align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 9px 14px 8px; background: var(--accent); color: var(--on-accent);
+  font: 700 var(--step-1)/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase;
+}
+.btn .btn__zh { font-family: "Noto Serif SC", serif; letter-spacing: .12em; }
+.btn:hover { background: var(--ink); }
+.btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.btn[aria-pressed="true"] { background: var(--paper); color: var(--accent); outline: 1px solid var(--accent); outline-offset: -1px; }
+.btn-note { margin-top: 6px; font: 400 var(--step-n2)/1.35 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+/* ---------- perforation and receipt stub ---------- */
+.perf { position: relative; height: 1px; margin: 30px -42px 0 -36px; background: repeating-linear-gradient(90deg, var(--accent) 0 4px, transparent 4px 7px); }
+.perf span {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 0 12px; background: var(--paper);
+  font: 500 var(--step-n2)/1 var(--font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); white-space: nowrap;
+}
+.stub { position: relative; margin-top: 26px; display: grid; grid-template-columns: 3fr 9fr; border-left: var(--line); border-top: var(--line); }
+.stub__id { padding: 8px 12px 10px; border-right: var(--line); border-bottom: var(--line); background: var(--panel); }
+.stub__t { font: 700 var(--step-4)/1 var(--font-display); color: var(--accent); letter-spacing: .04em; }
+.stub__t span { display: block; margin-top: 4px; font-size: var(--step-n1); letter-spacing: .3em; }
+.stub__form { margin-top: 10px; font: 600 var(--step-1)/1 var(--font-display); color: var(--accent); letter-spacing: .04em; }
+.stub__keep { margin-top: 10px; font: 400 var(--step-n2)/1.35 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.ocr {
+  grid-column: 1 / -1; padding: 7px 12px; border-right: var(--line); border-bottom: var(--line);
+  font: 400 var(--step-1)/1 var(--font-mono); letter-spacing: .32em; color: var(--ink); white-space: nowrap; overflow: hidden;
+}
+.tear { position: absolute; top: -1px; right: -1px; width: 38px; height: 38px; }
+.tear path { fill: var(--paper); stroke: var(--accent); stroke-width: 1; stroke-dasharray: 4 3; }
+.tear text { fill: var(--accent); font: 400 8px "Noto Sans SC", sans-serif; }
+
+.foot {
+  display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 18px;
+  margin-top: 18px; padding-top: 5px; border-top: var(--line);
+  font: 400 var(--step-n2)/1.3 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent);
+}
+.foot b { font: 700 var(--step-0)/1 var(--font-display); letter-spacing: .04em; text-transform: none; }
+
+/* ---------- mid widths: keep the 12-column form but let labels breathe ---------- */
+@media (max-width: 1180px) {
+  .mast__main { grid-template-columns: 4fr 5fr 3fr; }
+  .mast__no { font-size: var(--step-8); }
+  .mast__body { font-size: var(--step-5); }
+}
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 860px) {
+  :root { --ofc: 100%; }
+  body { padding: 18px 12px 64px; }
+  .stack { max-width: none; }
+  .copy--2 { transform: translate(0, 12px); }
+  .copy--3 { transform: translate(0, 24px); }
+  .copy__tag { right: 18px; bottom: -1px; }
+  .sheet { padding: 24px 14px 18px; }
+  .reg { width: 8px; height: 8px; }
+  .reg--tl, .reg--tr { top: 8px; } .reg--bl, .reg--br { bottom: 8px; }
+  .reg--tl, .reg--bl { left: 8px; } .reg--tr, .reg--br { right: 8px; }
+  .ply { display: none; }
+
+  .mast { grid-template-columns: 1fr; }
+  .mast__main { grid-template-columns: 1fr 1fr; }
+  .mast__form { grid-column: 1 / -1; border-right: 0; border-bottom: var(--line); padding: 4px 0 10px; }
+  .mast__no { font-size: var(--step-8); }
+  .mast__issuer { grid-column: 1 / -1; border-right: 0; border-bottom: var(--line); padding: 12px 4px 14px; }
+  .mast__body { font-size: var(--step-5); letter-spacing: .1em; margin-right: -.1em; }
+  .mast__ref { grid-column: 1 / -1; grid-template-rows: none; grid-template-columns: 1fr 1fr; }
+  .mast__cell { padding: 4px 8px 8px; border-bottom: 0; }
+  .mast__cell + .mast__cell { border-left: var(--line); }
+  .year { font-size: var(--step-6); }
+  .ofc--mast { flex-direction: row; border-left: 0; border-top: var(--line); padding: 4px 8px; gap: 10px; }
+  .ofc--mast .ofc__h { text-align: left; }
+  .stamp-official { width: 92px; flex: none; }
+
+  .instr { grid-template-columns: 1fr; }
+  .instr__ofc { display: none; }
+  .instr__line { gap: 4px; padding-right: 0; }
+  .instr__go { border-left: 0; border-top: var(--line); padding: 6px 0; }
+
+  .partbar__t { font-size: var(--step-2); }
+  .partbar__no { font-size: var(--step-2); }
+  .partbar__note { margin-left: 5px; flex-basis: 100%; }
+
+  .part__body { grid-template-columns: 1fr; }
+  .ofc { flex-direction: row; border-left: 0; }
+  .ofc__c { flex: 1; border-bottom: 0; }
+  .ofc__c + .ofc__c { border-left: 1px solid var(--rule); }
+
+  .cells { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .s3 { grid-column: span 3; }
+  .s4, .s6, .s12, .m6 { grid-column: span 6; }
+  .h4 { grid-row: auto; min-height: 0; }
+  .f__k { white-space: normal; flex-wrap: wrap; column-gap: 5px; row-gap: 0; }
+  .notes__list { columns: 1; }
+  .entry { text-align: left; }
+
+  .tbl thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tbl, .tbl tbody { display: block; }
+  .tbl colgroup { display: none; }
+  .tbl tr { display: grid; grid-template-columns: 40px 1fr 1fr; border-top: var(--line); }
+  .tbl th, .tbl td { border: 0; height: auto; padding: 4px 8px 6px; }
+  .tbl tbody th { grid-row: 1 / span 4; grid-column: 1; border-right: var(--line); padding-top: 9px; vertical-align: top; width: auto; }
+  .tbl td::before {
+    content: attr(data-k); display: block; margin-bottom: 1px;
+    font: 400 var(--step-n2)/1.2 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
+  }
+  .tbl .item, .tbl .spec { grid-column: 2 / -1; }
+  .tbl .c, .tbl .num { text-align: left; }
+  .tbl td:nth-child(3), .tbl td:nth-child(5) { border-right: 1px solid var(--rule); }
+  .tbl .na { min-height: 44px; }
+
+  .perf { margin: 26px -14px 0; }
+  .stub { grid-template-columns: 1fr; }
+  .ocr { font-size: var(--step-n1); letter-spacing: .18em; }
+  .foot { display: grid; gap: 3px; }
+}
+</style>
+</head>
+<body>
+
+<!-- shared SVG defs: hatch for the sketch, uneven-ink mask for stamps -->
+<svg class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="4" class="sk-hatch"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L8,4 L0,8 z" class="sk-fill"/>
+    </marker>
+    <filter id="ink" x="-6%" y="-6%" width="112%" height="112%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="17" result="fine"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="coarse"/>
+      <feDisplacementMap in="SourceGraphic" in2="fine" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+      <feComposite in="fine" in2="coarse" operator="arithmetic" k1="0" k2="0.55" k3="1" k4="-0.25" result="mix"/>
+      <feColorMatrix in="mix" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3.2 0 0 0 2.25" result="mask"/>
+      <feComposite in="rough" in2="mask" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="stack">
+  <div class="copy copy--3" aria-hidden="true"><span class="copy__tag">第三联 · 红</span></div>
+  <div class="copy copy--2" aria-hidden="true"><span class="copy__tag">第二联 · 绿</span></div>
+
+  <main class="sheet">
+    <span class="reg reg--tl" aria-hidden="true"></span><span class="reg reg--tr" aria-hidden="true"></span>
+    <span class="reg reg--bl" aria-hidden="true"></span><span class="reg reg--br" aria-hidden="true"></span>
+    <span class="ply" aria-hidden="true">第一联 · 白</span>
+
+    <!-- ===================== 1 · Header ===================== -->
+    <header class="mast">
+      <div class="mast__main">
+        <div class="mast__form">
+          <span class="mast__word">Form</span>
+          <span class="mast__no" aria-label="表号 IV-17">IV-17</span>
+          <p class="mast__gloss"><b>表号</b>&ensp;IV＝第四巷 · 17＝门牌号</p>
+        </div>
+
+        <div class="mast__issuer">
+          <h1 class="mast__body">第四巷面包店</h1>
+          <p class="mast__pron">dì-sì xiàng miànbāo diàn <span>〈名〉</span></p>
+          <p class="mast__en">FOURTH LANE BAKERY</p>
+          <p class="mast__title">事项登记表<small>Statement of Particulars</small></p>
+        </div>
+
+        <div class="mast__ref">
+          <div class="mast__cell">
+            <span class="k">编号 · Ref. No.</span>
+            <span class="serial">No.&nbsp;0417</span>
+            <span class="docno">四巷〔2026〕17 号</span>
+          </div>
+          <div class="mast__cell">
+            <span class="k">年度 · Year</span>
+            <span class="year" aria-label="2026"><span class="year__o">20</span>26</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="ofc ofc--mast" aria-label="仅供店内使用">
+        <p class="ofc__h">此栏请勿填写<br>Do not write in this space</p>
+        <svg class="stamp-official" viewBox="0 0 108 76" role="img" aria-label="OFFICIAL USE ONLY 仅供店内填写">
+          <g filter="url(#ink)">
+            <rect x="2" y="2" width="104" height="72" class="st-line" stroke-width="3"/>
+            <rect x="7" y="7" width="94" height="62" class="st-line" stroke-width="1"/>
+            <text x="54" y="30" text-anchor="middle" class="st-text st-cond" font-size="19" letter-spacing="1.2">OFFICIAL</text>
+            <text x="54" y="50" text-anchor="middle" class="st-text st-cond" font-size="19" letter-spacing="1.2">USE ONLY</text>
+            <text x="55" y="63.5" text-anchor="middle" class="st-text st-serif" font-size="9" letter-spacing="2">仅供店内填写</text>
+          </g>
+        </svg>
+      </aside>
+    </header>
+
+    <!-- ===================== 2 · Instruction line ===================== -->
+    <div class="instr">
+      <div class="instr__line">
+        <p>Read the notes beneath each part before completing this form&ensp;填表前请先阅读各部分注释</p>
+        <p><strong>Please print in black ink</strong>&ensp;请用黑色墨水正楷填写</p>
+      </div>
+      <a class="instr__go" href="#part-3"><span>To reserve · 预订请填</span><b>Complete Part III →</b></a>
+      <div class="instr__ofc" aria-hidden="true"></div>
+    </div>
+
+    <!-- ===================== 3 · Part I — Identification ===================== -->
+    <section class="part" id="part-1" aria-labelledby="part-1-t">
+      <div class="bigrule" aria-hidden="true"></div>
+      <header class="partbar">
+        <span class="partbar__no">PART I</span>
+        <h2 class="partbar__t" id="part-1-t">识别信息<span>Identification</span></h2>
+        <span class="partbar__note">Complete items 1–3 · 第 1–3 项</span>
+      </header>
+
+      <div class="part__body">
+        <div class="cells">
+          <div class="f s6 h2">
+            <span class="f__k"><b>1</b>名称 <em>Name of establishment</em></span>
+            <span class="f__v f__v--l">第四巷面包店</span>
+          </div>
+          <div class="f s3 h2">
+            <span class="f__k"><b>1a</b>英文名称 <em>Block capitals</em></span>
+            <span class="f__v">FOURTH LANE<br>BAKERY</span>
+          </div>
+          <div class="f s3 h2">
+            <span class="f__k"><b>1b</b>开业年份 <em>Year opened</em></span>
+            <span class="f__v f__v--m"><span class="comb" aria-label="2019"><i>2</i><i>0</i><i>1</i><i>9</i></span></span>
+          </div>
+
+          <div class="f s6" id="f2">
+            <span class="f__k"><b>2</b>地址 <em>Address</em></span>
+            <span class="f__v">老城区第四巷 17 号</span>
+          </div>
+          <div class="f s3">
+            <span class="f__k"><b>2a</b>门位 <em>Which door</em></span>
+            <span class="f__v">巷口数第二个门</span>
+          </div>
+          <div class="f s3">
+            <span class="f__k"><b>2b</b>门 <em>Door</em></span>
+            <span class="f__v">绿色木门</span>
+          </div>
+
+          <div class="f s6 h4" id="f2c">
+            <span class="f__k"><b>2c</b>位置示意（不按比例） <em>Sketch · not to scale</em></span>
+            <svg class="sketch" viewBox="0 0 460 128" role="img" aria-label="位置示意：自巷口数第二个门，即 17 号绿色木门">
+              <!-- street edge at the lane mouth -->
+              <line x1="46" y1="6" x2="46" y2="122" class="sk-thin sk-dash"/>
+              <!-- north side: walls with two door openings -->
+              <rect x="70" y="38" width="80" height="9" class="sk-wall"/>
+              <rect x="178" y="38" width="72" height="9" class="sk-wall"/>
+              <rect x="278" y="38" width="152" height="9" class="sk-wall"/>
+              <line x1="70" y1="6" x2="70" y2="38" class="sk-thin"/>
+              <line x1="206" y1="6" x2="206" y2="38" class="sk-thin"/>
+              <line x1="364" y1="6" x2="364" y2="38" class="sk-thin"/>
+              <!-- south side -->
+              <rect x="70" y="93" width="360" height="9" class="sk-wall"/>
+              <line x1="70" y1="102" x2="70" y2="122" class="sk-thin"/>
+              <!-- door one -->
+              <line x1="150" y1="38" x2="150" y2="11" class="sk-thin" stroke-width="1.4"/>
+              <path d="M150,11 A27,27 0 0 1 177,38" class="sk-thin sk-dash"/>
+              <!-- door two: the bakery -->
+              <line x1="250" y1="38" x2="250" y2="11" class="sk-leaf"/>
+              <path d="M250,11 A27,27 0 0 1 277,38" class="sk-thin"/>
+              <text x="286" y="22" class="sk-t sk-t--b">17 号</text>
+              <text x="286" y="34" class="sk-t">绿色木门</text>
+              <!-- count from the lane mouth -->
+              <text x="164" y="64" text-anchor="middle" class="sk-t sk-t--c">第一个门</text>
+              <text x="264" y="64" text-anchor="middle" class="sk-t sk-t--c sk-t--k">第二个门</text>
+              <!-- walking line from the lane mouth -->
+              <path d="M18,84 H264 V73" class="sk-path" marker-end="url(#arrow)"/>
+              <!-- break line: the lane continues -->
+              <path d="M430,30 V40 l5,3 -10,4 5,3 V88 l5,3 -10,4 5,3 V112" class="sk-thin"/>
+              <text x="340" y="74" class="sk-t sk-t--s">第四巷</text>
+              <text x="18" y="118" class="sk-t">巷口</text>
+            </svg>
+          </div>
+          <div class="f s6 h2">
+            <span class="f__k"><b>3</b>电话 <em>Telephone</em></span>
+            <a class="tel f__v f__v--m" href="tel:02155550417" aria-label="电话 021-5555-0417">
+              <span class="comb" aria-hidden="true"><i>0</i><i>2</i><i>1</i></span><span class="comb-sep" aria-hidden="true">-</span><span class="comb" aria-hidden="true"><i>5</i><i>5</i><i>5</i><i>5</i></span><span class="comb-sep" aria-hidden="true">-</span><span class="comb" aria-hidden="true"><i>0</i><i>4</i><i>1</i><i>7</i></span>
+            </a>
+          </div>
+          <div class="f s3 h2" id="f3a">
+            <span class="f__k"><b>3a</b>店主 <em>Proprietor</em></span>
+            <span class="f__v f__v--m">周岚</span>
+          </div>
+          <div class="f s3 h2">
+            <span class="f__k"><b>3b</b>原职业 <em>Former occupation</em></span>
+            <span class="f__v">建筑师</span>
+          </div>
+
+          <div class="notes">
+            <span class="f__k"><b>注</b>第一部分注释 <em>Notes to Part I</em></span>
+            <div class="notes__list">
+              <p class="entry"><span class="entry__n">N1</span><b class="hw">第四巷</b><span class="py">dì-sì xiàng</span><span class="pos">〈名〉</span>① 老城区的一条巷子。② 本店所在：17 号，巷口数第二个门，绿色木门。<span class="see">参见 → <a href="#f2">2</a>、<a href="#f2c">2c</a></span></p>
+              <p class="entry"><span class="entry__n">N2</span><b class="hw">周岚</b><span class="py">Zhōu Lán</span><span class="pos">〈名〉</span>① 本店店主，前建筑师。<span class="ex">2019 年开店。</span><span class="see">参见 → <a href="#f3a">3a</a></span></p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="ofc" aria-label="仅供店内使用">
+          <div class="ofc__c">已核 · Verified<span class="cb" aria-hidden="true"></span></div>
+          <div class="ofc__c">经办 · Initials</div>
+          <div class="ofc__c">备注 · Remarks</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== 4 · Part II — Particulars ===================== -->
+    <section class="part" id="part-2" aria-labelledby="part-2-t">
+      <div class="bigrule" aria-hidden="true"></div>
+      <header class="partbar">
+        <span class="partbar__no">PART II</span>
+        <h2 class="partbar__t" id="part-2-t">细目<span>Particulars</span></h2>
+        <span class="partbar__note">Mark boxes with X · 在方框内打 X</span>
+      </header>
+
+      <div class="part__body">
+        <div class="cells">
+          <div class="f s6 h2">
+            <span class="f__k"><b>4</b>营业日 <em>Days open — mark X</em></span>
+            <div class="f__row">
+              <div class="days" aria-hidden="true">
+                <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+                <span class="cb"></span><span class="cb is-x"></span><span class="cb is-x"></span><span class="cb is-x"></span><span class="cb is-x"></span><span class="cb is-x"></span><span class="cb is-x"></span>
+              </div>
+              <span class="f__v">周二至周日</span>
+            </div>
+          </div>
+          <div class="f s3 h2">
+            <span class="f__k"><b>4a</b>营业时间 <em>Hours</em></span>
+            <span class="f__v f__v--l">7:00–19:00</span>
+          </div>
+          <div class="f s3 h2">
+            <span class="f__k"><b>4b</b>休息日 <em>Closed</em></span>
+            <span class="f__v f__v--l">周一</span>
+          </div>
+
+          <div class="f s12 f--table" id="f5">
+            <span class="f__k"><b>5</b>出炉及价目 <em>Bakes &amp; prices — mark the bake with X</em></span>
+            <table class="tbl">
+              <colgroup><col><col class="w-item"><col class="w-b"><col class="w-c"><col><col class="w-e"><col class="w-f"></colgroup>
+              <thead>
+                <tr>
+                  <th scope="col"><b>行</b>Line</th>
+                  <th scope="col"><b>(a) 品名</b>Item</th>
+                  <th scope="col"><b>(b) 第一炉 7:00</b>First bake</th>
+                  <th scope="col"><b>(c) 第二炉 11:00</b>Second bake</th>
+                  <th scope="col"><b>(d) 规格</b>Specification</th>
+                  <th scope="col" class="num"><b>(e) 单价 ¥</b>Price</th>
+                  <th scope="col" class="num"><b>(f) 半个 ¥</b>Half</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="f5a">
+                  <th scope="row">5a</th>
+                  <td class="item" data-k="(a) 品名">乡村面包</td>
+                  <td class="c" data-k="(b) 第一炉 7:00"><span class="cb is-x" role="img" aria-label="是"></span></td>
+                  <td class="c" data-k="(c) 第二炉 11:00"><span class="cb" role="img" aria-label="否"></span></td>
+                  <td class="spec" data-k="(d) 规格">天然酵种 · 低温发酵 48 小时</td>
+                  <td class="num" data-k="(e) 单价（整个）¥">38</td>
+                  <td class="num" data-k="(f) 半个 ¥">20</td>
+                </tr>
+                <tr>
+                  <th scope="row">5b</th>
+                  <td class="item" data-k="(a) 品名">可颂</td>
+                  <td class="c" data-k="(b) 第一炉 7:00"><span class="cb is-x" role="img" aria-label="是"></span></td>
+                  <td class="c" data-k="(c) 第二炉 11:00"><span class="cb" role="img" aria-label="否"></span></td>
+                  <td class="spec" data-k="(d) 规格">法国发酵黄油</td>
+                  <td class="num" data-k="(e) 单价 ¥">16</td>
+                  <td class="na" data-k="(f) 半个 ¥" aria-label="不适用"></td>
+                </tr>
+                <tr>
+                  <th scope="row">5c</th>
+                  <td class="item" data-k="(a) 品名">肉桂卷</td>
+                  <td class="c" data-k="(b) 第一炉 7:00"><span class="cb" role="img" aria-label="否"></span></td>
+                  <td class="c" data-k="(c) 第二炉 11:00"><span class="cb is-x" role="img" aria-label="是"></span></td>
+                  <td class="spec" data-k="(d) 规格">只在第二炉</td>
+                  <td class="num" data-k="(e) 单价 ¥">18</td>
+                  <td class="na" data-k="(f) 半个 ¥" aria-label="不适用"></td>
+                </tr>
+                <tr>
+                  <th scope="row">5d</th>
+                  <td class="item" data-k="(a) 品名">黑麦面包</td>
+                  <td class="c" data-k="(b) 第一炉 7:00"><span class="cb" role="img" aria-label="否"></span></td>
+                  <td class="c" data-k="(c) 第二炉 11:00"><span class="cb is-x" role="img" aria-label="是"></span></td>
+                  <td class="spec" data-k="(d) 规格">黑麦 70% · 750 g · 每日限 12 个</td>
+                  <td class="num" data-k="(e) 单价 ¥">42</td>
+                  <td class="na" data-k="(f) 半个 ¥" aria-label="不适用"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="f s6 h2" id="f6">
+            <span class="f__k"><b>6</b>酵种 <em>Leaven</em></span>
+            <span class="f__v"><span class="f__v--l">“老周”</span>&ensp;<small>天然酵种 · 养了 9 年</small></span>
+          </div>
+          <div class="f s6 h2" id="f7">
+            <span class="f__k"><b>7</b>面粉 <em>Flour — mark all that apply</em></span>
+            <div class="f__row f__v">
+              <span class="opt"><span class="cb is-x" role="img" aria-label="是"></span>本地石磨全麦粉</span>
+              <span class="opt"><span class="cb is-x" role="img" aria-label="是"></span>法国 T65</span>
+            </div>
+          </div>
+
+          <div class="f s6" id="f8">
+            <span class="f__k"><b>8</b>售卖规则 <em>Terms of sale</em></span>
+            <span class="f__v">卖完即止；当天不留货</span>
+          </div>
+          <div class="f s3" id="f9">
+            <span class="f__k"><b>9</b>店内座位 <em>Seats</em></span>
+            <span class="f__v">6 个</span>
+          </div>
+          <div class="f s3" id="f9a">
+            <span class="f__k"><b>9a</b>手冲咖啡 <em>Pour-over</em></span>
+            <span class="f__v">¥22</span>
+          </div>
+
+          <div class="f s3" id="f10">
+            <span class="f__k"><b>10</b>面包课 <em>Class day</em></span>
+            <span class="f__v">周六</span>
+          </div>
+          <div class="f s3">
+            <span class="f__k"><b>10a</b>时间 <em>Time</em></span>
+            <span class="f__v">9:00–11:30</span>
+          </div>
+          <div class="f s3">
+            <span class="f__k"><b>10b</b>班额 <em>Class size</em></span>
+            <span class="f__v">6 人小班</span>
+          </div>
+          <div class="f s3">
+            <span class="f__k"><b>10c</b>费用 <em>Fee</em></span>
+            <span class="f__v">¥260 / 人</span>
+          </div>
+
+          <div class="notes">
+            <span class="f__k"><b>注</b>第二部分注释 <em>Notes to Part II</em></span>
+            <div class="notes__list">
+              <p class="entry"><span class="entry__n">N3</span><b class="hw">炉</b><span class="py">lú</span><span class="pos">〈量〉</span>① 出炉的批次。本店每天两炉。<span class="ex">7:00 第一炉，乡村面包、可颂；11:00 第二炉，肉桂卷、黑麦面包。</span><span class="see">参见 → <a href="#f5">5</a></span></p>
+              <p class="entry"><span class="entry__n">N4</span><b class="hw">老周</b><span class="py">Lǎo Zhōu</span><span class="pos">〈名〉</span>① 店里对酵种的叫法。② 已养 9 年。<span class="see">参见 → <a href="#f6">6</a>；<a href="#f5a">5a</a></span></p>
+              <p class="entry"><span class="entry__n">N5</span><b class="hw">卖完即止</b><span class="py">mài wán jí zhǐ</span><span class="pos">〈短语〉</span>① 当天的面包卖完为止。② 当天不留货。<span class="ex">黑麦面包每日限 12 个，卖完即止。</span><span class="see">参见 → <a href="#f8">8</a></span></p>
+              <p class="entry"><span class="entry__n">N6</span><b class="hw">面包课</b><span class="py">miànbāo kè</span><span class="pos">〈名〉</span>① 周六 9:00–11:30 的 6 人小班，每人 ¥260。② 课后带走自己烤的面包。<span class="see">参见 → <a href="#f10">10</a></span></p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="ofc" aria-label="仅供店内使用">
+          <div class="ofc__c">核价 · Prices checked<span class="cb" aria-hidden="true"></span></div>
+          <div class="ofc__c">经办 · Initials</div>
+          <div class="ofc__c">备注 · Remarks</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== 5 · Part III — Declaration ===================== -->
+    <section class="part" id="part-3" aria-labelledby="part-3-t">
+      <div class="bigrule" aria-hidden="true"></div>
+      <header class="partbar">
+        <span class="partbar__no">PART III</span>
+        <h2 class="partbar__t" id="part-3-t">预订与声明<span>Reservation &amp; declaration</span></h2>
+        <span class="partbar__note">Sign, date, then submit · 签名、日期、递交</span>
+      </header>
+
+      <div class="part__body">
+        <div class="cells">
+          <div class="f s6 h2" id="f11">
+            <span class="f__k"><b>11</b>预订方式 <em>How to reserve — mark X</em></span>
+            <div class="f__row f__v">
+              <span class="opt"><span class="cb is-x" role="img" aria-label="是"></span>电话&nbsp;<a class="tel" href="tel:02155550417">021-5555-0417</a></span>
+              <span class="opt"><span class="cb is-x" role="img" aria-label="是"></span>店内登记</span>
+            </div>
+          </div>
+          <div class="f s3 h2">
+            <span class="f__k"><b>11a</b>提前 <em>Notice</em></span>
+            <span class="f__v f__v--l">提前一天</span>
+          </div>
+          <div class="f s3 h2">
+            <span class="f__k"><b>11b</b>截止 <em>Cut-off</em></span>
+            <span class="f__v f__v--l">17:00 前</span>
+          </div>
+
+          <div class="f s12 h2">
+            <span class="f__k"><b>12</b>声明 <em>Declaration</em></span>
+            <p class="decl">本人声明：本表第一、二部分所填各项属实。<em>I declare that the particulars given in Parts I and II are true.</em></p>
+          </div>
+
+          <div class="f s6 h2">
+            <span class="f__k"><b>13</b>签名 <em>Signature</em></span>
+            <svg class="sig" viewBox="0 0 220 60" role="img" aria-label="店主签名">
+              <path d="M10,42 C17,28 25,13 33,17 C41,21 30,40 24,43 C18,46 21,33 33,29 C45,25 52,29 50,39 C48,47 58,45 64,35 C70,25 74,19 78,23 C82,27 76,43 82,43 C90,43 94,25 102,23"/>
+              <path d="M112,39 C118,25 128,13 134,15 C140,17 130,39 126,45 C122,51 134,33 146,29 C156,26 154,39 162,37 C170,35 174,27 181,29"/>
+              <path d="M22,52 C70,49 128,47 206,38"/>
+            </svg>
+          </div>
+          <div class="f s3 h2 m6">
+            <span class="f__k"><b>13a</b>姓名 <em>Name</em></span>
+            <span class="f__v f__v--m">周岚<br><small>ZHOU LAN · 店主</small></span>
+          </div>
+          <div class="f s3 h2 m6">
+            <span class="f__k"><b>14</b>日期 <em>Date</em></span>
+            <span class="f__v comb-cap" aria-label="2026-11-01">
+              <span class="comb-grp"><span class="comb"><i>2</i><i>0</i><i>2</i><i>6</i></span><span class="k">YYYY</span></span><span class="comb-sep">-</span><span class="comb-grp"><span class="comb"><i>1</i><i>1</i></span><span class="k">MM</span></span><span class="comb-sep">-</span><span class="comb-grp"><span class="comb"><i>0</i><i>1</i></span><span class="k">DD</span></span>
+            </span>
+          </div>
+
+          <div class="f s6 h4">
+            <span class="f__k"><b>15</b>盖章处 <em>Official stamp</em></span>
+            <div class="stampzone" id="stampzone">
+              <div class="stampzone__ph"><span>收件章<br>Received stamp</span></div>
+              <svg class="received" id="received" viewBox="0 0 260 124" role="img" aria-label="RECEIVED 01 NOV 2026" aria-hidden="true">
+                <g filter="url(#ink)">
+                  <rect x="3" y="3" width="254" height="118" class="st-line" stroke-width="4"/>
+                  <rect x="10" y="10" width="240" height="104" class="st-line" stroke-width="1.2"/>
+                  <text x="133" y="34" text-anchor="middle" class="st-text st-serif" font-size="16" letter-spacing="7">第四巷面包店</text>
+                  <line x1="22" y1="44" x2="238" y2="44" class="st-line" stroke-width="1.2"/>
+                  <text x="132" y="83" text-anchor="middle" class="st-text st-cond" font-size="44" letter-spacing="5">RECEIVED</text>
+                  <line x1="22" y1="93" x2="238" y2="93" class="st-line" stroke-width="1.2"/>
+                  <text x="132" y="109" text-anchor="middle" class="st-text st-mono" font-size="14" letter-spacing="4">01 NOV 2026</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="f s6 h4">
+            <span class="f__k"><b>15a</b>递交 <em>Submission</em></span>
+            <div>
+              <ol class="steps">
+                <li><span class="k">第一步 · Step 1</span><span>提前一天，17:00 前</span></li>
+                <li><span class="k">第二步 · Step 2</span><span>致电 021-5555-0417，或店内登记</span></li>
+              </ol>
+              <button class="btn" type="button" id="submit-iii" aria-pressed="false"><span class="btn__t">Complete Part III</span><span class="btn__zh">盖章递交</span></button>
+              <p class="btn-note" id="stamp-status" aria-live="polite">本栏由店内盖章 · Submit at the counter</p>
+            </div>
+          </div>
+
+          <div class="notes">
+            <span class="f__k"><b>注</b>第三部分注释 <em>Notes to Part III</em></span>
+            <div class="notes__list">
+              <p class="entry"><span class="entry__n">N7</span><b class="hw">预订</b><span class="py">yùdìng</span><span class="pos">〈动〉</span>① 须提前一天、17:00 前办理。② 电话或店内登记。<span class="ex">致电 021-5555-0417。</span><span class="see">参见 → <a href="#f11">11</a></span></p>
+              <p class="entry"><span class="entry__n">N8</span><b class="hw">店内</b><span class="py">diànnèi</span><span class="pos">〈名〉</span>① 第四巷面包店店里，设 6 个座位。② 可点手冲咖啡，¥22。<span class="see">参见 → <a href="#f9">9</a>、<a href="#f9a">9a</a></span></p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="ofc" aria-label="仅供店内使用">
+          <div class="ofc__c">受理号 · Serial<span class="serial serial--s">0417</span></div>
+          <div class="ofc__c">收件人 · Received by</div>
+          <div class="ofc__c">备注 · Remarks</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== Perforated receipt stub ===================== -->
+    <div class="perf" role="separator"><span>沿虚线撕下 · Detach here</span></div>
+
+    <section class="stub" aria-label="回执">
+      <svg class="tear" viewBox="0 0 38 38" aria-hidden="true"><path d="M0,0 H38 V38 Z"/><text x="22" y="14">撕角</text></svg>
+      <div class="stub__id">
+        <p class="stub__t">回执<span>RECEIPT</span></p>
+        <p class="stub__form">Form IV-17</p>
+        <span class="serial serial--s">No.&nbsp;0417</span>
+        <p class="stub__keep">撕下保存 · Keep this part</p>
+      </div>
+      <div class="cells">
+        <div class="f s6">
+          <span class="f__k"><b>R1</b>地址 <em>Address</em></span>
+          <span class="f__v">老城区第四巷 17 号 · 绿色木门</span>
+        </div>
+        <div class="f s6">
+          <span class="f__k"><b>R2</b>营业 <em>Hours</em></span>
+          <span class="f__v">周二至周日 7:00–19:00 · 周一休息</span>
+        </div>
+        <div class="f s6">
+          <span class="f__k"><b>R3</b>预订 <em>Reserve</em></span>
+          <span class="f__v">提前一天 17:00 前 · 021-5555-0417</span>
+        </div>
+        <div class="f s6">
+          <span class="f__k"><b>R4</b>出炉 <em>Bakes</em></span>
+          <span class="f__v">7:00 第一炉 · 11:00 第二炉 · 卖完即止</span>
+        </div>
+        <p class="ocr" aria-hidden="true">IV&lt;17&lt;&lt;0417&lt;&lt;FOURTH&lt;LANE&lt;BAKERY&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>印制 · 第四巷面包店</span>
+      <b>Form IV-17 (2026)</b>
+      <span>第一联 / 共三联</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+(() => {
+  const btn = document.getElementById('submit-iii');
+  const stamp = document.getElementById('received');
+  const zone = document.getElementById('stampzone');
+  const status = document.getElementById('stamp-status');
+  if (!btn || !stamp) return;
+  btn.addEventListener('click', () => {
+    stamp.classList.remove('is-down');
+    void stamp.getBoundingClientRect(); // restart the landing
+    stamp.classList.add('is-down');
+    stamp.setAttribute('aria-hidden', 'false');
+    zone.classList.add('is-stamped');
+    btn.setAttribute('aria-pressed', 'true');
+    btn.querySelector('.btn__t').textContent = 'Received';
+    btn.querySelector('.btn__zh').textContent = '已递交';
+    status.textContent = '已盖收件章 · RECEIVED 01 NOV 2026';
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!doctype html>
+<!-- hash-design #3 · terminal-phosphor · ref 16333b219df7a0a92644b8fb7726cd03bd7f1e76a8813242ad514385cb25a357 -->
+<!--
+  Notes on the brief:
+  - Line grid: the branch grid (line-height 1.25, spacing in whole lines) wins over the density token's 1.45,
+    because the green-bar surface (3.75em bands = 3 lines) only registers with text at 1.25.
+  - Box-drawing and block characters are set in Fira Code: the Google Fonts build of IBM Plex Mono has no
+    U+2500–259F glyphs, so Plex Mono is used for headings, numerals and labels only.
+  - Twist (numbered sections) is carried by the reverse-video section numerals in the 7ch gutter.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sluice(1) — a self-hosted inbox for webhooks</title>
+<meta name="description" content="Sluice gives you a public URL for webhooks, stores every delivery and forwards it to your local or internal service. One static binary, one SQLite file.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600;700&family=Fira+Code:wght@400;500&display=swap">
+<style>
+/* hash-design 16333b21 · terminal-phosphor · p3-amber */
+:root {
+  --paper: #120b02;
+  --ink: #ffb84a;
+  --muted: #c4842a;
+  --accent: #ffe2a8;
+  --on-accent: #000000;
+  --accent2: #ff7a1a;
+  --on-accent2: #000000;
+  --rule: #5a3a0c;
+  --panel: #1e1305;
+
+  --font-display: "IBM Plex Mono", "Courier New", monospace;
+  --font-body: "Fira Code", "Courier New", monospace;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.741rem; /* 11.9px */
+  --step-n1: 0.833rem; /* 13.3px */
+  --step-0: 0.938rem; /* 15px */
+  --step-1: 1.055rem; /* 16.9px */
+  --step-2: 1.187rem; /* 19px */
+  --step-3: 1.335rem; /* 21.4px */
+  --step-4: 1.502rem; /* 24px */
+  --step-5: 1.689rem; /* 27px */
+  --step-6: 1.901rem; /* 30.4px */
+  --step-7: 2.138rem; /* 34.2px */
+  --leading: 1.45;
+
+  --space-1: 6px;
+  --space-2: 12px;
+  --space-3: 18px;
+  --space-4: 24px;
+  --space-5: 30px;
+  --space-6: 36px;
+  --space-7: 42px;
+  --space-8: 48px;
+  --section-gap: 64px;
+  --max-width: 1320px;
+
+  --motion-duration: 1060ms;
+  --motion-easing: steps(2, jump-none);
+}
+
+html { font-size: 93.8%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- character grid ---------- */
+:root {
+  --ln: 1.25rem;                 /* one terminal line */
+  --vl: "│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│\A│";
+  --dvl: "║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║\A║";
+  --bfs: 2rem;                   /* banner cell = 2ch x 2 lines */
+  --brows: 8;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; padding: var(--space-4) var(--space-3); }
+h1, h2, p, dl, dd, ol, figure { margin: 0; padding: 0; }
+b { font-weight: 500; color: var(--accent); }
+u { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+a:hover, a:focus-visible { background: var(--accent); color: var(--on-accent); text-decoration: none; outline: none; text-shadow: none; }
+::selection { background: var(--accent); color: var(--on-accent); text-shadow: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.dim { color: var(--muted); }
+.err { color: var(--accent2); }
+.r { color: var(--rule); }
+.ah { color: var(--muted); }
+
+.screen {
+  font-size: 1rem;
+  line-height: 1.25;
+  font-variant-ligatures: none;
+  font-feature-settings: "calt" 0, "liga" 0;
+  font-variant-numeric: tabular-nums;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border: 1px solid var(--rule);
+  border-radius: 18px;              /* the CRT bezel: the only curve */
+  overflow: clip;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(to bottom, var(--panel) 0 3.75em, transparent 3.75em 7.5em);
+  display: grid;
+  grid-template-columns: 5ch minmax(0, 1fr) 5ch;
+  text-shadow: 0 0 2px currentColor; /* phosphor bloom */
+}
+.tractor {
+  background-image: radial-gradient(circle at 50% 50%, var(--paper) 0 5px, var(--rule) 5px 6.5px, transparent 7px);
+  background-size: 100% 3.75em;
+  background-repeat: repeat-y;
+}
+.paper {
+  min-width: 0;
+  border-inline: 1px dashed var(--rule);   /* tear-off perforation */
+  padding: var(--ln) 2ch calc(var(--ln) * 3);
+  display: grid;
+  grid-template-columns: minmax(0, 80ch) minmax(0, 1fr);
+  column-gap: 4ch;
+  align-content: start;
+  background-image: linear-gradient(var(--rule), var(--rule));
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+  background-position: calc(2ch + 82ch) 0;
+}
+.paper > * { grid-column: 1; min-width: 0; }
+.paper > .side {
+  grid-column: 2;
+  grid-row: 1 / span 40;
+  align-self: start;
+  position: sticky;
+  top: var(--ln);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ln);
+}
+
+/* ---------- prompt, header and footer lines ---------- */
+.prompt { color: var(--ink); word-break: break-all; }   /* terminals hard-wrap at the last column */
+.ps { color: var(--muted); }
+.mh { display: flex; justify-content: space-between; gap: 2ch; margin-top: var(--ln); color: var(--ink); }
+.mh .c { color: var(--muted); }
+.mh .short, .mf .short { display: none; }
+
+/* ---------- double-line banner frame ---------- */
+.frame { margin-top: var(--ln); }
+.bl { display: flex; white-space: pre; color: var(--rule); overflow: hidden; }
+.bl .run { flex: 1 1 0; min-width: 0; overflow: hidden; }
+.bl b { flex: none; font: 700 1rem/1.25 var(--font-display); color: var(--accent); }
+.frame .bl { color: var(--muted); }
+.fb { position: relative; padding: var(--ln) 4ch; container-type: inline-size; }
+.fb::before, .fb::after, .bb::before, .bb::after {
+  content: var(--vl);
+  position: absolute; top: 0; bottom: 0; width: 1ch;
+  overflow: hidden; white-space: pre; color: var(--rule);
+}
+.fb::before, .fb::after { content: var(--dvl); color: var(--muted); }
+.fb::before, .bb::before { left: 0; }
+.fb::after, .bb::after { right: 0; }
+
+h1 { font-weight: 400; }
+.bn {
+  display: block; position: relative;
+  font-size: var(--bfs);
+  width: 36ch;
+  height: calc(var(--brows) * var(--ln));
+}
+.bn > span {
+  position: absolute; inset: 0 auto auto 0;
+  display: block; white-space: pre;
+  font-family: var(--font-body);
+  line-height: 1.2;                       /* block glyphs are 1.2em tall: rows tile without seams */
+  transform: scaleY(1.0416667);           /* 4 rows land on whole lines */
+  transform-origin: 0 0;
+}
+.bn .ink { color: var(--accent); text-shadow: 0 0 3px currentColor; }
+.bn .shd { color: var(--rule); text-shadow: none; }
+.tag { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 3ch; }
+.tag.t1 { margin-top: var(--ln); }
+.tag .ttl { font: 700 1rem/1.25 var(--font-display); color: var(--accent); letter-spacing: 0; }
+.tag .dim { color: var(--muted); }
+.nw, .nb { white-space: nowrap; }
+
+/* ---------- side panes (inactive: panel) ---------- */
+.box {
+  position: relative;
+  /* panel fill stops at the centre line of the box-drawing glyphs */
+  background: linear-gradient(var(--panel), var(--panel)) center / calc(100% - 1ch) calc(100% - var(--ln)) no-repeat;
+}
+.bb { position: relative; padding: 0 2ch; }
+.menu .bb { padding: 0 1ch; }
+.menu ol { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(6, var(--ln)); grid-auto-flow: column; column-gap: 1ch; }
+.menu a { display: block; color: var(--ink); text-decoration: none; padding: 0 1ch; white-space: nowrap; overflow: hidden; }
+.menu .mn { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
+.menu a.sel,
+body:has(#s01:target) .menu a[href="#s01"],
+body:has(#s02:target) .menu a[href="#s02"],
+body:has(#s03:target) .menu a[href="#s03"],
+body:has(#s04:target) .menu a[href="#s04"],
+body:has(#s05:target) .menu a[href="#s05"],
+body:has(#s06:target) .menu a[href="#s06"],
+body:has(#s07:target) .menu a[href="#s07"],
+body:has(#s08:target) .menu a[href="#s08"],
+body:has(#s09:target) .menu a[href="#s09"],
+body:has(#s10:target) .menu a[href="#s10"],
+body:has(#s11:target) .menu a[href="#s11"] { background: var(--accent); color: var(--on-accent); text-shadow: none; }
+.menu a.sel .mn, .menu a:hover .mn, .menu a:focus-visible .mn { color: var(--on-accent); }
+body:has(.sec:target) .menu a.sel:not(:hover):not(:focus-visible) { background: none; color: var(--ink); text-shadow: inherit; }
+body:has(.sec:target) .menu a.sel:not(:hover):not(:focus-visible) .mn { color: var(--accent); }
+body:has(#s01:target) .menu a[href="#s01"] .mn,
+body:has(#s02:target) .menu a[href="#s02"] .mn,
+body:has(#s03:target) .menu a[href="#s03"] .mn,
+body:has(#s04:target) .menu a[href="#s04"] .mn,
+body:has(#s05:target) .menu a[href="#s05"] .mn,
+body:has(#s06:target) .menu a[href="#s06"] .mn,
+body:has(#s07:target) .menu a[href="#s07"] .mn,
+body:has(#s08:target) .menu a[href="#s08"] .mn,
+body:has(#s09:target) .menu a[href="#s09"] .mn,
+body:has(#s10:target) .menu a[href="#s10"] .mn,
+body:has(#s11:target) .menu a[href="#s11"] .mn { color: var(--on-accent); }
+
+.fields .f { display: grid; grid-template-columns: 17ch minmax(0, 1fr); column-gap: 1ch; }
+.fields dt { display: flex; min-width: 0; white-space: nowrap; color: var(--muted); }
+.fields .k { flex: none; }
+.fields .ld { flex: 1 1 0; min-width: 0; overflow: hidden; display: flex; justify-content: flex-end; margin-left: 1ch; }
+.fields .ld > span { flex: none; }
+.fields dd { color: var(--ink); }
+.qs { overflow-wrap: anywhere; }
+.keys { display: flex; flex-wrap: wrap; column-gap: 2ch; margin-top: var(--ln); padding-bottom: 0; }
+.keys a { text-decoration: none; color: var(--accent); }
+.keys a:hover, .keys a:focus-visible { color: var(--on-accent); }
+
+/* ---------- man-page sections with numbered gutter ---------- */
+.sec { position: relative; margin-top: calc(var(--ln) * 2); padding-left: 7ch; scroll-margin-top: var(--ln); overflow-wrap: anywhere; }
+.sec > h2 { font: 700 1rem/1.25 var(--font-display); letter-spacing: 0; }
+.sec .nm { background: var(--accent); color: var(--on-accent); padding: 0 1ch; text-shadow: none; }
+.sec .no {
+  position: absolute; left: 0; top: 0;
+  width: 3ch; height: 2.5rem;                     /* 6ch x 2 lines of body grid */
+  font: 700 2rem/1.25 var(--font-display);
+  text-align: center;
+  background: var(--accent); color: var(--on-accent); text-shadow: none;
+}
+.sec > * + * { margin-top: var(--ln); }
+.sec > h2 + *, .sec > .ex { margin-top: 0; }
+.sec p { max-width: 73ch; }
+.hello { color: var(--accent); }
+.tp { display: grid; grid-template-columns: 7ch minmax(0, 1fr); }
+.tp dt { grid-column: 1 / -1; }
+.tp dt.s { grid-column: 1; }
+.tp dd { grid-column: 2; }
+.tp dd + dt { margin-top: var(--ln); }
+.ex { padding-left: 7ch; color: var(--ink); word-break: break-all; }
+.ex .ps { color: var(--muted); }
+.fig { display: block; white-space: pre; color: var(--ink); }
+.fig b { font-weight: 500; }
+.fig.v { display: none; }
+.tbl { display: block; white-space: pre; margin-top: var(--ln); color: var(--ink); }
+.sig { margin-top: var(--ln); padding-left: 33ch; }
+.sig .name { font: 700 1rem/1.25 var(--font-display); color: var(--accent); }
+.ps-note { margin-top: var(--ln); }
+.ps-note .pp { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
+
+.mf { display: flex; justify-content: space-between; gap: 2ch; margin-top: calc(var(--ln) * 2); white-space: nowrap; }
+.last { margin-top: var(--ln); }
+.cur {
+  display: inline-block; width: 1ch; height: 1.25em;
+  vertical-align: top;
+  background: var(--accent);
+  animation: blink var(--motion-duration) var(--motion-easing) infinite;
+}
+@keyframes blink { from { opacity: 1; } to { opacity: 0; } }
+
+/* ---------- status bar (reverse video) ---------- */
+.status {
+  grid-column: 1 / -1;
+  display: flex; justify-content: space-between; gap: 2ch;
+  background: var(--accent); color: var(--on-accent); text-shadow: none;
+  padding: 0 2ch;
+  white-space: nowrap; overflow: hidden;
+}
+.status b { color: var(--on-accent); font-family: var(--font-display); font-weight: 700; }
+.status .short, .status .xs { display: none; }
+
+/* ---------- narrower screens ---------- */
+@media (max-width: 1239px) {
+  .paper { grid-template-columns: minmax(0, 80ch); background-image: none; }
+  .paper > * { order: 2; }
+  .paper > .prompt:first-child, .paper > .mh, .paper > .frame, .paper > #s01, .paper > #s02 { order: 0; }
+  .paper > .side { order: 1; margin-top: calc(var(--ln) * 2); }
+  .paper > .side { grid-column: 1; grid-row: auto; position: static; grid-template-columns: 30ch minmax(0, 1fr); column-gap: 2ch; align-items: start; }
+  .menu ol { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
+  .status .long { display: none; }
+  .status .short { display: inline; }
+}
+@media (max-width: 899px) {
+  :root { --bfs: 1.25rem; --brows: 5; }
+  .fb { padding-inline: 3ch; }
+  .paper > .side { grid-template-columns: minmax(0, 1fr); }
+  .menu ol { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(6, var(--ln)); grid-auto-flow: column; }
+  .fig.h { display: none; }
+  .fig.v { display: block; }
+  .sig { padding-left: 14ch; }
+}
+@media (max-width: 600px) {
+  :root { --bfs: 0.75rem; --brows: 3; }
+  body { padding: var(--space-2); }
+  .screen { grid-template-columns: 2ch minmax(0, 1fr) 2ch; }
+  .tractor { background-image: radial-gradient(circle at 50% 50%, var(--paper) 0 3px, var(--rule) 3px 4.5px, transparent 5px); }
+  .paper { padding: var(--ln) 1ch calc(var(--ln) * 3); }
+  .fb { padding-inline: 2ch; }
+  .mh .long, .mf .long { display: none; }
+  .mh .short, .mf .short { display: inline; }
+  .sec { padding-left: 2ch; }
+  .sec > h2 { display: flex; align-items: flex-end; gap: 1ch; margin-left: -2ch; }
+  .sec .no { position: static; flex: none; }
+  .tp { grid-template-columns: 2ch minmax(0, 1fr); }
+  .tp dt.s { grid-column: 1 / -1; }
+  .ex { padding-left: 2ch; }
+  .sig { padding-left: 2ch; }
+  .fields .f { grid-template-columns: 14ch minmax(0, 1fr); }
+  .fields .nw { white-space: normal; }
+  .mf { gap: 1ch; }
+  .status .short { display: none; }
+  .status .xs { display: inline; }
+}
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="status" aria-hidden="true">
+    <span class="long"><b>SLUICE(1)</b> │ 0.9.2 · 14 October 2026 │ Go · MIT · 41 contributors</span>
+    <span class="long">web UI :8081 │ no hosted service · no account · no telemetry</span>
+    <span class="short"><b>SLUICE(1)</b> │ 0.9.2 · 14 October 2026 │ MIT</span>
+    <span class="short">web UI :8081 │ no telemetry</span>
+    <span class="xs"><b>SLUICE(1)</b> │ 0.9.2 │ MIT</span>
+    <span class="xs">no telemetry</span>
+  </div>
+  <div class="tractor" aria-hidden="true"></div>
+  <main class="paper">
+
+    <p class="prompt"><span class="ps">$</span> man sluice</p>
+
+    <header class="mh" aria-label="Manual page header">
+      <span>SLUICE(1)</span> <span class="c long">General Commands Manual</span> <span class="c short">Manual</span> <span>SLUICE(1)</span>
+    </header>
+
+    <div class="frame">
+      <div class="bl" aria-hidden="true"><span>╔</span><span class="run">════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════</span><span>╗</span></div>
+      <div class="fb">
+        <h1><span class="sr">Sluice</span><span class="bn" aria-hidden="true"><span class="shd">  ▄▄▄▄ ▄     ▄   ▄ ▄▄▄▄▄  ▄▄▄▄ ▄▄▄▄▄
+ █     █     █   █   █   █     █
+  ▀▀▀▄ █     █   █   █   █     █▀▀▀
+ ▄▄▄▄▀ █▄▄▄▄ ▀▄▄▄▀ ▄▄█▄▄ ▀▄▄▄▄ █▄▄▄▄</span><span class="ink">▄▀▀▀▀ █     █   █ ▀▀█▀▀ ▄▀▀▀▀ █▀▀▀▀
+▀▄▄▄  █     █   █   █   █     █▄▄▄
+    █ █     █   █   █   █     █
+▀▀▀▀  ▀▀▀▀▀  ▀▀▀  ▀▀▀▀▀  ▀▀▀▀ ▀▀▀▀▀</span></span></h1>
+        <p class="tag t1"><span class="ttl"><span class="nw">A SELF-HOSTED INBOX</span> <span class="nw">FOR WEBHOOKS</span></span> <span>version 0.9.2</span></p>
+        <p class="tag"><span class="dim"><span class="nw">receive · store ·</span> <span class="nw">forward · replay</span></span> <span class="dim">14 October 2026</span></p>
+      </div>
+      <div class="bl" aria-hidden="true"><span>╚</span><span class="run">════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════</span><span>╝</span></div>
+    </div>
+
+    <aside class="side" aria-label="Sections and facts">
+      <nav class="box menu" aria-label="Sections">
+        <div class="bl" aria-hidden="true"><span>┌─</span><b>&#160;SECTIONS&#160;</b><span class="run">────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span><span>┐</span></div>
+        <div class="bb"><ol>
+          <li><a href="#s01" class="sel"><span class="mn">01</span> NAME</a></li>
+          <li><a href="#s02"><span class="mn">02</span> SYNOPSIS</a></li>
+          <li><a href="#s03"><span class="mn">03</span> DESCRIPTION</a></li>
+          <li><a href="#s04"><span class="mn">04</span> COMMANDS</a></li>
+          <li><a href="#s05"><span class="mn">05</span> OPTIONS</a></li>
+          <li><a href="#s06"><span class="mn">06</span> SECURITY</a></li>
+          <li><a href="#s07"><span class="mn">07</span> FILES</a></li>
+          <li><a href="#s08"><span class="mn">08</span> EXAMPLES</a></li>
+          <li><a href="#s09"><span class="mn">09</span> NOTES</a></li>
+          <li><a href="#s10"><span class="mn">10</span> SEE ALSO</a></li>
+          <li><a href="#s11"><span class="mn">11</span> AUTHORS</a></li>
+        </ol></div>
+        <div class="bl" aria-hidden="true"><span>└</span><span class="run">────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span><span>┘</span></div>
+      </nav>
+      <div class="box facts">
+        <div class="bl" aria-hidden="true"><span>┌─</span><b>&#160;AT A GLANCE&#160;</b><span class="run">────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span><span>┐</span></div>
+        <div class="bb"><dl class="fields">
+          <div class="f"><dt><span class="k">Version</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>0.9.2</dd></div>
+          <div class="f"><dt><span class="k">Released</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>14 October 2026</dd></div>
+          <div class="f"><dt><span class="k">Binary</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>static, about 11 MB</dd></div>
+          <div class="f"><dt><span class="k">Systems</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>Linux, macOS, Windows</dd></div>
+          <div class="f"><dt><span class="k">Arch</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>amd64, arm64</dd></div>
+          <div class="f"><dt><span class="k">Storage</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>one SQLite file</dd></div>
+          <div class="f"><dt><span class="k">Not needed</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>Redis, Postgres, a queue</dd></div>
+          <div class="f"><dt><span class="k">Web UI</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>port 8081</dd></div>
+          <div class="f"><dt><span class="k">Keeps</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>30 days, or <b class="nb">--retain</b></dd></div>
+          <div class="f"><dt><span class="k">Retries</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd><span class="nw">exponential backoff,</span> <span class="nw">up to 72 hours</span></dd></div>
+          <div class="f"><dt><span class="k">Signatures</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>HMAC-SHA256</dd></div>
+          <div class="f"><dt><span class="k">Max age</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>5 minutes</dd></div>
+          <div class="f"><dt><span class="k">Throughput</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>1,800 deliveries/s</dd></div>
+          <div class="f"><dt><span class="k">Measured on</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd><span class="nw">a 2-vCPU VM,</span> <span class="nw dim">own benchmark</span></dd></div>
+          <div class="f"><dt><span class="k">Written in</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>Go</dd></div>
+          <div class="f"><dt><span class="k">Licence</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>MIT</dd></div>
+          <div class="f"><dt><span class="k">Contributors</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>41</dd></div>
+          <div class="f"><dt><span class="k">Account</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>none</dd></div>
+          <div class="f"><dt><span class="k">Telemetry</span><span class="ld" aria-hidden="true"><span>. . . . . . . . . . . . . . . . . . . . . . . . :</span></span></dt><dd>none</dd></div>
+        </dl>
+        <p class="keys"><a href="#s03">[ 03 read the letter ]</a><a href="#s08">[ 08 examples ]</a></p></div>
+        <div class="bl" aria-hidden="true"><span>└</span><span class="run">────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span><span>┘</span></div>
+      </div>
+    </aside>
+
+    <section class="sec" id="s01" aria-labelledby="h01">
+      <h2 id="h01"><span class="no">01<span class="sr"> </span></span><span class="nm">NAME</span></h2>
+      <p><b>sluice</b> — a self-hosted inbox for webhooks</p>
+    </section>
+
+    <section class="sec" id="s02" aria-labelledby="h02">
+      <h2 id="h02"><span class="no">02<span class="sr"> </span></span><span class="nm">SYNOPSIS</span></h2>
+      <p><span class="nw"><b>sluice serve</b></span> <span class="nw"><b>--forward</b> <u>url</u></span> <span class="nw">[<b>--retain</b> <u>period</u>]</span><br><span class="nw"><b>sluice replay</b> <u>delivery-id</u></span></p>
+    </section>
+
+    <section class="sec" id="s03" aria-labelledby="h03">
+      <h2 id="h03"><span class="no">03<span class="sr"> </span></span><span class="nm">DESCRIPTION</span></h2>
+      <p class="hello">Hello —</p>
+      <p>I'm Ines Okafor, and I maintain Sluice. Let me tell you why it exists. In 2023 I lost a weekend of payment webhooks, and afterwards I started writing the tool I wish I'd had.</p>
+      <p>So here is what it does for you. Sluice gives you a public URL for your webhooks. It stores every delivery that arrives, and it forwards each one to your local or internal service. When a forward <span class="err">fails</span>, it tries again with exponential backoff, for up to 72 hours. And any delivery it has stored, you can replay.</p>
+      <figure>
+        <span class="fig h" role="img" aria-label="A webhook arrives at your public URL; sluice serve verifies the HMAC-SHA256 signature, stores the delivery and forwards it to your local or internal service, retrying for up to 72 hours; sluice replay sends a stored delivery again."><span class="r">┌─────────────────┐</span>   <span class="r">┌──────────────────────┐</span>   <span class="r">┌────────────────────┐</span>
+<span class="r">│</span> <b>public URL</b>      <span class="r">├──</span><span class="ah">&gt;</span><span class="r">│</span> <b>sluice serve</b>         <span class="r">├──</span><span class="ah">&gt;</span><span class="r">│</span> <b>your service</b>       <span class="r">│</span>
+<span class="r">│</span> webhooks arrive <span class="r">│</span>   <span class="r">│</span> verifies HMAC-SHA256 <span class="r">│</span>   <span class="r">│</span> local or internal  <span class="r">│</span>
+<span class="r">└─────────────────┘</span>   <span class="r">│</span> stores each delivery <span class="r">│</span>   <span class="r">│</span> localhost:3000     <span class="r">│</span>
+                      <span class="r">│</span> retries, up to 72 h  <span class="r">│</span>   <span class="r">└──────────┬─────────┘</span>
+                      <span class="r">└───┬──────────────────┘</span>              <span class="ah">↑</span>
+                          <span class="r">└─</span> sluice replay &lt;delivery-id&gt; <span class="r">───┘</span></span>
+        <span class="fig v" role="img" aria-label="Public URL, then sluice serve, then your service."><span class="r">┌──────────────────────────┐</span>
+<span class="r">│</span> <b>public URL</b>               <span class="r">│</span>
+<span class="r">│</span> webhooks arrive          <span class="r">│</span>
+<span class="r">└─────┬────────────────────┘</span>
+      <span class="ah">↓</span>
+<span class="r">┌─────┴────────────────────┐</span>
+<span class="r">│</span> <b>sluice serve</b>             <span class="r">│</span>
+<span class="r">│</span> verifies HMAC-SHA256     <span class="r">│</span>
+<span class="r">│</span> stores each delivery     <span class="r">│</span>
+<span class="r">│</span> retries, up to 72 h      <span class="r">│</span>
+<span class="r">└─────┬────────────────────┘</span>
+      <span class="ah">↓</span> forward or replay
+<span class="r">┌─────┴────────────────────┐</span>
+<span class="r">│</span> <b>your service</b>             <span class="r">│</span>
+<span class="r">│</span> local or internal        <span class="r">│</span>
+<span class="r">│</span> localhost:3000           <span class="r">│</span>
+<span class="r">└──────────────────────────┘</span></span>
+      </figure>
+      <p>It is small: one static binary, about 11 MB, for Linux, macOS and Windows on amd64 and arm64. Everything is kept in a single SQLite file, so there is no Redis, no Postgres and no queue for you to run.</p>
+      <p>When you want to look back, the web UI on port 8081 lets you search deliveries by path, header or body text. They stay for 30 days unless you change that with <b>--retain</b>.</p>
+      <p>Installing takes one line and starting takes another; both are under <a href="#s08">EXAMPLES</a>. I hope it saves you a weekend.</p>
+    </section>
+
+    <section class="sec" id="s04" aria-labelledby="h04">
+      <h2 id="h04"><span class="no">04<span class="sr"> </span></span><span class="nm">COMMANDS</span></h2>
+      <dl class="tp">
+        <dt class="s"><b>serve</b></dt>
+        <dd>Take webhooks at your public URL, store every delivery, and forward it to the service you name with <b>--forward</b>.</dd>
+        <dt><b>replay</b> <u>delivery-id</u></dt>
+        <dd>Forward one stored delivery again. Any delivery Sluice has kept can be replayed.</dd>
+      </dl>
+    </section>
+
+    <section class="sec" id="s05" aria-labelledby="h05">
+      <h2 id="h05"><span class="no">05<span class="sr"> </span></span><span class="nm">OPTIONS</span></h2>
+      <dl class="tp">
+        <dt><b>--forward</b> <u>url</u></dt>
+        <dd>Your local or internal service, for example http://localhost:3000. If a forward <span class="err">fails</span>, Sluice retries with exponential backoff for up to 72 hours.</dd>
+        <dt><b>--retain</b> <u>period</u></dt>
+        <dd>How long deliveries are kept. Leave it out and Sluice keeps them for 30 days.</dd>
+      </dl>
+    </section>
+
+    <section class="sec" id="s06" aria-labelledby="h06">
+      <h2 id="h06"><span class="no">06<span class="sr"> </span></span><span class="nm">SECURITY</span></h2>
+      <p>Sluice verifies HMAC-SHA256 signatures, and it <span class="err">rejects</span> deliveries older than 5 minutes.</p>
+      <p>There is no hosted service, no account to create and no telemetry. You run it, and it reports to no one.</p>
+    </section>
+
+    <section class="sec" id="s07" aria-labelledby="h07">
+      <h2 id="h07"><span class="no">07<span class="sr"> </span></span><span class="nm">FILES</span></h2>
+      <dl class="tp">
+        <dt><b>sluice</b></dt>
+        <dd>The program: one static binary, about 11 MB.<span class="tbl" role="img" aria-label="Builds for Linux, macOS and Windows, each on amd64 and arm64."><span class="r">┌─────────┬───────┬───────┐</span>
+<span class="r">│</span>         <span class="r">│</span> <b>amd64</b> <span class="r">│</span> <b>arm64</b> <span class="r">│</span>
+<span class="r">├─────────┼───────┼───────┤</span>
+<span class="r">│</span> Linux   <span class="r">│</span>  yes  <span class="r">│</span>  yes  <span class="r">│</span>
+<span class="r">│</span> macOS   <span class="r">│</span>  yes  <span class="r">│</span>  yes  <span class="r">│</span>
+<span class="r">│</span> Windows <span class="r">│</span>  yes  <span class="r">│</span>  yes  <span class="r">│</span>
+<span class="r">└─────────┴───────┴───────┘</span></span></dd>
+        <dt>one SQLite file</dt>
+        <dd>Every stored delivery lives here. Nothing else to run: no Redis, no Postgres, no queue.</dd>
+      </dl>
+    </section>
+
+    <section class="sec" id="s08" aria-labelledby="h08">
+      <h2 id="h08"><span class="no">08<span class="sr"> </span></span><span class="nm">EXAMPLES</span></h2>
+      <p>Install:</p>
+      <p class="ex"><span class="ps">$</span> curl -fsSL https://sluice.example/install.sh | sh</p>
+      <p>Start, forwarding to a service on port 3000:</p>
+      <p class="ex"><span class="ps">$</span> sluice serve --forward http://localhost:3000</p>
+      <p>Send a stored delivery again:</p>
+      <p class="ex"><span class="ps">$</span> sluice replay &lt;delivery-id&gt;</p>
+      <p>Then open the web UI on port 8081 and search by path, header or body text.</p>
+    </section>
+
+    <section class="sec" id="s09" aria-labelledby="h09">
+      <h2 id="h09"><span class="no">09<span class="sr"> </span></span><span class="nm">NOTES</span></h2>
+      <p>In the project's own benchmark, Sluice takes 1,800 deliveries per second on a 2-vCPU VM. It is our own benchmark, so please measure on your machines before you lean on it.</p>
+    </section>
+
+    <section class="sec" id="s10" aria-labelledby="h10">
+      <h2 id="h10"><span class="no">10<span class="sr"> </span></span><span class="nm">SEE ALSO</span></h2>
+      <dl class="tp">
+        <dt><b>curl</b>(1)</dt>
+        <dd>fetches the installer, https://sluice.example/install.sh</dd>
+        <dt><b>web UI</b>, port 8081</dt>
+        <dd>search deliveries by path, header or body text</dd>
+      </dl>
+    </section>
+
+    <section class="sec" id="s11" aria-labelledby="h11">
+      <h2 id="h11"><span class="no">11<span class="sr"> </span></span><span class="nm">AUTHORS</span></h2>
+      <p>Sluice is written in Go and released under the MIT licence. I maintain it, together with 41 contributors.</p>
+      <p>Thank you for reading a man page all the way to the end.</p>
+      <p class="sig">Yours,<br><span class="name">Ines Okafor</span><br><span class="dim">14 October 2026, the day 0.9.2 went out</span></p>
+      <p class="ps-note"><span class="pp">P.S.</span> A failed forward is retried for up to 72 hours. That is longer than the weekend I lost in 2023.</p>
+    </section>
+
+    <footer class="mf">
+      <span>Sluice 0.9.2</span> <span class="long">14 October 2026</span> <span class="short">2026-10-14</span> <span>SLUICE(1)</span>
+    </footer>
+
+    <p class="prompt last"><span class="ps">$</span> curl -fsSL https://sluice.example/install.sh | sh<span class="cur" aria-hidden="true"></span></p>
+
+  </main>
+  <div class="tractor" aria-hidden="true"></div>
+
+</div>
+</body>
+</html>

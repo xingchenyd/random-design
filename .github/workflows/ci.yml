@@ -32,3 +32,4 @@ jobs:
         env:
           PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT: 120000
       - run: npm run test:browser
+      - run: npm run test:migration

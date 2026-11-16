@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第四巷面包店 · 本周</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:wght@400;600;700&display=swap">
+<style>
+  :root { --paper: #f4f0e4; --ink: #161412; --muted: #4f4a42; --accent: #d7261e; --accent2: #ffd400; --rule: #161412; --panel: #ffd400; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Archivo Narrow", "Arial Narrow", sans-serif; }
+  .mast { display: grid; grid-template-columns: 2fr 1fr; border-bottom: 6px solid var(--accent); }
+  .mast h1 { font-family: Anton, Impact, sans-serif; font-size: 12vw; line-height: .86; margin: 0; text-transform: uppercase; }
+  .dates { background: var(--ink); color: var(--paper); padding: 8px 12px; }
+  .deals { display: grid; grid-template-columns: repeat(12, 1fr); border-top: 3px solid var(--rule); }
+  .deal { border-right: 3px solid var(--rule); border-bottom: 3px solid var(--rule); padding: 12px; }
+  .deal.big { grid-column: span 6; background: var(--panel); }
+  .deal.s { grid-column: span 3; }
+  .price { font-family: Anton, Impact, sans-serif; font-size: 96px; color: var(--accent); }
+  .coupon { border: 2px dashed var(--ink); padding: 12px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  .price:hover { transition: color 0ms steps(1, end); color: var(--ink); }
+</style>
+</head>
+<body>
+  <header class="mast"><h1>第四巷面包店</h1><p class="dates">本周 周二至周日 7:00–19:00</p></header>
+  <main class="deals">
+    <article class="deal big"><h2>乡村面包</h2><p class="price">¥38</p><p>48 小时发酵，半个 ¥20。</p></article>
+    <article class="deal s"><h3>可颂</h3><p class="price">¥16</p></article>
+    <article class="deal s"><h3>肉桂卷</h3><p class="price">¥18</p><p>11:00 第二炉。</p></article>
+  </main>
+  <p class="coupon">剪下 · 周六面包课 9:00，6 人一班。</p>
+</body>
+</html>

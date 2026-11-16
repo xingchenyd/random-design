@@ -9,8 +9,8 @@ let language = (query.get('lang') ?? localStorage.getItem('random-design.languag
 let history = [], current, locked, selectedId;
 let activeMode = 'hash';
 const presetLabels = {
-  zh: { hashMode: '随机哈希', fixedMode: '固定风格 · 21', choosePreset: '选择固定风格', allPresets: '查看 21 种效果 ↗' },
-  en: { hashMode: 'Random hash', fixedMode: 'Fixed styles · 21', choosePreset: 'Choose a fixed style', allPresets: 'View all 21 styles ↗' }
+  zh: { collectionTitle:'先看完整设计，再选你的方向。',showcase:'20 个完整案例 ↗',reference:'40 套风格规则 ↗',hashMode: '随机哈希', fixedMode: '固定风格 · 21', choosePreset: '选择固定风格', allPresets: '查看 21 种效果 ↗' },
+  en: { collectionTitle:'See complete designs. Choose a direction.',showcase:'20 complete designs ↗',reference:'40 design directions ↗',hashMode: 'Random hash', fixedMode: 'Fixed styles · 21', choosePreset: 'Choose a fixed style', allPresets: 'View all 21 styles ↗' }
 };
 const messages = {
   zh: { headline: '给每次表达，<br>一个新主题。', intro: '颜色、字体、构图与图形一起生成。选择一个方向，把它带到网页或幻灯片。', privacy: '无需账号或 API 密钥。设计在浏览器内生成，历史保存在此浏览器。', scenario: '使用场景', mode: '明暗范围', intensity: '视觉强度', count: '方案数量', brand: '锁定品牌色', generate: '生成下一组方向 ↗', examples: '示例', exportHistory: '导出历史', importHistory: '导入历史', importDesign: '打开规范', ready: '准备好探索下一组方向', directions: '你的候选方向', compareHint: '同一份示例内容，比较视觉差异。点击放大后选择。', method1: '连续参数生成配色；构图规则与程序图形组合成统一的视觉语言。', method2: '筛掉精确重复与近期过近的主题。差异指标是属性比较，不代表审美评分。', method3: '下载网页、设计规范、SVG 或六页可编辑 PPTX。文字内容与风格分开管理。', footer: '字体按需从 Google Fonts 加载；离线时使用本机替代字体。PPTX 不嵌入字体。所有数据仅为示例。', close: '关闭 ×', select: '选择此方向', selected: '已选择 ✓', expand: '放大', explore: '锁定后继续探索', palette: '颜色', font: '字体', graphic: '图形', composition: '构图' },
@@ -28,6 +28,8 @@ function applyLanguage() {
   localStorage.setItem('random-design.language', language);
   $('#preset-gallery-link').href = language === 'zh' ? './presets/' : './presets/en.html';
   $('#examples-link').href = language === 'zh' ? './presets/hash.html' : './presets/hash-en.html';
+  $('#showcase-link').href='./showcase/'+(language==='en'?'en.html':'');
+  $('#reference-link').href='./reference/?lang='+language;
   const selected = $('#preset-select').value;
   $('#preset-select').replaceChildren(...PRESETS.map(preset => {
     const option = document.createElement('option');

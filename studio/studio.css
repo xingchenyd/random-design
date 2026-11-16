@@ -11,3 +11,5 @@
 .fixed-panel a { padding: 8px 0; font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
 #hash-panel[hidden], #fixed-panel[hidden] { display: none; }
 @media (max-width: 560px) { .fixed-panel { flex-wrap: wrap; gap: 10px; } .fixed-panel .control { flex: 1 1 100%; } }
+
+.collection-callout{display:flex;align-items:center;gap:28px;border-block:1px solid #a8b3a8;padding:26px 0;margin:0 0 32px}.collection-callout>div{flex:1}.collection-callout h2{font-size:23px;font-weight:500;margin:8px 0}.collection-callout a{color:inherit;text-underline-offset:5px}.collection-callout .kicker{font-size:10px}@media(max-width:700px){.collection-callout{flex-wrap:wrap;gap:18px}.collection-callout>div{flex-basis:100%}}

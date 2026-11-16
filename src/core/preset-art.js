@@ -1,3 +1,4 @@
+import {inkLandscape} from './ink-art.js';
 import { materialCup } from './material-art.js';
 // Original motif drawings for the preset renderers. Coordinate units are SVG
 // viewBox units, shared by the website and PowerPoint exports.
@@ -127,14 +128,7 @@ export function presetArtwork(design, decorative) {
       </g>`;
       break;
     case 'ink-landscape':
-      art = `<g clip-path="url(#moon-window)"><circle cx="320" cy="250" r="196" fill="url(#mist)"/>
-        <circle cx="420" cy="143" r="31" fill="${p.accent}"/>
-        <path d="M97 267Q148 216 207 228Q263 159 305 201Q327 218 374 236Q418 191 489 217L544 243V333H97Z" fill="#729080" opacity=".45"/>
-        <path d="M103 301Q174 243 236 269Q298 205 367 263Q413 249 543 299V361H103Z" fill="#3e6d62" opacity=".68"/>
-        <path d="M109 331Q228 310 340 327T542 322M145 360Q290 333 483 355M172 386Q312 358 454 379" stroke="#f3eedb" stroke-width="5" opacity=".63" fill="none"/>
-        <path d="M212 339Q320 387 430 339L412 361Q320 399 230 361Z" fill="#234f43"/><ellipse cx="321" cy="338" rx="109" ry="15" fill="#b7d2bb"/><ellipse cx="321" cy="338" rx="91" ry="10" fill="#3b5946"/><path d="M192 385Q315 407 443 385" fill="none" stroke="#5e7c6b" stroke-width="3"/>
-      </g><circle cx="320" cy="250" r="196" fill="none" stroke="${p.ink}" stroke-width="5"/>
-      <circle cx="320" cy="250" r="208" fill="none" stroke="${p.ink}" stroke-width="1"/>`;
+      art=inkLandscape(p);
       break;
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="500" viewBox="0 0 640 500"${decorative ? ' aria-hidden="true"' : ' role="img" aria-label="Style illustration"'}>${defs}${art}</svg>`;

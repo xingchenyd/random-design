@@ -1,3 +1,4 @@
+import {COMPOSITION_CSS} from './composition-css.js';
 import { MATERIAL_BASE, MATERIAL_CSS } from './material-css.js';
 import { escapeHtml as escape } from './core/util.js';
 import { graphicSvg } from './core/graphics.js';
@@ -118,9 +119,10 @@ export function renderPresetWebsite(design, preset, content, { language, fonts, 
   ${MATERIAL_BASE}
   ${MATERIAL_CSS[preset.id]}
   ${responsiveCss}
+  ${COMPOSITION_CSS}
   </style>
 </head>
-<body class="layout-${preset.layout} style-${preset.id}" data-renderer="material/1" data-design="${design.id}" data-direction="${preset.id}">
+<body class="layout-${preset.layout} style-${preset.id}" data-renderer="composition/2" data-design="${design.id}" data-direction="${preset.id}">
   <div class="frame">
     <div class="ambient" aria-hidden="true"></div>
     <header class="mast"><strong><span class="brand-mark" aria-hidden="true">◉</span> ${escape(content.subtitle)}</strong><a href="#menu">${escape(content.sectionTitle)} ↗</a></header>

@@ -1,0 +1,2289 @@
+{
+  "algorithm": "hash-design/v1",
+  "library": "c7b166fe6ec0",
+  "createdAt": "2026-11-01T17:02:10.452Z",
+  "source": "seed:fourth-lane-bakery",
+  "constraints": {
+    "lightOnly": false,
+    "darkOnly": false,
+    "reducedMotion": false,
+    "brandColors": [],
+    "families": [],
+    "include": [],
+    "exclude": []
+  },
+  "content": {
+    "subject": "第四巷面包店",
+    "facts": [
+      "店名：第四巷面包店（Fourth Lane Bakery）",
+      "地址：老城区第四巷 17 号，巷口数第二个门，绿色木门",
+      "营业：周二至周日 7:00–19:00；周一休息",
+      "每天两炉：7:00 第一炉（乡村面包、可颂），11:00 第二炉（肉桂卷、黑麦面包）",
+      "卖完即止，当天不留货",
+      "乡村面包：天然酵种，48 小时低温发酵，整个 ¥38，半个 ¥20",
+      "黑麦面包：70% 黑麦，750 g，每日限 12 个，¥42",
+      "可颂：法国发酵黄油，¥16",
+      "肉桂卷：¥18，只在第二炉",
+      "酵种养了 9 年，店里叫它“老周”",
+      "面粉：本地石磨全麦粉 + 法国 T65",
+      "预订：提前一天 17:00 前，电话 021-5555-0417 或店内登记",
+      "周六 9:00–11:30 面包课，6 人小班，¥260/人，带走自己烤的面包",
+      "店主：周岚，前建筑师，2019 年开店",
+      "店内 6 个座位，手冲咖啡 ¥22"
+    ],
+    "language": "zh"
+  },
+  "designs": [
+    {
+      "number": 1,
+      "slug": "01-bureaucratic-form",
+      "ref": "51a76d0076661e6657b185c58f6120d8bf340c21062111c8651c52cf9f3a324b",
+      "hash": "51a76d0076661e6657b185c58f6120d8bf340c21062111c8651c52cf9f3a324b",
+      "short": "51a76d00",
+      "probe": 0,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "第四巷面包店",
+        "facts": [
+          "店名：第四巷面包店（Fourth Lane Bakery）",
+          "地址：老城区第四巷 17 号，巷口数第二个门，绿色木门",
+          "营业：周二至周日 7:00–19:00；周一休息",
+          "每天两炉：7:00 第一炉（乡村面包、可颂），11:00 第二炉（肉桂卷、黑麦面包）",
+          "卖完即止，当天不留货",
+          "乡村面包：天然酵种，48 小时低温发酵，整个 ¥38，半个 ¥20",
+          "黑麦面包：70% 黑麦，750 g，每日限 12 个，¥42",
+          "可颂：法国发酵黄油，¥16",
+          "肉桂卷：¥18，只在第二炉",
+          "酵种养了 9 年，店里叫它“老周”",
+          "面粉：本地石磨全麦粉 + 法国 T65",
+          "预订：提前一天 17:00 前，电话 021-5555-0417 或店内登记",
+          "周六 9:00–11:30 面包课，6 人小班，¥260/人，带走自己烤的面包",
+          "店主：周岚，前建筑师，2019 年开店",
+          "店内 6 个座位，手冲咖啡 ¥22"
+        ],
+        "language": "zh"
+      },
+      "branch": {
+        "id": "bureaucratic-form",
+        "name": {
+          "zh": "公文表格",
+          "en": "Bureaucratic form"
+        },
+        "family": "document",
+        "concept": {
+          "zh": "政府表格与公文：角上的表格编号、一格一格的填写框、小号大写的填表说明、勾选框、印章、复写联和虚线撕角。页面像一份需要逐项填写的正式申请，秩序本身就是权威。",
+          "en": "Government forms and official documents: a form number in the corner, boxed fields, instructions in small capitals, checkboxes, rubber stamps, carbon copies and perforated tear-offs. The page reads like an official application you work through line by line; order itself is the authority."
+        },
+        "references": [
+          "IRS Form 1040 and US federal forms printed by the Government Printing Office",
+          "British HMSO forms with “For official use only” panels",
+          "GB/T 9704-2012 党政机关公文格式（红头文件）",
+          "Carbonless triplicate sets on white / canary / pink NCR paper",
+          "Terry Gilliam, Brazil (1985) — Form 27B/6"
+        ],
+        "tokens": {
+          "grid": "Form grid: 12 columns, 0 gutter — fields are cells sharing 1px borders (border-collapse); row heights 40px (single-line field) or 80px (multi-line); every field has a numbered label in its top-left corner at 10–11px.",
+          "radius": "0. Checkboxes are 14px squares. Only round seals use border-radius 50%.",
+          "border": "Cells 1px solid var(--accent) in dropout palettes, otherwise var(--ink); part headers as reversed 24px bars; heavy 3px rule under the form title; perforations 1px dashed (4px/3px).",
+          "shadow": "none. Carbon copies peek out by a 16px offset with a 1px rule outline — no blur."
+        },
+        "must": [
+          "Each fact sits in a labelled, numbered field or a numbered paragraph — no free-floating promotional copy.",
+          "The page carries a form or document number and a date or version.",
+          "Instructions are set smaller than field values, in small caps or uppercase.",
+          "Calls to action are phrased as form steps (“Complete Part III”, “Submit at counter 4”)."
+        ],
+        "mustNot": [
+          "No friendly onboarding UI: no rounded progress pills, illustrations or mascots.",
+          "No empty-looking fields when the facts supply the value — show the value typed in.",
+          "No real agency names, emblems or seals; the issuing body comes only from the facts."
+        ]
+      },
+      "voice": {
+        "id": "dictionary-entry",
+        "name": {
+          "zh": "词条",
+          "en": "Dictionary entry"
+        },
+        "description": "把主题写成词典词条：词头、注音/词性、编号释义、例句、参见。",
+        "devices": [
+          "词头加粗",
+          "注音或词性",
+          "① ② 释义",
+          "例句 / 参见 →"
+        ],
+        "example": "第四巷 dì sì xiàng ⟨名⟩ ① 一条只有一家面包店的巷子。"
+      },
+      "layout": {
+        "id": "numbered-field-form",
+        "name": "Numbered field form",
+        "description": "A single form: header with form number and issuing body, then Parts I–III of boxed fields, each fact typed into a labelled field.",
+        "grid": "12-column cell grid, max 960px; fields span 3, 4, 6 or 12 columns; part bars full width; a 120px shaded right column “For official use only”.",
+        "structure": [
+          "Header: form number large top-left (e.g. “Form 27-B”), issuing body centred, reference number and year top-right",
+          "Instruction line in small caps: “READ THE NOTES ON PAGE 2 BEFORE COMPLETING THIS FORM”",
+          "Part I — Identification: name, address and contact as filled fields",
+          "Part II — Particulars: checkbox matrix and numbered fields with the real facts typed in",
+          "Part III — Declaration: signature, date and stamp area, then a perforated receipt stub"
+        ]
+      },
+      "anchor": {
+        "id": "form-masthead",
+        "name": "Form masthead",
+        "description": "The first screen is the form header: giant form number, issuing body, year box, “Please print in black ink”, and Part I fields starting below."
+      },
+      "type": {
+        "id": "formular-condensed",
+        "name": "IBM Plex Sans Condensed + IBM Plex Sans",
+        "display": {
+          "family": "IBM Plex Sans Condensed",
+          "weights": [
+            600,
+            700
+          ],
+          "fallback": "\"Arial Narrow\", sans-serif",
+          "source": "google"
+        },
+        "body": {
+          "family": "IBM Plex Sans",
+          "weights": [
+            400,
+            500
+          ],
+          "fallback": "Arial, sans-serif",
+          "source": "google"
+        },
+        "mono": {
+          "family": "IBM Plex Mono",
+          "weights": [
+            400
+          ],
+          "fallback": "\"Courier New\", monospace",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "Noto Serif SC",
+          "body": "Noto Sans SC"
+        },
+        "notes": "IBM Plex Sans Condensed 700 for titles and part bars at 24–36px; IBM Plex Sans 400 body at 15px/1.4; IBM Plex Mono for reference numbers, ISO dates (2026-11-01) and field values with tabular figures. For red-header notices the CJK issuing body is Noto Serif SC 900 (standing in for 方正小标宋), body text 16px."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "\"IBM Plex Sans Condensed\", \"Noto Serif SC\", \"Arial Narrow\", sans-serif",
+          "body": "\"IBM Plex Sans\", \"Noto Sans SC\", Arial, sans-serif",
+          "mono": "\"IBM Plex Mono\", \"Courier New\", monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono&family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap"
+      },
+      "palette": {
+        "id": "dropout-green",
+        "name": "Dropout-ink green",
+        "colors": {
+          "paper": "#fafcf6",
+          "ink": "#121a14",
+          "muted": "#445247",
+          "accent": "#2d7a4b",
+          "accent2": "#b23a2e",
+          "rule": "#8fc0a0",
+          "panel": "#e6f1e8"
+        },
+        "usage": "The pre-printed form (labels, boxes, part bars) in dropout green (accent ≈ 20%); filled-in data in ink; red (accent2) only for the serial number and “OFFICIAL USE ONLY” stamps; pale green panel for shaded official-use cells."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 17.17,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 7.99,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 15.3,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 5.08,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 5.74,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#ffffff on accent",
+            "ratio": 5.25,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#ffffff on accent2",
+            "ratio": 5.94,
+            "verdict": "AA — body text OK"
+          }
+        ],
+        "onAccent": "#ffffff",
+        "onAccent2": "#ffffff"
+      },
+      "density": {
+        "id": "compact",
+        "name": {
+          "zh": "紧凑",
+          "en": "Compact"
+        },
+        "baseSize": 15,
+        "lineHeight": 1.45,
+        "unit": 6,
+        "sectionGap": 64,
+        "maxWidth": 1320,
+        "description": "信息密集，多栏并行；用细线和对齐建立秩序，首屏就能看到 3 个以上信息块。"
+      },
+      "scale": {
+        "id": "minor-third",
+        "name": "Minor third 1.2",
+        "ratio": 1.2,
+        "steps": [
+          {
+            "step": -2,
+            "px": 10.4,
+            "rem": 0.651
+          },
+          {
+            "step": -1,
+            "px": 12.5,
+            "rem": 0.781
+          },
+          {
+            "step": 0,
+            "px": 15,
+            "rem": 0.938
+          },
+          {
+            "step": 1,
+            "px": 18,
+            "rem": 1.125
+          },
+          {
+            "step": 2,
+            "px": 21.6,
+            "rem": 1.35
+          },
+          {
+            "step": 3,
+            "px": 25.9,
+            "rem": 1.62
+          },
+          {
+            "step": 4,
+            "px": 31.1,
+            "rem": 1.944
+          },
+          {
+            "step": 5,
+            "px": 37.3,
+            "rem": 2.333
+          },
+          {
+            "step": 6,
+            "px": 44.8,
+            "rem": 2.799
+          },
+          {
+            "step": 7,
+            "px": 53.7,
+            "rem": 3.359
+          }
+        ]
+      },
+      "motion": {
+        "id": "rubber-stamp",
+        "name": "Rubber stamp",
+        "description": "On submit or click a stamp (“RECEIVED 01 NOV 2026”) lands: scale 1.3 → 1 and rotate to −8° while accelerating into the paper, then stops dead with uneven ink (SVG turbulence mask).",
+        "duration": "160ms",
+        "easing": "cubic-bezier(.55,0,1,.45)",
+        "reduced": "The stamp appears in place at full size; no scale."
+      },
+      "motif": {
+        "id": "numbered-fields",
+        "name": "Numbered field boxes",
+        "description": "Every value lives in a bordered box with a tiny numbered label in its top-left corner (“12b  Postal code”)."
+      },
+      "surface": {
+        "id": "photocopied-form",
+        "name": "Nth-generation photocopy",
+        "description": "Grey speckle and slightly thickened rules from repeated copying.",
+        "css": "background-color: var(--paper); background-image: radial-gradient(rgba(0,0,0,.07) 1px, transparent 1.2px); background-size: 5px 5px; filter: contrast(1.05);"
+      },
+      "twist": {
+        "id": "oversized-rule",
+        "name": {
+          "zh": "粗线分区",
+          "en": "Oversized rules"
+        },
+        "description": "至少一条 8px 以上的粗线（或双线）作为主分区手段，替代空白。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design 51a76d00 · bureaucratic-form · dropout-green */\n:root {\n  --paper: #fafcf6;\n  --ink: #121a14;\n  --muted: #445247;\n  --accent: #2d7a4b;\n  --on-accent: #ffffff;\n  --accent2: #b23a2e;\n  --on-accent2: #ffffff;\n  --rule: #8fc0a0;\n  --panel: #e6f1e8;\n\n  --font-display: \"IBM Plex Sans Condensed\", \"Noto Serif SC\", \"Arial Narrow\", sans-serif;\n  --font-body: \"IBM Plex Sans\", \"Noto Sans SC\", Arial, sans-serif;\n  --font-mono: \"IBM Plex Mono\", \"Courier New\", monospace;\n\n  --step-n2: 0.651rem; /* 10.4px */\n  --step-n1: 0.781rem; /* 12.5px */\n  --step-0: 0.938rem; /* 15px */\n  --step-1: 1.125rem; /* 18px */\n  --step-2: 1.35rem; /* 21.6px */\n  --step-3: 1.62rem; /* 25.9px */\n  --step-4: 1.944rem; /* 31.1px */\n  --step-5: 2.333rem; /* 37.3px */\n  --step-6: 2.799rem; /* 44.8px */\n  --step-7: 3.359rem; /* 53.7px */\n  --leading: 1.45;\n\n  --space-1: 6px;\n  --space-2: 12px;\n  --space-3: 18px;\n  --space-4: 24px;\n  --space-5: 30px;\n  --space-6: 36px;\n  --space-7: 42px;\n  --space-8: 48px;\n  --section-gap: 64px;\n  --max-width: 1320px;\n\n  --motion-duration: 160ms;\n  --motion-easing: cubic-bezier(.55,0,1,.45);\n}\n\nhtml { font-size: 93.8%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "51 a7",
+          "rule": "0x51a7 = 20903; 20903 mod 40 = 23",
+          "poolSize": 40,
+          "index": 23,
+          "result": "bureaucratic-form"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "6d",
+          "rule": "0x6d = 109; 109 mod 14 = 11",
+          "poolSize": 14,
+          "index": 11,
+          "result": "dictionary-entry"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "00",
+          "rule": "0x00 = 0; 0 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "numbered-field-form"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "76",
+          "rule": "0x76 = 118; 118 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "formular-condensed"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "66",
+          "rule": "0x66 = 102; 102 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "dropout-green"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "1e",
+          "rule": "0x1e = 30; 30 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "compact"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "66",
+          "rule": "0x66 = 102; 102 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "rubber-stamp"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "57",
+          "rule": "0x57 = 87; 87 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "numbered-fields"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "b1",
+          "rule": "0xb1 = 177; 177 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "form-masthead"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "85",
+          "rule": "0x85 = 133; 133 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "minor-third"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "c5",
+          "rule": "0xc5 = 197; 197 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "photocopied-form"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "8f",
+          "rule": "0x8f = 143; 143 mod 16 = 15",
+          "poolSize": 16,
+          "index": 15,
+          "result": "oversized-rule"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "slug": "02-bauhaus-primary",
+      "ref": "4f1cc0f2c8334072b6f033983e1687912da5d7ba471cb7c6dc4187b421696503",
+      "hash": "4f1cc0f2c8334072b6f033983e1687912da5d7ba471cb7c6dc4187b421696503",
+      "short": "4f1cc0f2",
+      "probe": 0,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "第四巷面包店",
+        "facts": [
+          "店名：第四巷面包店（Fourth Lane Bakery）",
+          "地址：老城区第四巷 17 号，巷口数第二个门，绿色木门",
+          "营业：周二至周日 7:00–19:00；周一休息",
+          "每天两炉：7:00 第一炉（乡村面包、可颂），11:00 第二炉（肉桂卷、黑麦面包）",
+          "卖完即止，当天不留货",
+          "乡村面包：天然酵种，48 小时低温发酵，整个 ¥38，半个 ¥20",
+          "黑麦面包：70% 黑麦，750 g，每日限 12 个，¥42",
+          "可颂：法国发酵黄油，¥16",
+          "肉桂卷：¥18，只在第二炉",
+          "酵种养了 9 年，店里叫它“老周”",
+          "面粉：本地石磨全麦粉 + 法国 T65",
+          "预订：提前一天 17:00 前，电话 021-5555-0417 或店内登记",
+          "周六 9:00–11:30 面包课，6 人小班，¥260/人，带走自己烤的面包",
+          "店主：周岚，前建筑师，2019 年开店",
+          "店内 6 个座位，手冲咖啡 ¥22"
+        ],
+        "language": "zh"
+      },
+      "branch": {
+        "id": "bauhaus-primary",
+        "name": {
+          "zh": "包豪斯",
+          "en": "Bauhaus primary"
+        },
+        "family": "modernist",
+        "concept": {
+          "zh": "包豪斯的基本形与三原色：康定斯基的黄三角、红方块、蓝圆，再加黑色粗条和圆点做骨架。拜尔的通用字体、莫霍利-纳吉的版式、阿尔伯斯的色彩练习——不对称的平衡，几何无衬线，像教学挂图一样清楚。",
+          "en": "Bauhaus elementary forms and primaries: Kandinsky’s yellow triangle, red square and blue circle, with black bars and dots as the skeleton. Herbert Bayer’s universal alphabet, Moholy-Nagy’s typophoto, Albers’ colour exercises — asymmetric balance, geometric sans, as clear as a teaching chart."
+        },
+        "references": [
+          "Herbert Bayer, Universal alphabet (1925) and Bauhaus exhibition posters",
+          "László Moholy-Nagy, Bauhausbücher covers (1925–1930)",
+          "Joost Schmidt, poster for the Bauhaus Exhibition Weimar (1923)",
+          "Josef Albers, Interaction of Color (1963) and Homage to the Square",
+          "Wassily Kandinsky, form–colour questionnaire (1923)"
+        ],
+        "tokens": {
+          "grid": "12 columns, 16px gutter, 32px margins; 8px baseline; compositions balance on an off-centre vertical axis at 5/12 or 7/12 (or a 30° diagonal), never at 6/12.",
+          "radius": "0 for rectangles; 50% only for true circles (dots, discs); triangles via clip-path: polygon().",
+          "border": "12–24px solid ink bars as structural dividers (only at 0° or 90°); 2px ink for small boxes; no hairlines.",
+          "shadow": "none."
+        },
+        "must": [
+          "At least two of the three elementary forms appear in primary colours.",
+          "The composition is asymmetric: main axis at 5/12 or 7/12 (or a diagonal), never at 6/12.",
+          "Headlines in a geometric sans; with the universal option, no capitals at all."
+        ],
+        "mustNot": [
+          "No secondary or tertiary colours (purple, green, orange, pink) — only black, white/cream/grey and the primaries.",
+          "No gradients and no rounded rectangles — only true circles and sharp polygons.",
+          "No pictogram icons; shapes stay abstract.",
+          "No centred, symmetrical hero."
+        ]
+      },
+      "voice": {
+        "id": "interview-qa",
+        "name": {
+          "zh": "问答访谈",
+          "en": "Interview Q&A"
+        },
+        "description": "访谈稿：问句短，答句是当事人的原话风格，具体、口语、有细节。",
+        "devices": [
+          "问：/答：",
+          "引语",
+          "具体人名/时间",
+          "一句停顿或笑声注"
+        ],
+        "example": "问：为什么周一休息？答：酵种也要歇一天。"
+      },
+      "layout": {
+        "id": "bauhausbuch-cover",
+        "name": "Bauhausbuch cover",
+        "description": "Bauhausbücher-style: a cover of heavy horizontal bars and one huge numeral or initial, then strict two-column interior pages.",
+        "grid": "6 col, 24px gutter, 40px margin; bars 16px tall spanning 4–6 columns at staggered starts; interior text in 2 columns of 3.",
+        "structure": [
+          "Cover: 2–3 horizontal black bars, one huge numeral or initial, title set between the bars",
+          "Contents: list where bar length encodes size/duration/price",
+          "Two-column body with section heads set on a coloured square",
+          "Back cover: imprint-style colophon with contact"
+        ]
+      },
+      "anchor": {
+        "id": "form-composition",
+        "name": "Form composition",
+        "description": "The first screen is an asymmetric arrangement of the three forms at large size (largest ≈45vw) with the headline set across one of them."
+      },
+      "type": {
+        "id": "spartan-kumbh",
+        "name": "League Spartan + Kumbh Sans",
+        "display": {
+          "family": "League Spartan",
+          "weights": [
+            700,
+            900
+          ],
+          "fallback": "Futura, Arial, sans-serif",
+          "source": "google"
+        },
+        "body": {
+          "family": "Kumbh Sans",
+          "weights": [
+            400,
+            600
+          ],
+          "fallback": "Arial, sans-serif",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "ZCOOL QingKe HuangYou",
+          "body": "Noto Sans SC"
+        },
+        "notes": "League Spartan 900 for blocky headlines set against or inside the bars, tracking -0.02em, line-height 0.9, uppercase allowed. Kumbh Sans body 16/1.55, 600 for labels."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "\"League Spartan\", \"ZCOOL QingKe HuangYou\", Futura, Arial, sans-serif",
+          "body": "\"Kumbh Sans\", \"Noto Sans SC\", Arial, sans-serif",
+          "mono": "ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;900&family=Kumbh+Sans:wght@400;600&family=ZCOOL+QingKe+HuangYou&family=Noto+Sans+SC:wght@400;700&display=swap"
+      },
+      "palette": {
+        "id": "primaries-on-cream",
+        "name": "Primaries on cream",
+        "colors": {
+          "paper": "#f1ece0",
+          "ink": "#1b1b1b",
+          "muted": "#55524a",
+          "accent": "#d6261c",
+          "accent2": "#1f4fa3",
+          "rule": "#1b1b1b",
+          "panel": "#f2c21b"
+        },
+        "usage": "Cream paper; black bars and type. Red square, blue circle and yellow triangle each appear at least once; yellow panel is the largest colour area (≤20%), red ≤10%, blue ≤10%."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 14.61,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 6.62,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 10.26,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 4.29,
+            "verdict": "large text / UI marks only (≥24px or bold ≥19px)"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 6.58,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#ffffff on accent",
+            "ratio": 5.06,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#ffffff on accent2",
+            "ratio": 7.76,
+            "verdict": "AAA — any text"
+          }
+        ],
+        "onAccent": "#ffffff",
+        "onAccent2": "#ffffff"
+      },
+      "density": {
+        "id": "regular",
+        "name": {
+          "zh": "常规",
+          "en": "Regular"
+        },
+        "baseSize": 17,
+        "lineHeight": 1.55,
+        "unit": 8,
+        "sectionGap": 112,
+        "maxWidth": 1200,
+        "description": "常规阅读节奏；区块之间用明确的分隔（线、色块或编号），不靠空白硬撑。"
+      },
+      "scale": {
+        "id": "perfect-fourth",
+        "name": "Perfect fourth 1.333",
+        "ratio": 1.333,
+        "steps": [
+          {
+            "step": -2,
+            "px": 9.6,
+            "rem": 0.598
+          },
+          {
+            "step": -1,
+            "px": 12.8,
+            "rem": 0.797
+          },
+          {
+            "step": 0,
+            "px": 17,
+            "rem": 1.063
+          },
+          {
+            "step": 1,
+            "px": 22.7,
+            "rem": 1.416
+          },
+          {
+            "step": 2,
+            "px": 30.2,
+            "rem": 1.888
+          },
+          {
+            "step": 3,
+            "px": 40.3,
+            "rem": 2.517
+          },
+          {
+            "step": 4,
+            "px": 53.7,
+            "rem": 3.355
+          },
+          {
+            "step": 5,
+            "px": 71.5,
+            "rem": 4.472
+          },
+          {
+            "step": 6,
+            "px": 95.4,
+            "rem": 5.961
+          },
+          {
+            "step": 7,
+            "px": 127.1,
+            "rem": 7.946
+          }
+        ]
+      },
+      "motion": {
+        "id": "form-turn",
+        "name": "Form turn",
+        "description": "On hover a primary shape turns 90° (square) or 120° (triangle) in one mechanical move, like a piece of Alma Siedhoff-Buscher’s Bauhaus building game.",
+        "duration": "300ms",
+        "easing": "cubic-bezier(.5,0,.2,1)",
+        "reduced": "No rotation; swap the shape’s colour instead."
+      },
+      "motif": {
+        "id": "albers-squares",
+        "name": "Albers squares",
+        "description": "Nested squares in Homage-to-the-Square proportions (10:8:6:4 units, inner squares dropped toward the bottom) as an image stand-in or section mark."
+      },
+      "surface": {
+        "id": "cut-card",
+        "name": "Cut card",
+        "description": "Shapes look cut from coloured card; where two overlap, the intersection multiplies.",
+        "css": "mix-blend-mode: multiply; /* on overlapping shapes */"
+      },
+      "twist": {
+        "id": "footer-as-colophon",
+        "name": {
+          "zh": "版权页式页脚",
+          "en": "Footer as colophon"
+        },
+        "description": "页脚写成书籍版权页：字体、纸张/配色、印次、地址等，是全页信息最密的区块。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design 4f1cc0f2 · bauhaus-primary · primaries-on-cream */\n:root {\n  --paper: #f1ece0;\n  --ink: #1b1b1b;\n  --muted: #55524a;\n  --accent: #d6261c;\n  --on-accent: #ffffff;\n  --accent2: #1f4fa3;\n  --on-accent2: #ffffff;\n  --rule: #1b1b1b;\n  --panel: #f2c21b;\n\n  --font-display: \"League Spartan\", \"ZCOOL QingKe HuangYou\", Futura, Arial, sans-serif;\n  --font-body: \"Kumbh Sans\", \"Noto Sans SC\", Arial, sans-serif;\n  --font-mono: ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace;\n\n  --step-n2: 0.598rem; /* 9.6px */\n  --step-n1: 0.797rem; /* 12.8px */\n  --step-0: 1.063rem; /* 17px */\n  --step-1: 1.416rem; /* 22.7px */\n  --step-2: 1.888rem; /* 30.2px */\n  --step-3: 2.517rem; /* 40.3px */\n  --step-4: 3.355rem; /* 53.7px */\n  --step-5: 4.472rem; /* 71.5px */\n  --step-6: 5.961rem; /* 95.4px */\n  --step-7: 7.946rem; /* 127.1px */\n  --leading: 1.55;\n\n  --space-1: 8px;\n  --space-2: 16px;\n  --space-3: 24px;\n  --space-4: 32px;\n  --space-5: 40px;\n  --space-6: 48px;\n  --space-7: 56px;\n  --space-8: 64px;\n  --section-gap: 112px;\n  --max-width: 1200px;\n\n  --motion-duration: 300ms;\n  --motion-easing: cubic-bezier(.5,0,.2,1);\n}\n\nhtml { font-size: 106.3%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "4f 1c",
+          "rule": "0x4f1c = 20252; 20252 mod 40 = 12",
+          "poolSize": 40,
+          "index": 12,
+          "result": "bauhaus-primary"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "c0",
+          "rule": "0xc0 = 192; 192 mod 14 = 10",
+          "poolSize": 14,
+          "index": 10,
+          "result": "interview-qa"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "f2",
+          "rule": "0xf2 = 242; 242 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "bauhausbuch-cover"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "c8",
+          "rule": "0xc8 = 200; 200 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "spartan-kumbh"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "33",
+          "rule": "0x33 = 51; 51 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "primaries-on-cream"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "40",
+          "rule": "0x40 = 64; 64 mod 2 = 0",
+          "poolSize": 2,
+          "index": 0,
+          "result": "regular"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "72",
+          "rule": "0x72 = 114; 114 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "form-turn"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "b6",
+          "rule": "0xb6 = 182; 182 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "albers-squares"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "f0",
+          "rule": "0xf0 = 240; 240 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "form-composition"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "33",
+          "rule": "0x33 = 51; 51 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "perfect-fourth"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "98",
+          "rule": "0x98 = 152; 152 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "cut-card"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "3e",
+          "rule": "0x3e = 62; 62 mod 16 = 14",
+          "poolSize": 16,
+          "index": 14,
+          "result": "footer-as-colophon"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "slug": "03-ink-and-seal",
+      "ref": "7f18e1dc68359c51db6bb6903d7778c59556fad43c0b1bb2aa52adf7051e97a4",
+      "hash": "7f18e1dc68359c51db6bb6903d7778c59556fad43c0b1bb2aa52adf7051e97a4",
+      "short": "7f18e1dc",
+      "probe": 0,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "第四巷面包店",
+        "facts": [
+          "店名：第四巷面包店（Fourth Lane Bakery）",
+          "地址：老城区第四巷 17 号，巷口数第二个门，绿色木门",
+          "营业：周二至周日 7:00–19:00；周一休息",
+          "每天两炉：7:00 第一炉（乡村面包、可颂），11:00 第二炉（肉桂卷、黑麦面包）",
+          "卖完即止，当天不留货",
+          "乡村面包：天然酵种，48 小时低温发酵，整个 ¥38，半个 ¥20",
+          "黑麦面包：70% 黑麦，750 g，每日限 12 个，¥42",
+          "可颂：法国发酵黄油，¥16",
+          "肉桂卷：¥18，只在第二炉",
+          "酵种养了 9 年，店里叫它“老周”",
+          "面粉：本地石磨全麦粉 + 法国 T65",
+          "预订：提前一天 17:00 前，电话 021-5555-0417 或店内登记",
+          "周六 9:00–11:30 面包课，6 人小班，¥260/人，带走自己烤的面包",
+          "店主：周岚，前建筑师，2019 年开店",
+          "店内 6 个座位，手冲咖啡 ¥22"
+        ],
+        "language": "zh"
+      },
+      "branch": {
+        "id": "ink-and-seal",
+        "name": {
+          "zh": "水墨印章",
+          "en": "Ink and seal"
+        },
+        "family": "craft",
+        "concept": {
+          "zh": "中国水墨与篆刻：山水的墨分五色，从焦墨晕开到淡墨再到纸白；文人画的题跋竖写在留白处，朱文、白文印章压在落款下。宣纸的纤维、手卷与立轴的比例——页面像一幅可以展开的画。",
+          "en": "Chinese ink painting and seal carving: ink in its five tones, from scorched black through washes to bare paper; literati inscriptions written vertically into the empty sky; red seals in relief (朱文) or intaglio (白文) pressed under the signature. Rice-paper fibre and the proportions of handscrolls and hanging scrolls — the page unrolls like a painting."
+        },
+        "references": [
+          "黄公望《富春山居图》(1350)",
+          "八大山人 (Bada Shanren) ink paintings, late 17th century",
+          "吴昌硕 seal carving and calligraphy (1844–1927)",
+          "齐白石 paintings with inscriptions and seals",
+          "荣宝斋 木版水印 woodblock reproductions"
+        ],
+        "tokens": {
+          "grid": "Scroll proportions: hanging-scroll column at 1:3 (≈520px wide, left of centre) or a horizontal handscroll track of 80–100vw sections; 24px gutters; mounting bands (天头 / 地头) of 8–12vh.",
+          "radius": "0 for mounts and square seals; 50% for round seals; seal edges roughened with an SVG displacement filter.",
+          "border": "Mounting only: 12–24px panel-coloured silk border with a 1px ink inner line (隔水); no other boxes.",
+          "shadow": "none; depth only through ink-wash tone."
+        },
+        "must": [
+          "At least one red seal (朱文 or 白文), and it is the only saturated colour on its screen.",
+          "On Chinese pages, titles or inscriptions are set vertically (writing-mode: vertical-rl) in a calligraphic CJK face.",
+          "Ink appears in at least three tonal values (e.g. 85/55/12%), after 墨分五色.",
+          "Bare paper (留白) covers at least 40% of the first screen."
+        ],
+        "mustNot": [
+          "No pseudo-Asian “chop suey” Latin fonts and no brush-styled Latin text.",
+          "No dragons, lanterns, red-and-gold festival clichés.",
+          "No seal larger than the inscription it signs, except in the seal-as-title anchor.",
+          "No glossy gradients; washes fade into paper, never into colour."
+        ]
+      },
+      "voice": {
+        "id": "field-notes",
+        "name": {
+          "zh": "田野笔记",
+          "en": "Field notes"
+        },
+        "description": "观察者的记录：带日期、时间、度量和第一手细节，克制、不评价。",
+        "devices": [
+          "日期/时间戳",
+          "度量单位",
+          "\"观察到…\"式陈述",
+          "括号补充"
+        ],
+        "example": "06:40 — 窗内温度 31°C，面团第二次发酵完成（目测体积 ×2）。"
+      },
+      "layout": {
+        "id": "handscroll",
+        "name": "Handscroll (手卷)",
+        "description": "A horizontal handscroll: content unrolls sideways in a scrolling track, each section a scene with its own inscription and seal.",
+        "grid": "Horizontal track (overflow-x: auto; scroll-snap-type: x proximity); sections 90vw × 80vh; vertical-rl inscriptions in 64px columns; on mobile the scenes stack vertically.",
+        "structure": [
+          "引首: the title in large calligraphy on the first panel",
+          "Scene 1: ink landscape with the main statement inscribed",
+          "Scenes 2–3: one per offering or fact group, each with a seal",
+          "跋: colophon with dates, names and contact, several small seals"
+        ]
+      },
+      "anchor": {
+        "id": "seal-as-title",
+        "name": "Seal as title",
+        "description": "A large carved 白文 seal (30–40vw) bearing the name is the title; the rest of the first screen is paper and one vertical line of text."
+      },
+      "type": {
+        "id": "caoshu-antique",
+        "name": "Liu Jian Mao Cao (草) + Zen Antique",
+        "display": {
+          "family": "Zen Antique",
+          "weights": [
+            400
+          ],
+          "fallback": "\"Songti SC\", serif",
+          "source": "google"
+        },
+        "body": {
+          "family": "Crimson Pro",
+          "weights": [
+            400,
+            600
+          ],
+          "fallback": "Georgia, serif",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "Liu Jian Mao Cao",
+          "body": "Noto Serif SC"
+        },
+        "notes": "Liu Jian Mao Cao (cursive script) only for one or two expressive words — the name or a single character — at 120px+, as the painted gesture; never for information. All other CJK in Noto Serif SC 16/1.9. Latin headings Zen Antique, body Crimson Pro 17/1.6."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "\"Zen Antique\", \"Liu Jian Mao Cao\", \"Songti SC\", serif",
+          "body": "\"Crimson Pro\", \"Noto Serif SC\", Georgia, serif",
+          "mono": "ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Zen+Antique&family=Crimson+Pro:wght@400;600&family=Liu+Jian+Mao+Cao&family=Noto+Serif+SC:wght@400;700&display=swap"
+      },
+      "palette": {
+        "id": "blue-green-silk",
+        "name": "Blue-green landscape on silk",
+        "colors": {
+          "paper": "#e8dcc0",
+          "ink": "#1f2420",
+          "muted": "#545a4f",
+          "accent": "#2f6f62",
+          "accent2": "#ad3b26",
+          "rule": "#7a6a4c",
+          "panel": "#d6c6a0"
+        },
+        "usage": "青绿山水 on aged silk: malachite green (and its 40% tint) for mountain washes (≈30% of the painting area); ink for outlines and text; seals in accent2; rule for mount lines."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 11.59,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 5.23,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 9.35,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 4.32,
+            "verdict": "large text / UI marks only (≥24px or bold ≥19px)"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 4.5,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#ffffff on accent",
+            "ratio": 5.88,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#ffffff on accent2",
+            "ratio": 6.12,
+            "verdict": "AA — body text OK"
+          }
+        ],
+        "onAccent": "#ffffff",
+        "onAccent2": "#ffffff"
+      },
+      "density": {
+        "id": "airy",
+        "name": {
+          "zh": "疏朗",
+          "en": "Airy"
+        },
+        "baseSize": 18,
+        "lineHeight": 1.65,
+        "unit": 10,
+        "sectionGap": 168,
+        "maxWidth": 1080,
+        "description": "大留白，一屏只讲一件事；正文行长 60–68 字符（中文 30–36 字）。"
+      },
+      "scale": {
+        "id": "perfect-fourth",
+        "name": "Perfect fourth 1.333",
+        "ratio": 1.333,
+        "steps": [
+          {
+            "step": -2,
+            "px": 10.1,
+            "rem": 0.633
+          },
+          {
+            "step": -1,
+            "px": 13.5,
+            "rem": 0.844
+          },
+          {
+            "step": 0,
+            "px": 18,
+            "rem": 1.125
+          },
+          {
+            "step": 1,
+            "px": 24,
+            "rem": 1.5
+          },
+          {
+            "step": 2,
+            "px": 32,
+            "rem": 1.999
+          },
+          {
+            "step": 3,
+            "px": 42.6,
+            "rem": 2.665
+          },
+          {
+            "step": 4,
+            "px": 56.8,
+            "rem": 3.552
+          },
+          {
+            "step": 5,
+            "px": 75.8,
+            "rem": 4.735
+          },
+          {
+            "step": 6,
+            "px": 101,
+            "rem": 6.312
+          },
+          {
+            "step": 7,
+            "px": 134.6,
+            "rem": 8.413
+          }
+        ]
+      },
+      "motion": {
+        "id": "ink-bleed",
+        "name": "Ink bleed",
+        "description": "On the first screen only, ink washes and calligraphy appear by spreading: a radial mask grows from the brush entry point while blur(6px) settles to 0, like ink soaking into xuan paper.",
+        "duration": "1200ms",
+        "easing": "cubic-bezier(.2,.6,.2,1)",
+        "reduced": "Show the ink at rest."
+      },
+      "motif": {
+        "id": "seals",
+        "name": "Seals (朱文 / 白文)",
+        "description": "Square or round seals: 朱文 = red strokes and thin red border on paper; 白文 = paper strokes cut out of a solid red block. Seal text in the CJK display face or SVG; edges roughened with feTurbulence + feDisplacementMap (scale 2–3)."
+      },
+      "surface": {
+        "id": "xuan-fibre",
+        "name": "Xuan paper",
+        "description": "Rice paper with long soft fibres, faintly visible.",
+        "css": "background-color: var(--paper); background-image: url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27240%27 height=%27240%27%3E%3Cfilter id=%27f%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.015 .35%27 numOctaves=%273%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23f)%27 opacity=%27.07%27/%3E%3C/svg%3E\");"
+      },
+      "twist": {
+        "id": "time-as-structure",
+        "name": {
+          "zh": "时间为骨",
+          "en": "Time as structure"
+        },
+        "description": "用真实的时间/日期（营业时间、出炉时刻、日程）作为页面的主结构轴。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design 7f18e1dc · ink-and-seal · blue-green-silk */\n:root {\n  --paper: #e8dcc0;\n  --ink: #1f2420;\n  --muted: #545a4f;\n  --accent: #2f6f62;\n  --on-accent: #ffffff;\n  --accent2: #ad3b26;\n  --on-accent2: #ffffff;\n  --rule: #7a6a4c;\n  --panel: #d6c6a0;\n\n  --font-display: \"Zen Antique\", \"Liu Jian Mao Cao\", \"Songti SC\", serif;\n  --font-body: \"Crimson Pro\", \"Noto Serif SC\", Georgia, serif;\n  --font-mono: ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace;\n\n  --step-n2: 0.633rem; /* 10.1px */\n  --step-n1: 0.844rem; /* 13.5px */\n  --step-0: 1.125rem; /* 18px */\n  --step-1: 1.5rem; /* 24px */\n  --step-2: 1.999rem; /* 32px */\n  --step-3: 2.665rem; /* 42.6px */\n  --step-4: 3.552rem; /* 56.8px */\n  --step-5: 4.735rem; /* 75.8px */\n  --step-6: 6.312rem; /* 101px */\n  --step-7: 8.413rem; /* 134.6px */\n  --leading: 1.65;\n\n  --space-1: 10px;\n  --space-2: 20px;\n  --space-3: 30px;\n  --space-4: 40px;\n  --space-5: 50px;\n  --space-6: 60px;\n  --space-7: 70px;\n  --space-8: 80px;\n  --section-gap: 168px;\n  --max-width: 1080px;\n\n  --motion-duration: 1200ms;\n  --motion-easing: cubic-bezier(.2,.6,.2,1);\n}\n\nhtml { font-size: 112.5%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "7f 18",
+          "rule": "0x7f18 = 32536; 32536 mod 40 = 16",
+          "poolSize": 40,
+          "index": 16,
+          "result": "ink-and-seal"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "e1",
+          "rule": "0xe1 = 225; 225 mod 14 = 1",
+          "poolSize": 14,
+          "index": 1,
+          "result": "field-notes"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "dc",
+          "rule": "0xdc = 220; 220 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "handscroll"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "68",
+          "rule": "0x68 = 104; 104 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "caoshu-antique"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "35",
+          "rule": "0x35 = 53; 53 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "blue-green-silk"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "9c",
+          "rule": "0x9c = 156; 156 mod 2 = 0",
+          "poolSize": 2,
+          "index": 0,
+          "result": "airy"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "51",
+          "rule": "0x51 = 81; 81 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "ink-bleed"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "db",
+          "rule": "0xdb = 219; 219 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "seals"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "6b",
+          "rule": "0x6b = 107; 107 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "seal-as-title"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "b6",
+          "rule": "0xb6 = 182; 182 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "perfect-fourth"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "90",
+          "rule": "0x90 = 144; 144 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "xuan-fibre"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "3d",
+          "rule": "0x3d = 61; 61 mod 16 = 13",
+          "poolSize": 16,
+          "index": 13,
+          "result": "time-as-structure"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "slug": "04-risograph-duotone",
+      "ref": "bde66a3f031a0742a4a55c569080a96c9b1921916f352d8feecf0ea59aa24b0f",
+      "hash": "bde66a3f031a0742a4a55c569080a96c9b1921916f352d8feecf0ea59aa24b0f",
+      "short": "bde66a3f",
+      "probe": 0,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "第四巷面包店",
+        "facts": [
+          "店名：第四巷面包店（Fourth Lane Bakery）",
+          "地址：老城区第四巷 17 号，巷口数第二个门，绿色木门",
+          "营业：周二至周日 7:00–19:00；周一休息",
+          "每天两炉：7:00 第一炉（乡村面包、可颂），11:00 第二炉（肉桂卷、黑麦面包）",
+          "卖完即止，当天不留货",
+          "乡村面包：天然酵种，48 小时低温发酵，整个 ¥38，半个 ¥20",
+          "黑麦面包：70% 黑麦，750 g，每日限 12 个，¥42",
+          "可颂：法国发酵黄油，¥16",
+          "肉桂卷：¥18，只在第二炉",
+          "酵种养了 9 年，店里叫它“老周”",
+          "面粉：本地石磨全麦粉 + 法国 T65",
+          "预订：提前一天 17:00 前，电话 021-5555-0417 或店内登记",
+          "周六 9:00–11:30 面包课，6 人小班，¥260/人，带走自己烤的面包",
+          "店主：周岚，前建筑师，2019 年开店",
+          "店内 6 个座位，手冲咖啡 ¥22"
+        ],
+        "language": "zh"
+      },
+      "branch": {
+        "id": "risograph-duotone",
+        "name": {
+          "zh": "Riso 双色套印",
+          "en": "Risograph duotone"
+        },
+        "family": "print",
+        "concept": {
+          "zh": "Riso 孔版印刷的双色套印：荧光粉和联邦蓝两种大豆油墨叠在一起，压出第三种颜色；版位总差一两毫米，平网的颗粒清清楚楚。每个颜色都是一张独立的版，设计就发生在两张版重叠的地方。",
+          "en": "Risograph two-colour printing: fluorescent pink and federal blue soy inks overprint to make a third colour, registration drifts by a millimetre or two, and every flat tint shows its grain. Each colour is a separate drum, and the design happens where the two layers overlap."
+        },
+        "references": [
+          "Hato Press (London) risograph publications",
+          "Colorama riso print studio (Berlin)",
+          "Nieves Books zines (Zurich)",
+          "Risotto Studio (Glasgow) prints and editions",
+          "Tokyo Art Book Fair riso zines"
+        ],
+        "tokens": {
+          "grid": "8 columns, 16px gutter, 32px margin; artwork lives on two \"drum\" layers that share the grid, with drum 2 offset 2px 3px from drum 1.",
+          "radius": "0 on text boxes; purely graphic shapes may be full circles or semicircles (border-radius: 50% only on shapes that carry no text).",
+          "border": "No black outlines. Rules are 2px in one spot ink. Overlaps use mix-blend-mode: multiply.",
+          "shadow": "none. The misregistration offset (drum 2 translated 2px 3px) is the only depth."
+        },
+        "must": [
+          "Exactly two spot inks (accent + accent2) plus paper; any third colour is their multiply overlap.",
+          "The first screen shows at least one visible overprint (mix-blend-mode: multiply) and one deliberate 2–4px misregistration.",
+          "Tints are grain or halftone screens of a spot ink, never opacity fades of black."
+        ],
+        "mustNot": [
+          "No pure #000000 and no full-colour (CMYK-style) imagery.",
+          "No gradients between the two inks; transitions only via grain or halftone.",
+          "No drop shadows, outlines in black or glossy effects; riso ink is flat and slightly chalky."
+        ]
+      },
+      "voice": {
+        "id": "almanac",
+        "name": {
+          "zh": "历书",
+          "en": "Almanac"
+        },
+        "description": "黄历/年鉴口吻：宜忌、节令、方位，短句并列，带一点古意但信息准确。",
+        "devices": [
+          "宜 / 忌 并列",
+          "节气或日期",
+          "四字短语",
+          "方位与时辰"
+        ],
+        "example": "宜：早起、趁热。忌：周一来访。"
+      },
+      "layout": {
+        "id": "overprint-poster",
+        "name": "Overprint poster",
+        "description": "A poster where a giant shape on drum 1 and a giant word on drum 2 overlap; the overlap prints the third colour; small information blocks sit in the corners.",
+        "grid": "8 col; shape layer spans col 1–6, type layer col 3–8, overlapping across 4 columns; corner blocks 2 columns each.",
+        "structure": [
+          "Top-left corner block: edition or issue number and date in small spot-ink type",
+          "Overlap field: giant circle or arch on drum 1 crossed by the subject name on drum 2, multiplied where they meet",
+          "Bottom band: three facts as a 3-column list with 2px spot-ink rules",
+          "Colophon strip: inks used (\"fluorescent pink + federal blue\"), paper stock, edition size if given in the facts"
+        ]
+      },
+      "anchor": {
+        "id": "overprint-title",
+        "name": "Overprint title",
+        "description": "Subject name at 14–20vw in drum-2 ink crossing a giant drum-1 circle; the overlap shows the multiply colour."
+      },
+      "type": {
+        "id": "unbounded-familjen",
+        "name": "Unbounded + Familjen Grotesk",
+        "display": {
+          "family": "Unbounded",
+          "weights": [
+            700,
+            800
+          ],
+          "fallback": "\"Arial Black\", sans-serif",
+          "source": "google"
+        },
+        "body": {
+          "family": "Familjen Grotesk",
+          "weights": [
+            400,
+            600
+          ],
+          "italic": true,
+          "fallback": "Arial, sans-serif",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "ZCOOL KuaiLe",
+          "body": "Noto Sans SC"
+        },
+        "notes": "Unbounded 800 headlines, lowercase allowed, tracking -0.03em, line-height 0.92, up to 18vw; headlines always in a spot ink, never ink-black. Familjen Grotesk 400/600 body 17px/1.5; labels 600 uppercase +0.08em at 12px."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "Unbounded, \"ZCOOL KuaiLe\", \"Arial Black\", sans-serif",
+          "body": "\"Familjen Grotesk\", \"Noto Sans SC\", Arial, sans-serif",
+          "mono": "ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Familjen+Grotesk:ital,wght@0,400;0,600;1,400;1,600&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap"
+      },
+      "palette": {
+        "id": "red-green-white",
+        "name": "Bright red + green on white",
+        "colors": {
+          "paper": "#fbfbf8",
+          "ink": "#14352a",
+          "muted": "#3f5a4f",
+          "accent": "#ff665e",
+          "accent2": "#00a95c",
+          "rule": "#00a95c",
+          "panel": "#ffe0dc"
+        },
+        "usage": "Crisp white stock; bright red for the big shapes, green for type and grain; dark green (both drums overprinted) for body text; at least 45% paper visible."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 12.88,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 7.27,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 10.78,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 2.77,
+            "verdict": "decorative only — never for text"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 2.97,
+            "verdict": "decorative only — never for text"
+          },
+          {
+            "pair": "#000000 on accent",
+            "ratio": 7.31,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "#000000 on accent2",
+            "ratio": 6.83,
+            "verdict": "AA — body text OK"
+          }
+        ],
+        "onAccent": "#000000",
+        "onAccent2": "#000000"
+      },
+      "density": {
+        "id": "airy",
+        "name": {
+          "zh": "疏朗",
+          "en": "Airy"
+        },
+        "baseSize": 18,
+        "lineHeight": 1.65,
+        "unit": 10,
+        "sectionGap": 168,
+        "maxWidth": 1080,
+        "description": "大留白，一屏只讲一件事；正文行长 60–68 字符（中文 30–36 字）。"
+      },
+      "scale": {
+        "id": "augmented-fourth",
+        "name": "Augmented fourth 1.414",
+        "ratio": 1.414,
+        "steps": [
+          {
+            "step": -2,
+            "px": 9,
+            "rem": 0.563
+          },
+          {
+            "step": -1,
+            "px": 12.7,
+            "rem": 0.796
+          },
+          {
+            "step": 0,
+            "px": 18,
+            "rem": 1.125
+          },
+          {
+            "step": 1,
+            "px": 25.5,
+            "rem": 1.591
+          },
+          {
+            "step": 2,
+            "px": 36,
+            "rem": 2.249
+          },
+          {
+            "step": 3,
+            "px": 50.9,
+            "rem": 3.181
+          },
+          {
+            "step": 4,
+            "px": 72,
+            "rem": 4.497
+          },
+          {
+            "step": 5,
+            "px": 101.7,
+            "rem": 6.359
+          },
+          {
+            "step": 6,
+            "px": 143.9,
+            "rem": 8.992
+          },
+          {
+            "step": 7,
+            "px": 203.4,
+            "rem": 12.714
+          }
+        ]
+      },
+      "motion": {
+        "id": "drum-drift",
+        "name": "Drum drift",
+        "description": "On hover, the drum-2 layer slides from its 2px 3px misregistration into perfect register, then back on leave.",
+        "duration": "200ms",
+        "easing": "cubic-bezier(.4,0,.2,1)",
+        "reduced": "Keep the static misregistration; no slide."
+      },
+      "motif": {
+        "id": "grain-tints",
+        "name": "Grain tints",
+        "description": "Every tint is a stochastic grain or coarse halftone of a spot ink at 20–60% coverage, never an opacity fade."
+      },
+      "surface": {
+        "id": "coarse-screen",
+        "name": "Coarse screen",
+        "description": "Tint areas printed as a 45° halftone with a 6px cell.",
+        "css": "background-image: radial-gradient(var(--accent) 34%, transparent 36%), radial-gradient(var(--accent) 34%, transparent 36%); background-size: 6px 6px; background-position: 0 0, 3px 3px;"
+      },
+      "twist": {
+        "id": "numerals-as-display",
+        "name": {
+          "zh": "数字即主角",
+          "en": "Numerals as display"
+        },
+        "description": "页面里所有关键数字（时间、价格、编号）用展示字体、放大到正文 3 倍以上，作为视觉主角。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design bde66a3f · risograph-duotone · red-green-white */\n:root {\n  --paper: #fbfbf8;\n  --ink: #14352a;\n  --muted: #3f5a4f;\n  --accent: #ff665e;\n  --on-accent: #000000;\n  --accent2: #00a95c;\n  --on-accent2: #000000;\n  --rule: #00a95c;\n  --panel: #ffe0dc;\n\n  --font-display: Unbounded, \"ZCOOL KuaiLe\", \"Arial Black\", sans-serif;\n  --font-body: \"Familjen Grotesk\", \"Noto Sans SC\", Arial, sans-serif;\n  --font-mono: ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace;\n\n  --step-n2: 0.563rem; /* 9px */\n  --step-n1: 0.796rem; /* 12.7px */\n  --step-0: 1.125rem; /* 18px */\n  --step-1: 1.591rem; /* 25.5px */\n  --step-2: 2.249rem; /* 36px */\n  --step-3: 3.181rem; /* 50.9px */\n  --step-4: 4.497rem; /* 72px */\n  --step-5: 6.359rem; /* 101.7px */\n  --step-6: 8.992rem; /* 143.9px */\n  --step-7: 12.714rem; /* 203.4px */\n  --leading: 1.65;\n\n  --space-1: 10px;\n  --space-2: 20px;\n  --space-3: 30px;\n  --space-4: 40px;\n  --space-5: 50px;\n  --space-6: 60px;\n  --space-7: 70px;\n  --space-8: 80px;\n  --section-gap: 168px;\n  --max-width: 1080px;\n\n  --motion-duration: 200ms;\n  --motion-easing: cubic-bezier(.4,0,.2,1);\n}\n\nhtml { font-size: 112.5%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "bd e6",
+          "rule": "0xbde6 = 48614; 48614 mod 40 = 14",
+          "poolSize": 40,
+          "index": 14,
+          "result": "risograph-duotone"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "6a",
+          "rule": "0x6a = 106; 106 mod 14 = 8",
+          "poolSize": 14,
+          "index": 8,
+          "result": "almanac"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "3f",
+          "rule": "0x3f = 63; 63 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "overprint-poster"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "03",
+          "rule": "0x03 = 3; 3 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "unbounded-familjen"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "1a",
+          "rule": "0x1a = 26; 26 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "red-green-white"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "07",
+          "rule": "0x07 = 7; 7 mod 2 = 1",
+          "poolSize": 2,
+          "index": 1,
+          "result": "airy"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "42",
+          "rule": "0x42 = 66; 66 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "drum-drift"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "a4",
+          "rule": "0xa4 = 164; 164 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "grain-tints"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "a5",
+          "rule": "0xa5 = 165; 165 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "overprint-title"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "5c",
+          "rule": "0x5c = 92; 92 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "augmented-fourth"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "56",
+          "rule": "0x56 = 86; 86 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "coarse-screen"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "90",
+          "rule": "0x90 = 144; 144 mod 16 = 0",
+          "poolSize": 16,
+          "index": 0,
+          "result": "numerals-as-display"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "slug": "05-hk-shop-sign",
+      "ref": "42c248e73162a7da2749e0b5d090af0e6b391e250e4ab38ffb304698eeeef3e7",
+      "hash": "42c248e73162a7da2749e0b5d090af0e6b391e250e4ab38ffb304698eeeef3e7",
+      "short": "42c248e7",
+      "probe": 0,
+      "algorithm": "hash-design/v1",
+      "library": "c7b166fe6ec0",
+      "constraints": {
+        "lightOnly": false,
+        "darkOnly": false,
+        "reducedMotion": false,
+        "brandColors": [],
+        "families": [],
+        "include": [],
+        "exclude": []
+      },
+      "content": {
+        "subject": "第四巷面包店",
+        "facts": [
+          "店名：第四巷面包店（Fourth Lane Bakery）",
+          "地址：老城区第四巷 17 号，巷口数第二个门，绿色木门",
+          "营业：周二至周日 7:00–19:00；周一休息",
+          "每天两炉：7:00 第一炉（乡村面包、可颂），11:00 第二炉（肉桂卷、黑麦面包）",
+          "卖完即止，当天不留货",
+          "乡村面包：天然酵种，48 小时低温发酵，整个 ¥38，半个 ¥20",
+          "黑麦面包：70% 黑麦，750 g，每日限 12 个，¥42",
+          "可颂：法国发酵黄油，¥16",
+          "肉桂卷：¥18，只在第二炉",
+          "酵种养了 9 年，店里叫它“老周”",
+          "面粉：本地石磨全麦粉 + 法国 T65",
+          "预订：提前一天 17:00 前，电话 021-5555-0417 或店内登记",
+          "周六 9:00–11:30 面包课，6 人小班，¥260/人，带走自己烤的面包",
+          "店主：周岚，前建筑师，2019 年开店",
+          "店内 6 个座位，手冲咖啡 ¥22"
+        ],
+        "language": "zh"
+      },
+      "branch": {
+        "id": "hk-shop-sign",
+        "name": {
+          "zh": "港式招牌",
+          "en": "Hong Kong shop sign"
+        },
+        "family": "signage",
+        "concept": {
+          "zh": "弥敦道上空横伸出来的招牌、上海老街的竖匾：中文大字为主，英文小一号跟在下面；红底金字、绿底白字、黑漆描金，夜里霓虹灯管沿着同样的笔画勾出来。每块牌都写着铺号、行业、电话——它既是广告，也是门牌。",
+          "en": "The signs cantilevered over Nathan Road and the vertical plaques of old Shanghai streets: Chinese characters huge, English a size smaller beneath; gold on red, white on green, gilt on black lacquer, and at night neon tubes trace the same strokes. Every sign carries a shop number, a trade and a phone number — advertisement and address at once."
+        },
+        "references": [
+          "Nathan Road and Mong Kok projecting neon signs (1960s–2000s)",
+          "區建公 Au Kin-kung — hand-written shop-sign calligraphy, Hong Kong",
+          "M+ Museum — NEONSIGNS.HK collection and \"Mobile M+: NEONSIGNS.HK\" (2014)",
+          "Nanjing Road department stores 先施 Sincere / 永安 Wing On, Shanghai 1920s–30s",
+          "Hong Kong pawnshop 押 signs with the bat-and-coin emblem"
+        ],
+        "tokens": {
+          "grid": "Sign-board grid: content is built from boards — horizontal boards 3:1 to 5:1, vertical boards 1:3 to 1:5. One CJK character = one square cell (1em × 1em) with a 0.12em gutter, so a board is N characters wide plus 2 × 0.4em frame.",
+          "radius": "0 for all boards. Only the shop-number roundel is a circle (border-radius: 50%); neon tubes use stroke-linecap: round and stroke-linejoin: round.",
+          "border": "Boards are framed: 0.4em solid var(--accent2) outer frame plus a 2px inner line (outline: 2px solid var(--accent2); outline-offset: -10px). Section rules 3px solid var(--ink).",
+          "shadow": "none on boards. Neon tubes may carry a tight 0 0 2px edge of their own colour (max 3px blur) — never a halo."
+        },
+        "must": [
+          "Chinese characters are the largest element on every board; English never exceeds 40% of the CJK size.",
+          "At least one vertical board using writing-mode: vertical-rl with upright characters.",
+          "Every sign carries a concrete address element from the facts: shop number, floor, street or phone.",
+          "Neon is drawn as line work — the path of the tube is visible."
+        ],
+        "mustNot": [
+          "No glow blobs, blurred halos or text-shadow larger than 4px; no cyberpunk gradients.",
+          "No sideways-rotated Chinese in vertical text.",
+          "No Latin-only boards; every board is bilingual or Chinese-only.",
+          "No faux-oriental \"chop suey\" Latin typefaces."
+        ]
+      },
+      "voice": {
+        "id": "technical-manual",
+        "name": {
+          "zh": "技术手册",
+          "en": "Technical manual"
+        },
+        "description": "说明书口吻：编号条款、动词开头、规格写全，零形容词。",
+        "devices": [
+          "1.1 / 1.2 编号",
+          "规格表",
+          "注意/警告框",
+          "动词开头的步骤"
+        ],
+        "example": "3.2 取货：报预订号 → 核对 → 取走。逾时 30 分钟释放库存。"
+      },
+      "layout": {
+        "id": "projecting-stack",
+        "name": "Projecting sign stack",
+        "description": "A street canyon: vertical boards hang from the right edge at staggered heights while horizontal boards carry the content on the left.",
+        "grid": "12 col, 16px gutter; cols 1–8 content boards; cols 10–12 hold 2–3 vertical boards (1:4) stacked with 24px gaps, each dropped by one-third of the previous; vertical text uses writing-mode: vertical-rl.",
+        "structure": [
+          "Vertical shop-name board at the right, 4–6 characters, gold on red, upright characters",
+          "Horizontal trade board at the left: what the place sells, English line beneath at ⅓ size",
+          "Shop-number roundel + address line (地铺 / 1/F / street number from the facts)",
+          "Price or service list as a lacquered board: items left, prices right in lining figures",
+          "Hours and phone on a narrow green strip board; footer repeats the name as a neon outline"
+        ]
+      },
+      "anchor": {
+        "id": "hanging-vertical",
+        "name": "Hanging vertical",
+        "description": "A tall 1:4 vertical board hangs at the right, cut off by the top of the viewport as seen from the pavement, beside a horizontal trade board."
+      },
+      "type": {
+        "id": "brush-signboard",
+        "name": "Ma Shan Zheng + Antonio + Hanken Grotesk",
+        "display": {
+          "family": "Antonio",
+          "weights": [
+            600,
+            700
+          ],
+          "fallback": "\"Arial Narrow\", sans-serif",
+          "source": "google"
+        },
+        "body": {
+          "family": "Hanken Grotesk",
+          "weights": [
+            400,
+            600
+          ],
+          "fallback": "Arial, sans-serif",
+          "source": "google"
+        },
+        "cjk": {
+          "display": "Ma Shan Zheng",
+          "body": "Noto Sans TC"
+        },
+        "notes": "Brush characters (Ma Shan Zheng, single weight) at 120–200px, tracking 0.05em, one board = one phrase. English in Antonio 700 uppercase +0.04em at ⅓ of the CJK size, like the small English on a Mong Kok sign. Prices in Antonio 600 with the currency sign at 60%."
+      },
+      "fonts": {
+        "stacks": {
+          "display": "Antonio, \"Ma Shan Zheng\", \"Arial Narrow\", sans-serif",
+          "body": "\"Hanken Grotesk\", \"Noto Sans TC\", Arial, sans-serif",
+          "mono": "ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace"
+        },
+        "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Hanken+Grotesk:wght@400;600&family=Ma+Shan+Zheng&family=Noto+Sans+TC:wght@400;700&display=swap"
+      },
+      "palette": {
+        "id": "neon-street",
+        "name": "Neon street at night",
+        "colors": {
+          "paper": "#120d0c",
+          "ink": "#f3ead8",
+          "muted": "#a99c8a",
+          "accent": "#ff3b5c",
+          "accent2": "#36d6c3",
+          "rule": "#3a2e2a",
+          "panel": "#1e1715"
+        },
+        "usage": "Warm near-black street; neon tubes in pink (accent) and teal (accent2) as 3–4px strokes and outline text only (≤ 10% of pixels); boards are panel brown-black with cream characters."
+      },
+      "paletteOverride": null,
+      "contrast": {
+        "lines": [
+          {
+            "pair": "ink on paper",
+            "ratio": 16.14,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "muted on paper",
+            "ratio": 7.17,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "ink on panel",
+            "ratio": 14.78,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "accent on paper",
+            "ratio": 5.54,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "accent2 on paper",
+            "ratio": 10.62,
+            "verdict": "AAA — any text"
+          },
+          {
+            "pair": "#000000 on accent",
+            "ratio": 6.03,
+            "verdict": "AA — body text OK"
+          },
+          {
+            "pair": "#000000 on accent2",
+            "ratio": 11.56,
+            "verdict": "AAA — any text"
+          }
+        ],
+        "onAccent": "#000000",
+        "onAccent2": "#000000"
+      },
+      "density": {
+        "id": "regular",
+        "name": {
+          "zh": "常规",
+          "en": "Regular"
+        },
+        "baseSize": 17,
+        "lineHeight": 1.55,
+        "unit": 8,
+        "sectionGap": 112,
+        "maxWidth": 1200,
+        "description": "常规阅读节奏；区块之间用明确的分隔（线、色块或编号），不靠空白硬撑。"
+      },
+      "scale": {
+        "id": "augmented-fourth",
+        "name": "Augmented fourth 1.414",
+        "ratio": 1.414,
+        "steps": [
+          {
+            "step": -2,
+            "px": 8.5,
+            "rem": 0.531
+          },
+          {
+            "step": -1,
+            "px": 12,
+            "rem": 0.751
+          },
+          {
+            "step": 0,
+            "px": 17,
+            "rem": 1.063
+          },
+          {
+            "step": 1,
+            "px": 24,
+            "rem": 1.502
+          },
+          {
+            "step": 2,
+            "px": 34,
+            "rem": 2.124
+          },
+          {
+            "step": 3,
+            "px": 48.1,
+            "rem": 3.004
+          },
+          {
+            "step": 4,
+            "px": 68,
+            "rem": 4.247
+          },
+          {
+            "step": 5,
+            "px": 96.1,
+            "rem": 6.006
+          },
+          {
+            "step": 6,
+            "px": 135.9,
+            "rem": 8.492
+          },
+          {
+            "step": 7,
+            "px": 192.1,
+            "rem": 12.008
+          }
+        ]
+      },
+      "motion": {
+        "id": "lacquer-swap",
+        "name": "Lacquer swap",
+        "description": "No movement. Hovering a board swaps gold ↔ red (frame and characters reverse), like a night-lit board.",
+        "duration": "0ms",
+        "easing": "steps(1, end)",
+        "reduced": "Same — it is a colour swap only."
+      },
+      "motif": {
+        "id": "vertical-board",
+        "name": "Vertical board",
+        "description": "Tall boards with upright CJK characters (writing-mode: vertical-rl; text-orientation: upright), a gold double frame, and small English running along the bottom edge."
+      },
+      "surface": {
+        "id": "gold-leaf-type",
+        "name": "Gold-leaf characters",
+        "description": "Characters in flat gold with a 1px darker edge — no metallic gradients.",
+        "css": "color: var(--accent2); -webkit-text-stroke: 1px color-mix(in srgb, var(--accent2) 70%, black);"
+      },
+      "twist": {
+        "id": "numerals-as-display",
+        "name": {
+          "zh": "数字即主角",
+          "en": "Numerals as display"
+        },
+        "description": "页面里所有关键数字（时间、价格、编号）用展示字体、放大到正文 3 倍以上，作为视觉主角。"
+      },
+      "bans": [
+        "generic-sans",
+        "purple-blue-gradient",
+        "centered-hero-two-buttons",
+        "identical-cards",
+        "glassmorphism",
+        "emoji-icons",
+        "buzzword-copy",
+        "soft-shadow-rounded",
+        "invented-facts",
+        "tailwind-default-palette",
+        "scroll-fade-everything",
+        "pill-badge-sparkle",
+        "placeholder-content",
+        "template-sections"
+      ],
+      "tokensCss": "/* hash-design 42c248e7 · hk-shop-sign · neon-street */\n:root {\n  --paper: #120d0c;\n  --ink: #f3ead8;\n  --muted: #a99c8a;\n  --accent: #ff3b5c;\n  --on-accent: #000000;\n  --accent2: #36d6c3;\n  --on-accent2: #000000;\n  --rule: #3a2e2a;\n  --panel: #1e1715;\n\n  --font-display: Antonio, \"Ma Shan Zheng\", \"Arial Narrow\", sans-serif;\n  --font-body: \"Hanken Grotesk\", \"Noto Sans TC\", Arial, sans-serif;\n  --font-mono: ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace;\n\n  --step-n2: 0.531rem; /* 8.5px */\n  --step-n1: 0.751rem; /* 12px */\n  --step-0: 1.063rem; /* 17px */\n  --step-1: 1.502rem; /* 24px */\n  --step-2: 2.124rem; /* 34px */\n  --step-3: 3.004rem; /* 48.1px */\n  --step-4: 4.247rem; /* 68px */\n  --step-5: 6.006rem; /* 96.1px */\n  --step-6: 8.492rem; /* 135.9px */\n  --step-7: 12.008rem; /* 192.1px */\n  --leading: 1.55;\n\n  --space-1: 8px;\n  --space-2: 16px;\n  --space-3: 24px;\n  --space-4: 32px;\n  --space-5: 40px;\n  --space-6: 48px;\n  --space-7: 56px;\n  --space-8: 64px;\n  --section-gap: 112px;\n  --max-width: 1200px;\n\n  --motion-duration: 0ms;\n  --motion-easing: steps(1, end);\n}\n\nhtml { font-size: 106.3%; }\nbody { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { animation: none !important; transition: none !important; }\n}",
+      "trace": [
+        {
+          "dimension": "branch",
+          "bytes": [
+            0,
+            1
+          ],
+          "hex": "42 c2",
+          "rule": "0x42c2 = 17090; 17090 mod 40 = 10",
+          "poolSize": 40,
+          "index": 10,
+          "result": "hk-shop-sign"
+        },
+        {
+          "dimension": "voice",
+          "bytes": [
+            2
+          ],
+          "hex": "48",
+          "rule": "0x48 = 72; 72 mod 14 = 2",
+          "poolSize": 14,
+          "index": 2,
+          "result": "technical-manual"
+        },
+        {
+          "dimension": "layout",
+          "bytes": [
+            3
+          ],
+          "hex": "e7",
+          "rule": "0xe7 = 231; 231 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "projecting-stack"
+        },
+        {
+          "dimension": "type",
+          "bytes": [
+            4
+          ],
+          "hex": "31",
+          "rule": "0x31 = 49; 49 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "brush-signboard"
+        },
+        {
+          "dimension": "palette",
+          "bytes": [
+            5
+          ],
+          "hex": "62",
+          "rule": "0x62 = 98; 98 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "neon-street"
+        },
+        {
+          "dimension": "density",
+          "bytes": [
+            6
+          ],
+          "hex": "a7",
+          "rule": "0xa7 = 167; 167 mod 2 = 1",
+          "poolSize": 2,
+          "index": 1,
+          "result": "regular"
+        },
+        {
+          "dimension": "motion",
+          "bytes": [
+            7
+          ],
+          "hex": "da",
+          "rule": "0xda = 218; 218 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "lacquer-swap"
+        },
+        {
+          "dimension": "motif",
+          "bytes": [
+            8
+          ],
+          "hex": "27",
+          "rule": "0x27 = 39; 39 mod 3 = 0",
+          "poolSize": 3,
+          "index": 0,
+          "result": "vertical-board"
+        },
+        {
+          "dimension": "anchor",
+          "bytes": [
+            9
+          ],
+          "hex": "49",
+          "rule": "0x49 = 73; 73 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "hanging-vertical"
+        },
+        {
+          "dimension": "scale",
+          "bytes": [
+            10
+          ],
+          "hex": "e0",
+          "rule": "0xe0 = 224; 224 mod 3 = 2",
+          "poolSize": 3,
+          "index": 2,
+          "result": "augmented-fourth"
+        },
+        {
+          "dimension": "surface",
+          "bytes": [
+            11
+          ],
+          "hex": "b5",
+          "rule": "0xb5 = 181; 181 mod 3 = 1",
+          "poolSize": 3,
+          "index": 1,
+          "result": "gold-leaf-type"
+        },
+        {
+          "dimension": "twist",
+          "bytes": [
+            12
+          ],
+          "hex": "d0",
+          "rule": "0xd0 = 208; 208 mod 16 = 0",
+          "poolSize": 16,
+          "index": 0,
+          "result": "numerals-as-display"
+        }
+      ]
+    }
+  ]
+}

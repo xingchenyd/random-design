@@ -10,10 +10,15 @@ const resolved = await fs.realpath(output).catch(err => { if (err.code === 'ENOE
 if (resolved.toLowerCase() !== output.toLowerCase()) throw new Error('Refusing to clean a redirected output directory');
 await fs.rm(output, { recursive: true, force: true });
 await fs.mkdir('dist', { recursive: true });
-await build({ entryPoints: { app: 'studio/app.js', 'random-design': 'src/core/index.js' }, bundle: true, splitting: true, format: 'esm', platform: 'browser', outdir: 'dist', target: 'es2022', minify: true, sourcemap: false, legalComments: 'linked' });
+await (await import('./build-reference.js')).buildReference();
+await build({ entryPoints: { app: 'studio/app.js', 'reference-app':'studio/reference-app.js', 'random-design': 'src/core/index.js' }, bundle: true, splitting: true, format: 'esm', platform: 'browser', outdir: 'dist', target: 'es2022', minify: true, sourcemap: false, legalComments: 'linked' });
 await Promise.all(['index.html', 'studio.css'].map(f => fs.copyFile(`studio/${f}`, `dist/${f}`)));
 await Promise.all(['LICENSE', 'THIRD_PARTY_NOTICES.md'].map(f => fs.copyFile(f, `dist/${f}`)));
 await fs.cp('examples', 'dist/examples', { recursive: true }).catch(err => { if (err.code !== 'ENOENT') throw err; });
 await fs.cp('licenses', 'dist/licenses', { recursive: true });
 await writePresetGallery('dist/presets');
 console.log('Built static studio + standalone browser engine in dist/');
+
+await fs.copyFile('studio/reference.css','dist/reference.css');
+await (await import('./reference-gallery.js')).writeReferenceGallery();
+await fs.copyFile('studio/reference.html','dist/reference/index.html');

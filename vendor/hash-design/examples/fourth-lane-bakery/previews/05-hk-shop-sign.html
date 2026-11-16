@@ -1,0 +1,833 @@
+<!doctype html>
+<!-- hash-design #5 · hk-shop-sign · ref 42c248e73162a7da2749e0b5d090af0e6b391e250e4ab38ffb304698eeeef3e7 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第四巷面包店 · Fourth Lane Bakery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Hanken+Grotesk:wght@400;600&family=Ma+Shan+Zheng&family=Noto+Sans+TC:wght@400;700&display=swap">
+<style>
+/* hash-design 42c248e7 · hk-shop-sign · neon-street */
+:root {
+  --paper: #120d0c;
+  --ink: #f3ead8;
+  --muted: #a99c8a;
+  --accent: #ff3b5c;
+  --on-accent: #000000;
+  --accent2: #36d6c3;
+  --on-accent2: #000000;
+  --rule: #3a2e2a;
+  --panel: #1e1715;
+
+  --font-display: Antonio, "Ma Shan Zheng", "Arial Narrow", sans-serif;
+  --font-body: "Hanken Grotesk", "Noto Sans TC", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-n2: 0.531rem; /* 8.5px */
+  --step-n1: 0.751rem; /* 12px */
+  --step-0: 1.063rem; /* 17px */
+  --step-1: 1.502rem; /* 24px */
+  --step-2: 2.124rem; /* 34px */
+  --step-3: 3.004rem; /* 48.1px */
+  --step-4: 4.247rem; /* 68px */
+  --step-5: 6.006rem; /* 96.1px */
+  --step-6: 8.492rem; /* 135.9px */
+  --step-7: 12.008rem; /* 192.1px */
+  --leading: 1.55;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-7: 56px;
+  --space-8: 64px;
+  --section-gap: 112px;
+  --max-width: 1200px;
+
+  --motion-duration: 0ms;
+  --motion-easing: steps(1, end);
+}
+
+html { font-size: 106.3%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); line-height: var(--leading); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ------------------------------------------------------------------
+   Execution notes (brief #5, frozen spec)
+   · This palette carries no literal gold. The brief's surface rule sets
+     "gold leaf" = var(--accent2) with a 1px darker edge, so every "gold"
+     in the brief (frame, characters) is accent2. "Red" lacquer is
+     var(--accent) mixed into var(--paper); the "green" strip is
+     var(--accent2) mixed into var(--paper). Board frames: 0.4em border at
+     the 12px step, plus the 2px inner line at -10px = a visible double frame.
+   · Twist vs branch: numerals are set in Antonio at >= 3x body (51px+).
+     On a board that also carries a number, the CJK stays the largest
+     element (branch rule wins over twist).
+   · Neon: line-work only, 3-4px tubes, 2px edge, no halo.
+   ------------------------------------------------------------------ */
+:root {
+  --lacquer-red: color-mix(in srgb, var(--accent) 36%, var(--paper));
+  --lacquer-green: color-mix(in srgb, var(--accent2) 24%, var(--paper));
+  --edge: var(--on-accent2);
+  --font-brush: "Ma Shan Zheng", var(--font-display);
+  --font-num: Antonio, "Arial Narrow", sans-serif;
+  --font-cjk: "Noto Sans TC", var(--font-body);
+  --gutter: 16px;
+
+  --v1-ch: clamp(50px, min(8.4vw, calc((100svh - 40px) / 7.25)), 136px);
+  --tr-ch: clamp(40px, 8.6vw, 124px);
+  --pair-ch: clamp(60px, 5.4vw, 80px);
+  --menu-ch: clamp(72px, 9.4vw, 136px);
+  --strip-ch: clamp(56px, 5.2vw, 76px);
+  --num-min: 3rem; /* 51px = 3 x body */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-size: var(--step-0);
+  line-break: strict;
+  text-autospace: normal;
+  text-spacing-trim: trim-start;
+  hanging-punctuation: allow-end first;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
+h1, h2, h3, p, ol, ul, dl, dd, figure { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+a { color: inherit; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.page { overflow-x: clip; }
+.wrap { width: min(var(--max-width), 100% - 48px); margin-inline: auto; }
+.grid12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+
+/* ---------- type primitives ---------- */
+.brush { font-family: var(--font-brush); font-weight: 400; line-height: 1; letter-spacing: .05em; }
+.num {
+  font-family: var(--font-num); font-weight: 700; line-height: .9;
+  font-variant-numeric: lining-nums tabular-nums; letter-spacing: .01em;
+}
+.en {
+  font-family: var(--font-num); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; line-height: 1.1;
+}
+.zh-b { font-family: var(--font-cjk); font-weight: 700; }
+
+/* ---------- the board: framed, lacquered, swaps on hover ---------- */
+.board {
+  --frame-c: var(--accent2);
+  --char-c: var(--accent2);
+  font-size: var(--step-n1);
+  background-color: var(--panel);
+  border: .4em solid var(--frame-c);
+  outline: 2px solid var(--frame-c);
+  outline-offset: -10px;
+  border-radius: 0;
+  box-shadow: none;
+  transition-property: border-color, outline-color, color, background-color;
+  transition-duration: var(--motion-duration);
+  transition-timing-function: var(--motion-easing);
+}
+.board:hover { --frame-c: var(--accent); --char-c: var(--accent); }
+.gilt {
+  color: var(--char-c);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--char-c) 70%, var(--edge));
+  paint-order: stroke fill;
+}
+.board--red { background-color: var(--lacquer-red); }
+.board--red:hover { background-color: var(--lacquer-green); }
+.board--green { background-color: var(--lacquer-green); --char-c: var(--ink); }
+
+/* vertical board */
+.vboard { display: block; width: max-content; }
+.vb-in {
+  font-size: var(--ch);
+  display: flex; flex-direction: column; align-items: center;
+  padding: calc(.4em - 10px) calc(.4em - 10px) calc(.4em - 12px);
+}
+.vchars {
+  writing-mode: vertical-rl; text-orientation: upright;
+  font-size: 1em; letter-spacing: .12em; line-height: 1;
+  margin-bottom: -.12em;
+}
+.vb-cut { width: calc(100% + .8em - 20px); height: 2px; background: var(--frame-c); margin: .3em 0 .26em; }
+.vb-plate { writing-mode: vertical-rl; text-orientation: upright; }
+.vb-plate .tcy { text-combine-upright: all; font-family: var(--font-num); font-weight: 700; letter-spacing: 0; }
+.ven {
+  writing-mode: horizontal-tb; color: var(--ink);
+  font-size: .15em; text-align: center; margin-top: 1.6em; letter-spacing: .06em;
+}
+
+/* hanging hardware: arm to the wall at the right edge + two rods */
+.hang { position: relative; padding-top: 46px; }
+.hang::before {
+  content: ""; position: absolute; top: 12px; left: 26%; right: -100vw;
+  height: 4px; background: var(--muted);
+}
+.hang::after {
+  content: ""; position: absolute; top: 16px; left: 28%; width: 44%; height: 30px;
+  border-inline: 2px solid var(--muted);
+}
+
+/* neon tube rendering (SVG line work) */
+.tube-back { stroke: var(--rule); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.tube-lit  { stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; fill: none; filter: drop-shadow(0 0 2px var(--accent)); }
+.tube-core { stroke: color-mix(in srgb, var(--accent) 35%, var(--ink)); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+
+/* ---------- 0 · mast ---------- */
+.mast {
+  grid-column: 1 / 9; grid-row: 1;
+  display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 24px;
+  padding: 26px 0 12px; border-bottom: 3px solid var(--ink);
+  font-size: var(--step-n1);
+}
+.mast-id { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.mast-id .zh-b { font-size: var(--step-0); letter-spacing: .08em; }
+.mast-id .en { color: var(--muted); font-size: var(--step-n1); }
+.toc { display: flex; gap: 4px 20px; flex-wrap: wrap; }
+.toc a {
+  text-decoration: none; font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-n1);
+  letter-spacing: .2em; color: var(--muted); padding-bottom: 2px; border-bottom: 1px solid var(--rule);
+}
+.toc a:hover, .toc a:focus-visible { color: var(--ink); border-bottom-color: var(--ink); outline: none; }
+
+/* ---------- 1 · shop-name board (hanging vertical) ---------- */
+.street { position: relative; }
+.v1 {
+  --ch: var(--v1-ch);
+  grid-column: 10 / 13; grid-row: 1 / span 6;
+  justify-self: end; align-self: start;
+  margin: calc(var(--v1-ch) * -.27) 0 0;
+  font-weight: 400;
+}
+.v1 .ven { font-size: .16em; }
+
+/* ---------- 2 · trade board ---------- */
+.trade {
+  --ch: var(--tr-ch);
+  grid-column: 1 / 9; grid-row: 2;
+  margin-top: 32px;
+  display: flex; align-items: stretch;
+}
+.trade-main { font-size: var(--ch); padding: calc(.4em - 10px) calc(.4em - 6px) calc(.36em - 10px); flex: 1; }
+.trade-chars { white-space: nowrap; }
+.trade-chars .sp { display: inline-block; width: .3em; }
+.trade-en { font-size: .333em; color: var(--ink); margin-top: .3em; letter-spacing: .04em; }
+.trade-plate {
+  font-size: var(--ch);
+  border-left: 2px solid var(--frame-c);
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 calc(.18em + 6px);
+  margin-block: 14px; margin-right: 14px;
+}
+.trade-plate span {
+  writing-mode: vertical-rl; text-orientation: upright;
+  font-family: var(--font-cjk); font-weight: 700; font-size: .2em; letter-spacing: .3em; color: var(--ink);
+}
+
+/* ---------- section heads ---------- */
+.sec-head {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 18px;
+  border-top: 3px solid var(--ink); padding-top: 14px;
+  font-weight: 400;
+}
+.sec-no { font-size: var(--step-5); line-height: .8; color: var(--ink); }
+.sec-zh { font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-2); letter-spacing: .06em; line-height: 1.1; }
+.sec-en { color: var(--muted); font-size: .8rem; }
+.s1h { grid-column: 1 / 9; grid-row: 3; margin-top: 56px; }
+
+/* bakes: two numerals as departure board */
+.bakes {
+  grid-column: 1 / 9; grid-row: 4;
+  display: grid; grid-template-columns: 1fr 1fr; margin-top: 24px;
+}
+.bake { padding: 4px 0 8px; }
+.bake + .bake { border-left: 1px solid var(--rule); padding-left: 28px; }
+.bake-label { display: flex; gap: 12px; align-items: baseline; font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-1); }
+.bake-label .en { font-size: .8rem; color: var(--muted); }
+.bake-time { font-size: var(--step-6); margin: 10px 0 14px; letter-spacing: -.005em; }
+.bake-items { font-size: var(--step-1); font-family: var(--font-cjk); }
+.bake-items i { font-style: normal; color: var(--muted); padding: 0 .35em; }
+.bake-note { margin-top: 4px; color: var(--muted); font-size: var(--step-0); }
+
+/* notice box */
+.notice {
+  grid-column: 1 / 9; grid-row: 5;
+  margin-top: 40px; border: 3px solid var(--accent);
+  display: grid; grid-template-columns: auto 1fr; gap: 6px 20px; align-items: center;
+  padding: 18px 24px;
+}
+.notice svg { width: 46px; height: 42px; overflow: visible; }
+.notice-k { display: flex; gap: 10px; align-items: baseline; color: var(--accent); font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-1); letter-spacing: .1em; }
+.notice-k .en { font-size: .8rem; letter-spacing: .08em; }
+.notice-t { grid-column: 2; font-family: var(--font-cjk); font-size: var(--step-1); line-height: 1.4; }
+
+/* spec table */
+.spec-wrap { grid-column: 1 / 9; grid-row: 6; margin-top: 48px; }
+.spec { width: 100%; border-collapse: collapse; }
+.spec caption {
+  text-align: left; padding-bottom: 12px; display: flex; gap: 12px; align-items: baseline;
+  font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-1);
+}
+.spec caption .en { font-size: .8rem; color: var(--muted); }
+.spec tr { border-top: 1px solid var(--rule); }
+.spec tr:last-child { border-bottom: 1px solid var(--rule); }
+.spec th, .spec td { text-align: left; vertical-align: baseline; padding: 18px 0 16px; font-weight: 400; }
+.spec th { width: 34%; white-space: nowrap; }
+.spec .val { width: 30%; white-space: nowrap; }
+.cl {
+  font-family: var(--font-num); font-weight: 700; font-size: var(--num-min); line-height: .9;
+  color: transparent; -webkit-text-stroke: 1.2px var(--muted); letter-spacing: .02em;
+  display: inline-block; min-width: 2.2em;
+}
+.lab { font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-1); letter-spacing: .12em; margin-left: 12px; }
+.val .num { font-size: var(--step-4); }
+.unit { font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-1); color: var(--muted); margin-left: 8px; }
+.desc { font-family: var(--font-cjk); font-size: var(--step-0); color: var(--ink); max-width: 22em; }
+.desc small { display: block; color: var(--muted); font-size: var(--step-0); }
+
+/* ---------- 3 · roundel + address ---------- */
+.sec { margin-top: var(--section-gap); }
+.sec > .sec-head { grid-column: 1 / 9; grid-row: 1; }
+.roundel-hang { grid-column: 10 / 13; grid-row: 1 / span 3; justify-self: end; width: 100%; max-width: 300px; }
+.roundel {
+  --frame-c: var(--accent2);
+  position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%;
+  display: grid; place-items: center; container-type: inline-size;
+}
+.roundel svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ring-text { font-family: var(--font-cjk); font-weight: 700; font-size: 10.5px; fill: var(--ink); letter-spacing: .5px; }
+.rd-no { position: relative; display: flex; align-items: baseline; gap: 2cqi; }
+.rd-no .num { font-size: 31cqi; color: var(--ink); line-height: .8; }
+.rd-no .brush { font-size: 33cqi; letter-spacing: 0; }
+.rd-cap { position: absolute; bottom: 24%; left: 0; right: 0; text-align: center; color: var(--muted); font-size: max(11px, 4.2cqi); }
+
+.addr { grid-column: 1 / 9; grid-row: 2; margin-top: 36px; }
+.addr-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 14px; }
+.addr-line .zh-b { font-size: var(--step-3); letter-spacing: .06em; line-height: 1.1; }
+.addr-line .num { font-size: var(--step-5); }
+.addr-no { display: inline-flex; align-items: baseline; gap: 14px; white-space: nowrap; }
+.addr-sub { margin-top: 10px; color: var(--muted); font-family: var(--font-cjk); font-size: var(--step-1); }
+.addr-sub i { font-style: normal; padding: 0 .3em; }
+
+.steps { margin-top: 36px; border-top: 1px solid var(--rule); }
+.steps li {
+  display: grid; grid-template-columns: 7.2rem auto 1fr; align-items: baseline;
+  padding: 16px 0 14px; border-bottom: 1px solid var(--rule);
+}
+.st { font-family: var(--font-cjk); font-size: var(--step-1); line-height: 1.35; }
+.st b { font-weight: 700; letter-spacing: .08em; }
+.st-v { display: flex; align-items: baseline; gap: 8px; margin-left: 16px; }
+.st-v .num { font-size: var(--step-4); }
+.st-v .unit { margin: 0; }
+
+.lane { grid-column: 1 / 9; grid-row: 3; margin-top: 40px; }
+.lane svg { display: block; width: 100%; max-width: 640px; height: auto; overflow: visible; }
+.lane figcaption { margin-top: 8px; color: var(--muted); font-size: var(--step-n1); display: flex; gap: 12px; }
+.ln { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+.ln-d { stroke: var(--muted); stroke-width: 1.5; fill: none; stroke-dasharray: 4 6; }
+.door-2 { fill: var(--lacquer-green); stroke: var(--accent2); stroke-width: 2.5; }
+.plank { stroke: var(--accent2); stroke-width: 1; opacity: .55; }
+.lane-t { font-family: var(--font-cjk); font-weight: 700; font-size: 17px; fill: var(--ink); letter-spacing: 2px; }
+.lane-t--m { fill: var(--muted); font-weight: 400; font-size: 14px; }
+.lane-en { font-family: var(--font-num); font-weight: 700; font-size: 11px; letter-spacing: 1px; fill: var(--muted); }
+
+/* ---------- 4 · price list, lacquered ---------- */
+.s3 > .menu-board { grid-column: 1 / 9; grid-row: 2; margin-top: 36px; }
+.menu-in { padding: 34px 40px 36px; }
+.menu-top {
+  font-size: var(--menu-ch);
+  display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 0 .2em;
+  padding-bottom: .16em; border-bottom: 2px solid var(--frame-c);
+}
+.menu-title { font-size: 1em; letter-spacing: .05em; }
+.menu-en { font-size: .333em; color: var(--ink); padding-bottom: .1em; }
+.menu-plate {
+  writing-mode: vertical-rl; text-orientation: upright; align-self: start;
+  font-family: var(--font-cjk); font-weight: 700; font-size: .16em; letter-spacing: .3em;
+  border: 2px solid var(--frame-c); padding: .5em .35em .2em; color: var(--ink);
+}
+.menu li { padding: 26px 0 24px; border-bottom: 1px solid var(--rule); }
+.menu li:last-child { border-bottom: 0; }
+.row { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 0 18px; }
+.it-name { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.it-name .zh-b { font-size: var(--step-2); letter-spacing: .08em; line-height: 1.1; }
+.it-name .en { font-size: .8rem; color: var(--muted); }
+.leader { border-bottom: 2px dotted var(--rule); transform: translateY(-.3em); min-width: 24px; }
+.prices { display: flex; align-items: baseline; gap: 6px 24px; flex-wrap: wrap; justify-content: flex-end; }
+.pp { display: flex; align-items: baseline; gap: 8px; }
+.pp .tag { font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-0); color: var(--muted); }
+.price { font-family: var(--font-num); font-weight: 600; font-size: var(--step-4); line-height: .9; font-variant-numeric: lining-nums tabular-nums; }
+.cur { font-size: 60%; vertical-align: .5em; margin-right: .06em; }
+.per { font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-1); color: var(--muted); margin-left: 4px; }
+.it-spec { margin-top: 8px; color: var(--muted); font-family: var(--font-cjk); font-size: var(--step-0); }
+.figs { display: flex; flex-wrap: wrap; gap: 8px 36px; margin-top: 14px; }
+.fig { display: flex; align-items: baseline; gap: 8px; }
+.fig .num { font-size: var(--num-min); color: var(--muted); }
+.fig .unit { font-size: var(--step-0); margin: 0; }
+
+.klass { margin-top: 10px; padding-top: 26px; border-top: 3px solid var(--frame-c); }
+.klass-grid { display: grid; grid-template-columns: 1fr auto; gap: 10px 24px; align-items: baseline; }
+.klass dl { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 12px 40px; margin-top: 12px; }
+.klass dt { font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-0); color: var(--muted); letter-spacing: .12em; }
+.klass dd { font-family: var(--font-cjk); font-size: var(--step-1); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.klass dd .num { font-size: var(--num-min); }
+
+/* pair of further boards, staggered */
+.pair {
+  grid-column: 10 / 13; grid-row: 1 / span 2; align-self: start; justify-self: end;
+  display: flex; gap: 24px; align-items: flex-start; margin-top: 8px;
+}
+.pair .vboard { --ch: var(--pair-ch); }
+.pair .hang:nth-child(2) { margin-top: calc(var(--pair-ch) * 2.45); } /* dropped by one third of the first board */
+.vb-plate { font-family: var(--font-cjk); font-weight: 700; font-size: .5em; color: var(--ink); letter-spacing: .3em; }
+.v3 .vb-plate { font-family: var(--font-brush); font-weight: 400; font-size: 1em; letter-spacing: .12em; color: var(--char-c); }
+.v3 .vb-plate .tcy { font-size: 1em; color: var(--ink); -webkit-text-stroke: 0; }
+
+/* ---------- 5 · hours + phone strip ---------- */
+.s4 .sec-head { max-width: calc((100% - 11 * var(--gutter)) / 12 * 8 + 7 * var(--gutter)); }
+.strip { margin-top: 36px; }
+.strip-in { display: grid; grid-template-columns: auto 2px auto; justify-content: space-between; align-items: center; padding: 22px 34px 22px; gap: 0 28px; }
+.strip-cell { display: flex; align-items: center; gap: 22px; }
+.strip-zh { font-size: var(--strip-ch); color: var(--char-c); letter-spacing: .05em; white-space: nowrap; }
+.strip-days { font-family: var(--font-cjk); font-weight: 700; font-size: var(--step-0); letter-spacing: .1em; display: flex; gap: 10px; align-items: baseline; }
+.strip-days .en { font-size: .75rem; color: var(--ink); opacity: .8; }
+.strip-num { font-size: calc(var(--step-4) - 4px); margin: 8px 0 10px; color: var(--ink); white-space: nowrap; }
+.strip-off { font-family: var(--font-cjk); font-size: var(--step-0); }
+.strip-off b { border: 2px solid var(--frame-c); padding: 0 6px; margin-right: 6px; font-weight: 700; }
+.strip-div { width: 2px; align-self: stretch; background: var(--frame-c); }
+
+.steps--order { margin-top: 36px; max-width: calc((100% - 11 * var(--gutter)) / 12 * 8 + 7 * var(--gutter)); }
+
+/* ---------- footer · neon ---------- */
+.foot { margin-top: var(--section-gap); border-top: 3px solid var(--ink); padding: 56px 0 64px; }
+.neon-name { display: block; width: min(100%, 860px); height: auto; overflow: visible; }
+.raceway { fill: var(--panel); stroke: var(--rule); stroke-width: 1.5; }
+.gto { fill: var(--rule); }
+.tube-block { stroke: var(--rule); stroke-width: 3.5; stroke-linecap: round; fill: none; }
+.tube-block path { vector-effect: non-scaling-stroke; }
+.foot-meta { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 6px 28px; align-items: baseline; color: var(--muted); font-family: var(--font-cjk); font-size: var(--step-n1); letter-spacing: .14em; }
+.foot-meta .en { font-size: var(--step-n1); }
+
+/* ================= mobile & narrow ================= */
+@media (max-width: 899px) {
+  :root {
+    --v1-ch: clamp(46px, 13vw, 76px);
+    --tr-ch: clamp(36px, 10.2vw, 64px);
+    --pair-ch: clamp(56px, 15vw, 76px);
+    --menu-ch: clamp(64px, 18vw, 96px);
+    --strip-ch: 56px;
+    --section-gap: 88px;
+  }
+  .wrap { width: calc(100% - 32px); }
+  .grid12 { grid-template-columns: minmax(0, 1fr); }
+  .street { grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; }
+  .mast { grid-column: 1; padding-top: 18px; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .mast-id { flex-direction: column; gap: 2px; }
+  .v1 { grid-column: 2; grid-row: 1 / span 3; }
+  .trade { grid-column: 1; margin-top: 22px; }
+  .trade-plate { margin-block: 10px; margin-right: 10px; padding: 0 8px; }
+  .trade-plate span { font-size: 13px; letter-spacing: .2em; }
+  .s1h { grid-column: 1; }
+  .bakes { grid-column: 1 / -1; }
+  .s1h { margin-top: 36px; }
+  .sec-no { font-size: var(--step-4); }
+  .sec-zh { font-size: var(--step-1); }
+  .bake + .bake { padding-left: 18px; }
+  .bake-time { font-size: var(--step-4); margin: 6px 0 8px; }
+  .bake-items, .bake-label { font-size: var(--step-0); }
+  .notice, .spec-wrap { grid-column: 1 / -1; }
+  .notice { padding: 14px 16px; gap: 6px 14px; }
+  .notice svg { width: 34px; height: 32px; }
+  .notice-t { grid-column: 1 / -1; font-size: var(--step-0); }
+  .notice-k { font-size: var(--step-0); }
+  .lab { font-size: var(--step-0); margin-left: 8px; }
+  .unit { font-size: var(--step-0); }
+
+  .sec > .sec-head, .roundel-hang, .addr, .lane, .s3 > .menu-board, .pair { grid-column: 1; grid-row: auto; }
+  .roundel-hang { justify-self: end; max-width: 260px; margin-top: 24px; }
+  .addr { margin-top: 28px; }
+  .addr-line .zh-b { font-size: var(--step-2); }
+  .addr-line .num { font-size: var(--step-4); }
+  .addr-sub { font-size: var(--step-0); }
+  .steps li { grid-template-columns: 4.4rem 1fr; padding: 12px 0 10px; }
+  .st-v { grid-column: 2; margin: 4px 0 0; }
+  .cl { min-width: 1.9em; }
+  .st { font-size: var(--step-0); }
+  .menu-in { padding: 20px 18px 24px; }
+  .menu li { padding: 20px 0 18px; }
+  .row { grid-template-columns: 1fr auto; }
+  .leader { display: none; }
+  .it-name .zh-b { font-size: var(--step-1); }
+  .prices { flex-direction: column; align-items: flex-end; gap: 4px; }
+  .figs { gap: 4px 22px; }
+  .klass dl { grid-template-columns: 1fr; gap: 6px; }
+  .pair { justify-self: end; margin-top: 56px; }
+  .strip-in { grid-template-columns: 1fr; justify-content: stretch; padding: 18px 20px; gap: 18px; }
+  .strip-div { width: auto; height: 2px; }
+  .strip-cell { flex-direction: column; gap: 10px; align-items: flex-start; }
+  .strip-div { display: block; }
+  .strip-num { font-size: var(--num-min); }
+  .s4 .sec-head, .steps--order { max-width: none; }
+  .foot { padding: 40px 0 48px; }
+}
+@media (max-width: 599px) {
+  .spec th { width: auto; }
+  .spec tr { display: grid; grid-template-columns: auto 1fr; align-items: baseline; padding: 14px 0; column-gap: 18px; }
+  .spec th, .spec td { padding: 0; }
+  .spec .desc { grid-column: 1 / -1; margin-top: 8px; }
+}
+@media (min-width: 900px) and (max-width: 1179px) {
+  .strip-in { grid-template-columns: 1fr; justify-content: stretch; gap: 18px; }
+  .strip-div { width: auto; height: 2px; }
+}
+@media (max-width: 420px) {
+  .strip-num { font-size: var(--num-min); letter-spacing: -.01em; }
+  .strip-zh { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="wrap">
+
+  <!-- first screen: hanging vertical board beside the trade board -->
+  <div class="street grid12" id="s1">
+    <nav class="mast" aria-label="目录">
+      <p class="mast-id"><span class="zh-b">第四巷面包店 · 门店说明书</span><span class="en">Fourth Lane Bakery · Shop Manual</span></p>
+      <ol class="toc">
+        <li><a href="#s1-out">出品</a></li>
+        <li><a href="#s2">门牌</a></li>
+        <li><a href="#s3">价目</a></li>
+        <li><a href="#s4">营业</a></li>
+      </ol>
+    </nav>
+
+    <h1 class="board board--red vboard v1">
+      <span class="vb-in">
+        <span class="vchars brush gilt">第四巷面包店</span>
+        <span class="ven en" lang="en">Fourth Lane<br>Bakery</span>
+      </span>
+    </h1>
+
+    <div class="board trade" role="img" aria-label="行业招牌：面包 咖啡，Bread &amp; Coffee，第四巷">
+      <div class="trade-main">
+        <p class="trade-chars brush gilt" aria-hidden="true">面包<span class="sp"></span>咖啡</p>
+        <p class="trade-en en" aria-hidden="true">Bread &amp; Coffee</p>
+      </div>
+      <div class="trade-plate" aria-hidden="true"><span>第四巷</span></div>
+    </div>
+
+    <h2 class="sec-head s1h" id="s1-out"><span class="sec-no num">1</span><span class="sec-zh">出品 · 炉次</span><span class="sec-en en">Output &amp; bakes</span></h2>
+
+    <div class="bakes">
+      <div class="bake">
+        <p class="bake-label"><span>第一炉</span><span class="en">First bake</span></p>
+        <p class="bake-time num">7:00</p>
+        <p class="bake-items">乡村面包<i>·</i>可颂</p>
+      </div>
+      <div class="bake">
+        <p class="bake-label"><span>第二炉</span><span class="en">Second bake</span></p>
+        <p class="bake-time num">11:00</p>
+        <p class="bake-items">肉桂卷<i>·</i>黑麦面包</p>
+      </div>
+    </div>
+
+    <aside class="notice" role="note">
+      <svg viewBox="0 0 46 42" aria-hidden="true">
+        <g class="tube-back"><path d="M23 4 L43 38 H3 Z"/><path d="M23 16 V27"/><path d="M23 32.5 V33"/></g>
+        <g class="tube-lit"><path d="M23 4 L43 38 H3 Z"/><path d="M23 16 V27"/><path d="M23 32.5 V33"/></g>
+        <g class="tube-core"><path d="M23 4 L43 38 H3 Z"/><path d="M23 16 V27"/></g>
+      </svg>
+      <p class="notice-k">注意<span class="en">Notice</span></p>
+      <p class="notice-t">卖完即止。当天不留货。</p>
+    </aside>
+
+    <div class="spec-wrap">
+      <table class="spec">
+        <caption>规格<span class="en">Specifications</span></caption>
+        <tbody>
+          <tr>
+            <th scope="row"><span class="cl">1.1</span><span class="lab">酵种</span></th>
+            <td class="val"><span class="num">9</span><span class="unit">年</span></td>
+            <td class="desc">天然酵种。店里叫它“老周”。</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="cl">1.2</span><span class="lab">发酵</span></th>
+            <td class="val"><span class="num">48</span><span class="unit">小时</span></td>
+            <td class="desc">乡村面包：低温发酵。</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="cl">1.3</span><span class="lab">面粉</span></th>
+            <td class="val"><span class="num">T65</span><span class="unit">法国</span></td>
+            <td class="desc">配本地石磨全麦粉。</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="cl">1.4</span><span class="lab">开店</span></th>
+            <td class="val"><span class="num">2019</span><span class="unit">年</span></td>
+            <td class="desc">店主周岚。<small>前建筑师。</small></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3 · shop-number roundel + address -->
+  <section class="sec s2 grid12" id="s2" aria-labelledby="s2h">
+    <h2 class="sec-head" id="s2h"><span class="sec-no num">2</span><span class="sec-zh">门牌 · 位置</span><span class="sec-en en">Address</span></h2>
+
+    <div class="roundel-hang hang">
+      <div class="board roundel" role="img" aria-label="门牌圆牌：第四巷 17 号">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs><path id="ring" d="M100 100 m-78 0 a78 78 0 1 1 156 0 a78 78 0 1 1 -156 0"/></defs>
+          <text class="ring-text"><textPath href="#ring" textLength="486" lengthAdjust="spacing">老城区 · 第四巷 · 绿色木门 · FOURTH LANE · 老城区 · 第四巷 · 绿色木门 · FOURTH LANE ·</textPath></text>
+          <circle class="tube-back" cx="100" cy="100" r="64"/>
+          <circle class="tube-lit" cx="100" cy="100" r="64"/>
+          <circle class="tube-core" cx="100" cy="100" r="64"/>
+        </svg>
+        <p class="rd-no" aria-hidden="true"><span class="num">17</span><span class="brush gilt">号</span></p>
+      </div>
+    </div>
+
+    <div class="addr">
+      <p class="addr-line"><span class="zh-b">老城区 第四巷</span><span class="addr-no"><span class="num">17</span><span class="zh-b">号</span></span></p>
+      <p class="addr-sub">巷口数第二个门<i>·</i>绿色木门</p>
+
+      <ol class="steps">
+        <li><span class="cl">2.1</span><span class="st"><b>进入</b>老城区第四巷。</span></li>
+        <li><span class="cl">2.2</span><span class="st"><b>数门</b>从巷口起数，停在第二个门。</span></li>
+        <li><span class="cl">2.3</span><span class="st"><b>核对</b>门色：绿色木门。</span></li>
+        <li><span class="cl">2.4</span><span class="st"><b>入座</b>店内座位：</span><span class="st-v"><span class="num">6</span><span class="unit">个</span></span></li>
+      </ol>
+    </div>
+
+    <figure class="lane">
+      <svg viewBox="0 0 520 236" role="img" aria-label="立面示意：从巷口数第二个门，绿色木门">
+        <!-- facade + ground -->
+        <path class="ln" d="M96 36 H392"/>
+        <path class="ln-d" d="M392 36 H516"/>
+        <path class="ln" d="M96 36 V200"/>
+        <path class="ln" d="M0 200 H392"/>
+        <path class="ln-d" d="M392 200 H516"/>
+        <!-- door one (outline only) -->
+        <rect class="ln" x="128" y="112" width="52" height="88"/>
+        <!-- door two: green, wooden -->
+        <rect class="door-2" x="236" y="112" width="52" height="88"/>
+        <path class="plank" d="M249 114 V198 M262 114 V198 M275 114 V198"/>
+        <path class="ln" d="M280 156 h2"/>
+        <!-- neon arrow from lane mouth to the door -->
+        <g class="tube-back"><path d="M22 72 H262 V98"/><path d="M250 86 L262 100 L274 86"/></g>
+        <g class="tube-lit"><path d="M22 72 H262 V98"/><path d="M250 86 L262 100 L274 86"/></g>
+        <g class="tube-core"><path d="M22 72 H262 V98"/><path d="M250 86 L262 100 L274 86"/></g>
+        <rect x="12" y="66" width="10" height="12" fill="var(--rule)" stroke="var(--muted)" stroke-width="1"/>
+        <!-- labels -->
+        <text class="lane-t" x="10" y="222">巷口</text>
+        <text class="lane-en" x="52" y="222">LANE MOUTH</text>
+        <path class="ln" d="M288 150 H312"/>
+        <text class="lane-t" x="318" y="146">第二个门</text>
+        <text class="lane-t lane-t--m" x="318" y="168">绿色木门</text>
+      </svg>
+      <figcaption><span>示意 · 不按比例</span><span class="en">Elevation, not to scale</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- 4 · price list as a lacquered board -->
+  <section class="sec s3 grid12" id="s3" aria-labelledby="s3h">
+    <h2 class="sec-head" id="s3h"><span class="sec-no num">3</span><span class="sec-zh">价目</span><span class="sec-en en">Price list</span></h2>
+
+    <div class="board menu-board">
+      <div class="menu-in">
+        <div class="menu-top">
+          <p class="menu-title brush gilt">价目</p>
+          <p class="menu-en en">Price list</p>
+          <p class="menu-plate">第四巷</p>
+        </div>
+        <ul class="menu">
+          <li>
+            <div class="row">
+              <p class="it-name"><span class="zh-b">乡村面包</span><span class="en">Country loaf</span></p>
+              <span class="leader" aria-hidden="true"></span>
+              <div class="prices">
+                <p class="pp"><span class="tag">整个</span><span class="price"><span class="cur">¥</span>38</span></p>
+                <p class="pp"><span class="tag">半个</span><span class="price"><span class="cur">¥</span>20</span></p>
+              </div>
+            </div>
+            <p class="it-spec">天然酵种 · 低温发酵 · 第一炉</p>
+          </li>
+          <li>
+            <div class="row">
+              <p class="it-name"><span class="zh-b">黑麦面包</span><span class="en">Rye</span></p>
+              <span class="leader" aria-hidden="true"></span>
+              <div class="prices"><p class="pp"><span class="price"><span class="cur">¥</span>42</span></p></div>
+            </div>
+            <div class="figs">
+              <p class="fig"><span class="num">70%</span><span class="unit">黑麦</span></p>
+              <p class="fig"><span class="num">750</span><span class="unit">g</span></p>
+              <p class="fig"><span class="unit">每日限</span><span class="num">12</span><span class="unit">个</span></p>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <p class="it-name"><span class="zh-b">可颂</span><span class="en">Croissant</span></p>
+              <span class="leader" aria-hidden="true"></span>
+              <div class="prices"><p class="pp"><span class="price"><span class="cur">¥</span>16</span></p></div>
+            </div>
+            <p class="it-spec">法国发酵黄油 · 第一炉</p>
+          </li>
+          <li>
+            <div class="row">
+              <p class="it-name"><span class="zh-b">肉桂卷</span><span class="en">Cinnamon roll</span></p>
+              <span class="leader" aria-hidden="true"></span>
+              <div class="prices"><p class="pp"><span class="price"><span class="cur">¥</span>18</span></p></div>
+            </div>
+            <p class="it-spec">只在第二炉</p>
+          </li>
+          <li>
+            <div class="row">
+              <p class="it-name"><span class="zh-b">手冲咖啡</span><span class="en">Pour-over</span></p>
+              <span class="leader" aria-hidden="true"></span>
+              <div class="prices"><p class="pp"><span class="price"><span class="cur">¥</span>22</span></p></div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="klass">
+          <div class="klass-grid">
+            <p class="it-name"><span class="zh-b">面包课</span><span class="en">Bread class</span></p>
+            <p class="pp"><span class="price"><span class="cur">¥</span>260</span><span class="per">/人</span></p>
+            <dl>
+              <div><dt>上课</dt><dd>周六 <span class="num">9:00–11:30</span></dd></div>
+              <div><dt>编班</dt><dd><span class="num">6</span>人小班</dd></div>
+              <div><dt>带走</dt><dd>自己烤的面包</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="hang">
+        <div class="board vboard v2" role="img" aria-label="竖招牌：卖完即止，第四巷">
+          <span class="vb-in" aria-hidden="true">
+            <span class="vchars brush gilt">卖完即止</span>
+            <span class="vb-cut"></span>
+            <span class="vb-plate">第四巷</span>
+            <span class="ven en">Until<br>sold out</span>
+          </span>
+        </div>
+      </div>
+      <div class="hang">
+        <div class="board vboard v3" role="img" aria-label="竖招牌：手冲咖啡，17 号">
+          <span class="vb-in" aria-hidden="true">
+            <span class="vchars brush gilt">手冲咖啡</span>
+            <span class="vb-cut"></span>
+            <span class="vb-plate"><span class="tcy">17</span>号</span>
+            <span class="ven en">Pour-<br>over</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · hours + phone, green strip -->
+  <section class="sec s4" id="s4" aria-labelledby="s4h">
+    <h2 class="sec-head" id="s4h"><span class="sec-no num">4</span><span class="sec-zh">营业 · 预订</span><span class="sec-en en">Hours &amp; orders</span></h2>
+
+    <div class="board board--green strip">
+      <div class="strip-in">
+        <div class="strip-cell">
+          <p class="strip-zh brush">营业</p>
+          <div>
+            <p class="strip-days">周二至周日<span class="en">Tue–Sun</span></p>
+            <p class="strip-num num">7:00–19:00</p>
+            <p class="strip-off"><b>周一</b>休息</p>
+          </div>
+        </div>
+        <span class="strip-div" aria-hidden="true"></span>
+        <div class="strip-cell">
+          <p class="strip-zh brush">电话</p>
+          <div>
+            <p class="strip-days">预订<span class="en">Tel</span></p>
+            <p class="strip-num num"><a href="tel:02155550417" style="text-decoration:none">021-5555-0417</a></p>
+            <p class="strip-off">或店内登记</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="steps steps--order">
+      <li><span class="cl">4.1</span><span class="st"><b>致电</b>上列号码；或到店内登记。</span></li>
+      <li><span class="cl">4.2</span><span class="st"><b>截止</b>提前一天，</span><span class="st-v"><span class="num">17:00</span><span class="unit">前</span></span></li>
+    </ol>
+  </section>
+
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <svg class="neon-name" viewBox="-14 -10 700 124" role="img" aria-label="霓虹灯管招牌：第四巷面包店">
+      <defs>
+        <g id="glyphs">
+          <!-- 第 -->
+          <g>
+            <path vector-effect="non-scaling-stroke" d="M24 6 L14 22 M20 14 H42 M29 17 L34 26 M62 6 L52 22 M58 14 H86 M67 17 L72 26"/>
+            <path vector-effect="non-scaling-stroke" d="M22 36 H76 V50 H26 V64 H80 V84 Q80 92 71 90"/>
+            <path vector-effect="non-scaling-stroke" d="M50 30 V96 M46 66 Q40 84 20 94"/>
+          </g>
+          <!-- 四 -->
+          <g transform="translate(112 0)">
+            <path vector-effect="non-scaling-stroke" d="M18 24 V84 M18 24 H82 V84 M18 84 H82"/>
+            <path vector-effect="non-scaling-stroke" d="M42 26 V42 Q42 56 30 62 M60 26 V52 Q60 60 68 60 H74"/>
+          </g>
+          <!-- 巷 -->
+          <g transform="translate(224 0)">
+            <path vector-effect="non-scaling-stroke" d="M26 18 H74 M38 6 V38 M62 6 V38 M12 38 H88 M40 44 L26 56 M60 44 L74 56"/>
+            <path vector-effect="non-scaling-stroke" d="M32 62 H68 V75 H32 M32 62 V86 Q32 94 42 94 H82 V86"/>
+          </g>
+          <!-- 面 -->
+          <g transform="translate(336 0)">
+            <path vector-effect="non-scaling-stroke" d="M12 12 H88 M50 12 L44 28"/>
+            <path vector-effect="non-scaling-stroke" d="M18 28 V92 M18 28 H82 V92 M18 92 H82 M38 28 V92 M62 28 V92 M38 50 H62 M38 70 H62"/>
+          </g>
+          <!-- 包 -->
+          <g transform="translate(448 0)">
+            <path vector-effect="non-scaling-stroke" d="M40 6 Q34 24 16 40 M30 22 H84 V82 Q84 94 72 92"/>
+            <path vector-effect="non-scaling-stroke" d="M34 40 H66 V58 H34 M34 40 V74 Q34 84 44 84 H70 V76"/>
+          </g>
+          <!-- 店 -->
+          <g transform="translate(560 0)">
+            <path vector-effect="non-scaling-stroke" d="M50 4 L54 14 M16 18 H88 M20 18 V50 Q20 78 8 94"/>
+            <path vector-effect="non-scaling-stroke" d="M54 28 V60 M54 43 H78 M36 62 V92 M36 62 H80 V92 M36 92 H80"/>
+          </g>
+        </g>
+      </defs>
+      <rect class="raceway" x="-10" y="104" width="692" height="9"/>
+      <g class="gto">
+        <rect x="47" y="96" width="4" height="8"/><rect x="159" y="88" width="4" height="16"/><rect x="273" y="98" width="4" height="6"/>
+        <rect x="383" y="96" width="4" height="8"/><rect x="497" y="96" width="4" height="8"/><rect x="609" y="96" width="4" height="8"/>
+      </g>
+      <g class="tube-block">
+        <path d="M14 22 L20 14 M42 14 L29 17 M34 26 L52 22 M86 14 Q92 30 76 36 M71 90 L50 96"/>
+        <path transform="translate(112 0)" d="M18 84 L30 62 M42 26 L60 26 M74 60 L82 84"/>
+        <path transform="translate(224 0)" d="M74 18 Q80 8 62 6 M26 56 L32 62 M74 56 L68 62"/>
+        <path transform="translate(336 0)" d="M88 12 Q94 20 82 28 M44 28 L38 28"/>
+        <path transform="translate(448 0)" d="M16 40 L30 22 M72 92 Q66 96 70 76"/>
+        <path transform="translate(560 0)" d="M54 14 L54 28 M8 94 Q24 98 36 92 M78 43 L80 62"/>
+      </g>
+      <use href="#glyphs" class="tube-back"/>
+      <use href="#glyphs" class="tube-lit"/>
+      <use href="#glyphs" class="tube-core"/>
+    </svg>
+    <p class="foot-meta"><span>第四巷面包店</span><span class="en">Fourth Lane Bakery</span><span>老城区第四巷 · 巷口数第二个门 · 绿色木门</span></p>
+  </div>
+</footer>
+</div>
+</body>
+</html>
